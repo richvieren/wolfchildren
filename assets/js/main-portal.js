@@ -2,7 +2,7 @@
 // regions in portal/index.html to auth.js. Task 13 extends this file with
 // grants and children rendering into #dashboard.
 
-import { getSession, sendMagicLink, signOut } from './auth.js';
+import { getSession, sendMagicLink, signOut } from './auth.js?v=96b93ff5';
 
 async function init() {
   const signedOut = document.getElementById('signed-out');
