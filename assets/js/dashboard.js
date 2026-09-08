@@ -14,8 +14,10 @@
  *              child, one card per generated product, matched by child_id.
  *   waiting:   [{ product, grant }] — generated-product grants with no
  *              child_id yet (bought, not yet assigned to a child).
- *   downloads: [{ product, grant }] — instant/manual products the caller
- *              already owns a grant for.
+ *   downloads: [{ product, grant }] — one entry per grant the caller owns on
+ *              an instant/manual product (R48: a second purchase of the same
+ *              product, e.g. a second edition of presets, is a second card,
+ *              not a dropped one), in the order the API returned them.
  *   locked:    [{ product, grant: null }] — everything else not yet theirs:
  *              instant/manual products with no grant, and generated
  *              products with no child to host them and no waiting grant.
@@ -46,9 +48,12 @@ export function groupGrants(products, grants, children) {
   const downloads = [];
   const locked = [];
   for (const product of others) {
-    const grant = grants.find((g) => g.product === product.slug) || null;
-    if (grant) downloads.push({ product, grant });
-    else locked.push({ product, grant: null });
+    const owned = grants.filter((g) => g.product === product.slug);
+    if (owned.length === 0) {
+      locked.push({ product, grant: null });
+    } else {
+      for (const grant of owned) downloads.push({ product, grant });
+    }
   }
 
   if (children.length === 0) {

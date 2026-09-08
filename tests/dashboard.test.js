@@ -66,3 +66,15 @@ test('no children + no grants -> everything in locked', () => {
   assert.equal(locked.length, grantableProducts().length);
   for (const { grant } of locked) assert.equal(grant, null);
 });
+
+test('every grant of an instant product renders, one card per edition', () => {
+  const presets = getProduct('presets');
+  const past = new Date(Date.now() - 86400e3).toISOString();
+  const grants = [
+    { grant_id: 1, product: 'presets', child_id: null, child_name: null, edition: 1, available_at: past, has_intake: false },
+    { grant_id: 2, product: 'presets', child_id: null, child_name: null, edition: 2, available_at: past, has_intake: false },
+  ];
+  const g = groupGrants([presets], grants, []);
+  assert.deepEqual(g.downloads.map((d) => d.grant.grant_id), [1, 2]);
+  assert.equal(g.locked.length, 0);
+});
