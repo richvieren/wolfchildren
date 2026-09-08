@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="wc-maps-key" content="">
+<title>Wolf Children — Intake</title>
+</head>
+<body>
+<main>
+  <p id="message" hidden></p>
+
+  <form id="intake-form" hidden>
+    <h2 id="product-name"></h2>
+
+    <label for="existing-child">Child</label>
+    <select id="existing-child">
+      <option value="">— Add a new child —</option>
+    </select>
+
+    <fieldset id="new-child-fields">
+      <legend>Add a new child</legend>
+
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name">
+
+      <label for="dob">Date of birth</label>
+      <input type="date" id="dob" name="dob">
+
+      <label>Time of birth</label>
+      <input type="hidden" id="tob" name="tob">
+      <div id="tob-selects"></div>
+
+      <label for="tob-unknown">
+        <input type="checkbox" id="tob-unknown" name="tob_unknown">
+        Birth time unknown
+      </label>
+
+      <div id="location-fields">
+        <label for="birth-city">Place of birth</label>
+        <input type="text" id="birth-city" name="birth_city" autocomplete="off">
+        <input type="hidden" id="birth-place-id" name="place_id">
+        <p id="location-confirmation" hidden>Selected: <span id="location-resolved-name"></span></p>
+      </div>
+      <p id="maps-status"></p>
+    </fieldset>
+
+    <button type="submit">Continue</button>
+    <p id="status"></p>
+  </form>
+</main>
+<script type="module" src="/assets/js/intake.js?v=7763a0df"></script>
+</body>
+</html>

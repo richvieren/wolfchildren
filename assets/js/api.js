@@ -22,7 +22,17 @@ async function request(path, options = {}) {
     localStorage.removeItem('wc_user');
     throw new Error('signed out');
   }
-  if (!res.ok) throw new Error(`${path} failed: ${res.status}`);
+  if (!res.ok) {
+    // Carry the response body's `detail` on the thrown Error so a caller can
+    // render FastAPI's 422 validation detail readably (Task 14) instead of
+    // just "/v1/children failed: 422". Existing callers that only read
+    // `.message` are unaffected.
+    let detail;
+    try { detail = (await res.json()).detail; } catch { /* no JSON body */ }
+    const err = new Error(`${path} failed: ${res.status}`);
+    err.detail = detail;
+    throw err;
+  }
   return res.json();
 }
 
@@ -31,6 +41,9 @@ export const getChildren = () => request('/v1/children');
 
 export const addChild = (fields) =>
   request('/v1/children', { method: 'POST', body: JSON.stringify(fields) });
+
+export const deleteChild = (id) =>
+  request(`/v1/children/${id}`, { method: 'DELETE' });
 
 export const submitIntake = (grantId, fields) =>
   request('/v1/intake', {

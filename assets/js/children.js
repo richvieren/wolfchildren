@@ -4,9 +4,9 @@
 // 422 surfaces as the request's own error message.
 
 import { getSession } from './auth.js?v=96b93ff5';
-import { getChildren, addChild } from './api.js?v=cebdc3da';
+import { getChildren, addChild, deleteChild } from './api.js?v=c3ed6e8e';
 
-async function renderChildren(list) {
+async function renderChildren(list, status) {
   list.textContent = '';
   const children = await getChildren();
   for (const child of children) {
@@ -17,7 +17,20 @@ async function renderChildren(list) {
     dob.textContent = child.dob;
     const place = document.createElement('span');
     place.textContent = child.place_name;
-    li.append(name, ' ', dob, ' ', place);
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.textContent = 'Delete';
+    del.addEventListener('click', async () => {
+      if (!confirm("This removes the child's details and readings. It cannot be undone.")) return;
+      try {
+        await deleteChild(child.id);
+        status.textContent = '';
+        await renderChildren(list, status);
+      } catch (err) {
+        status.textContent = err.message;
+      }
+    });
+    li.append(name, ' ', dob, ' ', place, ' ', del);
     list.append(li);
   }
 }
@@ -51,13 +64,13 @@ async function init() {
       await addChild(fields);
       form.reset();
       status.textContent = 'Child added.';
-      await renderChildren(list);
+      await renderChildren(list, status);
     } catch (err) {
       status.textContent = err.message;
     }
   });
 
-  await renderChildren(list);
+  await renderChildren(list, status);
 }
 
 init();
