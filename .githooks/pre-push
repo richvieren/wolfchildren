@@ -1,0 +1,3 @@
+#!/bin/bash
+set -euo pipefail
+bash "$(git rev-parse --show-toplevel)/stamp-assets.sh" --check
