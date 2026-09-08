@@ -6,7 +6,9 @@ export function cardState(product, grant) {
   if (!grant) return 'locked';
   if (product.requiresIntake && !grant.has_intake) return 'intake';
   if (!grant.available_at) return product.requiresIntake ? 'submitted' : 'pending';
-  return new Date(grant.available_at) > new Date() ? 'pending' : 'ready';
+  const t = Date.parse(grant.available_at);
+  if (Number.isNaN(t)) return 'pending';
+  return t > Date.now() ? 'pending' : 'ready';
 }
 
 const COPY = {

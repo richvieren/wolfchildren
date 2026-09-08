@@ -57,3 +57,11 @@ test('two children on one product produce two independent cards', () => {
   assert.equal(cardState(gen, a), 'ready');
   assert.equal(cardState(gen, b), 'intake');
 });
+
+test('a malformed available_at fails closed to pending, never ready', () => {
+  for (const bad of ['not-a-date', '', '2026-13-45', 'null']) {
+    const expectedGen = bad === '' ? 'submitted' : 'pending';
+    assert.equal(cardState(gen,  { has_intake: true,  available_at: bad }), expectedGen, bad);
+    assert.equal(cardState(inst, { has_intake: false, available_at: bad }), 'pending', bad);
+  }
+});
