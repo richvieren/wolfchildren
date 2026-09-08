@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Wolf Children — Children</title>
+</head>
+<body>
+<main>
+  <form id="add-child-form">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="dob">Date of birth</label>
+    <input type="date" id="dob" name="dob" required>
+
+    <label for="tob">Time of birth</label>
+    <input type="time" id="tob" name="tob">
+
+    <label for="tob-unknown">
+      <input type="checkbox" id="tob-unknown" name="tob_unknown">
+      Birth time unknown
+    </label>
+
+    <label for="place_name">Place of birth</label>
+    <input type="text" id="place_name" name="place_name" required>
+    <input type="hidden" id="place_id" name="place_id">
+    <input type="hidden" id="lat" name="lat">
+    <input type="hidden" id="lon" name="lon">
+    <input type="hidden" id="tz" name="tz">
+
+    <button type="submit">Add child</button>
+  </form>
+  <p id="status"></p>
+
+  <ul id="children-list"></ul>
+</main>
+<script type="module" src="/assets/js/children.js?v=7ba7d446"></script>
+</body>
+</html>
