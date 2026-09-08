@@ -19,39 +19,21 @@ CHECK=false
 [[ "${1:-}" == "--check" ]] && CHECK=true
 
 STALE=0
-for js in *.js; do
-    [[ -f "$js" ]] || continue
-    hash=$(md5 -q "$js" | cut -c1-8)
-    esc=${js//./\\.}
-    for html in *.html; do
-        grep -qE "src=\"$esc(\?v=[0-9a-f]{8})?\"" "$html" || continue
-        if grep -qE "src=\"$esc\?v=$hash\"" "$html"; then continue; fi
-        STALE=1
-        if $CHECK; then
-            echo "STALE: $html references $js without the current hash ($hash)"
-        else
-            perl -pi -e "s/src=\"$esc(\?v=[0-9a-f]{8})?\"/src=\"$js?v=$hash\"/g" "$html"
-            echo "  stamped $html -> $js?v=$hash"
-        fi
-    done
-done
-
 for js in assets/js/*.js; do
     [[ -f "$js" ]] || continue
     hash=$(md5 -q "$js" | cut -c1-8)
     esc=${js//./\\.}
-    for html in portal/*.html readings/*.html photography/*.html legal/*.html; do
-        [[ -f "$html" ]] || continue
-        grep -qE "src=\"$esc(\?v=[0-9a-f]{8})?\"" "$html" || continue
-        if grep -qE "src=\"$esc\?v=$hash\"" "$html"; then continue; fi
+    while IFS= read -r html; do
+        grep -qE "src=\"/?$esc(\?v=[0-9a-f]{8})?\"" "$html" || continue
+        if grep -qE "src=\"/?$esc\?v=$hash\"" "$html"; then continue; fi
         STALE=1
         if $CHECK; then
             echo "STALE: $html references $js without the current hash ($hash)"
         else
-            perl -pi -e "s#src=\"$esc(\?v=[0-9a-f]{8})?\"#src=\"$js?v=$hash\"#g" "$html"
+            perl -pi -e "s#src=\"(/?)$esc(\?v=[0-9a-f]{8})?\"#src=\"\$1$js?v=$hash\"#g" "$html"
             echo "  stamped $html -> $js?v=$hash"
         fi
-    done
+    done < <(find . -name '*.html' -not -path './.git/*')
 done
 
 if $CHECK; then
