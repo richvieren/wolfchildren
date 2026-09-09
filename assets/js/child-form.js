@@ -81,9 +81,15 @@ export function mountChildForm(container, { mapsKey }) {
   obs.id = 'observations';
   const obsLegend = document.createElement('legend');
   obsLegend.textContent = 'What you have noticed (optional)';
+  // Richard, 2026-09-09 (option C): the parent is told, where they type, that
+  // this text leaves our server. Name substitution is the only stripping.
   const obsWhy = document.createElement('p');
   obsWhy.className = 'small';
-  obsWhy.textContent = 'So the portrait can point at things you have already seen. Leave any of these blank.';
+  obsWhy.id = 'obs-note';
+  obsWhy.textContent = 'These help the portrait point at things you have already seen. Leave any of them blank. '
+    + 'What you write here is sent to the writing model together with the chart, with your child’s name removed. '
+    + 'Please don’t include other names, places, dates, or anything you would not want a third party to hold. '
+    + 'Your child’s name, date of birth and birthplace never leave our server.';
   obs.append(obsLegend, obsWhy);
   const field = (id, labelText, el) => {
     const l = document.createElement('label');
