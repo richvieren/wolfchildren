@@ -1,10 +1,11 @@
 // children.js — portal/children.html: add a child, list existing children.
-// Google Places wiring for place_id/lat/lon/tz is Task 14; for now the
-// hidden fields submit whatever they hold (empty, until then), and the API's
-// 422 surfaces as the request's own error message.
+// R57 (Task 14, fix round 1): the add-child fields are the shared
+// child-form.js component, also used by intake.js — see that file for the
+// Places/tz wiring.
 
 import { getSession } from './auth.js?v=96b93ff5';
 import { getChildren, addChild, deleteChild } from './api.js?v=c3ed6e8e';
+import { mountChildForm, readChildForm } from './child-form.js?v=ff8752de';
 
 async function renderChildren(list, status) {
   list.textContent = '';
@@ -42,27 +43,24 @@ async function init() {
     return;
   }
 
+  const mapsKeyMeta = document.querySelector('meta[name="wc-maps-key"]');
+  const mapsKey = (mapsKeyMeta && mapsKeyMeta.content) || '';
+
   const form = document.getElementById('add-child-form');
+  const fields = document.getElementById('child-fields');
   const status = document.getElementById('status');
   const list = document.getElementById('children-list');
+
+  mountChildForm(fields, { mapsKey });
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     status.textContent = '';
-    const fields = {
-      name: form.name.value,
-      dob: form.dob.value,
-      tob_unknown: form.tob_unknown.checked,
-      tob: form.tob_unknown.checked ? null : (form.tob.value || null),
-      place_id: form.place_id.value,
-      place_name: form.place_name.value,
-      lat: form.lat.value ? Number(form.lat.value) : null,
-      lon: form.lon.value ? Number(form.lon.value) : null,
-      tz: form.tz.value,
-    };
     try {
-      await addChild(fields);
+      const childFields = await readChildForm(fields, { mapsKey });
+      await addChild(childFields);
       form.reset();
+      document.getElementById('tob').value = ''; // the timefield selects' reset doesn't re-sync the hidden #tob
       status.textContent = 'Child added.';
       await renderChildren(list, status);
     } catch (err) {
