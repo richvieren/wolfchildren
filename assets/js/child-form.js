@@ -34,6 +34,21 @@ export function mountChildForm(container, { mapsKey }) {
   nameInput.name = 'name';
   nameInput.required = true;
 
+  // Pronouns (Richard 2026-09-09, Q5): a select with a default, never required.
+  // The reading is written with these; the model receives them, never the name.
+  const pronounsLabel = document.createElement('label');
+  pronounsLabel.htmlFor = 'pronouns';
+  pronounsLabel.textContent = 'Pronouns';
+  const pronounsSelect = document.createElement('select');
+  pronounsSelect.id = 'pronouns';
+  pronounsSelect.name = 'pronouns';
+  for (const [value, text] of [['they', 'they / them'], ['she', 'she / her'], ['he', 'he / him']]) {
+    const opt = document.createElement('option');
+    opt.value = value;
+    opt.textContent = text;
+    pronounsSelect.append(opt);
+  }
+
   const dobLabel = document.createElement('label');
   dobLabel.htmlFor = 'dob';
   dobLabel.textContent = 'Date of birth';
@@ -89,6 +104,7 @@ export function mountChildForm(container, { mapsKey }) {
 
   container.append(
     nameLabel, nameInput,
+    pronounsLabel, pronounsSelect,
     dobLabel, dobInput,
     tobLabel, tobHidden, tobSelects,
     tobUnknownLabel,
@@ -179,6 +195,7 @@ export async function readChildForm(container, { mapsKey }) {
   const fields = {
     name: container.querySelector('#name').value,
     dob: container.querySelector('#dob').value,
+    pronouns: (container.querySelector('#pronouns') && container.querySelector('#pronouns').value) || 'they',
     tob_unknown: tobUnknown,
     tob: tobUnknown ? null : (container.querySelector('#tob').value || null),
     place_id: '',

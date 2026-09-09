@@ -14,7 +14,7 @@ import { getSession } from './auth.js?v=b9374f9e';
 import { PRODUCTS, getProduct } from './registry.js?v=b323975a';
 import { getChildren, addChild, submitIntake, firstErrorMessage } from './api.js?v=efad900d';
 import { clearValidatedLocation } from './autocomplete.js?v=f397273b';
-import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=66dea573';
+import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=cdb1eaa4';
 
 async function init() {
   const params = new URLSearchParams(window.location.search);
