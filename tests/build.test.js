@@ -51,10 +51,13 @@ for (const p of pages) {
     else assert.ok(p.html.includes('name="robots" content="noindex'), 'draft page must be noindex');
   });
 
+  const isProductPage = Object.hasOwn(PRODUCTS, p.slug);
+
   test(`${p.path} prices match the registry`, () => {
     const prices = [...p.html.matchAll(/\$(\d+)(?!\d)/g)].map((m) => Number(m[1]));
+    if (!isProductPage) { assert.equal(prices.length, 0, 'a non-product page carries no price'); return; }
     assert.ok(prices.length > 0, 'no price on the page');
-    const expected = PRODUCTS[p.slug]?.priceCents / 100;
+    const expected = PRODUCTS[p.slug].priceCents / 100;
     for (const price of prices) assert.equal(price, expected, `price $${price} on ${p.path}`);
   });
 
@@ -69,13 +72,13 @@ for (const p of pages) {
 
   test(`${p.path} every photo slot uses a defined ratio class`, () => {
     const classes = [...p.html.matchAll(/class="slot slot-([0-9]+x[0-9]+)/g)].map((m) => m[1]);
-    assert.ok(classes.length > 0, 'no photo slots');
+    if (isProductPage) assert.ok(classes.length > 0, 'a product page has photo slots');
     for (const r of classes) assert.ok(css.includes(`.slot-${r} {`), `undefined ratio class slot-${r}`);
   });
 
   test(`${p.path} shot list has unique ids with all four fields`, () => {
     const shots = shotList(p.html);
-    assert.ok(shots.length >= 5);
+    if (isProductPage) assert.ok(shots.length >= 5);
     for (const s of shots) for (const k of ['ratio', 'crop', 'intent', 'min']) assert.ok(s[k], `${s.id} missing ${k}`);
   });
 }

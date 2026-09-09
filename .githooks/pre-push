@@ -3,3 +3,5 @@ set -euo pipefail
 ROOT="$(git rev-parse --show-toplevel)"
 bash "$ROOT/stamp-assets.sh" --check
 node "$ROOT/build.mjs" --check
+# A red suite never leaves the machine (2026-09-09: a commit with three failing tests was pushed).
+node --test "$ROOT"/tests/*.test.js > /dev/null 2>&1 || { echo "pre-push: site tests failing"; exit 1; }
