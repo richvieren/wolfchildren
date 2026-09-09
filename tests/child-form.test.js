@@ -144,5 +144,5 @@ test('the observation questions carry the disclosure where the parent types', as
   assert.match(note.textContent, /sent to the writing model/);
   assert.match(note.textContent, /name removed/);
   assert.match(note.textContent, /never leave our server/);
-  assert.ok(container.querySelector('#obs-sets-off'), 'the free-text questions are mounted under the note');
+  assert.ok(container.querySelector('#obs-hardest'), 'the free-text questions are mounted under the note');
 });

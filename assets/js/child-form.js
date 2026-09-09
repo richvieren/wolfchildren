@@ -100,58 +100,16 @@ export function mountChildForm(container, { mapsKey }) {
     obs.append(l, el);
     return el;
   };
-  const choice = (id, labelText, options) => {
-    const sel = document.createElement('select');
-    const blank = document.createElement('option');
-    blank.value = '';
-    blank.textContent = '—';
-    sel.append(blank);
-    for (const [value, text] of options) {
-      const o = document.createElement('option');
-      o.value = value;
-      o.textContent = text;
-      sel.append(o);
-    }
-    return field(id, labelText, sel);
-  };
-  const checks = (id, labelText, options) => {
-    const group = document.createElement('div');
-    group.className = 'checks';
-    const l = document.createElement('p');
-    l.textContent = labelText;
-    obs.append(l);
-    for (const [value, text] of options) {
-      const lab = document.createElement('label');
-      const cb = document.createElement('input');
-      cb.type = 'checkbox';
-      cb.name = id;
-      cb.value = value;
-      lab.append(cb, ' ' + text);
-      group.append(lab);
-    }
-    obs.append(group);
-    group.id = id;
-    return group;
-  };
   const text = (id, labelText, max) => {
-    const ta = document.createElement('input');
-    ta.type = 'text';
+    const ta = document.createElement('textarea');
     ta.maxLength = max;
+    ta.rows = 2;
     return field(id, labelText, ta);
   };
-  choice('obs-with-people', 'With people they don’t know well, they are usually…', [
-    ['straight_in', 'straight in'], ['watchful_first', 'watchful first, then in'],
-    ['stays_close', 'staying close to you'], ['depends', 'it depends on the person']]);
-  text('obs-lights-up', 'What do they do when nobody has asked them to do anything?', 200);
-  text('obs-sets-off', 'What tends to set them off, and what does the way back usually look like?', 300);
-  checks('obs-sensitive-to', 'They are sensitive to…', [
-    ['noise', 'noise'], ['textures', 'textures and clothes'], ['moods', 'other people’s moods'],
-    ['being_watched', 'being watched'], ['unfairness', 'unfairness'], ['changes_of_plan', 'changes of plan'],
-    ['hunger_tiredness', 'hunger and tiredness']]);
-  checks('obs-learns-by', 'Something new goes in best when they can…', [
-    ['watch_first', 'watch first'], ['try_themselves', 'try it themselves'], ['ask_questions', 'ask questions'],
-    ['told_the_steps', 'be told the steps'], ['alone', 'do it alone'], ['with_you', 'do it with you']]);
-  text('obs-clash', 'Where do you and they clash most often?', 200);
+  // Three questions (Richard, 2026-09-10), replacing the earlier six.
+  text('obs-surprises', 'What does your child do that surprises you?', 300);
+  text('obs-hardest', 'Which part of the day is hardest?', 300);
+  text('obs-others-wrong', 'What have other people got wrong about your child?', 300);
 
   const locationFields = document.createElement('div');
   locationFields.id = 'location-fields';
@@ -307,18 +265,11 @@ export async function readChildForm(container, { mapsKey }) {
  */
 export function readObservations(container) {
   const q = (sel) => container.querySelector(sel);
-  const val = (sel) => { const el = q(sel); return el && typeof el.value === 'string' ? el.value.trim() : ''; };
-  const checked = (name) => (typeof container.querySelectorAll === 'function'
-    ? Array.from(container.querySelectorAll(`input[name="${name}"]`) || []) : [])
-    .filter((cb) => cb.checked).map((cb) => cb.value);
+  const val = (sel) => { const el = q(sel); return el && typeof el.value === 'string' ? el.value.trim().slice(0, 300) : ''; };
   const o = {
-    with_people: val('#obs-with-people') || null,
-    lights_up: val('#obs-lights-up').slice(0, 200) || null,
-    sets_off: val('#obs-sets-off').slice(0, 300) || null,
-    sensitive_to: checked('obs-sensitive-to'),
-    learns_by: checked('obs-learns-by'),
-    clash: val('#obs-clash').slice(0, 200) || null,
+    surprises: val('#obs-surprises') || null,
+    hardest_part: val('#obs-hardest') || null,
+    others_wrong: val('#obs-others-wrong') || null,
   };
-  const empty = !o.with_people && !o.lights_up && !o.sets_off && !o.sensitive_to.length && !o.learns_by.length && !o.clash;
-  return empty ? null : o;
+  return (o.surprises || o.hardest_part || o.others_wrong) ? o : null;
 }
