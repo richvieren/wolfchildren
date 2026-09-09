@@ -51,7 +51,7 @@ export function sections() {
       eyebrow: 'Your observations',
       heading: 'What you write about your child is sent to the writing model.',
       paragraphs: [
-        'The six optional questions exist so the portrait can point at things you have already seen and say where in the chart they come from. To do that, what you write is sent to the writing model together with the chart. Before it is sent, your child’s name is replaced with a placeholder. Nothing else in your text is changed, so please do not include other names, places, dates, or anything you would not want a third party to hold. The form says this again, where you type.',
+        'The four optional questions exist so the portrait can point at things you have already seen and say where in the chart they come from. To do that, what you write is sent to the writing model together with the chart. Before it is sent, your child’s name is replaced with a placeholder. Nothing else in your text is changed, so please do not include other names, places, dates, or anything you would not want a third party to hold. The form says this again, where you type.',
         h('span', {}, 'The writing model is provided by Anthropic. Your text is processed under Anthropic’s commercial terms, which you can read at ', h('a', { href: ANTHROPIC_TERMS }, ANTHROPIC_TERMS), '. We do not use your text for anything except writing your reading.'),
         'You can leave every one of these questions blank. You can also change or clear your answers at any time from your child’s page in the portal, and deleting the child clears them with everything else.',
       ],

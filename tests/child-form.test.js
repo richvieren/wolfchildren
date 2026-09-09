@@ -145,4 +145,9 @@ test('the observation questions carry the disclosure where the parent types', as
   assert.match(note.textContent, /name removed/);
   assert.match(note.textContent, /never leave our server/);
   assert.ok(container.querySelector('#obs-hardest'), 'the free-text questions are mounted under the note');
+  const ids = ['obs-surprises', 'obs-hardest', 'obs-others-wrong', 'obs-returns-to'];
+  assert.deepEqual(ids.map((id) => !!container.querySelector('#' + id)), [true, true, true, true], 'four questions, in order');
+  const labels = container.querySelectorAll('label').filter((l) => l.htmlFor === 'obs-returns-to');
+  assert.equal(labels.length, 1, 'one label for the fourth question');
+  assert.match(labels[0].textContent, /keep coming back to, without being asked/);
 });

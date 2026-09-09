@@ -106,10 +106,11 @@ export function mountChildForm(container, { mapsKey }) {
     ta.rows = 2;
     return field(id, labelText, ta);
   };
-  // Three questions (Richard, 2026-09-10), replacing the earlier six.
+  // Four questions (Richard, 2026-09-10), replacing the earlier six.
   text('obs-surprises', 'What does your child do that surprises you?', 300);
   text('obs-hardest', 'Which part of the day is hardest?', 300);
   text('obs-others-wrong', 'What have other people got wrong about your child?', 300);
+  text('obs-returns-to', 'What does your child keep coming back to, without being asked?', 300);
 
   const locationFields = document.createElement('div');
   locationFields.id = 'location-fields';
@@ -259,7 +260,7 @@ export async function readChildForm(container, { mapsKey }) {
 }
 
 /**
- * The six optional observation fields → the API's ObservationsIn shape, or
+ * The four optional observation fields → the API's ObservationsIn shape, or
  * null when the parent left them all blank. Free text is trimmed and capped
  * client-side as well as server-side.
  */
@@ -270,6 +271,7 @@ export function readObservations(container) {
     surprises: val('#obs-surprises') || null,
     hardest_part: val('#obs-hardest') || null,
     others_wrong: val('#obs-others-wrong') || null,
+    returns_to: val('#obs-returns-to') || null,
   };
-  return (o.surprises || o.hardest_part || o.others_wrong) ? o : null;
+  return (o.surprises || o.hardest_part || o.others_wrong || o.returns_to) ? o : null;
 }
