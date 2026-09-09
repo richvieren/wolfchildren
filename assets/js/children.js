@@ -3,9 +3,9 @@
 // child-form.js component, also used by intake.js — see that file for the
 // Places/tz wiring.
 
-import { getSession } from './auth.js?v=96b93ff5';
-import { getChildren, addChild, deleteChild } from './api.js?v=c3ed6e8e';
-import { mountChildForm, readChildForm } from './child-form.js?v=ff8752de';
+import { getSession } from './auth.js?v=b9374f9e';
+import { getChildren, addChild, deleteChild, firstErrorMessage } from './api.js?v=efad900d';
+import { mountChildForm, readChildForm } from './child-form.js?v=1ce031d7';
 
 async function renderChildren(list, status) {
   list.textContent = '';
@@ -28,7 +28,8 @@ async function renderChildren(list, status) {
         status.textContent = '';
         await renderChildren(list, status);
       } catch (err) {
-        status.textContent = err.message;
+        // I5: err.message is api.js's internal "/v1/children/3 failed: 422".
+        status.textContent = firstErrorMessage(err);
       }
     });
     li.append(name, ' ', dob, ' ', place, ' ', del);
@@ -60,15 +61,21 @@ async function init() {
       const childFields = await readChildForm(fields, { mapsKey });
       await addChild(childFields);
       form.reset();
-      document.getElementById('tob').value = ''; // the timefield selects' reset doesn't re-sync the hidden #tob
       status.textContent = 'Child added.';
       await renderChildren(list, status);
     } catch (err) {
-      status.textContent = err.message;
+      status.textContent = firstErrorMessage(err);
     }
   });
 
-  await renderChildren(list, status);
+  // I2: renderChildren awaits GET /v1/children, which throws "signed out" on
+  // an expired token. Unguarded that escaped init() and left the page showing
+  // an empty list and a form that would 401 on submit, with nothing said.
+  try {
+    await renderChildren(list, status);
+  } catch {
+    window.location.href = '/portal/';
+  }
 }
 
 init();

@@ -17,6 +17,10 @@
 // other logic changed.
 
 function _tobEls(id) {
+  // Guarded for the same reason the auto-init at the foot of this file is:
+  // readChildForm() now calls tobError() (C2) and is unit-tested without a
+  // DOM. No elements means nothing to validate, which tobError reads as valid.
+  if (typeof document === 'undefined') return [null, null, null];
   return [document.getElementById(id + '-h'),
           document.getElementById(id + '-m'),
           document.getElementById(id + '-ap')];
@@ -44,8 +48,13 @@ export function initTobField(id) {
   if (!hidden || !mount || mount.dataset.built) return;
   mount.dataset.built = '1';
 
-  var css = 'background:transparent;border:none;border-bottom:1px solid var(--stone);' +
-            'color:var(--mist);font-family:Jost,sans-serif;font-weight:300;font-size:1rem;' +
+  // Layout only. R66: this string used to carry Cato's brand tokens
+  // (font-family:Jost, var(--stone), var(--mist)) — none of which Wolf
+  // Children defines, so the selects rendered in the browser default font on
+  // a colour that did not exist. The site's own stylesheet owns type and
+  // colour; border-bottom with no colour inherits currentColor.
+  var css = 'background:transparent;border:none;border-bottom:1px solid;' +
+            'font-weight:300;font-size:1rem;' +
             'padding:0.6rem 0.2rem;outline:none';
   var h = '<option value="">Hour</option>';
   for (var i = 1; i <= 12; i++) h += '<option value="' + i + '">' + i + '</option>';
@@ -55,7 +64,7 @@ export function initTobField(id) {
   mount.innerHTML =
     '<div style="display:flex;gap:0.6rem;align-items:baseline">' +
       '<select id="' + id + '-h" style="' + css + '">' + h + '</select>' +
-      '<span style="color:var(--stone)">:</span>' +
+      '<span>:</span>' +
       '<select id="' + id + '-m" style="' + css + '">' + m + '</select>' +
       '<select id="' + id + '-ap" style="' + css + '">' +
         '<option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option>' +
@@ -104,22 +113,11 @@ export function tobError(id) {
 // Guarded: this module is imported by tests/timefield.test.js under
 // node --test, which has no `document`. The browser always has one, so this
 // changes nothing there — it only stops the import itself from throwing.
+// R68: the 'f-tob' init went with Cato's profile page, and so did the
+// DOB_MIN / dobMaxDate() block — both names live in Cato's db.js, which does
+// not exist here, so the block only ever evaluated to two no-ops.
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', function () {
     initTobField('tob');
-    initTobField('f-tob');
-  });
-
-
-  // --- Birth date input bounds ----------------------------------------------
-  // Sets min/max on every birth-date field so the native picker cannot offer an
-  // impossible year in the first place. dobError() in db.js is the check that
-  // actually blocks submission; this is the affordance, not the guard.
-  document.addEventListener('DOMContentLoaded', function () {
-    var inputs = document.querySelectorAll('#dob, #f-dob, input[type="date"][data-birth]');
-    for (var i = 0; i < inputs.length; i++) {
-      if (typeof DOB_MIN !== 'undefined') inputs[i].min = DOB_MIN;
-      if (typeof dobMaxDate === 'function') inputs[i].max = dobMaxDate();
-    }
   });
 }

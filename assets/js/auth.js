@@ -8,6 +8,13 @@ const API_BASE = 'https://api.wolfchildren.co';
   const token = params.get('auth_token');
   if (!token) return;
 
+  // R70: strip the token from the URL BEFORE the verify call, not after it.
+  // A live magic-link token in the address bar is a token in the browser
+  // history, in the Referer header of every subresource the page loads next,
+  // and in whatever the client copies out of the bar. Doing it afterwards
+  // leaves it there for the whole round trip, and forever if verify fails.
+  window.history.replaceState(null, '', window.location.pathname);
+
   // Verify the token and get a JWT session
   fetch(`${API_BASE}/v1/auth/verify`, {
     method: 'POST',
@@ -19,8 +26,6 @@ const API_BASE = 'https://api.wolfchildren.co';
       if (data.ok && data.access_token) {
         localStorage.setItem('wc_token', data.access_token);
         localStorage.setItem('wc_user', JSON.stringify(data.user));
-        // Clean the URL and reload
-        window.history.replaceState(null, '', window.location.pathname);
         window.location.reload();
       } else {
         console.error('Auth verify failed:', data);
@@ -77,7 +82,10 @@ export async function sendMagicLink(email) {
 export async function signOut() {
   const token = localStorage.getItem('wc_token');
   if (token) {
-    fetch(`${API_BASE}/v1/auth/sign-out`, {
+    // Awaited (I6). Un-awaited, the reload below could cancel the request in
+    // flight, so the server-side session survives a sign-out that told the
+    // client it had worked.
+    await fetch(`${API_BASE}/v1/auth/sign-out`, {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${token}` },
     }).catch(() => {});

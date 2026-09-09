@@ -7,8 +7,8 @@
 // no live path to add a complete child. One shared mount + one shared read
 // fixes both at once.
 
-import { initTobField } from './timefield.js?v=5b5948bd';
-import { initPlacesAutocomplete, getValidatedLocation } from './autocomplete.js?v=20ebbbda';
+import { initTobField, tobError } from './timefield.js?v=6e986688';
+import { initPlacesAutocomplete, getValidatedLocation } from './autocomplete.js?v=f397273b';
 
 function loadMapsScript(key) {
   const script = document.createElement('script');
@@ -112,6 +112,12 @@ export function mountChildForm(container, { mapsKey }) {
     locationFields,
     mapsStatus);
 
+  // setChildFormEnabled reads this to decide whether #birth-city may ever be
+  // required: with no Maps key the location block is never shown, so it never
+  // is. Recorded on the container so the caller does not have to pass the key
+  // back in on every visibility change.
+  container.dataset.mapsEnabled = mapsKey ? '1' : '0';
+
   // R58: the selects are mounted after DOMContentLoaded (this module runs on
   // demand, not at page load), so timefield.js's own guarded auto-init never
   // sees them. Wire them explicitly. timefield.js itself is unchanged.
@@ -123,8 +129,43 @@ export function mountChildForm(container, { mapsKey }) {
     loadMapsScript(mapsKey);
   } else {
     mapsStatus.textContent = 'Location search is not available yet.';
-    locationFields.hidden = true;
   }
+
+  // Shown, and required, in one call — including the location block's own
+  // key gate. Never set `hidden` on any of this by hand; see C1 below.
+  setChildFormEnabled(container, true);
+}
+
+/**
+ * Show or hide the whole child-details block, moving `required` with it.
+ *
+ * C1, and the reason both forms were dead on arrival: `hidden` does NOT
+ * exempt an input from HTML constraint validation. Only `disabled` and
+ * `type="hidden"` do. A `required` input the client cannot see therefore
+ * makes form.checkValidity() false forever, and the browser cannot show its
+ * "Please fill out this field" bubble on an element with no box — so the
+ * submit button silently does nothing, with no error anywhere. That was the
+ * state of BOTH live forms: children.html hid #location-fields whenever the
+ * Maps key was empty (which it is), and intake.html hid the entire new-child
+ * fieldset the moment an existing child was chosen. The two attributes must
+ * move together, always, which is why this is one exported function and not
+ * a `hidden = ...` at each call site.
+ */
+export function setChildFormEnabled(container, on) {
+  container.hidden = !on;
+
+  for (const selector of ['#name', '#dob']) {
+    const input = container.querySelector(selector);
+    if (input) input.required = on;
+  }
+
+  // The location block has a second gate of its own: with no Maps key it stays
+  // hidden whatever `on` says, so its input is never required either.
+  const mapsEnabled = container.dataset.mapsEnabled === '1';
+  const locationFields = container.querySelector('#location-fields');
+  const cityInput = container.querySelector('#birth-city');
+  if (locationFields) locationFields.hidden = !(on && mapsEnabled);
+  if (cityInput) cityInput.required = Boolean(on && mapsEnabled);
 }
 
 /**
@@ -135,13 +176,30 @@ export function mountChildForm(container, { mapsKey }) {
  */
 export async function readChildForm(container, { mapsKey }) {
   const tobUnknown = container.querySelector('#tob-unknown').checked;
+
+  // C2: an hour and a minute with no AM/PM used to be read as `tob: null,
+  // tob_unknown: false` — a birth time the client had entered, thrown away in
+  // silence, and a chart drawn on a time nobody chose. tobError() names the
+  // missing part; the caller puts the message in the status line.
+  if (!tobUnknown) {
+    const message = tobError('tob');
+    if (message) throw new Error(message);
+  }
+
+  // #birth-city is a plain input until the Places element replaces it, and
+  // that element is not a text input, so read its value defensively. The
+  // mapsKey branch below overwrites place_name from the validated selection
+  // anyway — this is only the no-key fallback.
+  const cityInput = container.querySelector('#birth-city');
+  const typedCity = cityInput && typeof cityInput.value === 'string' ? cityInput.value : '';
+
   const fields = {
     name: container.querySelector('#name').value,
     dob: container.querySelector('#dob').value,
     tob_unknown: tobUnknown,
     tob: tobUnknown ? null : (container.querySelector('#tob').value || null),
     place_id: '',
-    place_name: container.querySelector('#birth-city').value,
+    place_name: typedCity,
     lat: null,
     lon: null,
     tz: '',
@@ -159,7 +217,7 @@ export async function readChildForm(container, { mapsKey }) {
       throw new Error('Could not determine the timezone for that location. Please try selecting it again.');
     }
     fields.place_id = loc.place_id;
-    fields.place_name = loc.display;
+    fields.place_name = loc.name;
     fields.lat = loc.lat;
     fields.lon = loc.lon;
     fields.tz = tz;

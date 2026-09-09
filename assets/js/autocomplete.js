@@ -1,15 +1,32 @@
-/* autocomplete.js — Google Places Autocomplete for birth city selection.
-   Uses Places API (New) with (cities) type restriction and session tokens.
-   Stores place_id for server-side verification.
+/* autocomplete.js — birth-place selection through PlaceAutocompleteElement,
+   Google's web component for the Places API (New).
 
-   Lifted from Cato's portal/autocomplete.js (Task 14, Wolf Children).
-   Converted to an ES module: initPlacesAutocomplete, getValidatedLocation,
-   and clearValidatedLocation are exported for intake.js. No API key lives in
-   this file (R53) — intake.js loads the Maps script (or doesn't, if no key
-   is configured yet) and exposes the callback global; this file is unaware
-   of the key either way. No other logic changed. */
+   R71 (2026-09-09). What this file was: a lift of Cato's widget built on
+   google.maps.places.Autocomplete, plus Cato's astrocartography multi-city
+   fields (city-1..city-5) and its profile field id (f-city), neither of which
+   exists on any Wolf Children page. What it is now: one control, for one
+   field, on the current API.
 
-var _validatedLocation = null;
+   Why it had to change. Google's Places migration guidance marks the legacy
+   Autocomplete widget as not available to new customers: a Cloud project
+   created from 2025-03-01 cannot call it at all. Wolf Children has no Maps
+   key yet (see child-form.js and <meta name="wc-maps-key">), so its project
+   will be a new one, and the legacy widget would have failed on the first
+   real key. The documented replacement is PlaceAutocompleteElement:
+   https://developers.google.com/maps/documentation/javascript/place-autocomplete-new
+
+   Shape of the control. PlaceAutocompleteElement is its own input, so it
+   REPLACES the plain #birth-city text input inside #location-fields and takes
+   that id over. <label for="birth-city"> therefore still points at the control
+   the client types into.
+
+   No API key lives here. child-form.js loads the Maps script (or does not,
+   when no key is configured) and exposes window.initPlacesAutocomplete for the
+   script tag's &callback= to call; this module is unaware of the key either
+   way. */
+
+let _validatedLocation = null;
+let _element = null;
 
 export function getValidatedLocation() {
   return _validatedLocation;
@@ -17,186 +34,99 @@ export function getValidatedLocation() {
 
 export function clearValidatedLocation() {
   _validatedLocation = null;
-  var conf = document.getElementById('location-confirmation');
-  if (conf) conf.style.display = 'none';
-  var placeIdField = document.getElementById('birth-place-id');
+  const conf = document.getElementById('location-confirmation');
+  if (conf) conf.hidden = true;
+  const resolved = document.getElementById('location-resolved-name');
+  if (resolved) resolved.textContent = '';
+  const placeIdField = document.getElementById('birth-place-id');
   if (placeIdField) placeIdField.value = '';
 }
 
-/* Google Maps callback — called by &callback=initPlacesAutocomplete on the script tag.
-   Inits autocomplete on whichever birth-city field exists on the current page. */
-export function initPlacesAutocomplete() {
-  // Standard field ID used by blueprint, transit, astrocartography
-  if (document.getElementById('birth-city')) {
-    initBirthCityAutocomplete('birth-city');
-  }
-  // Profile intake uses a different field ID
-  if (document.getElementById('f-city')) {
-    initBirthCityAutocomplete('f-city');
-  }
-  // Astrocartography city fields (only exist on astrocartography.html)
-  var cityIds = ['city-1','city-2','city-3','city-4','city-5'];
-  for (var i = 0; i < cityIds.length; i++) {
-    if (document.getElementById(cityIds[i])) {
-      initCityAutocomplete(cityIds[i]);
-    }
-  }
+function showConfirmation(location) {
+  const placeIdField = document.getElementById('birth-place-id');
+  if (placeIdField) placeIdField.value = location.place_id;
+  const resolved = document.getElementById('location-resolved-name');
+  if (resolved) resolved.textContent = location.name;
+  const conf = document.getElementById('location-confirmation');
+  if (conf) conf.hidden = false;
 }
 
-/* ── Multi-city autocomplete (astrocartography) ─────────────────────────── */
-
-var _validatedCities = {};
-
-export function getValidatedCities() {
-  var result = [];
-  var ids = ['city-1','city-2','city-3','city-4','city-5'];
-  for (var i = 0; i < ids.length; i++) {
-    if (_validatedCities[ids[i]]) {
-      result.push(_validatedCities[ids[i]]);
-    }
-  }
-  return result;
-}
-
-function clearValidatedCity(inputId) {
-  delete _validatedCities[inputId];
-  var conf = document.getElementById(inputId + '-confirmation');
-  if (conf) conf.style.display = 'none';
-}
-
-export function restoreValidatedCity(inputId, cityObj) {
-  _validatedCities[inputId] = cityObj;
-  var input = document.getElementById(inputId);
-  if (input) input.value = cityObj.display || (cityObj.city + ', ' + cityObj.country);
-  var conf = document.getElementById(inputId + '-confirmation');
-  if (conf) {
-    var span = document.getElementById(inputId + '-resolved-name');
-    if (span) span.textContent = cityObj.display || (cityObj.city + ', ' + cityObj.country);
-    conf.style.display = 'block';
-  }
-}
-
-function initCityAutocomplete(inputId) {
-  var input = document.getElementById(inputId);
-  if (!input) return;
-
-  input.addEventListener('input', function () {
-    clearValidatedCity(inputId);
-  });
-
-  var autocomplete = new google.maps.places.Autocomplete(input, {
-    types: ['(cities)'],
-    fields: ['place_id', 'formatted_address', 'address_components', 'geometry'],
-  });
-
-  autocomplete.addListener('place_changed', function () {
-    var place = autocomplete.getPlace();
-
-    if (!place || !place.place_id) {
-      clearValidatedCity(inputId);
-      return;
-    }
-
-    var city = '';
-    var country = '';
-    var components = place.address_components || [];
-    for (var i = 0; i < components.length; i++) {
-      var types = components[i].types;
-      if (types.indexOf('locality') !== -1) {
-        city = components[i].long_name;
-      } else if (types.indexOf('administrative_area_level_1') !== -1 && !city) {
-        city = components[i].long_name;
-      }
-      if (types.indexOf('country') !== -1) {
-        country = components[i].long_name;
-      }
-    }
-
-    if (!city) city = place.name || '';
-    var display = place.formatted_address || (city + ', ' + country);
-    var lat = place.geometry ? place.geometry.location.lat() : 0;
-    var lon = place.geometry ? place.geometry.location.lng() : 0;
-
-    _validatedCities[inputId] = {
-      place_id: place.place_id,
-      city: city,
-      country: country,
-      display: display,
-      lat: lat,
-      lon: lon,
-    };
-
-    var conf = document.getElementById(inputId + '-confirmation');
-    if (conf) {
-      var span = document.getElementById(inputId + '-resolved-name');
-      if (span) span.textContent = display;
-      conf.style.display = 'block';
-    }
-  });
-}
-
-/* ── Birth city autocomplete ────────────────────────────────────────────── */
-
-function initBirthCityAutocomplete(inputId) {
-  var input = document.getElementById(inputId);
-  if (!input) return;
-
-  input.addEventListener('input', function () {
+/**
+ * gmp-select handler. The event carries a placePrediction; toPlace() turns it
+ * into a Place, and fetchFields() populates the four fields the API needs.
+ */
+async function onSelect({ placePrediction }) {
+  if (!placePrediction) {
     clearValidatedLocation();
-  });
+    return;
+  }
 
-  var autocomplete = new google.maps.places.Autocomplete(input, {
-    types: ['(cities)'],
-    fields: ['place_id', 'formatted_address', 'address_components', 'geometry'],
-  });
+  let place;
+  try {
+    place = placePrediction.toPlace();
+    await place.fetchFields({
+      fields: ['id', 'displayName', 'formattedAddress', 'location'],
+    });
+  } catch {
+    clearValidatedLocation();
+    return;
+  }
 
-  autocomplete.addListener('place_changed', function () {
-    var place = autocomplete.getPlace();
+  // R69: a place that comes back with no id or no coordinates is not a usable
+  // selection. The old code let that case fall through to lat 0 / lon 0 — a
+  // point in the Gulf of Guinea, stored and charted as the child's birthplace.
+  // An invalid selection must read as no selection, so readChildForm's
+  // "Please select a birth place from the list." is what the client sees.
+  if (!place || !place.id || !place.location) {
+    clearValidatedLocation();
+    return;
+  }
 
-    if (!place || !place.place_id) {
-      clearValidatedLocation();
-      return;
-    }
+  _validatedLocation = {
+    place_id: place.id,
+    name: place.formattedAddress || place.displayName,
+    lat: place.location.lat(),
+    lon: place.location.lng(),
+  };
+  showConfirmation(_validatedLocation);
+}
 
-    var city = '';
-    var country = '';
-    var components = place.address_components || [];
-    for (var i = 0; i < components.length; i++) {
-      var types = components[i].types;
-      if (types.indexOf('locality') !== -1) {
-        city = components[i].long_name;
-      } else if (types.indexOf('administrative_area_level_1') !== -1 && !city) {
-        city = components[i].long_name;
-      }
-      if (types.indexOf('country') !== -1) {
-        country = components[i].long_name;
-      }
-    }
+/**
+ * Google Maps callback — called by &callback=initPlacesAutocomplete on the
+ * script tag child-form.js injects. Mounts the element into #location-fields.
+ */
+export async function initPlacesAutocomplete() {
+  const host = document.getElementById('location-fields');
+  if (!host || _element) return _element;
 
-    if (!city) city = place.name || '';
-    var display = place.formatted_address || (city + ', ' + country);
-    var lat = place.geometry ? place.geometry.location.lat() : 0;
-    var lon = place.geometry ? place.geometry.location.lng() : 0;
+  const existing = document.getElementById('birth-city');
 
-    _validatedLocation = {
-      place_id: place.place_id,
-      city: city,
-      country: country,
-      display: display,
-      lat: lat,
-      lon: lon,
-    };
+  let PlaceAutocompleteElement;
+  try {
+    ({ PlaceAutocompleteElement } = await google.maps.importLibrary('places'));
+  } catch {
+    const status = document.getElementById('maps-status');
+    if (status) status.textContent = 'Location search could not be loaded.';
+    return null;
+  }
 
-    // Set hidden fields
-    var placeIdField = document.getElementById('birth-place-id');
-    if (placeIdField) placeIdField.value = place.place_id;
+  // includedPrimaryTypes is a documented constructor option; 'locality' is a
+  // Place type from table A. A birth place is a town or a city, never a shop.
+  const element = new PlaceAutocompleteElement({ includedPrimaryTypes: ['locality'] });
+  element.id = 'birth-city';
+  // Carry the plain input's required state onto its replacement, so the
+  // hidden/required pairing set up by child-form.js survives the swap (C1).
+  element.required = Boolean(existing && existing.required);
 
-    // Show confirmation
-    var conf = document.getElementById('location-confirmation');
-    if (conf) {
-      var span = document.getElementById('location-resolved-name');
-      if (span) span.textContent = display;
-      conf.style.display = 'block';
-    }
-  });
+  if (existing) existing.replaceWith(element);
+  else host.append(element);
+
+  element.addEventListener('gmp-select', onSelect);
+  // Editing the text after a selection invalidates it: the stored coordinates
+  // belong to the place that was picked, not to whatever is in the box now.
+  element.addEventListener('input', () => { clearValidatedLocation(); });
+
+  _element = element;
+  clearValidatedLocation();
+  return element;
 }
