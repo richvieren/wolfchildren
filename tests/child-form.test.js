@@ -51,6 +51,7 @@ test('readChildForm omits place fields when mapsKey is empty', async () => {
   assert.equal(fields.lon, null);
   assert.ok(!('tz' in fields), 'tz is derived by the API, never sent');
   assert.equal(fields.pronouns, 'they', 'pronouns default to they when the select is absent');
+  assert.equal(fields.observations, null, 'no observation fields → null, never an empty object');
   assert.equal(fields.place_name, 'Some City');
 });
 

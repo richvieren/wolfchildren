@@ -75,6 +75,78 @@ export function mountChildForm(container, { mapsKey }) {
   tobUnknownInput.name = 'tob_unknown';
   tobUnknownLabel.append(tobUnknownInput, ' Birth time unknown');
 
+  // The parent's own observations (spec addendum 2026-09-09 §3). All optional.
+  // They exist so the portrait can point at things the parent has already seen.
+  const obs = document.createElement('fieldset');
+  obs.id = 'observations';
+  const obsLegend = document.createElement('legend');
+  obsLegend.textContent = 'What you have noticed (optional)';
+  const obsWhy = document.createElement('p');
+  obsWhy.className = 'small';
+  obsWhy.textContent = 'So the portrait can point at things you have already seen. Leave any of these blank.';
+  obs.append(obsLegend, obsWhy);
+  const field = (id, labelText, el) => {
+    const l = document.createElement('label');
+    l.htmlFor = id;
+    l.textContent = labelText;
+    el.id = id;
+    el.name = id;
+    obs.append(l, el);
+    return el;
+  };
+  const choice = (id, labelText, options) => {
+    const sel = document.createElement('select');
+    const blank = document.createElement('option');
+    blank.value = '';
+    blank.textContent = '—';
+    sel.append(blank);
+    for (const [value, text] of options) {
+      const o = document.createElement('option');
+      o.value = value;
+      o.textContent = text;
+      sel.append(o);
+    }
+    return field(id, labelText, sel);
+  };
+  const checks = (id, labelText, options) => {
+    const group = document.createElement('div');
+    group.className = 'checks';
+    const l = document.createElement('p');
+    l.textContent = labelText;
+    obs.append(l);
+    for (const [value, text] of options) {
+      const lab = document.createElement('label');
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.name = id;
+      cb.value = value;
+      lab.append(cb, ' ' + text);
+      group.append(lab);
+    }
+    obs.append(group);
+    group.id = id;
+    return group;
+  };
+  const text = (id, labelText, max) => {
+    const ta = document.createElement('input');
+    ta.type = 'text';
+    ta.maxLength = max;
+    return field(id, labelText, ta);
+  };
+  choice('obs-with-people', 'With people they don’t know well, they are usually…', [
+    ['straight_in', 'straight in'], ['watchful_first', 'watchful first, then in'],
+    ['stays_close', 'staying close to you'], ['depends', 'it depends on the person']]);
+  text('obs-lights-up', 'What do they do when nobody has asked them to do anything?', 200);
+  text('obs-sets-off', 'What tends to set them off, and what does the way back usually look like?', 300);
+  checks('obs-sensitive-to', 'They are sensitive to…', [
+    ['noise', 'noise'], ['textures', 'textures and clothes'], ['moods', 'other people’s moods'],
+    ['being_watched', 'being watched'], ['unfairness', 'unfairness'], ['changes_of_plan', 'changes of plan'],
+    ['hunger_tiredness', 'hunger and tiredness']]);
+  checks('obs-learns-by', 'Something new goes in best when they can…', [
+    ['watch_first', 'watch first'], ['try_themselves', 'try it themselves'], ['ask_questions', 'ask questions'],
+    ['told_the_steps', 'be told the steps'], ['alone', 'do it alone'], ['with_you', 'do it with you']]);
+  text('obs-clash', 'Where do you and they clash most often?', 200);
+
   const locationFields = document.createElement('div');
   locationFields.id = 'location-fields';
   const cityLabel = document.createElement('label');
@@ -109,6 +181,7 @@ export function mountChildForm(container, { mapsKey }) {
     tobLabel, tobHidden, tobSelects,
     tobUnknownLabel,
     locationFields,
+    obs,
     mapsStatus);
 
   // setChildFormEnabled reads this to decide whether #birth-city may ever be
@@ -196,6 +269,7 @@ export async function readChildForm(container, { mapsKey }) {
     name: container.querySelector('#name').value,
     dob: container.querySelector('#dob').value,
     pronouns: (container.querySelector('#pronouns') && container.querySelector('#pronouns').value) || 'they',
+    observations: readObservations(container),
     tob_unknown: tobUnknown,
     tob: tobUnknown ? null : (container.querySelector('#tob').value || null),
     place_id: '',
@@ -218,4 +292,27 @@ export async function readChildForm(container, { mapsKey }) {
   }
 
   return fields;
+}
+
+/**
+ * The six optional observation fields → the API's ObservationsIn shape, or
+ * null when the parent left them all blank. Free text is trimmed and capped
+ * client-side as well as server-side.
+ */
+export function readObservations(container) {
+  const q = (sel) => container.querySelector(sel);
+  const val = (sel) => { const el = q(sel); return el && typeof el.value === 'string' ? el.value.trim() : ''; };
+  const checked = (name) => (typeof container.querySelectorAll === 'function'
+    ? Array.from(container.querySelectorAll(`input[name="${name}"]`) || []) : [])
+    .filter((cb) => cb.checked).map((cb) => cb.value);
+  const o = {
+    with_people: val('#obs-with-people') || null,
+    lights_up: val('#obs-lights-up').slice(0, 200) || null,
+    sets_off: val('#obs-sets-off').slice(0, 300) || null,
+    sensitive_to: checked('obs-sensitive-to'),
+    learns_by: checked('obs-learns-by'),
+    clash: val('#obs-clash').slice(0, 200) || null,
+  };
+  const empty = !o.with_people && !o.lights_up && !o.sets_off && !o.sensitive_to.length && !o.learns_by.length && !o.clash;
+  return empty ? null : o;
 }
