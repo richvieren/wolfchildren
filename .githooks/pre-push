@@ -1,3 +1,5 @@
 #!/bin/bash
 set -euo pipefail
-bash "$(git rev-parse --show-toplevel)/stamp-assets.sh" --check
+ROOT="$(git rev-parse --show-toplevel)"
+bash "$ROOT/stamp-assets.sh" --check
+node "$ROOT/build.mjs" --check
