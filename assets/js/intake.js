@@ -7,14 +7,14 @@
 // R53: there is no Google Maps key for Wolf Children yet, and Cato's must
 // not be reused. The key lives in <meta name="wc-maps-key">, empty for now.
 // R57 (fix round 1): the new-child fields are the shared child-form.js
-// component, also used by children.js — see that file for the Places/tz
+// component, also used by children.js — see that file for the Places
 // wiring.
 
 import { getSession } from './auth.js?v=b9374f9e';
 import { PRODUCTS, getProduct } from './registry.js?v=b323975a';
 import { getChildren, addChild, submitIntake, firstErrorMessage } from './api.js?v=efad900d';
 import { clearValidatedLocation } from './autocomplete.js?v=f397273b';
-import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=1ce031d7';
+import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=66dea573';
 
 async function init() {
   const params = new URLSearchParams(window.location.search);

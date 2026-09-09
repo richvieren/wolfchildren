@@ -2,7 +2,7 @@
 // (adding a child inline during intake) and portal/children.html (adding a
 // child from the children list). Built with createElement/textContent only
 // (no innerHTML). R57 (Task 14, fix round 1): before this, children.html's
-// static form never filled place_id/lat/lon/tz and always 422'd, and
+// static form never filled place_id/lat/lon and always 422'd, and
 // intake's new-child block only worked once a Maps key existed — there was
 // no live path to add a complete child. One shared mount + one shared read
 // fixes both at once.
@@ -15,23 +15,6 @@ function loadMapsScript(key) {
   script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&libraries=places&callback=initPlacesAutocomplete`;
   script.async = true;
   document.head.append(script);
-}
-
-/**
- * Timezone for a validated, autocomplete-selected coordinate pair, via
- * Google's Time Zone API on the SAME key already loaded for Places. This is
- * a lookup on the coordinates the client already confirmed by picking a
- * place from the list — never a second, independent geocode of a typed
- * city name (CLAUDE.md: use what you validated).
- */
-async function resolveTimezone(lat, lon, key) {
-  const url = `https://maps.googleapis.com/maps/api/timezone/json` +
-    `?location=${lat},${lon}&timestamp=${Math.floor(Date.now() / 1000)}` +
-    `&key=${encodeURIComponent(key)}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  if (data.status !== 'OK' || !data.timeZoneId) throw new Error('timezone lookup failed');
-  return data.timeZoneId;
 }
 
 /**
@@ -171,7 +154,7 @@ export function setChildFormEnabled(container, on) {
 /**
  * Read the mounted fields back as a ChildIn-shaped payload. tob is nulled
  * when "birth time unknown" is checked. When mapsKey is empty the place
- * fields were never shown, so place_id/lat/lon/tz stay at their defaults —
+ * fields were never shown, so place_id/lat/lon stay at their defaults —
  * the server's 422 is the guard, same as before this form existed.
  */
 export async function readChildForm(container, { mapsKey }) {
@@ -202,7 +185,6 @@ export async function readChildForm(container, { mapsKey }) {
     place_name: typedCity,
     lat: null,
     lon: null,
-    tz: '',
   };
 
   if (mapsKey) {
@@ -210,17 +192,12 @@ export async function readChildForm(container, { mapsKey }) {
     if (!loc) {
       throw new Error('Please select a birth place from the list.');
     }
-    let tz;
-    try {
-      tz = await resolveTimezone(loc.lat, loc.lon, mapsKey);
-    } catch {
-      throw new Error('Could not determine the timezone for that location. Please try selecting it again.');
-    }
     fields.place_id = loc.place_id;
     fields.place_name = loc.name;
     fields.lat = loc.lat;
     fields.lon = loc.lon;
-    fields.tz = tz;
+    // No tz: the API derives it from these coordinates (timezonefinder).
+    // Google's Time Zone API rejects browser keys — decided 2026-09-09.
   }
 
   return fields;

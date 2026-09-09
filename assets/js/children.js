@@ -1,11 +1,11 @@
 // children.js — portal/children.html: add a child, list existing children.
 // R57 (Task 14, fix round 1): the add-child fields are the shared
 // child-form.js component, also used by intake.js — see that file for the
-// Places/tz wiring.
+// Places wiring.
 
 import { getSession } from './auth.js?v=b9374f9e';
 import { getChildren, addChild, deleteChild, firstErrorMessage } from './api.js?v=efad900d';
-import { mountChildForm, readChildForm } from './child-form.js?v=1ce031d7';
+import { mountChildForm, readChildForm } from './child-form.js?v=66dea573';
 
 async function renderChildren(list, status) {
   list.textContent = '';

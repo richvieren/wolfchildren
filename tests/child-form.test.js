@@ -1,6 +1,6 @@
 // tests/child-form.test.js — readChildForm's payload shaping. mapsKey: ''
 // keeps this test DOM-free: readChildForm never calls getValidatedLocation()
-// or resolveTimezone() (network) unless mapsKey is truthy, so a plain object
+// unless mapsKey is truthy, so a plain object
 // exposing querySelector() is enough to stand in for the mounted fields.
 
 import { test } from 'node:test';
@@ -49,7 +49,7 @@ test('readChildForm omits place fields when mapsKey is empty', async () => {
   assert.equal(fields.place_id, '');
   assert.equal(fields.lat, null);
   assert.equal(fields.lon, null);
-  assert.equal(fields.tz, '');
+  assert.ok(!('tz' in fields), 'tz is derived by the API, never sent');
   assert.equal(fields.place_name, 'Some City');
 });
 
