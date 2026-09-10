@@ -16,12 +16,21 @@
 // independent fields here get their own small, self-contained mount (same
 // underlying Places API, same result shape) rather than reusing that
 // module's one set of hardcoded ids.
+//
+// Task 9: parent-child needs the parent's own birth details (once per
+// account) and three questions about the two of them. Both live in
+// parent-form.js; this file only decides when to mount them and what the
+// submit sends.
 
 import { getSession } from './auth.js?v=b9374f9e';
 import { PRODUCTS, getProduct } from './registry.js?v=05524ffe';
-import { getChildren, addChild, submitIntake, firstErrorMessage } from './api.js?v=efad900d';
+import { getChildren, addChild, submitIntake, getParent, saveParent, firstErrorMessage } from './api.js?v=a796088e';
 import { clearValidatedLocation, resolveSelectedPlace } from './autocomplete.js?v=d3fe94de';
 import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=f76bd524';
+import {
+  isParentChild, needsParentForm, mountParentForm, readParentForm,
+  mountRelationshipQuestions, readRelationship,
+} from './parent-form.js?v=05bc64d4';
 
 export const PLACE_LABELS = ['First place', 'Second place', 'Third place'];
 
@@ -46,6 +55,19 @@ export function readPlaceFields() {
     throw new Error('Please choose three different places.');
   }
   return placeSelections.map((p) => ({ ...p }));
+}
+
+/**
+ * The POST /v1/intake body beyond grant_id: the child, plus whatever this
+ * product takes. Each product-specific key goes with exactly one product and
+ * the API refuses it on any other (422), so the shape is decided here rather
+ * than at the fetch.
+ */
+export function intakeFields(product, childId, { places, relationship } = {}) {
+  const fields = { child_id: childId };
+  if (isAstrocartography(product)) fields.places = places;
+  if (isParentChild(product)) fields.relationship = relationship;
+  return fields;
 }
 
 function updateSubmitState(submitButton) {
@@ -210,6 +232,24 @@ async function init() {
     mountPlaceFields(form, submitButton, mapsKey);
   }
 
+  // The parent's own details are asked for once per account: mounted only
+  // when GET /v1/parent says there is no profile yet (getParent() returns
+  // null for that 404). The three questions are per grant, so they mount
+  // every time. A failed read of the profile is treated as "not given yet":
+  // the API refuses the intake anyway if it is wrong.
+  const isPair = isParentChild(product);
+  let parentFields = null;
+  if (isPair) {
+    let profile = null;
+    try {
+      profile = await getParent();
+    } catch { /* signed-out is handled by getChildren() below */ }
+    if (needsParentForm(product, profile)) {
+      parentFields = mountParentForm(form, submitButton, mapsKey);
+    }
+    mountRelationshipQuestions(form, submitButton);
+  }
+
   // I2: unguarded, a thrown "signed out" here (an expired token, which
   // api.js has already cleared) escaped init() and left a page with a form
   // that could never be filled in and no way back.
@@ -255,6 +295,18 @@ async function init() {
       }
     }
 
+    // The profile goes first: without it the API refuses the intake with
+    // 409 "add your own birth details first", and a child created just
+    // before that refusal would be a row the parent never asked for.
+    if (parentFields) {
+      try {
+        await saveParent(await readParentForm(parentFields, { mapsKey }));
+      } catch (err) {
+        status.textContent = firstErrorMessage(err);
+        return;
+      }
+    }
+
     let childId = existingSelect.value ? Number(existingSelect.value) : null;
 
     if (!childId) {
@@ -269,8 +321,8 @@ async function init() {
     }
 
     try {
-      const fields = isAstro ? { child_id: childId, places } : { child_id: childId };
-      await submitIntake(Number(grantId), fields);
+      const relationship = isPair ? readRelationship(form) : undefined;
+      await submitIntake(Number(grantId), intakeFields(product, childId, { places, relationship }));
       window.location.href = '/portal/';
     } catch (err) {
       status.textContent = firstErrorMessage(err);

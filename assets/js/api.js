@@ -33,6 +33,10 @@ async function request(path, options = {}) {
     try { detail = (await res.json()).detail; } catch { /* no JSON body */ }
     const err = new Error(`${path} failed: ${res.status}`);
     err.detail = detail;
+    // Task 9: getParent() has to tell a 404 ("no profile yet", a normal
+    // state) from every other failure, and the message string is not
+    // something to branch on.
+    err.status = res.status;
     throw err;
   }
   return res.json();
@@ -46,6 +50,20 @@ export const addChild = (fields) =>
 
 export const deleteChild = (id) =>
   request(`/v1/children/${id}`, { method: 'DELETE' });
+
+/**
+ * The account holder's own birth details, or null when they have not given
+ * them yet. A 404 here is not an error: it is how the API says "ask for
+ * them" (Task 9, parent-child).
+ */
+export const getParent = () =>
+  request('/v1/parent').catch((err) => {
+    if (err && err.status === 404) return null;
+    throw err;
+  });
+
+export const saveParent = (fields) =>
+  request('/v1/parent', { method: 'PUT', body: JSON.stringify(fields) });
 
 export const submitIntake = (grantId, fields) =>
   request('/v1/intake', {

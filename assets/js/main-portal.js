@@ -4,7 +4,7 @@
 // dashboard.js, drawn with cards.js.
 
 import { getSession, sendMagicLink, signOut } from './auth.js?v=b9374f9e';
-import { getGrants, getChildren, getDownloadUrl, firstErrorMessage } from './api.js?v=efad900d';
+import { getGrants, getChildren, getDownloadUrl, firstErrorMessage } from './api.js?v=a796088e';
 import { grantableProducts } from './registry.js?v=05524ffe';
 import { groupGrants } from './dashboard.js?v=1d95e222';
 import { renderCard } from './cards.js?v=560a6b82';

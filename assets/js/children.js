@@ -4,7 +4,7 @@
 // Places wiring.
 
 import { getSession } from './auth.js?v=b9374f9e';
-import { getChildren, addChild, deleteChild, firstErrorMessage } from './api.js?v=efad900d';
+import { getChildren, addChild, deleteChild, firstErrorMessage } from './api.js?v=a796088e';
 import { mountChildForm, readChildForm } from './child-form.js?v=f76bd524';
 
 async function renderChildren(list, status) {
