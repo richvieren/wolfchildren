@@ -94,6 +94,24 @@ class StubElement {
     return node;
   }
 
+  /**
+   * insertBefore(node, referenceNode) — referenceNode null appends, like the
+   * real DOM. Added for Task 7 fix round 1 (intake.js's places fieldset must
+   * land at a specific position, not just at the end).
+   */
+  insertBefore(node, referenceNode) {
+    if (node.parentNode) node.parentNode.removeChild(node);
+    node.parentNode = this;
+    if (referenceNode == null) {
+      this.childNodes.push(node);
+    } else {
+      const i = this.childNodes.indexOf(referenceNode);
+      if (i === -1) throw new Error('referenceNode is not a child of this node');
+      this.childNodes.splice(i, 0, node);
+    }
+    return node;
+  }
+
   remove() { if (this.parentNode) this.parentNode.removeChild(this); }
 
   replaceWith(node) {

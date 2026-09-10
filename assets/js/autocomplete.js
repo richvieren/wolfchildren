@@ -52,14 +52,20 @@ function showConfirmation(location) {
 }
 
 /**
- * gmp-select handler. The event carries a placePrediction; toPlace() turns it
- * into a Place, and fetchFields() populates the four fields the API needs.
+ * Turns a gmp-select event's placePrediction into `{place_id, name, lat,
+ * lon}`, or null when it is not a usable selection. Pure — touches no
+ * module state (not `_validatedLocation`, not the DOM) — so both this
+ * module's own singleton field (birth place) and intake.js's three
+ * independent astrocartography fields (Task 7 fix round 1) share the one
+ * guard instead of carrying two copies of it.
+ *
+ * R69: a place that comes back with no id or no coordinates is not a usable
+ * selection. The old code let that case fall through to lat 0 / lon 0 — a
+ * point in the Gulf of Guinea, stored and charted as the child's birthplace.
+ * An invalid selection must read as no selection.
  */
-async function onSelect({ placePrediction }) {
-  if (!placePrediction) {
-    clearValidatedLocation();
-    return;
-  }
+export async function resolveSelectedPlace(placePrediction) {
+  if (!placePrediction) return null;
 
   let place;
   try {
@@ -68,26 +74,29 @@ async function onSelect({ placePrediction }) {
       fields: ['id', 'displayName', 'formattedAddress', 'location'],
     });
   } catch {
-    clearValidatedLocation();
-    return;
+    return null;
   }
 
-  // R69: a place that comes back with no id or no coordinates is not a usable
-  // selection. The old code let that case fall through to lat 0 / lon 0 — a
-  // point in the Gulf of Guinea, stored and charted as the child's birthplace.
-  // An invalid selection must read as no selection, so readChildForm's
-  // "Please select a birth place from the list." is what the client sees.
-  if (!place || !place.id || !place.location) {
-    clearValidatedLocation();
-    return;
-  }
+  if (!place || !place.id || !place.location) return null;
 
-  _validatedLocation = {
+  return {
     place_id: place.id,
     name: place.formattedAddress || place.displayName,
     lat: place.location.lat(),
     lon: place.location.lng(),
   };
+}
+
+/**
+ * gmp-select handler for this module's own singleton (birth-city) field.
+ */
+async function onSelect({ placePrediction }) {
+  const resolved = await resolveSelectedPlace(placePrediction);
+  if (!resolved) {
+    clearValidatedLocation();
+    return;
+  }
+  _validatedLocation = resolved;
   showConfirmation(_validatedLocation);
 }
 

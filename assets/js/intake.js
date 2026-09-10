@@ -20,8 +20,8 @@
 import { getSession } from './auth.js?v=b9374f9e';
 import { PRODUCTS, getProduct } from './registry.js?v=05524ffe';
 import { getChildren, addChild, submitIntake, firstErrorMessage } from './api.js?v=efad900d';
-import { clearValidatedLocation } from './autocomplete.js?v=f397273b';
-import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=b22ef946';
+import { clearValidatedLocation, resolveSelectedPlace } from './autocomplete.js?v=d3fe94de';
+import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=f76bd524';
 
 export const PLACE_LABELS = ['First place', 'Second place', 'Third place'];
 
@@ -53,11 +53,12 @@ function updateSubmitState(submitButton) {
 }
 
 /**
- * Loads the Places library and turns each plain text input into a
- * PlaceAutocompleteElement, same fields (id, formattedAddress/displayName,
- * location) and the same "no id or no coordinates is no selection" guard as
- * autocomplete.js's onSelect (R69) — kept independent here because that
- * module tracks exactly one field.
+ * Turns each plain text input into a PlaceAutocompleteElement, using the
+ * same `google.maps.importLibrary('places')` and the same resolved-place
+ * shape as autocomplete.js's own singleton field. Only ever called from
+ * inside `window.initPlacesAutocomplete` (see mountPlaceFields below) — by
+ * the time this runs, the Maps script has already loaded and called back,
+ * so `google` is safe to touch.
  */
 async function attachPlacesLibrary(inputs, status, submitButton) {
   let PlaceAutocompleteElement;
@@ -74,33 +75,14 @@ async function attachPlacesLibrary(inputs, status, submitButton) {
     input.replaceWith(element);
 
     element.addEventListener('gmp-select', async ({ placePrediction }) => {
-      if (!placePrediction) {
-        placeSelections[i] = null;
-        updateSubmitState(submitButton);
-        return;
-      }
-      let place;
-      try {
-        place = placePrediction.toPlace();
-        await place.fetchFields({ fields: ['id', 'displayName', 'formattedAddress', 'location'] });
-      } catch {
-        placeSelections[i] = null;
-        updateSubmitState(submitButton);
-        return;
-      }
-      if (!place || !place.id || !place.location) {
-        placeSelections[i] = null;
-        updateSubmitState(submitButton);
-        return;
-      }
-      placeSelections[i] = {
-        place_id: place.id,
-        place_name: place.formattedAddress || place.displayName,
-        lat: place.location.lat(),
-        lon: place.location.lng(),
-      };
+      const resolved = await resolveSelectedPlace(placePrediction);
+      placeSelections[i] = resolved
+        ? { place_id: resolved.place_id, place_name: resolved.name, lat: resolved.lat, lon: resolved.lon }
+        : null;
       updateSubmitState(submitButton);
     });
+    // Editing the text after a selection invalidates it — same rule as
+    // autocomplete.js's own field.
     element.addEventListener('input', () => {
       placeSelections[i] = null;
       updateSubmitState(submitButton);
@@ -110,10 +92,22 @@ async function attachPlacesLibrary(inputs, status, submitButton) {
 
 /**
  * Builds the three labelled place fields into a new fieldset, inserted
- * before `anchor`, and (with a Maps key) wires them to Places. Returns the
- * fieldset so a caller can remove it if the product changes.
+ * right before `submitButton` (after the existing-child select and the
+ * new-child fields, so the submit button and status line stay last). With a
+ * Maps key, extends `window.initPlacesAutocomplete` — the callback
+ * child-form.js's loaded script tag will call once Places is actually ready
+ * (`&callback=initPlacesAutocomplete`) — so this fieldset's own
+ * `google.maps.importLibrary` call runs in that same callback, never before
+ * it. mountChildForm() must run first, so this wraps whatever callback it
+ * just installed (autocomplete.js's own initPlacesAutocomplete, mounting
+ * the birth-city field) rather than replacing it.
+ *
+ * Fix round 1: `google` used to be touched synchronously, one line after
+ * child-form.js kicked off the (async, network-bound) Maps script — always
+ * before the script could possibly have loaded, so the try/catch below
+ * always caught a ReferenceError and the fields never attached.
  */
-export function mountPlaceFields(form, anchor, mapsKey, submitButton) {
+export function mountPlaceFields(form, submitButton, mapsKey) {
   placeSelections = [null, null, null];
   updateSubmitState(submitButton);
 
@@ -140,18 +134,19 @@ export function mountPlaceFields(form, anchor, mapsKey, submitButton) {
     return input;
   });
   fieldset.append(status);
-  // Mounted directly above `anchor` (the child-details fieldset): detach it,
-  // append the new fieldset, then restore it straight after. Plain
-  // append()/remove() rather than insertBefore() — the same result in a real
-  // browser, and it needs nothing from the DOM but what append() already does.
-  anchor.remove();
-  form.append(fieldset, anchor);
+  form.insertBefore(fieldset, submitButton);
 
   if (!mapsKey) {
     status.textContent = 'Location search is not available yet.';
     return fieldset;
   }
-  attachPlacesLibrary(inputs, status, submitButton);
+
+  const previousCallback = window.initPlacesAutocomplete;
+  window.initPlacesAutocomplete = async (...args) => {
+    const result = previousCallback ? await previousCallback(...args) : undefined;
+    await attachPlacesLibrary(inputs, status, submitButton);
+    return result;
+  };
   return fieldset;
 }
 
@@ -212,7 +207,7 @@ async function init() {
 
   const isAstro = isAstrocartography(product);
   if (isAstro) {
-    mountPlaceFields(form, newChildFields, mapsKey, submitButton);
+    mountPlaceFields(form, submitButton, mapsKey);
   }
 
   // I2: unguarded, a thrown "signed out" here (an expired token, which

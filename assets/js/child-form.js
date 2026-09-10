@@ -8,7 +8,7 @@
 // fixes both at once.
 
 import { initTobField, tobError } from './timefield.js?v=6e986688';
-import { initPlacesAutocomplete, getValidatedLocation } from './autocomplete.js?v=f397273b';
+import { initPlacesAutocomplete, getValidatedLocation } from './autocomplete.js?v=d3fe94de';
 
 function loadMapsScript(key) {
   const script = document.createElement('script');
