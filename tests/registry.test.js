@@ -3,9 +3,10 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PRODUCTS, getProduct, productsByLine, grantableProducts } from '../assets/js/registry.js';
 
-test('all nine products are present', () => {
+test('all ten products are present', () => {
   assert.deepEqual(Object.keys(PRODUCTS).sort(), [
     'astrocartography', 'bundle-readings', 'lunar-portrait', 'numerology',
+    'parent-child',
     'photo-course', 'presets', 'retreat', 'solar-return', 'transits',
   ]);
 });
@@ -44,7 +45,7 @@ test('the bundle includes exactly the five readings and is never grantable', () 
   ]);
   for (const slug of b.includes) assert.equal(getProduct(slug).fulfilment, 'generated', slug);
   assert.ok(!grantableProducts().some((p) => p.slug === 'bundle-readings'));
-  assert.equal(grantableProducts().length, 8);
+  assert.equal(grantableProducts().length, 9);   // + parent-child (generated, inactive until priced)
 });
 
 test('generated products require intake and have a child subject', () => {
@@ -83,9 +84,9 @@ test('getProduct returns undefined for an unknown slug', () => {
   assert.equal(getProduct('nope'), undefined);
 });
 
-test('productsByLine groups all nine', () => {
+test('productsByLine groups all ten', () => {
   const g = productsByLine();
-  assert.equal(g.readings.length, 6);   // five readings + the bundle
+  assert.equal(g.readings.length, 7);   // five readings + the bundle + parent-child
   assert.equal(g.photography.length, 2);
   assert.equal(g.retreats.length, 1);
 });
