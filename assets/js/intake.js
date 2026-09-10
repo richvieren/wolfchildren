@@ -172,6 +172,42 @@ export function mountPlaceFields(form, submitButton, mapsKey) {
   return fieldset;
 }
 
+/**
+ * Mount every field this product needs, in page order, with NO await between
+ * them. Returns the parent fieldset (or null) for the submit path.
+ *
+ * Why this is one synchronous function and not three calls in init(). Fix
+ * round 1: mountChildForm() injects the Maps script tag carrying
+ * `&callback=initPlacesAutocomplete`, and every field on this page attaches
+ * by WRAPPING that one global — the astrocartography places fieldset and the
+ * parent's birthplace both chain whatever callback is already installed. An
+ * await anywhere between the injection and the last wrapper is a race the
+ * script can win: it resolves, Google calls the callback, and a wrapper
+ * installed afterwards never runs at all. #parent-birth-city then stays a
+ * plain text input and the parent can never choose a birthplace. Declaring
+ * this function non-async is the guarantee: nothing inside it can yield, so
+ * every wrapper is in place before control returns to init().
+ *
+ * `profile` is what GET /v1/parent returned (null for its 404), read by the
+ * caller before this runs.
+ */
+export function mountProductFields({ form, newChildFields, submitButton, mapsKey, product, profile }) {
+  mountChildForm(newChildFields, { mapsKey });
+  if (isAstrocartography(product)) {
+    mountPlaceFields(form, submitButton, mapsKey);
+  }
+  let parentFields = null;
+  if (isParentChild(product)) {
+    // The parent's details are asked for once per ACCOUNT, so only when there
+    // is no profile yet. The three questions are per grant: always.
+    if (needsParentForm(product, profile)) {
+      parentFields = mountParentForm(form, submitButton, mapsKey);
+    }
+    mountRelationshipQuestions(form, submitButton);
+  }
+  return { parentFields };
+}
+
 async function init() {
   const params = new URLSearchParams(window.location.search);
   const productSlug = params.get('product');
@@ -225,30 +261,22 @@ async function init() {
   const status = document.getElementById('status');
   const submitButton = form.querySelector('button[type="submit"]');
 
-  mountChildForm(newChildFields, { mapsKey });
-
-  const isAstro = isAstrocartography(product);
-  if (isAstro) {
-    mountPlaceFields(form, submitButton, mapsKey);
-  }
-
-  // The parent's own details are asked for once per account: mounted only
-  // when GET /v1/parent says there is no profile yet (getParent() returns
-  // null for that 404). The three questions are per grant, so they mount
-  // every time. A failed read of the profile is treated as "not given yet":
-  // the API refuses the intake anyway if it is wrong.
+  // The parent's own profile is read BEFORE anything mounts. Fix round 1:
+  // this await used to sit between mountChildForm() and mountParentForm(),
+  // which is a race the Maps script can win — see mountProductFields below.
+  // A failed read is treated as "not given yet": the API refuses the intake
+  // anyway if that is wrong.
   const isPair = isParentChild(product);
-  let parentFields = null;
+  let profile = null;
   if (isPair) {
-    let profile = null;
     try {
       profile = await getParent();
     } catch { /* signed-out is handled by getChildren() below */ }
-    if (needsParentForm(product, profile)) {
-      parentFields = mountParentForm(form, submitButton, mapsKey);
-    }
-    mountRelationshipQuestions(form, submitButton);
   }
+
+  const isAstro = isAstrocartography(product);
+  const { parentFields } = mountProductFields(
+    { form, newChildFields, submitButton, mapsKey, product, profile });
 
   // I2: unguarded, a thrown "signed out" here (an expired token, which
   // api.js has already cleared) escaped init() and left a page with a form

@@ -29,6 +29,7 @@ globalThis.localStorage = { getItem: () => null, setItem: () => {}, removeItem: 
 
 const {
   isAstrocartography, mountPlaceFields, readPlaceFields, placesAreReady, PLACE_LABELS,
+  mountProductFields,
 } = await import('../assets/js/intake.js');
 
 test('isAstrocartography is true only for the astrocartography product', () => {
@@ -261,4 +262,94 @@ test('mounting a fresh form resets the three selections', async () => {
   mountPlaceFields(second.form, second.submitButton, '');
   assert.equal(placesAreReady(), false);
   assert.throws(() => readPlaceFields(), /three different places/);
+});
+
+// ─── mountProductFields (Task 9, fix round 1) ───────────────────────────────
+//
+// The bug: intake.js used to call mountChildForm() (which injects the Maps
+// script tag carrying `&callback=initPlacesAutocomplete`), then `await
+// getParent()`, and only after that await did mountParentForm() wrap
+// `window.initPlacesAutocomplete`. If the script resolved during that await,
+// Google would call the callback before the parent's wrapper existed, and
+// #parent-birth-city would stay a plain text input forever. The fix hoists
+// the `getParent()` await above every mount and makes mountProductFields()
+// one synchronous function that mounts the child form, the astrocartography
+// places (if any) and the parent form (if any), with nothing that can yield
+// in between.
+
+test('mountProductFields is synchronous: nothing inside it can yield to the Maps callback', () => {
+  assert.notEqual(mountProductFields.constructor.name, 'AsyncFunction',
+    'an async function could suspend mid-mount and lose the race described above');
+});
+
+test('mountProductFields installs the parent form wrapper before returning, so a callback that fires right after mount still attaches every field', async () => {
+  const { doc, form, newChildFields, submitButton } = freshForm();
+  globalThis.google = fakeGoogle(doc);
+
+  const { parentFields } = mountProductFields({
+    form, newChildFields, submitButton, mapsKey: 'test-key',
+    product: getProduct('parent-child'), profile: null,
+  });
+
+  assert.ok(parentFields, 'the parent form mounts: no profile yet');
+  // Nothing has attached yet -- the Maps callback has not fired -- but both
+  // the child form's own installation and the parent form's wrapper around
+  // it are already in place the instant mountProductFields returns.
+  assert.equal(typeof window.initPlacesAutocomplete, 'function');
+  assert.equal(doc.getElementById('birth-city').tagName, 'INPUT', 'not attached yet');
+  assert.equal(doc.getElementById('parent-birth-city').tagName, 'INPUT', 'not attached yet');
+
+  await window.initPlacesAutocomplete();
+
+  assert.equal(doc.getElementById('birth-city').tagName, 'GMP-PLACE-AUTOCOMPLETE',
+    "the child form's own field still attaches");
+  assert.equal(doc.getElementById('parent-birth-city').tagName, 'GMP-PLACE-AUTOCOMPLETE',
+    "the parent's field attaches too -- its wrapper was not lost to the race");
+});
+
+test('mountProductFields still chains the astrocartography places wrapper', async () => {
+  // autocomplete.js's real initPlacesAutocomplete (the child form's own
+  // callback, exercised by the previous test) is a module-level singleton
+  // that mounts #birth-city once per process, so it is not re-asserted here
+  // -- the point of this test is that the places fieldset's own wrapper,
+  // chained after it, still runs.
+  const { doc, form, newChildFields, submitButton } = freshForm();
+  globalThis.google = fakeGoogle(doc);
+
+  mountProductFields({
+    form, newChildFields, submitButton, mapsKey: 'test-key',
+    product: getProduct('astrocartography'), profile: null,
+  });
+
+  await window.initPlacesAutocomplete();
+
+  for (const id of ['place-1', 'place-2', 'place-3']) {
+    assert.equal(doc.getElementById(id).tagName, 'GMP-PLACE-AUTOCOMPLETE', `#${id} attaches too`);
+  }
+});
+
+test('mountProductFields skips the parent form once a profile exists, but still asks the three questions', () => {
+  const { doc, form, newChildFields, submitButton } = freshForm();
+  const profile = { dob: '1980-01-01', tob: null, tob_unknown: true, place_name: 'A Town' };
+
+  const { parentFields } = mountProductFields({
+    form, newChildFields, submitButton, mapsKey: '',
+    product: getProduct('parent-child'), profile,
+  });
+
+  assert.equal(parentFields, null, 'a profile already exists, so no parent-details fieldset mounts');
+  assert.ok(doc.getElementById('relationship-fields'), 'the three questions mount every time regardless');
+});
+
+test('mountProductFields mounts nothing parent-related for a non-parent-child product', () => {
+  const { doc, form, newChildFields, submitButton } = freshForm();
+
+  const { parentFields } = mountProductFields({
+    form, newChildFields, submitButton, mapsKey: '',
+    product: getProduct('transits'), profile: null,
+  });
+
+  assert.equal(parentFields, null);
+  assert.equal(doc.getElementById('parent-fields'), null);
+  assert.equal(doc.getElementById('relationship-fields'), null);
 });
