@@ -50,7 +50,7 @@ test('readChildForm omits place fields when mapsKey is empty', async () => {
   assert.equal(fields.lat, null);
   assert.equal(fields.lon, null);
   assert.ok(!('tz' in fields), 'tz is derived by the API, never sent');
-  assert.equal(fields.pronouns, 'they', 'pronouns default to they when the select is absent');
+  assert.equal(fields.pronouns, null, 'no pronoun default: the parent chooses she or he');
   assert.equal(fields.observations, null, 'no observation fields → null, never an empty object');
   assert.equal(fields.place_name, 'Some City');
 });
@@ -111,6 +111,7 @@ test('C1: with no Maps key, nothing outside a visible block is required', async 
   // And the visible fields still do their job.
   form.querySelector('#name').value = 'Ada';
   form.querySelector('#dob').value = '2020-01-01';
+  form.querySelector('#pronouns').value = 'she';
   assert.equal(form.checkValidity(), true);
 });
 

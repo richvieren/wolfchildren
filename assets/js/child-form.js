@@ -42,7 +42,9 @@ export function mountChildForm(container, { mapsKey }) {
   const pronounsSelect = document.createElement('select');
   pronounsSelect.id = 'pronouns';
   pronounsSelect.name = 'pronouns';
-  for (const [value, text] of [['they', 'they / them'], ['she', 'she / her'], ['he', 'he / him']]) {
+  // Richard, 2026-09-11: boy or girl only; no default, the parent chooses.
+  pronounsSelect.required = true;
+  for (const [value, text] of [['', 'Choose'], ['she', 'she / her'], ['he', 'he / him']]) {
     const opt = document.createElement('option');
     opt.value = value;
     opt.textContent = text;
@@ -191,7 +193,7 @@ export function mountChildForm(container, { mapsKey }) {
 export function setChildFormEnabled(container, on) {
   container.hidden = !on;
 
-  for (const selector of ['#name', '#dob']) {
+  for (const selector of ['#name', '#dob', '#pronouns']) {
     const input = container.querySelector(selector);
     if (input) input.required = on;
   }
@@ -233,7 +235,7 @@ export async function readChildForm(container, { mapsKey }) {
   const fields = {
     name: container.querySelector('#name').value,
     dob: container.querySelector('#dob').value,
-    pronouns: (container.querySelector('#pronouns') && container.querySelector('#pronouns').value) || 'they',
+    pronouns: (container.querySelector('#pronouns') && container.querySelector('#pronouns').value) || null,
     observations: readObservations(container),
     tob_unknown: tobUnknown,
     tob: tobUnknown ? null : (container.querySelector('#tob').value || null),

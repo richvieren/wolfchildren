@@ -26,7 +26,7 @@ import { getSession } from './auth.js?v=b9374f9e';
 import { PRODUCTS, getProduct } from './registry.js?v=05524ffe';
 import { getChildren, addChild, submitIntake, getParent, saveParent, firstErrorMessage } from './api.js?v=a796088e';
 import { clearValidatedLocation, resolveSelectedPlace } from './autocomplete.js?v=d3fe94de';
-import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=f76bd524';
+import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=02a36c2b';
 import {
   isParentChild, needsParentForm, mountParentForm, readParentForm,
   mountRelationshipQuestions, readRelationship,
