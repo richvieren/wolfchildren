@@ -23,10 +23,11 @@
 // submit sends.
 
 import { getSession } from './auth.js?v=b9374f9e';
-import { PRODUCTS, getProduct } from './registry.js?v=05524ffe';
+import { PRODUCTS, getProduct } from './registry.js?v=6d4b99ca';
 import { getChildren, addChild, submitIntake, getParent, saveParent, firstErrorMessage } from './api.js?v=a796088e';
 import { clearValidatedLocation, resolveSelectedPlace } from './autocomplete.js?v=d3fe94de';
-import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=02a36c2b';
+import { mountObservations, readObservations } from './observations.js?v=994b0b40';
+import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=f4dcddfa';
 import {
   isParentChild, needsParentForm, mountParentForm, readParentForm,
   mountRelationshipQuestions, readRelationship,
@@ -63,10 +64,11 @@ export function readPlaceFields() {
  * the API refuses it on any other (422), so the shape is decided here rather
  * than at the fetch.
  */
-export function intakeFields(product, childId, { places, relationship } = {}) {
+export function intakeFields(product, childId, { places, relationship, observations } = {}) {
   const fields = { child_id: childId };
   if (isAstrocartography(product)) fields.places = places;
   if (isParentChild(product)) fields.relationship = relationship;
+  if (observations !== undefined) fields.observations = observations;
   return fields;
 }
 
@@ -193,6 +195,9 @@ export function mountPlaceFields(form, submitButton, mapsKey) {
  */
 export function mountProductFields({ form, newChildFields, submitButton, mapsKey, product, profile }) {
   mountChildForm(newChildFields, { mapsKey });
+  // The product's own questions, outside the child block so they are asked
+  // for an existing child too (Richard, 2026-09-11).
+  mountObservations(form, submitButton, product.intakeQuestions);
   if (isAstrocartography(product)) {
     mountPlaceFields(form, submitButton, mapsKey);
   }
@@ -350,7 +355,8 @@ async function init() {
 
     try {
       const relationship = isPair ? readRelationship(form) : undefined;
-      await submitIntake(Number(grantId), intakeFields(product, childId, { places, relationship }));
+      const observations = readObservations(form, product.intakeQuestions);
+      await submitIntake(Number(grantId), intakeFields(product, childId, { places, relationship, observations }));
       window.location.href = '/portal/';
     } catch (err) {
       status.textContent = firstErrorMessage(err);

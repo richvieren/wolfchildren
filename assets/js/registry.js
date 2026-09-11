@@ -17,6 +17,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: null,
     includes: [],
+    intakeQuestions: [{"key": "surprises", "label": "What does your child do that surprises you?"}, {"key": "hardest_part", "label": "Which part of the day is hardest?"}, {"key": "others_wrong", "label": "What have other people got wrong about your child?"}, {"key": "returns_to", "label": "What does your child keep coming back to, without being asked?"}],
   },
   'transits': {
     slug: 'transits',
@@ -30,6 +31,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: null,
     includes: [],
+    intakeQuestions: [],
   },
   'astrocartography': {
     slug: 'astrocartography',
@@ -43,6 +45,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: null,
     includes: [],
+    intakeQuestions: [],
   },
   'solar-return': {
     slug: 'solar-return',
@@ -56,6 +59,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: null,
     includes: [],
+    intakeQuestions: [],
   },
   'numerology': {
     slug: 'numerology',
@@ -69,6 +73,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: null,
     includes: [],
+    intakeQuestions: [],
   },
   'bundle-readings': {
     slug: 'bundle-readings',
@@ -82,6 +87,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: null,
     includes: ['lunar-portrait', 'transits', 'astrocartography', 'solar-return', 'numerology'],
+    intakeQuestions: [],
   },
   'parent-child': {
     slug: 'parent-child',
@@ -95,6 +101,7 @@ export const PRODUCTS = {
     active: false,
     assetPath: null,
     includes: [],
+    intakeQuestions: [],
   },
   'presets': {
     slug: 'presets',
@@ -108,6 +115,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: 'presets',
     includes: [],
+    intakeQuestions: [],
   },
   'photo-course': {
     slug: 'photo-course',
@@ -121,6 +129,7 @@ export const PRODUCTS = {
     active: false,
     assetPath: 'photo-course',
     includes: [],
+    intakeQuestions: [],
   },
   'retreat': {
     slug: 'retreat',
@@ -134,6 +143,7 @@ export const PRODUCTS = {
     active: false,
     assetPath: null,
     includes: [],
+    intakeQuestions: [],
   },
 };
 

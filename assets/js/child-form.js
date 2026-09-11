@@ -77,42 +77,9 @@ export function mountChildForm(container, { mapsKey }) {
   tobUnknownInput.name = 'tob_unknown';
   tobUnknownLabel.append(tobUnknownInput, ' Birth time unknown');
 
-  // The parent's own observations (spec addendum 2026-09-09 §3). All optional.
-  // They exist so the portrait can point at things the parent has already seen.
-  const obs = document.createElement('fieldset');
-  obs.id = 'observations';
-  const obsLegend = document.createElement('legend');
-  obsLegend.textContent = 'What you have noticed (optional)';
-  // Richard, 2026-09-09 (option C): the parent is told, where they type, that
-  // this text leaves our server. Name substitution is the only stripping.
-  const obsWhy = document.createElement('p');
-  obsWhy.className = 'small';
-  obsWhy.id = 'obs-note';
-  obsWhy.textContent = 'These help the portrait point at things you have already seen. Leave any of them blank. '
-    + 'What you write here is sent to the writing model together with the chart, with your child’s name removed. '
-    + 'Please don’t include other names, places, dates, or anything you would not want a third party to hold. '
-    + 'Your child’s name, date of birth and birthplace never leave our server.';
-  obs.append(obsLegend, obsWhy);
-  const field = (id, labelText, el) => {
-    const l = document.createElement('label');
-    l.htmlFor = id;
-    l.textContent = labelText;
-    el.id = id;
-    el.name = id;
-    obs.append(l, el);
-    return el;
-  };
-  const text = (id, labelText, max) => {
-    const ta = document.createElement('textarea');
-    ta.maxLength = max;
-    ta.rows = 2;
-    return field(id, labelText, ta);
-  };
-  // Four questions (Richard, 2026-09-10), replacing the earlier six.
-  text('obs-surprises', 'What does your child do that surprises you?', 300);
-  text('obs-hardest', 'Which part of the day is hardest?', 300);
-  text('obs-others-wrong', 'What have other people got wrong about your child?', 300);
-  text('obs-returns-to', 'What does your child keep coming back to, without being asked?', 300);
+  // The product's intake questions moved to observations.js (Richard,
+  // 2026-09-11): they are asked on the intake page for a new or an existing
+  // child, and stored with the grant, not the child.
 
   const locationFields = document.createElement('div');
   locationFields.id = 'location-fields';
@@ -148,7 +115,6 @@ export function mountChildForm(container, { mapsKey }) {
     tobLabel, tobHidden, tobSelects,
     tobUnknownLabel,
     locationFields,
-    obs,
     mapsStatus);
 
   // setChildFormEnabled reads this to decide whether #birth-city may ever be
@@ -236,7 +202,6 @@ export async function readChildForm(container, { mapsKey }) {
     name: container.querySelector('#name').value,
     dob: container.querySelector('#dob').value,
     pronouns: (container.querySelector('#pronouns') && container.querySelector('#pronouns').value) || null,
-    observations: readObservations(container),
     tob_unknown: tobUnknown,
     tob: tobUnknown ? null : (container.querySelector('#tob').value || null),
     place_id: '',
@@ -261,19 +226,3 @@ export async function readChildForm(container, { mapsKey }) {
   return fields;
 }
 
-/**
- * The four optional observation fields → the API's ObservationsIn shape, or
- * null when the parent left them all blank. Free text is trimmed and capped
- * client-side as well as server-side.
- */
-export function readObservations(container) {
-  const q = (sel) => container.querySelector(sel);
-  const val = (sel) => { const el = q(sel); return el && typeof el.value === 'string' ? el.value.trim().slice(0, 300) : ''; };
-  const o = {
-    surprises: val('#obs-surprises') || null,
-    hardest_part: val('#obs-hardest') || null,
-    others_wrong: val('#obs-others-wrong') || null,
-    returns_to: val('#obs-returns-to') || null,
-  };
-  return (o.surprises || o.hardest_part || o.others_wrong || o.returns_to) ? o : null;
-}

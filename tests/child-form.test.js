@@ -51,7 +51,6 @@ test('readChildForm omits place fields when mapsKey is empty', async () => {
   assert.equal(fields.lon, null);
   assert.ok(!('tz' in fields), 'tz is derived by the API, never sent');
   assert.equal(fields.pronouns, null, 'no pronoun default: the parent chooses she or he');
-  assert.equal(fields.observations, null, 'no observation fields → null, never an empty object');
   assert.equal(fields.place_name, 'Some City');
 });
 
@@ -138,17 +137,8 @@ test('C2: an incomplete birth time is refused, not silently nulled', async () =>
   assert.equal(fields.tob_unknown, false);
 });
 
-test('the observation questions carry the disclosure where the parent types', async () => {
+test('the child form asks no observation questions: they live on the intake page', async () => {
   const { container } = await mountForm();
-  const note = container.querySelector('#obs-note');
-  assert.ok(note, '#obs-note exists');
-  assert.match(note.textContent, /sent to the writing model/);
-  assert.match(note.textContent, /name removed/);
-  assert.match(note.textContent, /never leave our server/);
-  assert.ok(container.querySelector('#obs-hardest'), 'the free-text questions are mounted under the note');
-  const ids = ['obs-surprises', 'obs-hardest', 'obs-others-wrong', 'obs-returns-to'];
-  assert.deepEqual(ids.map((id) => !!container.querySelector('#' + id)), [true, true, true, true], 'four questions, in order');
-  const labels = container.querySelectorAll('label').filter((l) => l.htmlFor === 'obs-returns-to');
-  assert.equal(labels.length, 1, 'one label for the fourth question');
-  assert.match(labels[0].textContent, /keep coming back to, without being asked/);
+  assert.equal(container.querySelector('#observations'), null);
+  assert.equal(container.querySelector('#obs-note'), null);
 });
