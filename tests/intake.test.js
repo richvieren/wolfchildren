@@ -353,3 +353,13 @@ test('mountProductFields mounts nothing parent-related for a non-parent-child pr
   assert.equal(doc.getElementById('parent-fields'), null);
   assert.equal(doc.getElementById('relationship-fields'), null);
 });
+
+test('the places fieldset tells the parent that a similar longitude shows almost no change', () => {
+  // Richard, 2026-09-12: Mallorca came out identical to Bonheiden and that section read as empty.
+  const { form, submitButton } = freshForm();
+  const fieldset = mountPlaceFields(form, submitButton, '');
+  const note = fieldset.childNodes.find((n) => n.id === 'places-note');
+  assert.ok(note, 'places-note is missing');
+  assert.match(note.textContent, /longitude/);
+  assert.ok(fieldset.childNodes.indexOf(note) < fieldset.childNodes.findIndex((n) => n.tagName === 'LABEL'), 'the note comes before the fields');
+});

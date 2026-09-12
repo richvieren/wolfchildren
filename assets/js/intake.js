@@ -140,6 +140,13 @@ export function mountPlaceFields(form, submitButton, mapsKey) {
   const legend = document.createElement('legend');
   legend.textContent = 'Three places';
   fieldset.append(legend);
+  // Richard, 2026-09-12: relocated angles track longitude, so a place near the
+  // birthplace's longitude reads almost the same as home (Mallorca came out
+  // identical to Bonheiden). Said here, before the parent commits the places.
+  const note = document.createElement('p');
+  note.id = 'places-note';
+  note.textContent = 'Places at a similar longitude to the birthplace show almost no change, because the parts of the chart that move with place follow longitude. A place well to the east or west of where your child was born gives the reading the most to say.';
+  fieldset.append(note);
 
   const status = document.createElement('p');
   status.id = 'places-status';
