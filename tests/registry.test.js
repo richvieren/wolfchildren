@@ -18,10 +18,10 @@ test('every product has a valid fulfilment type', () => {
   }
 });
 
-test('prices match the decision of 2026-09-08, in USD cents', () => {
+test('prices match the decision of 2026-09-12, in USD cents', () => {
   const expected = {
-    'north-star': 19900, 'transits': 9900, 'astrocartography': 19900,
-    'solar-return': 9900, 'numerology': 9900, 'bundle-readings': 49900,
+    'compass': 2700, 'north-star': 19900, 'transits': 9900, 'astrocartography': 9900,
+    'solar-return': 19900, 'numerology': 9900, 'parent-child': 9900, 'bundle-readings': 49900,
     'presets': 4900, 'photo-course': null, 'retreat': null,
   };
   for (const [slug, cents] of Object.entries(expected)) {

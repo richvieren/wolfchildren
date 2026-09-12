@@ -67,7 +67,7 @@ test('no children + no grants -> every ACTIVE product in locked (I7)', () => {
   assert.equal(downloads.length, 0);
   const active = grantableProducts().filter((p) => p.active);
   assert.equal(locked.length, active.length);
-  assert.equal(locked.length, 6);   // eight grantable, less photo-course and retreat
+  assert.equal(locked.length, 7);   // ten grantable, less photo-course, retreat and compass (not yet built)
   for (const { grant } of locked) assert.equal(grant, null);
 });
 
