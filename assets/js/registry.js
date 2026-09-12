@@ -31,7 +31,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: null,
     includes: [],
-    intakeQuestions: [],
+    intakeQuestions: [{"key": "changed_lately", "label": "What has changed in your child over the last few months?"}, {"key": "coming_up", "label": "What is coming up in the next three months that will matter to your child?"}, {"key": "harder_now", "label": "What is your child finding harder than usual right now?"}],
   },
   'astrocartography': {
     slug: 'astrocartography',
@@ -73,7 +73,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: null,
     includes: [],
-    intakeQuestions: [{"key": "comes_easily", "label": "What comes easily to your child that nobody taught them?"}, {"key": "stuck_on", "label": "What does your child get stuck on, again and again?"}],
+    intakeQuestions: [{"key": "comes_easily", "label": "What comes easily to your child that nobody taught them?"}, {"key": "stuck_on", "label": "What does your child get stuck on, again and again?"}, {"key": "same_way", "label": "What does your child do the same way every time, whatever you say?"}],
   },
   'bundle-readings': {
     slug: 'bundle-readings',

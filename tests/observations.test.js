@@ -39,13 +39,17 @@ test('the portrait mounts its four questions outside the child block, before the
   assert.match(doc.getElementById('obs-note').textContent, /sent to the writing model/);
 });
 
-test('a product with no questions mounts nothing and sends no observations key', () => {
+test('a product with no child questions mounts nothing and sends no observations key', () => {
+  // parent-child asks its three relationship questions through its own block;
+  // its child-question list is empty by design (Richard, 2026-09-12).
   const { doc, form, newChildFields, submitButton } = freshForm();
-  mountProductFields({ form, newChildFields, submitButton, mapsKey: '', product: getProduct('transits'), profile: null });
-  assert.equal(doc.getElementById('observations'), null);
-  const observations = readObservations(form, getProduct('transits').intakeQuestions);
+  const product = getProduct('parent-child');
+  assert.deepEqual(product.intakeQuestions, []);
+  mountProductFields({ form, newChildFields, submitButton, mapsKey: '', product, profile: { dob: '1980-01-01', tob: null, tob_unknown: true, place_name: 'A Town' } });
+  assert.equal(doc.getElementById('observations'), null, 'no #observations block');
+  const observations = readObservations(form, product.intakeQuestions);
   assert.equal(observations, undefined);
-  assert.deepEqual(intakeFields(getProduct('transits'), 7, { observations }), { child_id: 7 });
+  assert.equal('observations' in intakeFields(product, 7, { observations }), false);
 });
 
 test('answers are trimmed, capped and keyed; blank throughout is an empty object, still sent', () => {
