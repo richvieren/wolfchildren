@@ -54,7 +54,7 @@ export function cta({ label, href, subtext = null, size = '', placeholderWhat = 
   return h('div', { class: 'cta' },
     h('a', {
       class: `btn ${size}`.trim(), href,
-      ...(placeholderWhat ? { 'data-placeholder': placeholderWhat, 'data-checkout': 'lunar-portrait' } : {}),
+      ...(placeholderWhat ? { 'data-placeholder': placeholderWhat, 'data-checkout': 'north-star' } : {}),
     }, label),
     subtext ? h('p', { class: 'cta-subtext' }, subtext) : null);
 }

@@ -42,7 +42,7 @@ function freshForm() {
 test('isParentChild is true only for the parent-child product', () => {
   assert.equal(isParentChild(getProduct('parent-child')), true);
   assert.equal(isParentChild(getProduct('astrocartography')), false);
-  assert.equal(isParentChild(getProduct('lunar-portrait')), false);
+  assert.equal(isParentChild(getProduct('north-star')), false);
   assert.equal(isParentChild(undefined), false);
 });
 
@@ -167,6 +167,6 @@ test('the payload still carries places for astrocartography only', () => {
     intakeFields(getProduct('astrocartography'), 7, { places, relationship }),
     { child_id: 7, places });
   assert.deepEqual(
-    intakeFields(getProduct('lunar-portrait'), 7, { places }),
+    intakeFields(getProduct('north-star'), 7, { places }),
     { child_id: 7 });
 });

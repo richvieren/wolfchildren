@@ -90,12 +90,12 @@ test('I7: an inactive product still renders when a grant exists', () => {
 });
 
 test('C3: two editions of one reading for one child are two cards', () => {
-  const lunar = getProduct('lunar-portrait');
+  const lunar = getProduct('north-star');
   const past = new Date(Date.now() - 86400e3).toISOString();
   const children = [{ id: 1, name: 'Ada' }];
   const grants = [
-    { grant_id: 11, product: 'lunar-portrait', child_id: 1, child_name: 'Ada', edition: 1, available_at: past, has_intake: true },
-    { grant_id: 12, product: 'lunar-portrait', child_id: 1, child_name: 'Ada', edition: 2, available_at: past, has_intake: true },
+    { grant_id: 11, product: 'north-star', child_id: 1, child_name: 'Ada', edition: 1, available_at: past, has_intake: true },
+    { grant_id: 12, product: 'north-star', child_id: 1, child_name: 'Ada', edition: 2, available_at: past, has_intake: true },
   ];
   const { byChild, locked } = groupGrants([lunar], grants, children);
   assert.equal(byChild.length, 1);
@@ -104,17 +104,17 @@ test('C3: two editions of one reading for one child are two cards', () => {
 });
 
 test('C3: a child with no grant for a product still gets one locked card', () => {
-  const lunar = getProduct('lunar-portrait');
+  const lunar = getProduct('north-star');
   const { byChild } = groupGrants([lunar, transits], [], [{ id: 1, name: 'Ada' }]);
   assert.equal(byChild[0].cards.length, 2);
   for (const card of byChild[0].cards) assert.equal(card.grant, null);
 });
 
 test('C3: a grant for a removed child lands in `removed`, not `locked`', () => {
-  const lunar = getProduct('lunar-portrait');
+  const lunar = getProduct('north-star');
   const past = new Date(Date.now() - 86400e3).toISOString();
   const grants = [
-    { grant_id: 21, product: 'lunar-portrait', child_id: 99, child_name: null, edition: 1, available_at: past, has_intake: true },
+    { grant_id: 21, product: 'north-star', child_id: 99, child_name: null, edition: 1, available_at: past, has_intake: true },
   ];
   const { removed, locked, waiting, byChild } = groupGrants([lunar], grants, []);
   assert.equal(byChild.length, 0);
@@ -126,9 +126,9 @@ test('C3: a grant for a removed child lands in `removed`, not `locked`', () => {
 });
 
 test('C3: a removed child keeps its name when the API still has one', () => {
-  const lunar = getProduct('lunar-portrait');
+  const lunar = getProduct('north-star');
   const grants = [
-    { grant_id: 22, product: 'lunar-portrait', child_id: 99, child_name: 'Bo', edition: 1, available_at: null, has_intake: true },
+    { grant_id: 22, product: 'north-star', child_id: 99, child_name: 'Bo', edition: 1, available_at: null, has_intake: true },
     { grant_id: 23, product: 'transits', child_id: 99, child_name: 'Bo', edition: 1, available_at: null, has_intake: true },
   ];
   const { removed } = groupGrants([lunar, transits], grants, []);

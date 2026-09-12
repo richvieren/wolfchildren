@@ -30,7 +30,7 @@ function freshForm() {
 
 test('the portrait mounts its four questions outside the child block, before the submit button', () => {
   const { doc, form, newChildFields, submitButton } = freshForm();
-  mountProductFields({ form, newChildFields, submitButton, mapsKey: '', product: getProduct('lunar-portrait'), profile: null });
+  mountProductFields({ form, newChildFields, submitButton, mapsKey: '', product: getProduct('north-star'), profile: null });
   const obs = doc.getElementById('observations');
   assert.ok(obs, 'the questions mount');
   assert.notEqual(obs.parentNode, newChildFields, 'outside the child block, so an existing child still gets them');
@@ -54,7 +54,7 @@ test('a product with no child questions mounts nothing and sends no observations
 
 test('answers are trimmed, capped and keyed; blank throughout is an empty object, still sent', () => {
   const { form, submitButton } = freshForm();
-  const q = getProduct('lunar-portrait').intakeQuestions;
+  const q = getProduct('north-star').intakeQuestions;
   mountObservations(form, submitButton, q);
   form.querySelector('#obs-surprises').value = '  Sits with a jigsaw for an hour.  ';
   form.querySelector('#obs-returns_to').value = 'x'.repeat(400);
@@ -64,5 +64,5 @@ test('answers are trimmed, capped and keyed; blank throughout is an empty object
   assert.equal(out.returns_to.length, 300);
   for (const el of form.querySelectorAll('textarea')) el.value = '';
   assert.deepEqual(readObservations(form, q), {});
-  assert.deepEqual(intakeFields(getProduct('lunar-portrait'), 7, { observations: {} }), { child_id: 7, observations: {} });
+  assert.deepEqual(intakeFields(getProduct('north-star'), 7, { observations: {} }), { child_id: 7, observations: {} });
 });

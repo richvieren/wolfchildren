@@ -5,10 +5,24 @@
 // product, never a grant (spec §3.1a).
 
 export const PRODUCTS = {
-  'lunar-portrait': {
-    slug: 'lunar-portrait',
+  'compass': {
+    slug: 'compass',
     line: 'readings',
-    name: 'Lunar Portrait',
+    name: 'Compass',
+    fulfilment: 'profile',
+    requiresIntake: false,
+    subject: null,
+    priceCents: 2700,
+    currency: 'usd',
+    active: false,
+    assetPath: null,
+    includes: [],
+    intakeQuestions: [],
+  },
+  'north-star': {
+    slug: 'north-star',
+    line: 'readings',
+    name: 'North Star',
     fulfilment: 'generated',
     requiresIntake: true,
     subject: 'child',
@@ -86,7 +100,7 @@ export const PRODUCTS = {
     currency: 'usd',
     active: true,
     assetPath: null,
-    includes: ['lunar-portrait', 'transits', 'astrocartography', 'solar-return', 'numerology'],
+    includes: ['north-star', 'transits', 'astrocartography', 'solar-return', 'numerology'],
     intakeQuestions: [],
   },
   'parent-child': {

@@ -35,7 +35,7 @@ const {
 test('isAstrocartography is true only for the astrocartography product', () => {
   assert.equal(isAstrocartography(getProduct('astrocartography')), true);
   assert.equal(isAstrocartography(getProduct('transits')), false);
-  assert.equal(isAstrocartography(getProduct('lunar-portrait')), false);
+  assert.equal(isAstrocartography(getProduct('north-star')), false);
   assert.equal(isAstrocartography(undefined), false);
 });
 

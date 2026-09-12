@@ -1,4 +1,4 @@
-// lunar-portrait.mjs — the Lunar Portrait landing page.
+// north-star.mjs — the North Star landing page.
 //
 // Section order is fixed by the conversion audit (Richard, 2026-09-09) and is
 // the order of sections() below. Copy lives here beside the structure. Every
@@ -12,11 +12,11 @@ import {
 } from '../components.mjs';
 import { PRODUCTS } from '../../assets/js/registry.js';
 
-const product = PRODUCTS['lunar-portrait'];
-if (!product || product.priceCents == null) throw new Error('lunar-portrait missing from registry');
+const product = PRODUCTS['north-star'];
+if (!product || product.priceCents == null) throw new Error('north-star missing from registry');
 const PRICE = `$${product.priceCents / 100}`;          // from the catalog, never typed here
 
-export const path = '/readings/lunar-portrait/';
+export const path = '/readings/north-star/';
 export const title = `${product.name} | Wolf Children`;
 export const description = 'A reading of how your child is wired: their emotional nature, what settles them, how they learn, and where they will push back. Written for the parent raising them.';
 export const indexable = false;                          // flips to true when no placeholders remain

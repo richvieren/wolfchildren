@@ -23,7 +23,7 @@
 // submit sends.
 
 import { getSession } from './auth.js?v=b9374f9e';
-import { PRODUCTS, getProduct } from './registry.js?v=2b86a12f';
+import { PRODUCTS, getProduct } from './registry.js?v=99cae717';
 import { getChildren, addChild, submitIntake, getParent, saveParent, firstErrorMessage } from './api.js?v=a796088e';
 import { clearValidatedLocation, resolveSelectedPlace } from './autocomplete.js?v=d3fe94de';
 import { mountObservations, readObservations } from './observations.js?v=994b0b40';

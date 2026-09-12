@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // build.mjs — assembles every page in src/pages/ into static HTML.
 //
-//   node build.mjs             write each page to its path (e.g. readings/lunar-portrait/index.html)
+//   node build.mjs             write each page to its path (e.g. readings/north-star/index.html)
 //   node build.mjs --check     exit 1 if any written page differs from what the sources produce
 //   node build.mjs --sections  also write one HTML file per section to snapshots/sections/
 //                              (for snap.sh: one section at a time, Steppa method)
