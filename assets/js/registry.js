@@ -45,7 +45,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: null,
     includes: [],
-    intakeQuestions: [],
+    intakeQuestions: [{"key": "why_places", "label": "Why these three places?"}, {"key": "been_there", "label": "Has your child been to any of them, and what were they like there?"}, {"key": "hoping_for", "label": "What are you hoping a place would give your child?"}],
   },
   'solar-return': {
     slug: 'solar-return',
@@ -59,7 +59,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: null,
     includes: [],
-    intakeQuestions: [],
+    intakeQuestions: [{"key": "year_was", "label": "What was this last year like for your child, in a sentence?"}, {"key": "grown_out_of", "label": "What has your child grown out of this year?"}, {"key": "hope_changes", "label": "What do you hope changes for your child in the year ahead?"}],
   },
   'numerology': {
     slug: 'numerology',
@@ -73,7 +73,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: null,
     includes: [],
-    intakeQuestions: [],
+    intakeQuestions: [{"key": "comes_easily", "label": "What comes easily to your child that nobody taught them?"}, {"key": "stuck_on", "label": "What does your child get stuck on, again and again?"}],
   },
   'bundle-readings': {
     slug: 'bundle-readings',
