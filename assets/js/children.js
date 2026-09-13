@@ -5,7 +5,7 @@
 
 import { getSession } from './auth.js?v=9897e807';
 import { getChildren, addChild, deleteChild, firstErrorMessage } from './api.js?v=a796088e';
-import { mountChildForm, readChildForm } from './child-form.js?v=f4dcddfa';
+import { mountChildForm, readChildForm } from './child-form.js?v=b9d06a93';
 
 async function renderChildren(list, status) {
   list.textContent = '';

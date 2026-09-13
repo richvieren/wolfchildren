@@ -31,7 +31,7 @@ export const PRODUCTS = {
     active: true,
     assetPath: null,
     includes: [],
-    intakeQuestions: [{"key": "surprises", "label": "What does your child do that surprises you?"}, {"key": "hardest_part", "label": "Which part of the day is hardest?"}, {"key": "others_wrong", "label": "What have other people got wrong about your child?"}, {"key": "returns_to", "label": "What does your child keep coming back to, without being asked?"}],
+    intakeQuestions: [{"key": "surprises", "label": "What does your child do that surprises you?"}, {"key": "hardest_part", "label": "Which part of the day is hardest?"}, {"key": "returns_to", "label": "What does your child keep coming back to, without being asked?"}],
   },
   'transits': {
     slug: 'transits',

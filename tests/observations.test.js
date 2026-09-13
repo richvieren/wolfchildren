@@ -28,14 +28,14 @@ function freshForm() {
   return { doc, form, newChildFields, submitButton };
 }
 
-test('the portrait mounts its four questions outside the child block, before the submit button', () => {
+test('the portrait mounts its three questions outside the child block, before the submit button', () => {
   const { doc, form, newChildFields, submitButton } = freshForm();
   mountProductFields({ form, newChildFields, submitButton, mapsKey: '', product: getProduct('north-star'), profile: null });
   const obs = doc.getElementById('observations');
   assert.ok(obs, 'the questions mount');
   assert.notEqual(obs.parentNode, newChildFields, 'outside the child block, so an existing child still gets them');
   assert.equal(form.childNodes.indexOf(obs), form.childNodes.indexOf(submitButton) - 1, 'right before the submit button');
-  assert.deepEqual(['surprises', 'hardest_part', 'others_wrong', 'returns_to'].map((k) => !!doc.getElementById(`obs-${k}`)), [true, true, true, true]);
+  assert.deepEqual(['surprises', 'hardest_part', 'returns_to'].map((k) => !!doc.getElementById(`obs-${k}`)), [true, true, true]);
   assert.match(doc.getElementById('obs-note').textContent, /sent to the writing model/);
 });
 

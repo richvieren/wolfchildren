@@ -142,3 +142,13 @@ test('the child form asks no observation questions: they live on the intake page
   assert.equal(container.querySelector('#observations'), null);
   assert.equal(container.querySelector('#obs-note'), null);
 });
+
+test('the sex question reads "Boy or girl?" with Girl and Boy, never "Pronouns" (Richard, 2026-09-13)', async () => {
+  const { container } = await mountForm();
+  const label = [...container.querySelectorAll('label')].find((l) => l.htmlFor === 'pronouns');
+  assert.equal(label.textContent, 'Boy or girl?');
+  const select = container.querySelector('#pronouns');
+  const texts = (select.options ? [...select.options] : [...select.childNodes]).map((o) => [o.value, o.textContent]);
+  assert.deepEqual(texts, [['', 'Choose'], ['she', 'Girl'], ['he', 'Boy']]);
+  assert.ok(!(container.textContent || '').includes('Pronoun'));
+});

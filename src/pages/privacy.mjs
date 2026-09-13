@@ -33,7 +33,7 @@ export function sections() {
       paragraphs: [
         'Your email address, to sign you in by link and to tell you when a reading is ready.',
         'For a reading: your child’s first name, date of birth, time of birth if you know it, place of birth, and pronouns. The place is chosen from a list so the coordinates are the ones you confirmed; we never look a place up again on your behalf.',
-        'Optionally, your own observations about your child: six short questions on the form. They are optional; the reading is written without them if you leave them blank.',
+        'Optionally, your own observations about your child: three short questions on the intake page. They are optional; the reading is written without them if you leave them blank.',
         'Payment details go to Stripe and never reach us. We hold the record that a purchase happened and which reading it was for.',
       ],
     })],
@@ -51,7 +51,7 @@ export function sections() {
       eyebrow: 'Your observations',
       heading: 'What you write about your child is sent to the writing model.',
       paragraphs: [
-        'The four optional questions exist so the portrait can point at things you have already seen and say where in the chart they come from. To do that, what you write is sent to the writing model together with the chart. Before it is sent, your child’s name is replaced with a placeholder. Nothing else in your text is changed, so please do not include other names, places, dates, or anything you would not want a third party to hold. The form says this again, where you type.',
+        'The three optional questions exist so the portrait can point at things you have already seen and say where in the chart they come from. To do that, what you write is sent to the writing model together with the chart. Before it is sent, your child’s name is replaced with a placeholder. Nothing else in your text is changed, so please do not include other names, places, dates, or anything you would not want a third party to hold. The form says this again, where you type.',
         h('span', {}, 'The writing model is provided by Anthropic. Your text is processed under Anthropic’s commercial terms, which you can read at ', h('a', { href: ANTHROPIC_TERMS }, ANTHROPIC_TERMS), '. We do not use your text for anything except writing your reading.'),
         'You can leave every one of these questions blank. You can also change or clear your answers at any time from your child’s page in the portal, and deleting the child clears them with everything else.',
       ],

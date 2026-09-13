@@ -23,11 +23,11 @@
 // submit sends.
 
 import { getSession } from './auth.js?v=9897e807';
-import { PRODUCTS, getProduct } from './registry.js?v=0f1a5259';
+import { PRODUCTS, getProduct } from './registry.js?v=b6f91eb0';
 import { getChildren, addChild, submitIntake, getParent, saveParent, firstErrorMessage } from './api.js?v=a796088e';
 import { clearValidatedLocation, resolveSelectedPlace } from './autocomplete.js?v=d3fe94de';
 import { mountObservations, readObservations } from './observations.js?v=994b0b40';
-import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=f4dcddfa';
+import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=b9d06a93';
 import {
   isParentChild, needsParentForm, mountParentForm, readParentForm,
   mountRelationshipQuestions, readRelationship,

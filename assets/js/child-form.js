@@ -34,17 +34,19 @@ export function mountChildForm(container, { mapsKey }) {
   nameInput.name = 'name';
   nameInput.required = true;
 
-  // Pronouns (Richard 2026-09-09, Q5): a select with a default, never required.
+  // Boy or girl (Richard 2026-09-13): it is only here so the reading knows whether to
+  // write he or she, so it is asked that way. The field keeps its name, `pronouns`,
+  // and its values, she / he: the API, the database and the prompts read those.
   // The reading is written with these; the model receives them, never the name.
   const pronounsLabel = document.createElement('label');
   pronounsLabel.htmlFor = 'pronouns';
-  pronounsLabel.textContent = 'Pronouns';
+  pronounsLabel.textContent = 'Boy or girl?';
   const pronounsSelect = document.createElement('select');
   pronounsSelect.id = 'pronouns';
   pronounsSelect.name = 'pronouns';
   // Richard, 2026-09-11: boy or girl only; no default, the parent chooses.
   pronounsSelect.required = true;
-  for (const [value, text] of [['', 'Choose'], ['she', 'she / her'], ['he', 'he / him']]) {
+  for (const [value, text] of [['', 'Choose'], ['she', 'Girl'], ['he', 'Boy']]) {
     const opt = document.createElement('option');
     opt.value = value;
     opt.textContent = text;
