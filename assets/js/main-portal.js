@@ -5,7 +5,7 @@
 
 import { getSession, sendMagicLink, signOut } from './auth.js?v=9897e807';
 import { getGrants, getChildren, getDownloadUrl, firstErrorMessage } from './api.js?v=a796088e';
-import { grantableProducts } from './registry.js?v=b6f91eb0';
+import { grantableProducts } from './registry.js?v=a8ca76e8';
 import { groupGrants } from './dashboard.js?v=1d95e222';
 import { renderCard } from './cards.js?v=560a6b82';
 
