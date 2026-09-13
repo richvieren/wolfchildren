@@ -17,7 +17,7 @@
 // mounts its own field the way intake.js's three astrocartography fields do —
 // same Places API, same resolved shape, its own small piece of state.
 
-import { initTobField, tobError } from './timefield.js?v=6e986688';
+import { initTobField, tobError } from './timefield.js?v=e70dec5f';
 import { resolveSelectedPlace } from './autocomplete.js?v=d3fe94de';
 
 /** Only parent-child asks for the parent's own chart (spec §6). */
@@ -131,7 +131,7 @@ export function mountParentForm(form, submitButton, mapsKey) {
   tobUnknownInput.type = 'checkbox';
   tobUnknownInput.id = 'parent-tob-unknown';
   tobUnknownInput.name = 'parent_tob_unknown';
-  tobUnknownLabel.append(tobUnknownInput, ' Birth time unknown');
+  tobUnknownLabel.append(tobUnknownInput, ' I do not know the birth time');
 
   const cityInput = doc.createElement('input');
   cityInput.type = 'text';
@@ -198,7 +198,7 @@ export async function readParentForm(container, { mapsKey }) {
 
   if (mapsKey) {
     if (!parentPlace) {
-      throw new Error('Please select your birth place from the list.');
+      throw new Error('Pick your birth place from the list that appears as you type.');
     }
     fields.place_id = parentPlace.place_id;
     fields.place_name = parentPlace.place_name;

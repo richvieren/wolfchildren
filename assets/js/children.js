@@ -2,27 +2,39 @@
 // R57 (Task 14, fix round 1): the add-child fields are the shared
 // child-form.js component, also used by intake.js — see that file for the
 // Places wiring.
+//
+// 2026-09-13: wording per docs/portal-copy-audit-2026-09-13.md. The remove
+// confirmation says what the API does: the birth details go, readings already
+// made stay on the dashboard without the name (dashboard.js, "removed").
 
-import { getSession } from './auth.js?v=9897e807';
-import { getChildren, addChild, deleteChild, firstErrorMessage } from './api.js?v=a796088e';
-import { mountChildForm, readChildForm } from './child-form.js?v=b9d06a93';
+import { getSession } from './auth.js?v=c0266db9';
+import { getChildren, addChild, deleteChild, firstErrorMessage } from './api.js?v=2478b5c3';
+import { mountChildForm, readChildForm } from './child-form.js?v=9e142cbe';
+
+export function removeConfirmText(name) {
+  return `Remove ${name}? The birth details are deleted. Readings already made stay on your dashboard, without the name. This cannot be undone.`;
+}
+
+export function formatDate(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ''));
+  if (!m) return String(iso || '');
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  return `${Number(m[3])} ${months[Number(m[2]) - 1]} ${m[1]}`;
+}
 
 async function renderChildren(list, status) {
   list.textContent = '';
   const children = await getChildren();
   for (const child of children) {
     const li = document.createElement('li');
-    const name = document.createElement('span');
-    name.textContent = child.name;
-    const dob = document.createElement('span');
-    dob.textContent = child.dob;
-    const place = document.createElement('span');
-    place.textContent = child.place_name;
+    const line = document.createElement('span');
+    line.textContent = `${child.name} · born ${formatDate(child.dob)} · ${child.place_name}`;
     const del = document.createElement('button');
     del.type = 'button';
-    del.textContent = 'Delete';
+    del.className = 'secondary';
+    del.textContent = 'Remove';
     del.addEventListener('click', async () => {
-      if (!confirm("This removes the child's details and readings. It cannot be undone.")) return;
+      if (!confirm(removeConfirmText(child.name))) return;
       try {
         await deleteChild(child.id);
         status.textContent = '';
@@ -32,7 +44,12 @@ async function renderChildren(list, status) {
         status.textContent = firstErrorMessage(err);
       }
     });
-    li.append(name, ' ', dob, ' ', place, ' ', del);
+    li.append(line, ' ', del);
+    list.append(li);
+  }
+  if (children.length === 0) {
+    const li = document.createElement('li');
+    li.textContent = 'No children added yet.';
     list.append(li);
   }
 }
@@ -61,7 +78,7 @@ async function init() {
       const childFields = await readChildForm(fields, { mapsKey });
       await addChild(childFields);
       form.reset();
-      status.textContent = 'Child added.';
+      status.textContent = 'Saved.';
       await renderChildren(list, status);
     } catch (err) {
       status.textContent = firstErrorMessage(err);
@@ -78,4 +95,6 @@ async function init() {
   }
 }
 
-init();
+if (typeof document !== 'undefined' && document.getElementById('add-child-form')) {
+  init();
+}

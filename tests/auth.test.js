@@ -14,10 +14,10 @@ test('sendMagicLink turns a non-JSON server error into a plain sentence (2026-09
   } finally { globalThis.fetch = realFetch; }
 });
 
-test('sendMagicLink keeps the API\'s own detail when there is one', async () => {
+test('sendMagicLink keeps the API\'s own detail when there is one (a 502 sentence; a 429 is mapped, see portal-copy.test.js)', async () => {
   const { sendMagicLink } = await import('../assets/js/auth.js');
   const realFetch = globalThis.fetch;
-  globalThis.fetch = async () => ({ ok: false, status: 429, text: async () => JSON.stringify({ detail: 'too many sign-in links — try again later' }) });
-  try { assert.equal((await sendMagicLink('p@example.com')).error, 'too many sign-in links — try again later'); }
+  globalThis.fetch = async () => ({ ok: false, status: 502, text: async () => JSON.stringify({ detail: 'The sign-in email could not be sent. Please try again in a minute.' }) });
+  try { assert.equal((await sendMagicLink('p@example.com')).error, 'The sign-in email could not be sent. Please try again in a minute.'); }
   finally { globalThis.fetch = realFetch; }
 });

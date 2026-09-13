@@ -22,18 +22,74 @@
 // parent-form.js; this file only decides when to mount them and what the
 // submit sends.
 
-import { getSession } from './auth.js?v=9897e807';
+import { getSession } from './auth.js?v=c0266db9';
 import { PRODUCTS, getProduct } from './registry.js?v=a8ca76e8';
-import { getChildren, addChild, submitIntake, getParent, saveParent, firstErrorMessage } from './api.js?v=a796088e';
+import { getChildren, addChild, submitIntake, getParent, saveParent, firstErrorMessage } from './api.js?v=2478b5c3';
 import { clearValidatedLocation, resolveSelectedPlace } from './autocomplete.js?v=d3fe94de';
 import { mountObservations, readObservations } from './observations.js?v=994b0b40';
-import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=b9d06a93';
+import { mountChildForm, readChildForm, setChildFormEnabled } from './child-form.js?v=9e142cbe';
 import {
   isParentChild, needsParentForm, mountParentForm, readParentForm,
-  mountRelationshipQuestions, readRelationship,
-} from './parent-form.js?v=05bc64d4';
+  mountRelationshipQuestions, readRelationship, RELATIONSHIP_QUESTIONS,
+} from './parent-form.js?v=2769c5dd';
 
 export const PLACE_LABELS = ['First place', 'Second place', 'Third place'];
+
+export const MESSAGES = {
+  'no-product': 'This reading could not be found. Go back to your readings and open it from there.',
+  'no-intake': 'This reading needs no details from you.',
+  'no-grant': 'This link is missing something. Go back to your readings and open the reading from there.',
+};
+
+/** "4:43 PM" from canonical "16:43"; "Not given" when empty. */
+export function formatTob(hhmm) {
+  const m = /^(\d{1,2}):(\d{2})$/.exec(String(hhmm || ''));
+  if (!m) return 'Not given';
+  const h = Number(m[1]);
+  return `${h % 12 || 12}:${m[2]} ${h >= 12 ? 'PM' : 'AM'}`;
+}
+
+/** "29 June 1982" from "1982-06-29". */
+export function formatDob(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ''));
+  if (!m) return String(iso || '');
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  return `${Number(m[3])} ${months[Number(m[2]) - 1]} ${m[1]}`;
+}
+
+/**
+ * The rows of the confirmation step (Cato's intake-confirm.js, lifted):
+ * the child, then whatever this product asked. Pure, so it is testable.
+ * `child` is either {name, pronouns, dob, tob, tob_unknown, place_name} for
+ * a new child or {name} for one chosen from the list.
+ */
+export function confirmRows({ child, existing, observations, questions, places, relationship, parent }) {
+  const rows = [['Child', child.name || '']];
+  if (!existing) {
+    rows.push(['Boy or girl', child.pronouns === 'he' ? 'Boy' : child.pronouns === 'she' ? 'Girl' : '']);
+    rows.push(['Date of birth', formatDob(child.dob)]);
+    rows.push(['Time of birth', child.tob_unknown ? 'Not known' : formatTob(child.tob)]);
+    rows.push(['Place of birth', child.place_name || '']);
+  }
+  if (parent) {
+    rows.push(['Your date of birth', formatDob(parent.dob)]);
+    rows.push(['Your time of birth', parent.tob_unknown ? 'Not known' : formatTob(parent.tob)]);
+    rows.push(['Your place of birth', parent.place_name || '']);
+  }
+  if (places) places.forEach((pl, i) => rows.push([PLACE_LABELS[i], pl.place_name]));
+  for (const q of questions || []) {
+    const a = observations && observations[q.key];
+    if (a) rows.push([q.label, a]);
+  }
+  for (const [, key, question] of relationship ? RELATIONSHIP_QUESTIONS : []) {
+    if (relationship[key]) rows.push([question, relationship[key]]);
+  }
+  return rows;
+}
+
+export function successLine(childName, email) {
+  return `${childName}’s details are in. We email ${email} when the reading is ready, within 24 hours.`;
+}
 
 /** Only astrocartography takes three named places at intake (spec §5). */
 export function isAstrocartography(product) {
@@ -249,15 +305,15 @@ async function init() {
     ? getProduct(productSlug)
     : undefined;
   if (!product) {
-    showMessage('This product could not be found.');
+    showMessage(MESSAGES['no-product']);
     return;
   }
   if (!product.requiresIntake) {
-    showMessage('This product needs no details.');
+    showMessage(MESSAGES['no-intake']);
     return;
   }
   if (!grantId) {
-    showMessage('This link is missing its grant. Please return to your dashboard.');
+    showMessage(MESSAGES['no-grant']);
     return;
   }
 
@@ -321,6 +377,25 @@ async function init() {
   });
   syncNewChildVisibility();
 
+  const confirmView = document.getElementById('confirm-view');
+  const confirmRowsEl = document.getElementById('confirm-rows');
+  const confirmStatus = document.getElementById('confirm-status');
+  const confirmSend = document.getElementById('confirm-send');
+  const successView = document.getElementById('success-view');
+
+  // What the parent typed, read once at "Check the details" and sent unchanged
+  // at "Send the details" (Cato's confirmation step, 2026-07-29).
+  let pending = null;
+
+  function renderRows(rows) {
+    confirmRowsEl.textContent = '';
+    for (const [label, value] of rows) {
+      const dt = document.createElement('dt'); dt.textContent = label;
+      const dd = document.createElement('dd'); dd.textContent = value;
+      confirmRowsEl.append(dt, dd);
+    }
+  }
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     status.textContent = '';
@@ -335,42 +410,90 @@ async function init() {
       }
     }
 
-    // The profile goes first: without it the API refuses the intake with
-    // 409 "add your own birth details first", and a child created just
-    // before that refusal would be a row the parent never asked for.
-    if (parentFields) {
+    const existingId = existingSelect.value ? Number(existingSelect.value) : null;
+    let childFields = null;
+    if (!existingId) {
       try {
-        await saveParent(await readParentForm(parentFields, { mapsKey }));
+        childFields = await readChildForm(newChildFields, { mapsKey });
       } catch (err) {
         status.textContent = firstErrorMessage(err);
         return;
       }
     }
 
-    let childId = existingSelect.value ? Number(existingSelect.value) : null;
-
-    if (!childId) {
+    let parent = null;
+    if (parentFields) {
       try {
-        const fields = await readChildForm(newChildFields, { mapsKey });
-        const child = await addChild(fields);
-        childId = child.id;
+        parent = await readParentForm(parentFields, { mapsKey });
       } catch (err) {
         status.textContent = firstErrorMessage(err);
+        return;
+      }
+    }
+
+    const relationship = isPair ? readRelationship(form) : undefined;
+    const observations = readObservations(form, product.intakeQuestions);
+    const childName = existingId
+      ? [...existingSelect.childNodes].find((o) => o.value === existingSelect.value)?.textContent || ''
+      : childFields.name;
+
+    pending = { existingId, childFields, parent, places, relationship, observations, childName };
+    renderRows(confirmRows({
+      child: childFields || { name: childName }, existing: Boolean(existingId),
+      observations, questions: product.intakeQuestions, places, relationship, parent,
+    }));
+    form.hidden = true;
+    confirmView.hidden = false;
+    confirmStatus.textContent = '';
+  });
+
+  document.getElementById('confirm-edit').addEventListener('click', () => {
+    confirmView.hidden = true;
+    form.hidden = false;
+  });
+
+  confirmSend.addEventListener('click', async () => {
+    if (!pending) return;
+    confirmStatus.textContent = 'Sending…';
+    confirmSend.disabled = true;
+
+    // The profile goes first: without it the API refuses the intake with
+    // 409 "add your own birth details first", and a child created just
+    // before that refusal would be a row the parent never asked for.
+    if (pending.parent) {
+      try {
+        await saveParent(pending.parent);
+      } catch (err) {
+        confirmStatus.textContent = firstErrorMessage(err); confirmSend.disabled = false;
+        return;
+      }
+    }
+
+    let childId = pending.existingId;
+    if (!childId) {
+      try {
+        const child = await addChild(pending.childFields);
+        childId = child.id;
+        pending.existingId = childId;          // a retry after a later failure must not add the child twice
+      } catch (err) {
+        confirmStatus.textContent = firstErrorMessage(err); confirmSend.disabled = false;
         return;
       }
     }
 
     try {
-      const relationship = isPair ? readRelationship(form) : undefined;
-      const observations = readObservations(form, product.intakeQuestions);
-      await submitIntake(Number(grantId), intakeFields(product, childId, { places, relationship, observations }));
-      window.location.href = '/portal/';
+      await submitIntake(Number(grantId), intakeFields(product, childId,
+        { places: pending.places, relationship: pending.relationship, observations: pending.observations }));
+      document.getElementById('success-line').textContent = successLine(pending.childName, session.user.email);
+      confirmView.hidden = true;
+      successView.hidden = false;
     } catch (err) {
-      status.textContent = firstErrorMessage(err);
+      confirmStatus.textContent = firstErrorMessage(err); confirmSend.disabled = false;
     }
   });
 }
 
-if (typeof window !== 'undefined') {
+// Only on the page itself: a test that defines `window` for auth.js must not start the intake.
+if (typeof document !== 'undefined' && document.getElementById('intake-form')) {
   init();
 }

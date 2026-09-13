@@ -6,28 +6,46 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="wc-maps-key" content="AIzaSyDCQ1AQ29LoWZg84BqzHmf6FyJ2wJDi498">
 <link rel="stylesheet" href="/assets/css/portal.css">
-<title>Wolf Children — Intake</title>
+<title>Your reading — Wolf Children</title>
 </head>
 <body>
 <main>
+  <img class="logo" src="/assets/img/logo/wolfchildren-logo-green-800.png" alt="Wolf Children" width="200">
+  <p class="small"><a href="/portal/">Back to your readings</a></p>
   <p id="message" hidden></p>
 
   <form id="intake-form" hidden>
-    <h2 id="product-name"></h2>
+    <h1 id="product-name"></h1>
+    <p>This is what the reading is written from. It takes about two minutes. Add the child now, or pick one you added before.</p>
 
-    <label for="existing-child">Child</label>
+    <label for="existing-child">Which child is this reading for?</label>
     <select id="existing-child">
-      <option value="">— Add a new child —</option>
+      <option value="">Add a new child</option>
     </select>
 
     <fieldset id="new-child-fields">
-      <legend>Add a new child</legend>
+      <legend>About your child</legend>
     </fieldset>
 
-    <button type="submit">Continue</button>
+    <button type="submit">Check the details</button>
     <p id="status"></p>
   </form>
+
+  <section id="confirm-view" hidden>
+    <h1>Please check these details</h1>
+    <p>They cannot be changed after you send them.</p>
+    <dl id="confirm-rows"></dl>
+    <p><button type="button" id="confirm-send">Send the details</button> <button type="button" id="confirm-edit" class="secondary">Edit</button></p>
+    <p id="confirm-status" class="status"></p>
+  </section>
+
+  <section id="success-view" hidden>
+    <h1>Thank you</h1>
+    <p id="success-line"></p>
+    <p>You can close this page.</p>
+    <p><a href="/portal/">Back to your readings</a></p>
+  </section>
 </main>
-<script type="module" src="/assets/js/intake.js?v=b55e370b"></script>
+<script type="module" src="/assets/js/intake.js?v=1d3ee344"></script>
 </body>
 </html>

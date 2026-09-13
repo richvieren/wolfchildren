@@ -5,26 +5,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="/assets/css/portal.css">
-<title>Wolf Children — Portal</title>
+<title>Your readings — Wolf Children</title>
 </head>
 <body>
 <main>
+  <img class="logo" src="/assets/img/logo/wolfchildren-logo-green-800.png" alt="Wolf Children" width="200">
+
   <section id="signed-out" hidden>
-    <form id="sign-in-form">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
-      <button type="submit">Sign in</button>
-    </form>
-    <p id="status"></p>
+    <h1>Your readings</h1>
+    <p id="signin-notice" class="notice" hidden></p>
+    <div id="signin-ask">
+      <p>There is no password. Enter the email address you bought with and we send you a link. Tap it and you are in.</p>
+      <form id="sign-in-form">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required>
+        <button type="submit" id="send-link">Email me a sign-in link</button>
+      </form>
+      <p id="status"></p>
+    </div>
+    <div id="link-sent" hidden>
+      <h2>Check your email</h2>
+      <p>We sent a sign-in link to <strong id="sent-to"></strong>. Open the email on this phone or computer and tap the link.</p>
+      <p>It works once and stops working 48 hours after we sent it.</p>
+      <p class="small">Not there after a minute? Look in spam or promotions, and check that the address above is the one you bought with.</p>
+      <p><button type="button" id="send-again">Send it again</button> <button type="button" id="change-address" class="secondary">Use a different address</button></p>
+      <p id="resend-status" class="small"></p>
+      <p class="small">Still stuck? Write to <a href="mailto:hello@wolfchildren.co">hello@wolfchildren.co</a> and we get you in.</p>
+    </div>
   </section>
 
   <section id="signed-in" hidden>
-    <p id="user-email"></p>
-    <button id="sign-out">Sign out</button>
-    <a href="/portal/children.html">Manage children</a>
+    <h1>Your readings</h1>
+    <p class="small">Signed in as <span id="user-email"></span> · <button type="button" id="sign-out" class="link">Sign out</button></p>
+    <p><a href="/portal/children.html">Your children</a></p>
+    <p id="dashboard-status" class="status"></p>
     <div id="dashboard"></div>
+    <p class="small">Something wrong? Write to <a href="mailto:hello@wolfchildren.co">hello@wolfchildren.co</a>.</p>
   </section>
 </main>
-<script type="module" src="/assets/js/main-portal.js?v=226ac06f"></script>
+<script type="module" src="/assets/js/main-portal.js?v=9fd43e58"></script>
 </body>
 </html>

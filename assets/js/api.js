@@ -83,9 +83,24 @@ export const getDownloadUrl = (grantId) =>
  * used to render api.js's internal "/v1/children failed: 422" straight into
  * the page (I5), while intake.js had its own private copy of this function.
  */
+const FIELD_NAMES = {
+  name: 'the child’s name', dob: 'the date of birth', tob: 'the time of birth', pronouns: 'boy or girl',
+  place_id: 'the place of birth', place_name: 'the place of birth', lat: 'the place of birth', lon: 'the place of birth',
+  email: 'the email address', places: 'the three places', observations: 'your answers', relationship: 'your answers',
+};
+
 export function firstErrorMessage(err) {
+  if (err && err.message === 'signed out') return 'You were signed out. Go back to your readings and sign in again.';
   const detail = err && err.detail;
-  if (Array.isArray(detail) && detail.length && detail[0] && detail[0].msg) return detail[0].msg;
+  if (Array.isArray(detail) && detail.length && detail[0] && detail[0].msg) {
+    // FastAPI's 422 detail: {loc: ['body', 'dob'], msg: 'Field required'}. The
+    // field is named in words and the reason kept, so the parent knows what
+    // to fix without reading a schema.
+    const loc = Array.isArray(detail[0].loc) ? detail[0].loc.filter((x) => typeof x === 'string' && x !== 'body') : [];
+    const field = FIELD_NAMES[loc[loc.length - 1]] || (loc.length ? loc[loc.length - 1] : '');
+    const reason = String(detail[0].msg).replace(/^Value error, /, '');
+    return field ? `Something is wrong with ${field}: ${reason}.` : `${reason}.`;
+  }
   if (typeof detail === 'string' && detail) return detail;
-  return (err && err.message) || 'Something went wrong.';
+  return (err && err.message) || 'Something went wrong. Try again in a minute.';
 }

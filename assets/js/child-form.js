@@ -7,8 +7,15 @@
 // no live path to add a complete child. One shared mount + one shared read
 // fixes both at once.
 
-import { initTobField, tobError } from './timefield.js?v=6e986688';
+import { initTobField, tobError } from './timefield.js?v=e70dec5f';
 import { initPlacesAutocomplete, getValidatedLocation } from './autocomplete.js?v=d3fe94de';
+
+function hint(text) {
+  const p = document.createElement('p');
+  p.className = 'hint small';
+  p.textContent = text;
+  return p;
+}
 
 function loadMapsScript(key) {
   const script = document.createElement('script');
@@ -27,12 +34,14 @@ function loadMapsScript(key) {
 export function mountChildForm(container, { mapsKey }) {
   const nameLabel = document.createElement('label');
   nameLabel.htmlFor = 'name';
-  nameLabel.textContent = 'Name';
+  nameLabel.textContent = 'Child’s first name';
   const nameInput = document.createElement('input');
   nameInput.type = 'text';
   nameInput.id = 'name';
   nameInput.name = 'name';
   nameInput.required = true;
+  nameInput.autocomplete = 'off';
+  const nameHint = hint('The name the reading uses.');
 
   // Boy or girl (Richard 2026-09-13): it is only here so the reading knows whether to
   // write he or she, so it is asked that way. The field keeps its name, `pronouns`,
@@ -64,6 +73,7 @@ export function mountChildForm(container, { mapsKey }) {
 
   const tobLabel = document.createElement('label');
   tobLabel.textContent = 'Time of birth';
+  const tobHint = hint('From the birth certificate or the hospital record if you can. The hour sets a large share of the chart.');
   const tobHidden = document.createElement('input');
   tobHidden.type = 'hidden';
   tobHidden.id = 'tob';
@@ -77,7 +87,8 @@ export function mountChildForm(container, { mapsKey }) {
   tobUnknownInput.type = 'checkbox';
   tobUnknownInput.id = 'tob-unknown';
   tobUnknownInput.name = 'tob_unknown';
-  tobUnknownLabel.append(tobUnknownInput, ' Birth time unknown');
+  tobUnknownLabel.append(tobUnknownInput, ' I do not know the birth time');
+  const tobUnknownHint = hint('Without it the reading leaves out the pieces that depend on the hour.');
 
   // The product's intake questions moved to observations.js (Richard,
   // 2026-09-11): they are asked on the intake page for a new or an existing
@@ -88,6 +99,7 @@ export function mountChildForm(container, { mapsKey }) {
   const cityLabel = document.createElement('label');
   cityLabel.htmlFor = 'birth-city';
   cityLabel.textContent = 'Place of birth';
+  const cityHint = hint('Start typing the town or city and pick it from the list.');
   const cityInput = document.createElement('input');
   cityInput.type = 'text';
   cityInput.id = 'birth-city';
@@ -101,23 +113,31 @@ export function mountChildForm(container, { mapsKey }) {
   const confirmation = document.createElement('p');
   confirmation.id = 'location-confirmation';
   confirmation.hidden = true;
-  confirmation.append('Selected: ');
+  confirmation.append('Born in: ');
   const resolvedName = document.createElement('span');
   resolvedName.id = 'location-resolved-name';
-  confirmation.append(resolvedName);
-  locationFields.append(cityLabel, cityInput, placeIdHidden, confirmation);
+  confirmation.append(resolvedName, '. Not right? Clear the box and type again.');
+  locationFields.append(cityLabel, cityHint, cityInput, placeIdHidden, confirmation);
 
   const mapsStatus = document.createElement('p');
   mapsStatus.id = 'maps-status';
 
+  // Cato's earned line (blueprint.html:99, "Please double-check your birth
+  // details"), in our voice; the no-reissue clause waits on Richard (audit D2).
+  const check = document.createElement('p');
+  check.className = 'small';
+  check.id = 'check-details';
+  check.textContent = 'Please check the date, the time and the place. The reading is worked out from them.';
+
   container.append(
-    nameLabel, nameInput,
+    nameLabel, nameInput, nameHint,
     pronounsLabel, pronounsSelect,
     dobLabel, dobInput,
-    tobLabel, tobHidden, tobSelects,
-    tobUnknownLabel,
+    tobLabel, tobHint, tobHidden, tobSelects,
+    tobUnknownLabel, tobUnknownHint,
     locationFields,
-    mapsStatus);
+    mapsStatus,
+    check);
 
   // setChildFormEnabled reads this to decide whether #birth-city may ever be
   // required: with no Maps key the location block is never shown, so it never
@@ -215,7 +235,7 @@ export async function readChildForm(container, { mapsKey }) {
   if (mapsKey) {
     const loc = getValidatedLocation();
     if (!loc) {
-      throw new Error('Please select a birth place from the list.');
+      throw new Error('Pick the birth place from the list that appears as you type.');
     }
     fields.place_id = loc.place_id;
     fields.place_name = loc.name;

@@ -2,12 +2,36 @@
 // regions in portal/index.html to auth.js, and (Task 13) renders the
 // dashboard: grants and children fetched in parallel, grouped by
 // dashboard.js, drawn with cards.js.
+//
+// 2026-09-13, the sign-in rewrite (docs/portal-copy-audit-2026-09-13.md,
+// Richard's decisions). A first-time visitor has no account and no password,
+// so the page follows the passwordless pattern every established product
+// uses: the button says what will happen, the sent screen names the address
+// and offers "send it again" and "use a different address", an expired link
+// gets its own sentence with the form right there, and a support address is
+// published so a parent who cannot get in can ask instead of refunding.
 
-import { getSession, sendMagicLink, signOut } from './auth.js?v=9897e807';
-import { getGrants, getChildren, getDownloadUrl, firstErrorMessage } from './api.js?v=a796088e';
+import { getSession, sendMagicLink, signOut, takeSignInNotice } from './auth.js?v=c0266db9';
+import { getGrants, getChildren, getDownloadUrl, firstErrorMessage } from './api.js?v=2478b5c3';
 import { grantableProducts } from './registry.js?v=a8ca76e8';
 import { groupGrants } from './dashboard.js?v=1d95e222';
-import { renderCard } from './cards.js?v=560a6b82';
+import { renderCard } from './cards.js?v=a3a16d0b';
+
+export const SUPPORT = 'hello@wolfchildren.co';
+
+export const NOTICES = {
+  expired: 'That link has expired or was already used. Enter your email and we send a fresh one.',
+  'signed-out': 'You were signed out. Enter your email for a new link.',
+};
+
+export const EMPTY_DASHBOARD = 'Nothing here yet. A purchase can take a minute to arrive; refresh this page in a moment. '
+  + 'If you bought with a different email address, sign out and use that one.';
+
+const SECTIONS = {
+  waiting: 'Needs your child’s details',
+  downloads: 'Your downloads',
+  locked: 'Also available',
+};
 
 function section(dashboard, heading, cards, doc) {
   if (!cards.length) return;
@@ -17,20 +41,33 @@ function section(dashboard, heading, cards, doc) {
   for (const { product, grant } of cards) dashboard.append(renderCard(product, grant, doc));
 }
 
-function renderDashboard(dashboard, groups, doc) {
+/** True when the account owns nothing yet: only the "also available" list would render. */
+export function isEmpty(groups) {
+  return groups.byChild.every((g) => g.cards.every((c) => !c.grant))
+    && groups.waiting.length === 0 && groups.removed.length === 0 && groups.downloads.length === 0;
+}
+
+export function renderDashboard(dashboard, groups, doc) {
   dashboard.textContent = '';
+
+  if (isEmpty(groups)) {
+    const p = doc.createElement('p');
+    p.className = 'notice';
+    p.textContent = EMPTY_DASHBOARD;
+    dashboard.append(p);
+  }
 
   for (const { child, cards } of groups.byChild) section(dashboard, child.name, cards, doc);
 
-  section(dashboard, 'Waiting for details', groups.waiting, doc);
+  section(dashboard, SECTIONS.waiting, groups.waiting, doc);
 
   // C3: grants whose child has been deleted. The API anonymises them rather
   // than dropping them, so without this heading a client's paid reading had
   // nowhere to render at all.
   for (const { label, cards } of groups.removed) section(dashboard, label, cards, doc);
 
-  section(dashboard, 'Your downloads', groups.downloads, doc);
-  section(dashboard, 'Not yet yours', groups.locked, doc);
+  section(dashboard, SECTIONS.downloads, groups.downloads, doc);
+  section(dashboard, SECTIONS.locked, groups.locked, doc);
 }
 
 /**
@@ -55,43 +92,98 @@ function wireDownloads(dashboard, doc) {
       line.className = 'card-download-status';
       card.append(line);
     }
-    if (line) line.textContent = '';
+    if (line) line.textContent = 'Preparing your download…';
 
     try {
       const url = await getDownloadUrl(cta.dataset.download);
+      if (line) line.textContent = '';
       window.location.assign(url);
     } catch (err) {
-      if (line) line.textContent = firstErrorMessage(err);
+      if (line) line.textContent = `The download could not be prepared. Try again in a minute. ${firstErrorMessage(err)}`;
     }
   });
+}
+
+/**
+ * The sign-in screen's three states on one form: asking, sending, sent.
+ * Exported so the DOM stub can drive it in tests.
+ */
+export function wireSignIn(doc, send) {
+  const form = doc.getElementById('sign-in-form');
+  const emailInput = doc.getElementById('email');
+  const button = doc.getElementById('send-link');
+  const status = doc.getElementById('status');
+  const ask = doc.getElementById('signin-ask');
+  const sent = doc.getElementById('link-sent');
+  const sentTo = doc.getElementById('sent-to');
+  const resendStatus = doc.getElementById('resend-status');
+  let lastEmail = '';
+
+  async function request(email, line) {
+    line.textContent = '';
+    button.disabled = true;
+    const label = button.textContent;
+    button.textContent = 'Sending…';
+    const { error } = await send(email);
+    button.disabled = false;
+    button.textContent = label;
+    if (error) { line.textContent = error; return false; }
+    return true;
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const email = String(emailInput.value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      status.textContent = 'That does not look like an email address. Check it and try again.';
+      return;
+    }
+    if (await request(email, status)) {
+      lastEmail = email;
+      sentTo.textContent = email;
+      ask.hidden = true;
+      sent.hidden = false;
+    }
+  });
+
+  doc.getElementById('send-again').addEventListener('click', async () => {
+    if (await request(lastEmail, resendStatus)) resendStatus.textContent = `Sent again to ${lastEmail}.`;
+  });
+
+  doc.getElementById('change-address').addEventListener('click', () => {
+    sent.hidden = true;
+    ask.hidden = false;
+    resendStatus.textContent = '';
+    emailInput.value = '';
+    if (emailInput.focus) emailInput.focus();
+  });
+}
+
+function showNotice(doc, key) {
+  const notice = doc.getElementById('signin-notice');
+  if (!notice || !NOTICES[key]) return;
+  notice.textContent = NOTICES[key];
+  notice.hidden = false;
 }
 
 async function init() {
   const signedOut = document.getElementById('signed-out');
   const signedIn = document.getElementById('signed-in');
-  const form = document.getElementById('sign-in-form');
-  const emailInput = document.getElementById('email');
-  const status = document.getElementById('status');
   const userEmail = document.getElementById('user-email');
   const signOutButton = document.getElementById('sign-out');
   const dashboard = document.getElementById('dashboard');
+  const dashboardStatus = document.getElementById('dashboard-status');
 
   // I1: wired BEFORE the session check, not inside the !session branch. The
   // catch at the foot of this function also reveals the sign-in form, and
   // that path used to reach a form with no submit handler at all — a sign-in
   // box that did nothing when a session expired.
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    status.textContent = '';
-    const { error } = await sendMagicLink(emailInput.value);
-    if (!error) {
-      status.textContent = 'Check your email.';
-    } else if (typeof error === 'string') {
-      status.textContent = error;
-    } else {
-      status.textContent = 'Please enter a valid email address.';
-    }
-  });
+  wireSignIn(document, sendMagicLink);
+
+  // An expired or used link: auth.js could only log it before, so the parent
+  // saw a bare sign-in form with nothing said.
+  const notice = takeSignInNotice();
+  if (notice) showNotice(document, notice);
 
   if (dashboard) wireDownloads(dashboard, document);
 
@@ -120,12 +212,17 @@ async function init() {
     // anywhere in the dashboard looked identical to being signed out. Say
     // which of the two it is, then fall back to the sign-in view rather than
     // leaving a dead dashboard on screen.
-    status.textContent = err && err.message === 'signed out'
-      ? 'Your session has expired. Please sign in again.'
-      : `Your dashboard could not be loaded. ${firstErrorMessage(err)}`;
+    if (err && err.message === 'signed out') {
+      showNotice(document, 'signed-out');
+    } else {
+      dashboardStatus.textContent = `Your readings could not be loaded. ${firstErrorMessage(err)} If it keeps happening, write to ${SUPPORT}.`;
+      return;
+    }
     signedOut.hidden = false;
     signedIn.hidden = true;
   }
 }
 
-init();
+if (typeof document !== 'undefined' && document.getElementById('sign-in-form')) {
+  init();
+}

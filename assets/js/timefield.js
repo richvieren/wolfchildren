@@ -107,7 +107,9 @@ export function tobError(id) {
   if (!e[2].value) missing.push('AM or PM');
   var last = missing.pop();
   var list = missing.length ? missing.join(', ') + ' and ' + last : last;
-  return 'Your birth time is missing the ' + list + '. Please complete it, or clear all three boxes if you do not know your birth time.';
+  // 2026-09-13: "your birth time" read as the parent's own; the checkbox is
+  // named as it is labelled on the form (child-form.js and parent-form.js).
+  return 'The birth time is missing the ' + list + '. Fill in all three, or tick "I do not know the birth time".';
 }
 
 // Guarded: this module is imported by tests/timefield.test.js under

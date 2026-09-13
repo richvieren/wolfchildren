@@ -78,7 +78,7 @@ test('C4: the ready CTA carries data-download, not a dead fragment href', () => 
   const grant = { grant_id: 42, edition: 1, has_intake: false, available_at: past2() };
   const card = renderCard(inst, grant, doc);
   const cta = card.querySelector('.card-cta');
-  assert.equal(cta.textContent, 'Download →');
+  assert.equal(cta.textContent, 'Download the PDF →');
   assert.equal(cta.dataset.download, '42');
   assert.equal(cta.href, '#');
 });
@@ -95,8 +95,8 @@ test('C3: edition 2 names itself in the status, edition 1 does not', () => {
   const doc = createDocument();
   const ready = (edition) => renderCard(inst, { grant_id: 1, edition, has_intake: false, available_at: past2() }, doc)
     .querySelector('.card-status').textContent;
-  assert.equal(ready(1), 'Ready to download');
-  assert.equal(ready(2), 'Edition 2 — Ready to download');
+  assert.equal(ready(1), 'Your reading is ready.');
+  assert.equal(ready(2), 'Edition 2 — Your reading is ready.');
 });
 
 test('a product name reaches the DOM as text, never as markup', () => {

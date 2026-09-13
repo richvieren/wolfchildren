@@ -28,11 +28,35 @@ const API_BASE = 'https://api.wolfchildren.co';
         localStorage.setItem('wc_user', JSON.stringify(data.user));
         window.location.reload();
       } else {
+        // 2026-09-13: the parent used to see a bare sign-in form with nothing
+        // said. The reason travels one hop through sessionStorage and the page
+        // reads it on the reload (main-portal.js takeSignInNotice).
         console.error('Auth verify failed:', data);
+        setSignInNotice('expired');
+        window.location.reload();
       }
     })
-    .catch(err => console.error('Auth verify error:', err));
+    .catch(err => {
+      console.error('Auth verify error:', err);
+      setSignInNotice('expired');
+      window.location.reload();
+    });
 })();
+
+const NOTICE_KEY = 'wc_signin_notice';
+
+export function setSignInNotice(key) {
+  try { sessionStorage.setItem(NOTICE_KEY, key); } catch { /* private mode: the notice is lost, nothing else is */ }
+}
+
+/** The pending sign-in notice, read once and cleared. */
+export function takeSignInNotice() {
+  try {
+    const key = sessionStorage.getItem(NOTICE_KEY);
+    if (key) sessionStorage.removeItem(NOTICE_KEY);
+    return key || null;
+  } catch { return null; }
+}
 
 /** Get current session (JWT + user). Returns null if not logged in. */
 export async function getSession() {
@@ -62,6 +86,8 @@ export async function getSession() {
   }
 }
 
+export const TOO_MANY_LINKS = 'You have asked for several links in the last hour. Use the newest one in your inbox, or try again in an hour.';
+
 /** Send magic link via the VPS auth API. */
 export async function sendMagicLink(email) {
   try {
@@ -77,6 +103,8 @@ export async function sendMagicLink(email) {
     let data = {};
     try { data = text ? JSON.parse(text) : {}; } catch { data = {}; }
     if (!res.ok) {
+      // The API's 429 detail is for the journal; the parent gets the sentence.
+      if (res.status === 429) return { error: TOO_MANY_LINKS };
       if (typeof data.detail === 'string') return { error: data.detail };
       return { error: `The sign-in email could not be sent (${res.status}). Please try again in a minute.` };
     }

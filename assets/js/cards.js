@@ -1,6 +1,11 @@
 // cards.js — one state machine and one renderer for every product.
 // Cato's dashboard.js has five near-identical renderers. With eight products
 // that shape means eight copies of every change. See spec §3.
+//
+// 2026-09-13: every line says what happens next (docs/portal-copy-audit-
+// 2026-09-13.md). "Within 24 hours" is Richard's delivery promise: he checks
+// the review queue once a day. A locked card names the product and its price
+// and links to a sales page only when the registry carries one (none yet).
 
 export function cardState(product, grant) {
   if (!grant) return 'locked';
@@ -11,13 +16,22 @@ export function cardState(product, grant) {
   return t > Date.now() ? 'pending' : 'ready';
 }
 
-const COPY = {
-  locked:    { status: '',                                         cta: null },
-  intake:    { status: 'Complete your details to begin',           cta: 'Start →' },
-  submitted: { status: 'Your details are in. Your reading is being prepared.', cta: null },
-  pending:   { status: 'Your reading is being prepared',           cta: null },
-  ready:     { status: 'Ready to download',                        cta: 'Download →' },
+export const DELIVERY_PROMISE = 'We email you when it is ready, within 24 hours.';
+
+export const COPY = {
+  locked:    { status: '', cta: null },
+  intake:    { status: 'Tell us about your child and this reading starts.', cta: 'Give the details →' },
+  submitted: { status: `Your details are in. Your reading is being prepared. ${DELIVERY_PROMISE}`, cta: null },
+  pending:   { status: `Your reading is being prepared. ${DELIVERY_PROMISE}`, cta: null },
+  ready:     { status: 'Your reading is ready.', cta: 'Download the PDF →',
+               note: 'Opens as a PDF. On a phone, use the share button to save it.' },
 };
+
+export function priceLabel(product) {
+  if (typeof product.priceCents !== 'number') return '';
+  const dollars = product.priceCents / 100;
+  return Number.isInteger(dollars) ? `$${dollars}` : `$${dollars.toFixed(2)}`;
+}
 
 export function renderCard(product, grant, doc = document) {
   const state = cardState(product, grant);
@@ -41,6 +55,24 @@ export function renderCard(product, grant, doc = document) {
     : c.status;
   el.append(s);
 
+  if (state === 'locked') {
+    const price = priceLabel(product);
+    if (price) {
+      const p = doc.createElement('p');
+      p.className = 'card-price';
+      p.textContent = price;
+      el.append(p);
+    }
+    if (product.salesUrl) {
+      const a = doc.createElement('a');
+      a.className = 'card-cta';
+      a.textContent = 'What is in it →';
+      a.href = product.salesUrl;
+      el.append(a);
+    }
+    return el;
+  }
+
   if (c.cta) {
     const a = doc.createElement('a');
     a.className = 'card-cta';
@@ -56,6 +88,12 @@ export function renderCard(product, grant, doc = document) {
       a.dataset.download = String(grant.grant_id);
     }
     el.append(a);
+  }
+  if (c.note) {
+    const n = doc.createElement('p');
+    n.className = 'card-note small';
+    n.textContent = c.note;
+    el.append(n);
   }
   return el;
 }
