@@ -248,3 +248,9 @@ ul, ol { padding: 0; list-style: none; }
 .footer-fine { margin-top: var(--s-block); font-size: var(--t-label); line-height: 1.5; max-width: 70ch; letter-spacing: 0; text-transform: none; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* signup — the moon-calendar form (src/lib/signup.mjs). Layout only; type inherits the tokens. */
+.signup { margin-top: var(--s-block); }
+.signup-form { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; max-width: 46ch; }
+.signup-form input[type="email"] { width: 100%; box-sizing: border-box; font: inherit; color: var(--green); background: #fff; border: 1px solid var(--tan); border-radius: 4px; padding: 12px 14px; }
+.signup-form input[type="email"]:focus { outline: 2px solid var(--green); outline-offset: 2px; }
+.signup-status, .signup-success, .signup-sub { max-width: 46ch; }
