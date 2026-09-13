@@ -70,11 +70,19 @@ export async function sendMagicLink(email) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
     });
-    const data = await res.json();
-    if (!res.ok) return { error: data.detail || 'Failed to send magic link' };
+    // 2026-09-13: a 500 arrives with a plain-text body, and res.json() on it threw
+    // "Unexpected token I" onto the sign-in page. Read the body once, as text, and
+    // say what happened in words a parent can act on.
+    const text = await res.text();
+    let data = {};
+    try { data = text ? JSON.parse(text) : {}; } catch { data = {}; }
+    if (!res.ok) {
+      if (typeof data.detail === 'string') return { error: data.detail };
+      return { error: `The sign-in email could not be sent (${res.status}). Please try again in a minute.` };
+    }
     return {};
   } catch (err) {
-    return { error: err.message };
+    return { error: 'The sign-in request did not reach us. Check your connection and try again.' };
   }
 }
 

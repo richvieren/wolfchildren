@@ -22,7 +22,7 @@
 // parent-form.js; this file only decides when to mount them and what the
 // submit sends.
 
-import { getSession } from './auth.js?v=b9374f9e';
+import { getSession } from './auth.js?v=9897e807';
 import { PRODUCTS, getProduct } from './registry.js?v=0f1a5259';
 import { getChildren, addChild, submitIntake, getParent, saveParent, firstErrorMessage } from './api.js?v=a796088e';
 import { clearValidatedLocation, resolveSelectedPlace } from './autocomplete.js?v=d3fe94de';

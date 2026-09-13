@@ -3,7 +3,7 @@
 // child-form.js component, also used by intake.js — see that file for the
 // Places wiring.
 
-import { getSession } from './auth.js?v=b9374f9e';
+import { getSession } from './auth.js?v=9897e807';
 import { getChildren, addChild, deleteChild, firstErrorMessage } from './api.js?v=a796088e';
 import { mountChildForm, readChildForm } from './child-form.js?v=f4dcddfa';
 

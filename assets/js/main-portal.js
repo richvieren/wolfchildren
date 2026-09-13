@@ -3,7 +3,7 @@
 // dashboard: grants and children fetched in parallel, grouped by
 // dashboard.js, drawn with cards.js.
 
-import { getSession, sendMagicLink, signOut } from './auth.js?v=b9374f9e';
+import { getSession, sendMagicLink, signOut } from './auth.js?v=9897e807';
 import { getGrants, getChildren, getDownloadUrl, firstErrorMessage } from './api.js?v=a796088e';
 import { grantableProducts } from './registry.js?v=0f1a5259';
 import { groupGrants } from './dashboard.js?v=1d95e222';
