@@ -5,7 +5,7 @@ import { groupGrants } from '../assets/js/dashboard.js';
 import { getProduct, grantableProducts } from '../assets/js/registry.js';
 
 const transits = getProduct('transits');
-const presets = getProduct('presets');
+const presets = getProduct('photo-course');   // manual, the download kind that remains after presets went (2026-09-13)
 
 test('two children x one generated product -> two cards with the right grants', () => {
   const children = [{ id: 1, name: 'Ada' }, { id: 2, name: 'Bo' }];
@@ -32,9 +32,9 @@ test('an un-started reading grant lands in waiting', () => {
   assert.equal(locked.length, 0);
 });
 
-test('an instant grant lands in downloads', () => {
+test('a manual grant lands in downloads', () => {
   const grants = [
-    { grant_id: 9, product: 'presets', child_id: null, child_name: null, edition: null, available_at: '2020-01-01T00:00:00Z', has_intake: false },
+    { grant_id: 9, product: 'photo-course', child_id: null, child_name: null, edition: null, available_at: '2020-01-01T00:00:00Z', has_intake: false },
   ];
   const { downloads, locked } = groupGrants([presets], grants, []);
   assert.equal(downloads.length, 1);
@@ -67,7 +67,7 @@ test('no children + no grants -> every ACTIVE product in locked (I7)', () => {
   assert.equal(downloads.length, 0);
   const active = grantableProducts().filter((p) => p.active);
   assert.equal(locked.length, active.length);
-  assert.equal(locked.length, 7);   // ten grantable, less photo-course, retreat and compass (not yet built)
+  assert.equal(locked.length, 6);   // nine grantable, less photo-course, retreat and compass (not yet built)
   for (const { grant } of locked) assert.equal(grant, null);
 });
 
@@ -137,11 +137,11 @@ test('C3: a removed child keeps its name when the API still has one', () => {
   assert.deepEqual(removed[0].cards.map((c) => c.grant.grant_id), [22, 23]);
 });
 
-test('every grant of an instant product renders, one card per edition', () => {
+test('every grant of a manual product renders, one card per edition', () => {
   const past = new Date(Date.now() - 86400e3).toISOString();
   const grants = [
-    { grant_id: 1, product: 'presets', child_id: null, child_name: null, edition: 1, available_at: past, has_intake: false },
-    { grant_id: 2, product: 'presets', child_id: null, child_name: null, edition: 2, available_at: past, has_intake: false },
+    { grant_id: 1, product: 'photo-course', child_id: null, child_name: null, edition: 1, available_at: past, has_intake: false },
+    { grant_id: 2, product: 'photo-course', child_id: null, child_name: null, edition: 2, available_at: past, has_intake: false },
   ];
   const g = groupGrants([presets], grants, []);
   assert.deepEqual(g.downloads.map((d) => d.grant.grant_id), [1, 2]);

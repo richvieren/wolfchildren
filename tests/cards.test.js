@@ -7,7 +7,7 @@ import { getProduct } from '../assets/js/registry.js';
 const future = () => new Date(Date.now() + 86400e3).toISOString();
 const past   = () => new Date(Date.now() - 86400e3).toISOString();
 const gen    = getProduct('transits');
-const inst   = getProduct('presets');
+const inst   = getProduct('photo-course');   // manual: released at purchase, like the instant kind that went with presets (2026-09-13)
 const man    = getProduct('retreat');
 
 test('no grant is locked, for every fulfilment type', () => {
@@ -30,11 +30,11 @@ test('generated: released in the past is ready', () => {
   assert.equal(cardState(gen, { has_intake: true, available_at: past() }), 'ready');
 });
 
-test('instant: owned is immediately ready, and never asks for intake', () => {
+test('manual: owned is immediately ready, and never asks for intake', () => {
   assert.equal(cardState(inst, { has_intake: false, available_at: past() }), 'ready');
 });
 
-test('instant: owned but not yet released is pending, not intake', () => {
+test('manual: owned but not yet released is pending, not intake', () => {
   assert.equal(cardState(inst, { has_intake: false, available_at: null }), 'pending');
 });
 
@@ -42,7 +42,7 @@ test('manual: owned and released is ready', () => {
   assert.equal(cardState(man, { has_intake: false, available_at: past() }), 'ready');
 });
 
-test('an instant product never enters the intake state', () => {
+test('a manual product never enters the intake state', () => {
   const states = [
     { has_intake: false, available_at: null },
     { has_intake: false, available_at: past() },
