@@ -16,6 +16,7 @@ CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 PORT=8765
 OUT="$ROOT/snapshots"
 FILTER="${1:-}"
+HEIGHT="${SNAP_HEIGHT:-6000}"   # a full page needs more than a section: SNAP_HEIGHT=14000 ./snap.sh --page
 mkdir -p "$OUT"
 
 node "$ROOT/build.mjs" --sections >/dev/null
@@ -26,10 +27,11 @@ trap 'kill $HTTPD 2>/dev/null || true' EXIT
 until curl -s -o /dev/null "http://127.0.0.1:$PORT/"; do sleep 0.2; done
 
 shoot() { # url name
-  local url="$1" name="$2" wrap="$OUT/.wrap-$name.html"
-  printf '<!doctype html><html><body style="margin:0;background:#fff"><iframe src="%s" style="display:block;width:390px;height:6000px;border:0"></iframe></body></html>' "$url" > "$wrap"
-  "$CHROME" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=6000 --window-size=600,6000 --screenshot="$OUT/.raw-$name-390.png" "file://$wrap" 2>/dev/null
-  "$CHROME" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=6000 --window-size=1280,6000 --screenshot="$OUT/.raw-$name-1280.png" "$url" 2>/dev/null
+  local url="$1" name="$2"
+  local wrap="$OUT/.wrap-$name.html"   # split from the line above: under set -u, $name is unbound in the same local statement
+  printf '<!doctype html><html><body style="margin:0;background:#fff"><iframe src="%s" style="display:block;width:390px;height:%spx;border:0"></iframe></body></html>' "$url" "$HEIGHT" > "$wrap"
+  "$CHROME" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=6000 --window-size=600,$HEIGHT --screenshot="$OUT/.raw-$name-390.png" "file://$wrap" 2>/dev/null
+  "$CHROME" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=6000 --window-size=1280,$HEIGHT --screenshot="$OUT/.raw-$name-1280.png" "$url" 2>/dev/null
   python3 - "$OUT" "$name" <<'EOF'
 import sys; from PIL import Image
 out,name=sys.argv[1],sys.argv[2]
@@ -38,7 +40,7 @@ def trim(im):
     for y in range(h-1,-1,-1):
         if any(sum(abs(a-b) for a,b in zip(px[x,y][:3],bg))>12 for x in range(0,w,max(1,w//48))): last=y; break
     return im.crop((0,0,w,min(h,last+48)))
-m=Image.open(f"{out}/.raw-{name}-390.png").convert("RGB").crop((0,0,390,6000)); trim(m).save(f"{out}/{name}--390.png")
+m=Image.open(f"{out}/.raw-{name}-390.png").convert("RGB"); m=m.crop((0,0,390,m.height)); trim(m).save(f"{out}/{name}--390.png")
 d=Image.open(f"{out}/.raw-{name}-1280.png").convert("RGB"); trim(d).save(f"{out}/{name}--1280.png")
 EOF
   rm -f "$wrap" "$OUT/.raw-$name-390.png" "$OUT/.raw-$name-1280.png"
