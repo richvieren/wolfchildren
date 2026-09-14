@@ -271,6 +271,7 @@ ul, ol { padding: 0; list-style: none; }
 .photo-full img { display: block; width: 100%; height: auto; }
 .home-signup { padding-top: calc(var(--s-section) * 1.5); padding-bottom: calc(var(--s-section) * 1.5); }
 .home-signup .signup { margin-top: 0; }
+.home-signup .signup-sub { margin-bottom: var(--s-block); }      /* room between the sentence and the field (Richard, 2026-09-14) */
 .home-signup-row { display: flex; flex-direction: column; align-items: stretch; gap: var(--s-block); }
 .home-signup-media { margin: 0; width: 100%; max-width: 520px; }
 .home-signup-media img { display: block; width: 100%; height: auto; }
