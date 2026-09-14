@@ -1,10 +1,21 @@
-// home.mjs — the homepage. 2026-09-14, Richard: the hero only, nothing else.
-// A full-width Vimeo film (autoplay, muted, looping, no chrome: Vimeo's
-// background mode, available on the Plus account the film is on), then one
-// quote standing alone with room around it. The rest of the design comes later;
-// the page stays noindex until it does.
+// home.mjs — the homepage. Richard, 2026-09-14, in order: the film full width
+// (Vimeo background mode: autoplay, muted, looping, no chrome); the quote in
+// IBM Plex Sans beside a small photo on a white ground; a full-width photo; the
+// moon-calendar signup (Loops, src/lib/signup.mjs). The two photographs are the
+// Compass nature photos for now. The page stays noindex until the design is done.
+//
+// The signup's own gate (docs/loops-signup-form.md): the Loop that sends the
+// calendar is still a Draft in Loops. The page is noindex, so no visitor reaches
+// the form yet; Richard switches the Loop on before the page is indexed.
 
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { h } from '../components.mjs';
+import { signup } from '../lib/signup.mjs';
+
+// stamp-assets.sh stamps hand-written HTML; a built page must carry the same
+// stamp from its source, or the build would undo it. Same hash: md5, 8 chars.
+const SIGNUP_JS = `/assets/js/signup.js?v=${createHash('md5').update(readFileSync(new URL('../../assets/js/signup.js', import.meta.url))).digest('hex').slice(0, 8)}`;
 
 export const path = '/';
 export const title = 'Wolf Children';
@@ -25,10 +36,20 @@ export function sections() {
           referrerpolicy: 'strict-origin-when-cross-origin',
         }, '')))],
 
-    ['quote', h('section', { class: 'quote-alone' },
+    ['quote', h('section', { class: 'quote-photo' },
       h('div', { class: 'container' },
-        h('blockquote', { class: 'display t-title' },
-          h('p', {}, 'No child will ever remember spending their best day in front of a screen'))))],
+        h('blockquote', {},
+          h('p', {}, 'No child will ever remember spending their best day in front of a screen')),
+        h('figure', {},
+          h('img', { src: '/assets/img/home-quote.jpg', alt: 'A child on a path between a wooden fence and trees', width: '1400', height: '1050', loading: 'lazy' }))))],
+
+    ['photo', h('section', { class: 'photo-full', 'aria-label': 'Photograph' },
+      h('img', { src: '/assets/img/home-band.jpg', alt: 'A beach at sunset, the tide out, small figures far away', width: '2048', height: '1536', loading: 'lazy' }))],
+
+    ['signup', h('div', { class: 'section home-signup' },
+      h('div', { class: 'container' },
+        signup({ eyebrow: 'Free', heading: 'The 2027 moon calendar', sub: 'Every new moon, first quarter, full moon and last quarter of 2027 on one page. Print it and put it where your child can see it.' })),
+      h('script', { src: SIGNUP_JS, defer: true }, ''))],
   ];
 }
 

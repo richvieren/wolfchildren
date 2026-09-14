@@ -8,6 +8,8 @@
 @font-face { font-family: "Libre Baskerville"; font-weight: 400; font-style: normal; font-display: swap; src: url(/assets/fonts/libre-baskerville-400.woff2) format("woff2"); }
 @font-face { font-family: "Libre Baskerville"; font-weight: 700; font-style: normal; font-display: swap; src: url(/assets/fonts/libre-baskerville-700.woff2) format("woff2"); }
 @font-face { font-family: "Libre Baskerville"; font-weight: 400; font-style: italic; font-display: swap; src: url(/assets/fonts/libre-baskerville-400-italic.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 400; font-style: normal; font-display: swap; src: url(/assets/fonts/ibm-plex-sans-400.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 500; font-style: normal; font-display: swap; src: url(/assets/fonts/ibm-plex-sans-500.woff2) format("woff2"); }
 @font-face { font-family: "IBM Plex Mono"; font-weight: 300; font-style: normal; font-display: swap; src: url(/assets/fonts/ibm-plex-mono-300.woff2) format("woff2"); }
 @font-face { font-family: "IBM Plex Mono"; font-weight: 400; font-style: normal; font-display: swap; src: url(/assets/fonts/ibm-plex-mono-400.woff2) format("woff2"); }
 @font-face { font-family: "IBM Plex Mono"; font-weight: 700; font-style: normal; font-display: swap; src: url(/assets/fonts/ibm-plex-mono-700.woff2) format("woff2"); }
@@ -23,6 +25,7 @@
   --f-display: Montserrat, "Arial Black", Arial, sans-serif;
   --f-serif: "Libre Baskerville", Georgia, serif;
   --f-mono: "IBM Plex Mono", Menlo, Consolas, monospace;
+  --f-sans: "IBM Plex Sans", Helvetica, Arial, sans-serif;     /* the homepage quote (Richard, 2026-09-14) */
 
   /* type scale — mobile. Any font-size not a --t-* token is a bug. */
   --t-title: 40px;    /* page title */
@@ -255,12 +258,24 @@ ul, ol { padding: 0; list-style: none; }
 .signup-form input[type="email"]:focus { outline: 2px solid var(--green); outline-offset: 2px; }
 .signup-status, .signup-success, .signup-sub { max-width: 46ch; }
 
-/* ---------- homepage hero (2026-09-14): the film, then one quote alone ---------- */
+/* ---------- homepage (2026-09-14): the film, a quote beside a small photo on white, a full-width photo, the signup ---------- */
 .film { background: var(--green); }
 .film-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; }
 .film-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
-.quote-alone { padding-top: calc(var(--s-section) * 2); padding-bottom: calc(var(--s-section) * 2); }
-.quote-alone blockquote { margin: 0 auto; max-width: 22ch; text-align: center; }
-.quote-alone blockquote p { margin: 0; }
-.quote-alone blockquote p::before { content: "\201C"; }
-.quote-alone blockquote p::after { content: "\201D"; }
+.quote-photo { background: #fff; padding-top: calc(var(--s-section) * 2); padding-bottom: calc(var(--s-section) * 2); }
+.quote-photo .container { display: flex; flex-direction: column; align-items: center; gap: var(--s-block); }
+.quote-photo blockquote { margin: 0; font-family: var(--f-sans); font-weight: 400; font-size: var(--t-small); line-height: 1.6; color: var(--green); text-align: justify; max-width: 30ch; }
+.quote-photo blockquote p { margin: 0; }
+.quote-photo blockquote p::before { content: "\201C"; }
+.quote-photo blockquote p::after { content: "\201D"; }
+.quote-photo figure { margin: 0; width: 100%; max-width: 360px; }
+.quote-photo img { display: block; width: 100%; height: auto; }
+.photo-full { background: var(--green); }
+.photo-full img { display: block; width: 100%; height: auto; }
+.home-signup { padding-top: calc(var(--s-section) * 1.5); padding-bottom: calc(var(--s-section) * 1.5); }
+.home-signup .signup { margin-top: 0; }
+@media (min-width: 760px) {
+  .quote-photo .container { flex-direction: row; justify-content: center; align-items: center; gap: calc(var(--s-block) * 1.5); }
+  .quote-photo blockquote { flex: 0 1 30ch; }
+  .quote-photo figure { flex: 0 0 360px; }
+}
