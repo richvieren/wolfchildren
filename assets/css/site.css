@@ -264,10 +264,7 @@ ul, ol { padding: 0; list-style: none; }
 .film-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
 .quote-photo { background: #fff; padding-top: calc(var(--s-section) * 2); padding-bottom: calc(var(--s-section) * 2); }
 .quote-photo .container { display: flex; flex-direction: column; align-items: center; gap: var(--s-block); }
-.quote-photo blockquote { margin: 0; font-family: var(--f-sans); font-weight: 400; font-size: var(--t-small); line-height: 1.6; color: var(--green); text-align: justify; max-width: 30ch; }
-.quote-photo blockquote p { margin: 0; }
-.quote-photo blockquote p::before { content: "\201C"; }
-.quote-photo blockquote p::after { content: "\201D"; }
+.quote-photo .statement { margin: 0; font-family: var(--f-sans); font-weight: 400; font-size: var(--t-sub); line-height: 1.45; color: var(--green); text-align: left; max-width: 26ch; }
 .quote-photo figure { margin: 0; width: 100%; max-width: 360px; }
 .quote-photo img { display: block; width: 100%; height: auto; }
 .photo-full { background: var(--green); }
@@ -276,6 +273,6 @@ ul, ol { padding: 0; list-style: none; }
 .home-signup .signup { margin-top: 0; }
 @media (min-width: 760px) {
   .quote-photo .container { flex-direction: row; justify-content: center; align-items: center; gap: calc(var(--s-block) * 1.5); }
-  .quote-photo blockquote { flex: 0 1 30ch; }
+  .quote-photo .statement { flex: 0 1 26ch; }
   .quote-photo figure { flex: 0 0 360px; }
 }

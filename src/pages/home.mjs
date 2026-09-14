@@ -1,6 +1,6 @@
 // home.mjs — the homepage. Richard, 2026-09-14, in order: the film full width
 // (Vimeo background mode: autoplay, muted, looping, no chrome); the quote in
-// IBM Plex Sans beside a small photo on a white ground; a full-width photo; the
+// the statement in IBM Plex Sans beside a small photo on a white ground; a full-width photo; the
 // moon-calendar signup (Loops, src/lib/signup.mjs). The two photographs are the
 // Compass nature photos for now. The page stays noindex until the design is done.
 //
@@ -38,13 +38,12 @@ export function sections() {
 
     ['quote', h('section', { class: 'quote-photo' },
       h('div', { class: 'container' },
-        h('blockquote', {},
-          h('p', {}, 'No child will ever remember spending their best day in front of a screen')),
+        h('p', { class: 'statement' }, 'Wolf Children is a collection of stories, tools and recipes to help parents avoid the trap of screentime.'),
         h('figure', {},
           h('img', { src: '/assets/img/home-quote.jpg', alt: 'A child on a path between a wooden fence and trees', width: '1400', height: '1050', loading: 'lazy' }))))],
 
     ['photo', h('section', { class: 'photo-full', 'aria-label': 'Photograph' },
-      h('img', { src: '/assets/img/home-band.jpg', alt: 'A beach at sunset, the tide out, small figures far away', width: '2048', height: '1536', loading: 'lazy' }))],
+      h('img', { src: '/assets/img/home-band.jpg', alt: 'A small child running on a beach at sunset. Text on the photograph: No kid will ever remember spending their best day in front of a screen', width: '2000', height: '1500', loading: 'lazy' }))],
 
     ['signup', h('div', { class: 'section home-signup' },
       h('div', { class: 'container' },
