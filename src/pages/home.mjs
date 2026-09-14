@@ -43,11 +43,13 @@ export function sections() {
           h('img', { src: '/assets/img/home-quote.jpg', alt: 'A child on a path between a wooden fence and trees', width: '1400', height: '1050', loading: 'lazy' }))))],
 
     ['photo', h('section', { class: 'photo-full', 'aria-label': 'Photograph' },
-      h('img', { src: '/assets/img/home-band.jpg', alt: 'A small child running on a beach at sunset. Text on the photograph: No kid will ever remember spending their best day in front of a screen', width: '2000', height: '1500', loading: 'lazy' }))],
+      h('img', { src: '/assets/img/home-band.jpg', alt: 'No child will ever remember spending their best day in front of a screen, set in large letters with four photographs of a child outdoors', width: '1920', height: '876', loading: 'lazy' }))],
 
     ['signup', h('div', { class: 'section home-signup' },
-      h('div', { class: 'container' },
-        signup({ eyebrow: 'Free', heading: 'The 2027 moon calendar', sub: 'Every new moon, first quarter, full moon and last quarter of 2027 on one page. Print it and put it where your child can see it.' })),
+      h('div', { class: 'container home-signup-row' },
+        signup({ eyebrow: 'Free', heading: 'The 2027 moon calendar', sub: 'Every new moon, first quarter, full moon and last quarter of 2027 on one page. Print it and put it where your child can see it.' }),
+        h('figure', { class: 'home-signup-media' },
+          h('img', { src: '/assets/img/home-calendar.jpg', alt: 'The 2027 moon calendar, one printed page with every moon phase and its date', width: '1400', height: '1050', loading: 'lazy' }))),
       h('script', { src: SIGNUP_JS, defer: true }, ''))],
   ];
 }

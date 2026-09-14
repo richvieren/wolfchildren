@@ -271,7 +271,13 @@ ul, ol { padding: 0; list-style: none; }
 .photo-full img { display: block; width: 100%; height: auto; }
 .home-signup { padding-top: calc(var(--s-section) * 1.5); padding-bottom: calc(var(--s-section) * 1.5); }
 .home-signup .signup { margin-top: 0; }
+.home-signup-row { display: flex; flex-direction: column; align-items: stretch; gap: var(--s-block); }
+.home-signup-media { margin: 0; width: 100%; max-width: 520px; }
+.home-signup-media img { display: block; width: 100%; height: auto; }
 @media (min-width: 760px) {
+  .home-signup-row { flex-direction: row; align-items: center; justify-content: space-between; gap: calc(var(--s-block) * 1.5); }
+  .home-signup-row .signup { flex: 0 1 46ch; }
+  .home-signup-media { flex: 0 1 520px; }
   .quote-photo .container { flex-direction: row; justify-content: center; align-items: center; gap: calc(var(--s-block) * 1.5); }
   .quote-photo .statement { flex: 0 1 26ch; }
   .quote-photo figure { flex: 0 0 360px; }
