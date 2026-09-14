@@ -54,11 +54,16 @@ for (const p of pages) {
   const isProductPage = Object.hasOwn(PRODUCTS, p.slug);
 
   test(`${p.path} prices match the registry`, () => {
+    // 2026-09-14: a product page may also carry another product's price as the anchor
+    // (Carter: never skip price anchoring; Compass shows North Star's), but every
+    // price on the page must be a registry price and the page's own must be present.
     const prices = [...p.html.matchAll(/\$(\d+)(?!\d)/g)].map((m) => Number(m[1]));
     if (!isProductPage) { assert.equal(prices.length, 0, 'a non-product page carries no price'); return; }
     assert.ok(prices.length > 0, 'no price on the page');
     const expected = PRODUCTS[p.slug].priceCents / 100;
-    for (const price of prices) assert.equal(price, expected, `price $${price} on ${p.path}`);
+    const registry = new Set(Object.values(PRODUCTS).filter((x) => x.priceCents != null).map((x) => x.priceCents / 100));
+    assert.ok(prices.includes(expected), `the page's own price $${expected} is missing`);
+    for (const price of prices) assert.ok(registry.has(price), `price $${price} on ${p.path} is not a registry price`);
   });
 
   test(`${p.path} one CTA label, repeated`, () => {
