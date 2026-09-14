@@ -67,8 +67,10 @@ for (const p of pages) {
   });
 
   test(`${p.path} one CTA label, repeated`, () => {
+    // 2026-09-14: the homepage hero carries no CTA yet (Richard: the film and one quote, nothing else).
     const labels = new Set([...p.html.matchAll(/class="btn[^"]*"[^>]*>([^<]+)</g)].map((m) => m[1]));
-    assert.equal(labels.size, 1, [...labels].join(' | '));
+    assert.ok(labels.size <= 1, [...labels].join(' | '));
+    if (isProductPage) assert.equal(labels.size, 1, 'a product page has one CTA label');
   });
 
   test(`${p.path} copy carries no em dashes`, () => {

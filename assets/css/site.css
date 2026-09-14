@@ -254,3 +254,13 @@ ul, ol { padding: 0; list-style: none; }
 .signup-form input[type="email"] { width: 100%; box-sizing: border-box; font: inherit; color: var(--green); background: #fff; border: 1px solid var(--tan); border-radius: 4px; padding: 12px 14px; }
 .signup-form input[type="email"]:focus { outline: 2px solid var(--green); outline-offset: 2px; }
 .signup-status, .signup-success, .signup-sub { max-width: 46ch; }
+
+/* ---------- homepage hero (2026-09-14): the film, then one quote alone ---------- */
+.film { background: var(--green); }
+.film-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; }
+.film-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+.quote-alone { padding-top: calc(var(--s-section) * 2); padding-bottom: calc(var(--s-section) * 2); }
+.quote-alone blockquote { margin: 0 auto; max-width: 22ch; text-align: center; }
+.quote-alone blockquote p { margin: 0; }
+.quote-alone blockquote p::before { content: "\201C"; }
+.quote-alone blockquote p::after { content: "\201D"; }
