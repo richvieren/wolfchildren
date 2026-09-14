@@ -181,8 +181,8 @@ export function sections() {
       contact: 'hello@wolfchildren.co',
       legal: [
         { label: 'Privacy', href: '/legal/privacy/' },
-        { label: 'Terms', href: '/legal/terms.html', placeholder: 'terms page (not written)' },
-        { label: 'Refunds', href: '/legal/refunds.html', placeholder: 'refunds page (not written)' },
+        { label: 'Terms', href: '/legal/terms/' },
+        { label: 'Refunds', href: '/legal/refunds/' },
       ],
       fine: `© ${new Date().getFullYear()} Wolf Children. Readings are written for parents and describe how a child is wired; they do not predict events.`,
     })],

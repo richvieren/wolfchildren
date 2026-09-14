@@ -2,15 +2,16 @@
 // components (stack sections of prose), which is the point of the composer.
 //
 // Facts here come from the spec (§10) and the reader's design addendum
-// (2026-09-09 §3, Richard's option C). Business identity is a placeholder
-// until Richard supplies it; the page stays noindex until then.
+// (2026-09-09 §3, Richard's option C). Business identity from Richard,
+// 2026-09-14: Autism Central LLC (Wyoming), address per the Articles of
+// Organization; the EU/UK complaint line and Wyoming law are his decisions.
 
 import { banner, header, prose, footer, ph, h } from '../components.mjs';
 
 export const path = '/legal/privacy/';
 export const title = 'Privacy | Wolf Children';
 export const description = 'What Wolf Children collects about you and your child, where it goes, and how to have it deleted.';
-export const indexable = false;
+export const indexable = true;
 
 const ANTHROPIC_TERMS = 'https://www.anthropic.com/legal/commercial-terms';
 
@@ -23,7 +24,7 @@ export function sections() {
       eyebrow: 'Who we are',
       heading: 'Privacy at Wolf Children.',
       paragraphs: [
-        h('span', {}, 'Wolf Children is operated by ', ph('BUSINESS NAME'), ', ', ph('ADDRESS'), '. This page says what we collect, what we do with it, where it is stored, and how you have it removed. It is written to be read, not scrolled past.'),
+        'Wolf Children is operated by Autism Central LLC, 1309 Coffeen Avenue STE 1200, Sheridan, Wyoming 82801, United States. This page says what we collect, what we do with it, where it is stored, and how you have it removed. It is written to be read, not scrolled past.',
       ],
     })],
 
@@ -72,7 +73,7 @@ export function sections() {
       heading: 'Ask, and we answer.',
       paragraphs: [
         h('span', {}, 'You can ask what we hold about you, ask for a copy, ask for a correction, or ask for deletion, by writing to ', h('a', { href: 'mailto:hello@wolfchildren.co' }, 'hello@wolfchildren.co'), '. Deleting a child from the portal does the deletion yourself, immediately.'),
-        h('span', {}, ph('JURISDICTION AND SUPERVISORY AUTHORITY LINE')),
+        'If you are in the EU or UK, you can also complain to the data protection authority where you live.',
       ],
     })],
 
@@ -80,8 +81,8 @@ export function sections() {
       contact: 'hello@wolfchildren.co',
       legal: [
         { label: 'Privacy', href: '/legal/privacy/' },
-        { label: 'Terms', href: '/legal/terms.html', placeholder: 'terms page (not written)' },
-        { label: 'Refunds', href: '/legal/refunds.html', placeholder: 'refunds page (not written)' },
+        { label: 'Terms', href: '/legal/terms/' },
+        { label: 'Refunds', href: '/legal/refunds/' },
       ],
       fine: `© ${new Date().getFullYear()} Wolf Children. Readings are written for parents and describe how a child is wired; they do not predict events.`,
     })],
