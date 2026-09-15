@@ -10,16 +10,26 @@
 // where it arises. Voice: brand-bible §7 (a brand, not a person; no credentials).
 //
 // What is "in the product" is read off the real Compass render
-// (api/scripts/compass_page.py, 2026-09-13): the 23 widgets, 22 of them with
-// text. Prices come from the registry, never typed here. No testimonials until
+// (api/scripts/compass_page.py, 2026-09-13): the 24 widgets (the wheel added
+// 2026-09-15), 22 of them with text. Prices come from the registry, never typed here. No testimonials until
 // real ones exist; the photo slots are marked placeholders, so the page stays
 // noindex until the photographs are in.
 
 import {
   banner, header, hero, photoBand, gallery, prose, steps, peek,
-  comparison, faq, offer, finalCta, footer, slot, h,
+  comparison, faq, offer, finalCta, footer, slot, h, eyebrow,
 } from '../components.mjs';
 import { PRODUCTS } from '../../assets/js/registry.js';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { raw } from '../lib/html.mjs';
+
+// The live wheel: a sample chart for a child who does not exist (12 January 2020,
+// 14:30, Ghent), computed by the API's own natal_chart(); never a real child's chart.
+const WHEEL_DATA = readFileSync(new URL('../../assets/data/wheel-sample.json', import.meta.url), 'utf8').trim();
+const stamp = (rel) => createHash('md5').update(readFileSync(new URL(rel, import.meta.url))).digest('hex').slice(0, 8);
+const heading = (level, size, text) => h(level, { class: `display ${size}` }, text);   // as in components.mjs (not exported)
+const WHEEL_JS = `/assets/js/wheel-sample.js?v=${stamp('../../assets/js/wheel-sample.js')}`;
 
 const product = PRODUCTS['compass'];
 const northStar = PRODUCTS['north-star'];
@@ -76,7 +86,7 @@ export function sections() {
       eyebrow: `What ${product.name} is`,
       heading: 'A reading written for the parent, in words you could say to her face.',
       paragraphs: [
-        'Most things written from a birth chart are written about the person, as a verdict: strengths, weaknesses, a future. This page is written for you, about the child in front of you, as she is now. Twenty-three widgets, twenty-two of them with text, each headed by the placement it reads from, in the present tense, about a child.',
+        'Most things written from a birth chart are written about the person, as a verdict: strengths, weaknesses, a future. This page is written for you, about the child in front of you, as she is now. Twenty-four widgets, twenty-two of them with text, each headed by the placement it reads from, in the present tense, about a child.',
         'It does not tell you how to parent. It says who she is, so the decisions you already make every day are made with her in view. The only test that matters happens at your kitchen table: does it sound like her?',
         `${product.name} is the smallest reading Wolf Children makes, and the one to start with. When one page is not enough, North Star is the full reading, written for you from the same chart and your own three answers.`,
       ],
@@ -90,6 +100,18 @@ export function sections() {
       ],
     })],
 
+    ['wheel', h('section', { class: 'section wheel-section', id: 'wheel' },
+      h('div', { class: 'container l-split' },
+        h('div', { class: 'split-head' },
+          eyebrow('The wheel'),
+          heading('h2', 't-head', 'Tap a planet.')),
+        h('div', { class: 'split-body' },
+          h('p', { class: 'serif' }, 'The page draws her chart as a wheel, the rising sign on the left where the horizon was when she was born. Tap a planet: the lines to the planets it connects with stay lit, and the centre says where it stood.'),
+          h('div', { class: 'wheel-live', id: 'wheel-sample' }),
+          h('p', { class: 'wheel-note' }, 'A sample chart for a child who does not exist: 12 January 2020, 14:30, Ghent.'),
+          h('script', { type: 'application/json', id: 'wheel-sample-data' }, raw(WHEEL_DATA.replace(/</g, '\\u003c'))),
+          h('script', { type: 'module', src: WHEEL_JS }, ''))))],
+
     ['how', steps({
       eyebrow: 'How it is made',
       heading: 'Three facts in, one page out.',
@@ -97,7 +119,7 @@ export function sections() {
         { name: 'Date, time, place', key: true, tag: 'The birth time is required', line: 'You enter the three. The time sets the rising sign and the houses, which carry half the page, so it is required. The birth certificate or the hospital record usually has it, to the minute.' },
         { name: 'Positions', line: 'From those three facts the chart is worked out on our own server: where the Sun, the Moon and the planets stood, and the rising sign on the eastern horizon.' },
         { name: 'Words', line: 'Each placement resolves to one short text, written in advance under the same rules as every Wolf Children reading: plain, present tense, about a child, never a verdict.' },
-        { name: 'The page', line: 'Twenty-three widgets in one scroll on your phone: badges, bars, three lines, a gauge, cards, and one question at the end. Yours to keep.' },
+        { name: 'The page', line: 'Twenty-four widgets in one scroll on your phone: badges, a wheel, bars, three lines, a gauge, cards, and one question at the end. Yours to keep.' },
       ],
       after: 'Her name, her date and her place of birth stay on our server. The texts were written in advance, so no writing model ever receives anything about her.',
     })],
@@ -108,6 +130,7 @@ export function sections() {
       media: slot(PHOTOS.how),
       items: [
         { title: 'Who she is', line: 'Her Sun, Moon and rising sign as three badges, the planet that runs her chart, the direction she leans, and a paragraph on who she is becoming, so the rest of the page has a frame.' },
+        { title: 'The wheel', line: 'Her birth chart drawn as a wheel, the rising sign on the left where the horizon was. Tap a planet and its connections light up, so the rest of the page has a picture to point at.' },
         { title: 'The chart at a glance', line: 'Four element bars, three pace bars, three lines with a dot on each (dreamer or doer, starter or finisher, settled or adaptable), so you see her shape before you read a word.' },
         { title: 'What settles her', line: 'The Moon, read for the end of a hard day: what brings her back and what makes it worse, so you stop trying the thing that makes it worse.' },
         { title: 'Holding on and being seen', line: 'What she keeps and what she lets go of, how she is in front of others, how she explains herself, how she takes things in, so the school gate and the dinner table make more sense.' },
@@ -160,7 +183,7 @@ export function sections() {
       tagline: 'One child, one page, yours to keep.',
       media: slot(PHOTOS.offer),
       includes: [
-        `The ${product.name} page: twenty-three widgets, twenty-two of them with text about your child`,
+        `The ${product.name} page: twenty-four widgets, twenty-two of them with text about your child`,
         'Sun, Moon and rising; what settles her; how she takes things in; where her energy goes; one question',
         'Her name, date and place of birth kept on our own server',
         'Your private portal, sign-in by email link',

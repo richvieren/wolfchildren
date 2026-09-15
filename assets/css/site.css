@@ -283,3 +283,11 @@ ul, ol { padding: 0; list-style: none; }
   .quote-photo .statement { flex: 0 1 26ch; }
   .quote-photo figure { flex: 0 0 360px; }
 }
+
+/* wheel — the live Compass wheel (assets/js/wheel.js). Glyphs from our Noto Sans Symbols subset (OFL). */
+@font-face { font-family: "Wheel Glyphs"; font-style: normal; font-display: block; src: url(/assets/fonts/wheel-glyphs.woff2) format("woff2"); }
+.wheel-live { width: 100%; max-width: 600px; margin: var(--s-gap) auto 0; }
+.wheel-live .wheel { display: block; width: 100%; height: auto; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.wheel-live .planet:focus-visible .hit { stroke-opacity: 1; }
+.wheel-caption { margin: 12px 0 0; text-align: center; font-size: var(--t-small); }
+.wheel-note { margin-top: 8px; text-align: center; font-size: var(--t-small); }
