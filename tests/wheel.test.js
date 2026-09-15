@@ -62,3 +62,22 @@ test('aspects to the Ascendant and Midheaven are drawn; conjunctions are counted
   assert.equal(C.aspects.some((a) => a.type === 'conjunction'), false);
   assert.ok(C.allAspects.some((a) => a.type === 'conjunction' && a.a === 'Mars'));
 });
+
+// 2026-09-15, Cato's fault found in this wheel: turning on the exact Ascendant degree while the
+// cusps sit on sign boundaries put part of house 1 above the horizon. The wheel turns on the start
+// of the rising sign; house 1 and the rising sign sit wholly below the horizon at every degree.
+for (const into of [0.5, 15, 28.85, 29.9]) {
+  test(`house 1 and the rising sign sit below the horizon at ${into} degrees into the sign`, () => {
+    const chart = JSON.parse(JSON.stringify(fx.chart));
+    const ascAngle = chart.angles.find((a) => a.name === 'Ascendant');
+    ascAngle.abs = 330 + into; ascAngle.degree = into; ascAngle.sign = 'Pisces';
+    const L = layout(chart);
+    assert.equal(L.anchor, 330, 'the wheel turns on the start of the rising sign');
+    const [, houseOneY] = pos(L.cusps[0] + 15, L.anchor, 161);
+    const [, risingY] = pos(345, L.anchor, 272);
+    const [, beforeY] = pos(315, L.anchor, 272);
+    assert.ok(houseOneY > CY + 1 && risingY > CY + 1 && beforeY < CY - 1);
+    const [hx, hy] = pos(L.anchor, L.anchor, 150);
+    assert.ok(Math.abs(hy - CY) < 1e-9 && hx < CX, 'the horizon at nine o\'clock is where house 1 begins');
+  });
+}

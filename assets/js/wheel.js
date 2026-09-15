@@ -9,6 +9,11 @@
 // page's CSS from /assets/fonts/wheel-glyphs.woff2). The Sun is a circle and a
 // dot; retrograde is a small R. Orange is for the Ascendant only.
 //
+// 2026-09-15 (Cato's audit fault, found here too): the wheel turns on the START of the rising
+// sign, like the cusps, so house 1 and the rising sign sit wholly below the horizon at every
+// degree. Turning on the exact Ascendant put up to 30 degrees of house 1 above it. The AC marker
+// stands on the horizon with the exact degree under it; a small tick marks the true Ascendant.
+//
 // Input: the chart JSON the API stores at intake (points, angles, aspects).
 // layout(chart) is pure and testable; renderWheel(container, chart, opts)
 // draws it and wires the interaction.
@@ -18,6 +23,7 @@ export const R_ZODIAC_OUT = 292, R_ZODIAC_IN = 252, R_TICK_IN = 246;
 export const R_TETHER_OUT = 246, R_TETHER_IN = 228;
 export const R_GLYPH = 212, R_DEGREE = 190, R_HIT = 16;
 export const R_HOUSE_OUT = 172, R_HOUSE_IN = 150, R_ANGLE_LABEL = 138, R_ASPECT = 148;
+export const R_AC_LABEL = 128, R_AC_TICK_IN = 140;
 export const MIN_SEPARATION = 8;
 
 export const GREEN = '#495543', TAN = '#CDB494', ORANGE = '#DA4635', CREAM = '#DFD7C3';
@@ -93,7 +99,8 @@ export function layout(chart) {
     .filter((a) => ASPECT_COLOR[a.type] && a.a in by && a.b in by)
     .map((a) => ({ a: a.a, b: a.b, type: a.type, orb: a.orb, color: ASPECT_COLOR[a.type], width: a.orb <= 2 ? 1.6 : 0.8 }));
   return {
-    asc, mc, risingStart,
+    asc, mc, risingStart, anchor: risingStart,
+    ascDegree: chart.angles.find((a) => a.name === 'Ascendant').degree,
     cusps: [...Array(12).keys()].map((h) => (risingStart + h * 30) % 360),
     planets: points.map((p, i) => ({ name: p.name, sign: p.sign, house: p.house, degree: p.degree, abs: p.abs,
       retrograde: !!p.retrograde, drawn: drawn[i], sun: p.name === 'Sun' })),
@@ -127,7 +134,7 @@ function arcPath(lon0, lon1, r0, r1, asc) {
 
 export function renderWheel(container, chart, opts = {}) {
   const L = layout(chart);
-  const P = (lon, r) => pos(lon, L.asc, r);
+  const P = (lon, r) => pos(lon, L.anchor, r);          // turns on the start of the rising sign
   const hover = typeof matchMedia === 'function' && matchMedia('(hover: hover)').matches;
   const fade = 'opacity .35s, stroke .35s, stroke-width .35s, fill .35s';
   container.textContent = '';
@@ -137,7 +144,7 @@ export function renderWheel(container, chart, opts = {}) {
     style: 'display:block;width:100%;height:auto;font-family:' + MONO_FONT }, container);
 
   // sign ring
-  SIGNS.forEach((sign, i) => el('path', { class: 'sign', d: arcPath(i * 30, i * 30 + 30, R_ZODIAC_IN, R_ZODIAC_OUT, L.asc),
+  SIGNS.forEach((sign, i) => el('path', { class: 'sign', d: arcPath(i * 30, i * 30 + 30, R_ZODIAC_IN, R_ZODIAC_OUT, L.anchor),
     fill: i % 2 === 0 ? TAN_SOFT : 'none', stroke: TAN, 'stroke-width': 1 }, svg));
   SIGNS.forEach((sign, i) => {
     const [x, y] = P(i * 30 + 15, (R_ZODIAC_OUT + R_ZODIAC_IN) / 2);
@@ -165,12 +172,16 @@ export function renderWheel(container, chart, opts = {}) {
   const line2 = txt(svg, CX, CY + 6, '', { class: 'hub-sub', 'font-size': 11, fill: GREEN, ...halo });
   const line3 = txt(svg, CX, CY + 22, '', { class: 'hub-sub', 'font-size': 11, fill: GREEN, ...halo });
 
-  // the angles: AC in orange (the page's one orange), MC in green
-  for (const [cls, lon, color, label] of [['ac', L.asc, ORANGE, 'AC'], ['mc', L.mc, GREEN, 'MC']]) {
-    lineEl(svg, P(lon, R_HOUSE_IN), P(lon, R_ZODIAC_IN), { class: cls, stroke: color, 'stroke-width': 2 });
-    const [x, y] = P(lon, R_ANGLE_LABEL);
-    txt(svg, x, y, label, { class: cls + '-label', 'font-size': 11, 'font-weight': 700, fill: color, ...halo });
-  }
+  // the angles: AC in orange (the page's one orange) on the horizon, with the exact degree and a tick
+  // at the true Ascendant; MC in green at its longitude
+  lineEl(svg, P(L.anchor, R_HOUSE_IN), P(L.anchor, R_ZODIAC_IN), { class: 'ac', stroke: ORANGE, 'stroke-width': 2 });
+  lineEl(svg, P(L.asc, R_AC_TICK_IN), P(L.asc, R_HOUSE_IN), { class: 'ac-tick', stroke: ORANGE, 'stroke-width': 2 });
+  const [ax, ay] = P(L.anchor, R_AC_LABEL);
+  txt(svg, ax, ay - 7, 'AC', { class: 'ac-label', 'font-size': 11, 'font-weight': 700, fill: ORANGE, ...halo });
+  txt(svg, ax, ay + 7, `${Math.floor(L.ascDegree)}°`, { class: 'ac-degree', 'font-size': 9, 'font-weight': 700, fill: ORANGE, ...halo });
+  lineEl(svg, P(L.mc, R_HOUSE_IN), P(L.mc, R_ZODIAC_IN), { class: 'mc', stroke: GREEN, 'stroke-width': 2 });
+  const [mx, my] = P(L.mc, R_ANGLE_LABEL);
+  txt(svg, mx, my, 'MC', { class: 'mc-label', 'font-size': 11, 'font-weight': 700, fill: GREEN, ...halo });
 
   // planets: glyph and degree at the spread position, a tether from the true one, a hit disc for the interaction
   const nodes = L.planets.map((p) => {
