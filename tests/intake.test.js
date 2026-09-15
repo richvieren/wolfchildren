@@ -363,3 +363,26 @@ test('the places fieldset tells the parent that a similar longitude shows almost
   assert.match(note.textContent, /longitude/);
   assert.ok(fieldset.childNodes.indexOf(note) < fieldset.childNodes.findIndex((n) => n.tagName === 'LABEL'), 'the note comes before the fields');
 });
+
+// Compass instant (2026-09-15): no questions, the birth time stated before submit, the right
+// promise after it.
+const { compassNote, successLine: successFor, COMPASS_NEEDS_TIME, refuseWithoutTime } = await import('../assets/js/intake.js');   // after the window stub above
+
+test('compass says the birth time is required before the parent sends anything', () => {
+  assert.match(compassNote(getProduct('compass')), /birth time/i);
+  assert.equal(compassNote(getProduct('north-star')), null);
+});
+
+test('a new child with no birth time is stopped on the page with the API wording', () => {
+  assert.equal(COMPASS_NEEDS_TIME, "Compass needs the birth time. Add it on the child's details and try again.");
+  assert.equal(refuseWithoutTime(getProduct('compass'), { tob_unknown: true, tob: null }), COMPASS_NEEDS_TIME);
+  assert.equal(refuseWithoutTime(getProduct('compass'), { tob_unknown: false, tob: '16:43' }), null);
+  assert.equal(refuseWithoutTime(getProduct('north-star'), { tob_unknown: true, tob: null }), null);
+});
+
+test('the success line promises minutes for compass and 24 hours for a written reading', () => {
+  const c = successFor('Mira', 'a@b.co', getProduct('compass'));
+  assert.ok(!/24 hours/.test(c) && /minute/.test(c), c);
+  assert.match(successFor('Mira', 'a@b.co', getProduct('north-star')), /within 24 hours/);
+  assert.match(successFor('Mira', 'a@b.co'), /within 24 hours/);
+});

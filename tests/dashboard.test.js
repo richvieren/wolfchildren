@@ -147,3 +147,17 @@ test('every grant of a manual product renders, one card per edition', () => {
   assert.deepEqual(g.downloads.map((d) => d.grant.grant_id), [1, 2]);
   assert.equal(g.locked.length, 0);
 });
+
+// Compass instant (2026-09-15): a Compass grant is intaken for a child, so it groups like a
+// reading: waiting until a child is chosen, then under that child. Never under downloads.
+test('a compass grant waits for a child, then sits under that child', () => {
+  const compass = getProduct('compass');
+  const children = [{ id: 1, name: 'Ada' }];
+  const before = groupGrants([compass], [{ grant_id: 9, product: 'compass', child_id: null, edition: null, available_at: null, has_intake: false }], children);
+  assert.equal(before.waiting.length, 1);
+  assert.equal(before.downloads.length, 0);
+  const after = groupGrants([compass], [{ grant_id: 9, product: 'compass', child_id: 1, child_name: 'Ada', edition: 1, available_at: null, has_intake: true }], children);
+  assert.equal(after.byChild[0].cards.length, 1);
+  assert.equal(after.byChild[0].cards[0].grant.grant_id, 9);
+  assert.equal(after.downloads.length, 0);
+});

@@ -76,3 +76,12 @@ test('productsByLine groups all ten', () => {
   assert.equal(g.photography.length, 1);
   assert.equal(g.retreats.length, 1);
 });
+
+// Compass instant (2026-09-15): intake accepts Compass, so the portal must send its card there.
+test('compass, a profile product, requires intake for a child', () => {
+  const c = getProduct('compass');
+  assert.equal(c.fulfilment, 'profile');
+  assert.equal(c.requiresIntake, true);
+  assert.equal(c.subject, 'child');
+  assert.deepEqual(c.intakeQuestions, []);
+});

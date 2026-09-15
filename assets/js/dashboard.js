@@ -53,8 +53,10 @@ function cardsFor(product, grants) {
 export function groupGrants(products, grants, children) {
   const grantable = products.filter((p) => p.fulfilment !== 'bundle');
   const productBySlug = new Map(grantable.map((p) => [p.slug, p]));
-  const generated = grantable.filter((p) => p.fulfilment === 'generated');
-  const others = grantable.filter((p) => p.fulfilment !== 'generated');
+  // 2026-09-15, Compass instant: a profile is intaken for a child, so it groups like a reading.
+  const forChild = (p) => p.fulfilment === 'generated' || p.fulfilment === 'profile';
+  const generated = grantable.filter(forChild);
+  const others = grantable.filter((p) => !forChild(p));
   const childIds = new Set(children.map((c) => c.id));
 
   const byChild = children.map((child) => {
@@ -72,7 +74,7 @@ export function groupGrants(products, grants, children) {
   const removedByChildId = new Map();
   for (const grant of grants) {
     const product = productBySlug.get(grant.product);
-    if (!product || product.fulfilment !== 'generated') continue;
+    if (!product || !forChild(product)) continue;
     if (grant.child_id == null) {
       waiting.push({ product, grant });
     } else if (!childIds.has(grant.child_id)) {

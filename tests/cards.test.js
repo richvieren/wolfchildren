@@ -109,3 +109,31 @@ test('a product name reaches the DOM as text, never as markup', () => {
   assert.equal(h.childNodes[0].nodeType, 3, 'a text node, not a parsed element');
   assert.equal(card.querySelector('img'), null);
 });
+
+// Compass instant (2026-09-15): the page renders on the server in about ten seconds, so a
+// Compass card that is in but not released says it is being made, never "within 24 hours".
+import { COPY, pollDelayMs } from '../assets/js/cards.js';
+const compass = getProduct('compass');
+
+test('compass: owned but no intake asks for intake', () => {
+  assert.equal(cardState(compass, { has_intake: false, available_at: null }), 'intake');
+});
+
+test('compass: intake done but not released is making, with no 24-hour promise', () => {
+  assert.equal(cardState(compass, { has_intake: true, available_at: null }), 'making');
+  assert.ok(!/24 hours/.test(COPY.making.status));
+  assert.equal(COPY.making.cta, null);
+});
+
+test('compass: released is ready at once', () => {
+  assert.equal(cardState(compass, { has_intake: true, available_at: past() }), 'ready');
+});
+
+test('the dashboard polls only while a card is being made, and stops after three minutes', () => {
+  const making = [{ product: compass, grant: { has_intake: true, available_at: null } }];
+  const settled = [{ product: gen, grant: { has_intake: true, available_at: null } }];
+  assert.equal(pollDelayMs(making, 0), 5000);
+  assert.equal(pollDelayMs(making, 180000), null);
+  assert.equal(pollDelayMs(settled, 0), null);
+  assert.equal(pollDelayMs([], 0), null);
+});

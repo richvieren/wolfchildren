@@ -23,7 +23,7 @@
 // submit sends.
 
 import { getSession } from './auth.js?v=c0266db9';
-import { PRODUCTS, getProduct } from './registry.js?v=a8ca76e8';
+import { PRODUCTS, getProduct } from './registry.js?v=862839cb';
 import { getChildren, addChild, submitIntake, getParent, saveParent, firstErrorMessage } from './api.js?v=2478b5c3';
 import { clearValidatedLocation, resolveSelectedPlace } from './autocomplete.js?v=d3fe94de';
 import { mountObservations, readObservations } from './observations.js?v=994b0b40';
@@ -87,8 +87,26 @@ export function confirmRows({ child, existing, observations, questions, places, 
   return rows;
 }
 
-export function successLine(childName, email) {
+export function successLine(childName, email, product) {
+  if (product && product.fulfilment === 'profile') {
+    return `${childName}’s details are in. The page is being made now and is on your readings in about a minute. We email ${email} when it is ready.`;
+  }
   return `${childName}’s details are in. We email ${email} when the reading is ready, within 24 hours.`;
+}
+
+// 2026-09-15, Compass instant. The API refuses a Compass intake without a birth time with this
+// sentence (Richard's wording, 2026-09-13); the page says the rule first and stops a new child
+// without a time before anything is sent.
+export const COMPASS_NEEDS_TIME = "Compass needs the birth time. Add it on the child's details and try again.";
+
+export function compassNote(product) {
+  if (!product || product.fulfilment !== 'profile') return null;
+  return 'Compass is built from the birth date, time and place, so it needs the birth time, to the minute. The birth certificate or the hospital record usually has it. Nothing else is asked.';
+}
+
+export function refuseWithoutTime(product, childFields) {
+  if (!product || product.fulfilment !== 'profile' || !childFields) return null;
+  return childFields.tob_unknown || !childFields.tob ? COMPASS_NEEDS_TIME : null;
 }
 
 /** Only astrocartography takes three named places at intake (spec §5). */
@@ -318,6 +336,13 @@ async function init() {
   }
 
   document.getElementById('product-name').textContent = product.name;
+  const note = compassNote(product);
+  if (note) {
+    const p = document.createElement('p');
+    p.id = 'compass-note';
+    p.textContent = note;
+    document.getElementById('product-name').after(p);
+  }
   message.hidden = true;
   form.hidden = false;
 
@@ -419,6 +444,11 @@ async function init() {
         status.textContent = firstErrorMessage(err);
         return;
       }
+      const refusal = refuseWithoutTime(product, childFields);
+      if (refusal) {
+        status.textContent = refusal;
+        return;
+      }
     }
 
     let parent = null;
@@ -484,7 +514,7 @@ async function init() {
     try {
       await submitIntake(Number(grantId), intakeFields(product, childId,
         { places: pending.places, relationship: pending.relationship, observations: pending.observations }));
-      document.getElementById('success-line').textContent = successLine(pending.childName, session.user.email);
+      document.getElementById('success-line').textContent = successLine(pending.childName, session.user.email, product);
       confirmView.hidden = true;
       successView.hidden = false;
     } catch (err) {

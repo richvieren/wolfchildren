@@ -10,7 +10,8 @@
 export function cardState(product, grant) {
   if (!grant) return 'locked';
   if (product.requiresIntake && !grant.has_intake) return 'intake';
-  if (!grant.available_at) return product.requiresIntake ? 'submitted' : 'pending';
+  // 2026-09-15, Compass instant: a profile is rendered on the server seconds after intake.
+  if (!grant.available_at) return product.requiresIntake ? (product.fulfilment === 'profile' ? 'making' : 'submitted') : 'pending';
   const t = Date.parse(grant.available_at);
   if (Number.isNaN(t)) return 'pending';
   return t > Date.now() ? 'pending' : 'ready';
@@ -22,10 +23,22 @@ export const COPY = {
   locked:    { status: '', cta: null },
   intake:    { status: 'Tell us about your child and this reading starts.', cta: 'Give the details →' },
   submitted: { status: `Your details are in. Your reading is being prepared. ${DELIVERY_PROMISE}`, cta: null },
+  making:    { status: 'Your details are in. Your page is being made, usually within a minute. We email you when it is ready.', cta: null },
   pending:   { status: `Your reading is being prepared. ${DELIVERY_PROMISE}`, cta: null },
   ready:     { status: 'Your reading is ready.', cta: 'Download the PDF →',
                note: 'Opens as a PDF. On a phone, use the share button to save it.' },
 };
+
+// While a card is being made the dashboard asks again every five seconds, for three minutes
+// at most: long enough for the render (about nine seconds on the server) and a slow queue,
+// short enough that a failed render does not poll forever. Then the parent refreshes.
+export const POLL_EVERY_MS = 5000;
+export const POLL_FOR_MS = 180000;
+
+export function pollDelayMs(cards, elapsedMs) {
+  if (elapsedMs >= POLL_FOR_MS) return null;
+  return cards.some(({ product, grant }) => cardState(product, grant) === 'making') ? POLL_EVERY_MS : null;
+}
 
 export function priceLabel(product) {
   if (typeof product.priceCents !== 'number') return '';

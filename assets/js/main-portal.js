@@ -13,9 +13,9 @@
 
 import { getSession, sendMagicLink, signOut, takeSignInNotice } from './auth.js?v=c0266db9';
 import { getGrants, getChildren, getDownloadUrl, firstErrorMessage } from './api.js?v=2478b5c3';
-import { grantableProducts } from './registry.js?v=a8ca76e8';
-import { groupGrants } from './dashboard.js?v=1d95e222';
-import { renderCard } from './cards.js?v=a3a16d0b';
+import { grantableProducts } from './registry.js?v=862839cb';
+import { groupGrants } from './dashboard.js?v=0e225e15';
+import { renderCard, pollDelayMs } from './cards.js?v=1bf7f0dd';
 
 export const SUPPORT = 'hello@wolfchildren.co';
 
@@ -42,6 +42,18 @@ function section(dashboard, heading, cards, doc) {
 }
 
 /** True when the account owns nothing yet: only the "also available" list would render. */
+/** Every {product, grant} card in a groupGrants() result, whatever section it sits in. */
+export function allCards(groups) {
+  const out = [];
+  for (const section of Object.values(groups || {})) {
+    for (const entry of Array.isArray(section) ? section : []) {
+      if (entry && Array.isArray(entry.cards)) out.push(...entry.cards);
+      else if (entry && entry.product) out.push(entry);
+    }
+  }
+  return out;
+}
+
 export function isEmpty(groups) {
   return groups.byChild.every((g) => g.cards.every((c) => !c.grant))
     && groups.waiting.length === 0 && groups.removed.length === 0 && groups.downloads.length === 0;
@@ -207,6 +219,18 @@ async function init() {
     const [grants, children] = await Promise.all([getGrants(), getChildren()]);
     const groups = groupGrants(grantableProducts(), grants, children);
     renderDashboard(dashboard, groups, document);
+    // 2026-09-15, Compass instant: while a page is being made, ask again until it is released.
+    const started = Date.now();
+    const poll = async () => {
+      try {
+        const g = groupGrants(grantableProducts(), await getGrants(), children);
+        renderDashboard(dashboard, g, document);
+        const next = pollDelayMs(allCards(g), Date.now() - started);
+        if (next) setTimeout(poll, next);
+      } catch { /* a failed poll stops polling; the parent can refresh */ }
+    };
+    const first = pollDelayMs(allCards(groups), 0);
+    if (first) setTimeout(poll, first);
   } catch (err) {
     // I1: this catch used to swallow every error in silence, so a failure
     // anywhere in the dashboard looked identical to being signed out. Say
