@@ -43,6 +43,9 @@ export const title = `${product.name} | Wolf Children`;
 export const description = 'One page about who your child is, in plain words, from the birth date, time and place: what settles her, how she takes things in, where her energy goes, and one question to sit with.';
 export const indexable = false;                          // flips to true when no placeholders remain
 
+// The live Stripe Payment Link (plink_1UFymCED8VMwHJ648PIte8XX, created 2026-09-15 by stripe_sync.py
+// --links --live: metadata.slug=compass, terms consent, promotion codes, the sibling as an optional item).
+const CHECKOUT_URL = 'https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07';
 const CTA_LABEL = `Get ${product.name}`;
 const theCta = (extra = {}) => ({ label: CTA_LABEL, href: '#offer', ...extra });
 const REFUNDS = h('a', { href: '/legal/refunds/' }, 'refund page');
@@ -189,7 +192,7 @@ export function sections() {
         'Your private portal, sign-in by email link',
         'Two children? Each child is her own page',
       ],
-      cta: theCta({ href: '#', placeholderWhat: 'checkout URL (Compass is not on sale yet)', size: 'btn-lg' }),
+      cta: theCta({ href: CHECKOUT_URL, size: 'btn-lg' }),
       note: h('span', {}, 'A mistake of ours is redone or refunded within 30 days; a wrong birth entry is rewritten once at no cost. The ', REFUNDS, ' says how. When one page is not enough: North Star, the full reading, ', NS_PRICE, '.'),
     })],
 
