@@ -14,7 +14,7 @@ export const PRODUCTS = {
     subject: 'child',
     priceCents: 2700,
     currency: 'usd',
-    active: false,
+    active: true,
     assetPath: null,
     includes: [],
     intakeQuestions: [],

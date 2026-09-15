@@ -13,7 +13,7 @@
 
 import { getSession, sendMagicLink, signOut, takeSignInNotice } from './auth.js?v=c0266db9';
 import { getGrants, getChildren, getDownloadUrl, firstErrorMessage } from './api.js?v=2478b5c3';
-import { grantableProducts } from './registry.js?v=862839cb';
+import { grantableProducts } from './registry.js?v=2b73d8b7';
 import { groupGrants } from './dashboard.js?v=0e225e15';
 import { renderCard, pollDelayMs } from './cards.js?v=1bf7f0dd';
 

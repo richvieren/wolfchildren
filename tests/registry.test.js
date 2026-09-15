@@ -33,7 +33,6 @@ test('prices match the decision of 2026-09-12, in USD cents', () => {
 test('unpriced products are inactive; a priced one can be held inactive until it exists', () => {
   for (const p of Object.values(PRODUCTS)) {
     if (p.priceCents === null) assert.equal(p.active, false, p.slug);
-    else if (p.slug === 'compass') assert.equal(p.active, false, 'compass is priced but not built (2026-09-12)');
     else assert.equal(p.active, true, p.slug);
   }
 });
@@ -46,7 +45,7 @@ test('the bundle includes exactly the five readings and is never grantable', () 
   ]);
   for (const slug of b.includes) assert.equal(getProduct(slug).fulfilment, 'generated', slug);
   assert.ok(!grantableProducts().some((p) => p.slug === 'bundle-readings'));
-  assert.equal(grantableProducts().length, 9);   // + parent-child (generated, inactive until priced) + compass (profile, inactive until built)
+  assert.equal(grantableProducts().length, 9);   // + parent-child (generated, inactive until priced) + compass (profile, active 2026-09-15)
 });
 
 test('generated products require intake and have a child subject', () => {
