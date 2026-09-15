@@ -1,0 +1,216 @@
+{
+ "chart": {
+  "birth_time_known": true,
+  "houses_system": "Whole Sign",
+  "zodiac": "Tropical",
+  "points": [
+   {
+    "name": "Sun",
+    "sign": "Pisces",
+    "degree": 11.07,
+    "abs": 341.07,
+    "house": 5,
+    "retrograde": false,
+    "speed": 1.0
+   },
+   {
+    "name": "Moon",
+    "sign": "Pisces",
+    "degree": 11.9,
+    "abs": 341.9,
+    "house": 5,
+    "retrograde": false,
+    "speed": 1.0
+   },
+   {
+    "name": "Mercury",
+    "sign": "Capricorn",
+    "degree": 5.1,
+    "abs": 275.1,
+    "house": 3,
+    "retrograde": true,
+    "speed": 1.0
+   },
+   {
+    "name": "Venus",
+    "sign": "Capricorn",
+    "degree": 6.4,
+    "abs": 276.4,
+    "house": 3,
+    "retrograde": false,
+    "speed": 1.0
+   },
+   {
+    "name": "Mars",
+    "sign": "Capricorn",
+    "degree": 7.9,
+    "abs": 277.9,
+    "house": 3,
+    "retrograde": false,
+    "speed": 1.0
+   },
+   {
+    "name": "Jupiter",
+    "sign": "Capricorn",
+    "degree": 9.2,
+    "abs": 279.2,
+    "house": 3,
+    "retrograde": false,
+    "speed": 1.0
+   },
+   {
+    "name": "Saturn",
+    "sign": "Capricorn",
+    "degree": 10.6,
+    "abs": 280.6,
+    "house": 3,
+    "retrograde": true,
+    "speed": 1.0
+   },
+   {
+    "name": "Uranus",
+    "sign": "Gemini",
+    "degree": 2.3,
+    "abs": 62.3,
+    "house": 8,
+    "retrograde": true,
+    "speed": 1.0
+   },
+   {
+    "name": "Neptune",
+    "sign": "Leo",
+    "degree": 8.0,
+    "abs": 128.0,
+    "house": 10,
+    "retrograde": false,
+    "speed": 1.0
+   },
+   {
+    "name": "Pluto",
+    "sign": "Libra",
+    "degree": 9.5,
+    "abs": 189.5,
+    "house": 12,
+    "retrograde": true,
+    "speed": 1.0
+   },
+   {
+    "name": "Chiron",
+    "sign": "Aries",
+    "degree": 23.4,
+    "abs": 23.4,
+    "house": 6,
+    "retrograde": false,
+    "speed": 1.0
+   },
+   {
+    "name": "North Node",
+    "sign": "Cancer",
+    "degree": 10.2,
+    "abs": 100.2,
+    "house": 9,
+    "retrograde": true,
+    "speed": 1.0
+   },
+   {
+    "name": "South Node",
+    "sign": "Capricorn",
+    "degree": 10.2,
+    "abs": 280.2,
+    "house": 3,
+    "retrograde": true,
+    "speed": 1.0
+   }
+  ],
+  "angles": [
+   {
+    "name": "Ascendant",
+    "sign": "Scorpio",
+    "degree": 4.65,
+    "abs": 214.65
+   },
+   {
+    "name": "Midheaven",
+    "sign": "Leo",
+    "degree": 16.2,
+    "abs": 136.2
+   },
+   {
+    "name": "Descendant",
+    "sign": "Taurus",
+    "degree": 4.65,
+    "abs": 34.65
+   },
+   {
+    "name": "Imum Coeli",
+    "sign": "Aquarius",
+    "degree": 16.2,
+    "abs": 316.2
+   }
+  ],
+  "aspects": [
+   {
+    "a": "Sun",
+    "b": "Mercury",
+    "type": "sextile",
+    "orb": 6.03,
+    "movement": "applying"
+   },
+   {
+    "a": "Moon",
+    "b": "Uranus",
+    "type": "square",
+    "orb": 0.4,
+    "movement": "applying"
+   },
+   {
+    "a": "Mars",
+    "b": "Pluto",
+    "type": "square",
+    "orb": 1.6,
+    "movement": "separating"
+   },
+   {
+    "a": "Venus",
+    "b": "Neptune",
+    "type": "opposition",
+    "orb": 1.6,
+    "movement": "applying"
+   },
+   {
+    "a": "Jupiter",
+    "b": "Uranus",
+    "type": "trine",
+    "orb": 3.1,
+    "movement": "applying"
+   },
+   {
+    "a": "Saturn",
+    "b": "Midheaven",
+    "type": "square",
+    "orb": 4.4,
+    "movement": "applying"
+   }
+  ],
+  "stellium": {
+   "sign": "Capricorn",
+   "count": 5
+  },
+  "_note": "Synthetic chart for the wheel's spreading test (2026-09-15): five planets in six degrees of Capricorn plus the South Node, and a Sun-Moon pair under one degree apart. Not a real child."
+ },
+ "drawn": {
+  "Sun": 337.485,
+  "Moon": 345.485,
+  "Mercury": 258.23333333333335,
+  "Venus": 266.23333333333335,
+  "Mars": 274.23333333333335,
+  "Jupiter": 282.23333333333335,
+  "Saturn": 298.23333333333335,
+  "Uranus": 62.30000000000001,
+  "Neptune": 128.0,
+  "Pluto": 189.5,
+  "Chiron": 23.399999999999977,
+  "North Node": 100.19999999999999,
+  "South Node": 290.23333333333335
+ }
+}
