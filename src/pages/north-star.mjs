@@ -166,7 +166,7 @@ export function sections() {
         'Your private portal, sign-in by email link',
         h('span', {}, ph('GUARANTEE')),
       ],
-      cta: theCta({ href: '#', placeholderWhat: 'checkout URL (Stripe not live)', size: 'btn-lg' }),
+      cta: theCta({ href: 'https://buy.stripe.com/cNi8wPc1g1k01JY7qe1kA00', size: 'btn-lg' }),   // live Payment Link plink_1UFYiyED8VMwHJ64v5AsSAH5 (2026-09-15 audit: this button was a dead #)
       note: 'Two children? Each child is their own Portrait.',
     })],
 

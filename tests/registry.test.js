@@ -84,3 +84,19 @@ test('compass, a profile product, requires intake for a child', () => {
   assert.equal(c.subject, 'child');
   assert.deepEqual(c.intakeQuestions, []);
 });
+
+// 2026-09-15 audit: 7 of 7 locked portal cards had no action (no salesUrl in the registry), and
+// the product URLs 404'd. Every active priced product now has a page, and the registry links it.
+import { readdirSync } from 'node:fs';
+const pagesDir = new URL('../src/pages/', import.meta.url);
+const pagePaths = new Set(await Promise.all(readdirSync(pagesDir).filter((f) => f.endsWith('.mjs'))
+  .map(async (f) => (await import(new URL(f, pagesDir).href)).path)));
+test('every active priced product has a salesUrl, and a page in src/pages serves that path', () => {
+  const paths = pagePaths;
+  for (const p of Object.values(PRODUCTS)) {
+    if (p.priceCents === null || !p.active) continue;
+    assert.equal(p.salesUrl, `/readings/${p.slug}/`, p.slug);
+    assert.ok(paths.has(p.salesUrl), `no page for ${p.salesUrl}`);
+  }
+  assert.ok(paths.has('/readings/'), 'the readings index');
+});

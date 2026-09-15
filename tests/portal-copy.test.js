@@ -114,7 +114,7 @@ test('every card state says what happens next, with the 24-hour promise', async 
   const doc = createDocument();
   const locked = renderCard(getProduct('north-star'), null, doc);
   assert.equal(locked.querySelector('.card-price').textContent, '$199');
-  assert.equal(locked.querySelector('.card-cta'), null, 'no sales page exists yet, so no link');
+  assert.equal(locked.querySelector('.card-cta').href, '/readings/north-star/', 'a sales page exists (2026-09-15), so the locked card links it');
   assert.equal(priceLabel({ priceCents: null }), '');
   const ready = renderCard(getProduct('retreat'), { grant_id: 5, edition: 1, has_intake: false, available_at: new Date(Date.now() - 1000).toISOString() }, doc);
   assert.match(ready.querySelector('.card-note').textContent, /share button/);

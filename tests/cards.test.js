@@ -137,3 +137,12 @@ test('the dashboard polls only while a card is being made, and stops after three
   assert.equal(pollDelayMs(settled, 0), null);
   assert.equal(pollDelayMs([], 0), null);
 });
+
+test('a locked card links to its product page', () => {
+  for (const slug of ['compass', 'north-star', 'transits', 'astrocartography', 'solar-return', 'numerology', 'parent-child']) {
+    const card = renderCard(getProduct(slug), null, createDocument());
+    const a = card.querySelector('a.card-cta');
+    assert.ok(a, `${slug}: no link on the locked card`);
+    assert.equal(a.href, `/readings/${slug}/`);
+  }
+});
