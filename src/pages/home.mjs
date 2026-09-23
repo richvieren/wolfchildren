@@ -42,15 +42,18 @@ export function sections() {
         h('figure', {},
           h('img', { src: '/assets/img/home-module2.gif', alt: 'An animated film-frame photograph', width: '550', height: '456', loading: 'lazy' }))))],
 
-    ['photo', h('section', { class: 'photo-full', 'aria-label': 'Photograph' },
-      h('img', { src: '/assets/img/home-band.jpg', alt: 'No child will ever remember spending their best day in front of a screen, set in large letters with four photographs of a child outdoors', width: '1920', height: '876', loading: 'lazy' }))],
-
-    ['signup', h('div', { class: 'section home-signup' },
+    // 2026-09-23, Richard: the paper (assets/img/bg.avif) sits under the quote.
+    // He fills the rest of it later; for now it carries the newsletter and the calendar.
+    ['paper', h('div', { class: 'section home-paper' },
       h('div', { class: 'container home-signup-row' },
         h('figure', { class: 'home-signup-media' },
           h('img', { src: '/assets/img/home-calendar.webp', alt: 'The 2027 moon calendar, one printed page with every moon phase and its date', width: '1400', height: '1292', loading: 'lazy' })),
         signup({ eyebrow: 'Free', heading: 'The 2027 moon calendar', sub: 'Every new moon, first quarter, full moon and last quarter of 2027 on one page. Print it and put it where your child can see it.' })),
       h('script', { src: SIGNUP_JS, defer: true }, ''))],
+
+    ['photo', h('section', { class: 'photo-full', 'aria-label': 'Photograph' },
+      h('img', { src: '/assets/img/home-band.jpg', alt: 'No child will ever remember spending their best day in front of a screen, set in large letters with four photographs of a child outdoors', width: '1920', height: '876', loading: 'lazy' }))],
+
   ];
 }
 

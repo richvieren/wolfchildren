@@ -269,6 +269,12 @@ ul, ol { padding: 0; list-style: none; }
 .quote-photo img { display: block; width: 100%; height: auto; }
 .photo-full { background: var(--green); }
 .photo-full img { display: block; width: 100%; height: auto; }
+/* the paper band under the quote (Richard, 2026-09-23): squared paper, cream, the
+   newsletter on it for now. The colour under it matches the sheet, so a slow image
+   or a very wide screen never shows white. */
+.home-paper { background-color: #FBF7EA; background-image: url(/assets/img/bg.avif); background-size: cover; background-position: center; background-repeat: no-repeat; padding-top: calc(var(--s-section) * 1.5); padding-bottom: calc(var(--s-section) * 1.5); }
+.home-paper .signup { margin-top: 0; }
+.home-paper .signup-sub { margin-bottom: var(--s-block); }
 .home-signup { padding-top: calc(var(--s-section) * 1.5); padding-bottom: calc(var(--s-section) * 1.5); }
 .home-signup .signup { margin-top: 0; }
 .home-signup .signup-sub { margin-bottom: var(--s-block); }      /* room between the sentence and the field (Richard, 2026-09-14) */
