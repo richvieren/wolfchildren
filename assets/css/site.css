@@ -275,6 +275,11 @@ ul, ol { padding: 0; list-style: none; }
 .home-paper { background-color: #FBF7EA; background-image: url(/assets/img/bg.avif); background-size: cover; background-position: center; background-repeat: no-repeat; padding-top: calc(var(--s-section) * 1.5); padding-bottom: calc(var(--s-section) * 1.5); }
 .home-paper .signup { margin-top: 0; }
 .home-paper .signup-sub { margin-bottom: var(--s-block); }
+/* the studio credit at the foot of the page; the artwork is green on transparent */
+.built-by { margin: calc(var(--s-section) * 1.25) 0 0; text-align: center; }
+.built-by a { display: inline-block; }
+.built-by img { display: block; width: 172px; height: auto; opacity: .75; }
+.built-by a:hover img, .built-by a:focus-visible img { opacity: 1; }
 .home-signup { padding-top: calc(var(--s-section) * 1.5); padding-bottom: calc(var(--s-section) * 1.5); }
 .home-signup .signup { margin-top: 0; }
 .home-signup .signup-sub { margin-bottom: var(--s-block); }      /* room between the sentence and the field (Richard, 2026-09-14) */

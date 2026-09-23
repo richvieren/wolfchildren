@@ -50,8 +50,11 @@ export function sections() {
     ['paper', h('div', { class: 'section home-paper' },
       h('div', { class: 'container home-signup-row' },
         h('figure', { class: 'home-signup-media' },
-          h('img', { src: '/assets/img/home-calendar.webp', alt: 'The 2027 moon calendar, one printed page with every moon phase and its date', width: '1400', height: '1292', loading: 'lazy' })),
+          h('img', { src: '/assets/img/home-calendar-cutout.webp', alt: 'The 2027 moon calendar, one printed page with every moon phase and its date', width: '1400', height: '1292', loading: 'lazy' })),
         signup({ eyebrow: 'Free', heading: 'The 2027 moon calendar', sub: 'Every new moon, first quarter, full moon and last quarter of 2027 on one page. Print it and put it where your child can see it.' })),
+      h('p', { class: 'built-by' },
+        h('a', { href: 'https://vieren.studio', rel: 'noopener' },
+          h('img', { src: '/assets/img/built-by-vieren.png', alt: 'Built by Vieren', width: '686', height: '112', loading: 'lazy' }))),
       h('script', { src: SIGNUP_JS, defer: true }, ''))],
   ];
 }
