@@ -74,6 +74,10 @@ export const submitIntake = (grantId, fields) =>
 export const getDownloadUrl = (grantId) =>
   request(`/v1/download/${grantId}`).then((r) => `${API_BASE}${r.url}`);
 
+// 2026-09-23: the parent's own retry for a reading whose job ran out of attempts (audit item 5).
+export const retryGrant = (grantId) =>
+  request(`/v1/grants/${grantId}/retry`, { method: 'POST' });
+
 /**
  * The message to put in front of a client for a thrown request error.
  * FastAPI's 422 detail is a list of {loc, msg, type}; its other errors put a

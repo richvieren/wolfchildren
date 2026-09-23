@@ -12,10 +12,10 @@
 // published so a parent who cannot get in can ask instead of refunding.
 
 import { getSession, sendMagicLink, signOut, takeSignInNotice } from './auth.js?v=c0266db9';
-import { getGrants, getChildren, getDownloadUrl, firstErrorMessage } from './api.js?v=2478b5c3';
+import { getGrants, getChildren, getDownloadUrl, retryGrant, firstErrorMessage } from './api.js?v=51d13c99';
 import { grantableProducts } from './registry.js?v=fceef213';
 import { groupGrants } from './dashboard.js?v=0e225e15';
-import { renderCard, pollDelayMs } from './cards.js?v=1bf7f0dd';
+import { renderCard, pollDelayMs } from './cards.js?v=c96442d3';
 
 export const SUPPORT = 'hello@wolfchildren.co';
 
@@ -117,6 +117,35 @@ function wireDownloads(dashboard, doc) {
 }
 
 /**
+ * 2026-09-23: a reading whose job failed carries "Try again" instead of a promise. The click puts
+ * the job back in the queue and re-reads the dashboard, so the card moves on by itself.
+ */
+export function wireRetries(dashboard, doc, retry = retryGrant, reload = null) {
+  dashboard.addEventListener('click', async (event) => {
+    const cta = event.target && event.target.closest ? event.target.closest('.card-cta[data-retry]') : null;
+    if (!cta) return;
+    event.preventDefault();
+    const card = cta.closest('.card');
+    let line = card && card.querySelector('.card-retry-status');
+    if (card && !line) {
+      line = doc.createElement('p');
+      line.className = 'card-retry-status';
+      card.append(line);
+    }
+    cta.hidden = true;
+    if (line) line.textContent = 'Putting it back in the queue…';
+    try {
+      await retry(cta.dataset.retry);
+      if (line) line.textContent = 'It is back in the queue. This usually takes a few minutes, and we email you when it is ready.';
+      if (reload) await reload();
+    } catch (err) {
+      cta.hidden = false;
+      if (line) line.textContent = `That did not work. ${firstErrorMessage(err)} If it keeps happening, write to ${SUPPORT}.`;
+    }
+  });
+}
+
+/**
  * The sign-in screen's three states on one form: asking, sending, sent.
  * Exported so the DOM stub can drive it in tests.
  */
@@ -197,7 +226,7 @@ async function init() {
   const notice = takeSignInNotice();
   if (notice) showNotice(document, notice);
 
-  if (dashboard) wireDownloads(dashboard, document);
+  if (dashboard) { wireDownloads(dashboard, document); wireRetries(dashboard, document); }
 
   const session = await getSession();
 

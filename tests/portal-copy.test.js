@@ -167,3 +167,39 @@ test('the birth-time message is about the child and names the checkbox as labell
     assert.equal(tobError('tob'), 'The birth time is missing the minutes and AM or PM. Fill in all three, or tick "I do not know the birth time".');
   } finally { delete globalThis.document; }
 });
+
+// 2026-09-23 audit item 5: the retry a parent can reach herself.
+test('a delayed card offers the retry, and the click asks the API and says what happened', async () => {
+  const { wireRetries } = await import('../assets/js/main-portal.js');
+  const { renderCard, COPY } = await import('../assets/js/cards.js');
+  const { getProduct } = await import('../assets/js/registry.js');
+  assert.ok(!/24 hours/.test(COPY.delayed.status));
+  const doc = createDocument();
+  const dashboard = doc.createElement('div');
+  const card = renderCard(getProduct('north-star'), { grant_id: 7, edition: 1, has_intake: true, available_at: null, job_status: 'failed' }, doc);
+  dashboard.append(card);
+  const asked = [];
+  let reloaded = 0;
+  wireRetries(dashboard, doc, async (id) => { asked.push(id); }, async () => { reloaded += 1; });
+  const cta = card.querySelector('.card-cta[data-retry]');
+  await Promise.all(dashboard.dispatchEvent({ type: 'click', target: cta, preventDefault() {} }));
+  assert.deepEqual(asked, ['7']);
+  assert.equal(reloaded, 1);
+  assert.match(card.querySelector('.card-retry-status').textContent, /back in the queue/);
+  assert.equal(cta.hidden, true);
+});
+
+test('a failed retry puts the button back and says why', async () => {
+  const { wireRetries } = await import('../assets/js/main-portal.js');
+  const { renderCard } = await import('../assets/js/cards.js');
+  const { getProduct } = await import('../assets/js/registry.js');
+  const doc = createDocument();
+  const dashboard = doc.createElement('div');
+  const card = renderCard(getProduct('compass'), { grant_id: 9, edition: 1, has_intake: true, available_at: null, job_status: 'failed' }, doc);
+  dashboard.append(card);
+  wireRetries(dashboard, doc, async () => { const e = new Error('nope'); e.detail = 'There is nothing to try again for this reading.'; throw e; });
+  const cta = card.querySelector('.card-cta[data-retry]');
+  await Promise.all(dashboard.dispatchEvent({ type: 'click', target: cta, preventDefault() {} }));
+  assert.equal(cta.hidden, false);
+  assert.match(card.querySelector('.card-retry-status').textContent, /nothing to try again/);
+});

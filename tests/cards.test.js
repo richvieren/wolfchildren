@@ -146,3 +146,29 @@ test('a locked card links to its product page', () => {
     assert.equal(a.href, `/readings/${slug}/`);
   }
 });
+
+// 2026-09-23 audit item 5: a reading whose job failed showed "within 24 hours" for ever and the
+// parent had no way back. The card says what happened and offers the retry.
+test('a failed job is a delayed card with a retry, for a reading and for compass', () => {
+  for (const p of [gen, compass]) {
+    assert.equal(cardState(p, { has_intake: true, available_at: null, job_status: 'failed' }), 'delayed');
+  }
+  assert.ok(!/24 hours/.test(COPY.delayed.status));
+  assert.equal(COPY.delayed.cta, 'Try again →');
+  const card = renderCard(gen, { grant_id: 11, edition: 1, has_intake: true, available_at: null, job_status: 'failed' }, createDocument());
+  const a = card.querySelector('.card-cta');
+  assert.equal(a.dataset.retry, '11');
+  assert.equal(a.href, '#');
+});
+
+test('a queued or running job still reads as being prepared, not delayed', () => {
+  for (const s of ['queued', 'running', 'pending_review', 'delivered', null]) {
+    const state = cardState(gen, { has_intake: true, available_at: null, job_status: s });
+    assert.equal(state, 'submitted', `job_status ${s}`);
+  }
+  assert.equal(cardState(compass, { has_intake: true, available_at: null, job_status: 'queued' }), 'making');
+});
+
+test('a released grant is ready whatever the job says', () => {
+  assert.equal(cardState(gen, { has_intake: true, available_at: past(), job_status: 'failed' }), 'ready');
+});

@@ -29,6 +29,7 @@ hr { border: 0; border-top: 1px solid var(--tan); margin: 24px 0; }
 button.secondary { background: var(--cream); color: var(--green); border: 1px solid var(--green); }
 button.link { background: none; border: 0; padding: 0; margin: 0; color: var(--green); text-decoration: underline; text-underline-offset: 3px; font-weight: 400; }
 .card-price { font-family: Montserrat, "Helvetica Neue", Arial, sans-serif; font-weight: 900; font-size: 20px; margin: 0 0 6px; }
+.card-retry-status { margin: 6px 0 0; }   /* 2026-09-23: the parent's retry, audit item 5 */
 .card-note { margin: 6px 0 0; }
 dl#confirm-rows { border: 1px solid var(--tan); border-radius: 4px; padding: 12px 16px; margin: 16px 0; }
 dl#confirm-rows dt { font-weight: 700; font-size: 14px; margin-top: 10px; }

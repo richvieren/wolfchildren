@@ -10,6 +10,9 @@
 export function cardState(product, grant) {
   if (!grant) return 'locked';
   if (product.requiresIntake && !grant.has_intake) return 'intake';
+  // 2026-09-23: the job ran out of attempts. Say so and offer the retry, rather than promise
+  // 24 hours for ever (audit item 5).
+  if (!grant.available_at && grant.job_status === 'failed') return 'delayed';
   // 2026-09-15, Compass instant: a profile is rendered on the server seconds after intake.
   if (!grant.available_at) return product.requiresIntake ? (product.fulfilment === 'profile' ? 'making' : 'submitted') : 'pending';
   const t = Date.parse(grant.available_at);
@@ -24,6 +27,8 @@ export const COPY = {
   intake:    { status: 'Tell us about your child and this reading starts.', cta: 'Give the details →' },
   submitted: { status: `Your details are in. Your reading is being prepared. ${DELIVERY_PROMISE}`, cta: null },
   making:    { status: 'Your details are in. Your page is being made, usually within a minute. We email you when it is ready.', cta: null },
+  delayed:   { status: 'This one did not come through. Nothing is lost and you have not been charged twice. Try again, or write to hello@wolfchildren.co and we will sort it.',
+               cta: 'Try again →' },
   pending:   { status: `Your reading is being prepared. ${DELIVERY_PROMISE}`, cta: null },
   ready:     { status: 'Your reading is ready.', cta: 'Download the PDF →',
                note: 'Opens as a PDF. On a phone, use the share button to save it.' },
@@ -90,7 +95,10 @@ export function renderCard(product, grant, doc = document) {
     const a = doc.createElement('a');
     a.className = 'card-cta';
     a.textContent = c.cta;
-    if (state === 'intake') {
+    if (state === 'delayed') {
+      a.href = '#';
+      a.dataset.retry = String(grant.grant_id);
+    } else if (state === 'intake') {
       a.href = `/portal/intake.html?product=${product.slug}&grant=${grant.grant_id}`;
     } else {
       // C4: the download URL is signed and short-lived, so it cannot be baked
