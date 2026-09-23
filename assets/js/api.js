@@ -78,6 +78,14 @@ export const getDownloadUrl = (grantId) =>
 export const retryGrant = (grantId) =>
   request(`/v1/grants/${grantId}/retry`, { method: 'POST' });
 
+// 2026-09-23: the weekly emails for a year-long reading, off and on. The notes themselves stay in
+// the portal either way; this only decides whether an email says a new one is there.
+export const setWeekly = (grantId, on) =>
+  request(`/v1/grants/${grantId}/weekly`, { method: 'POST', body: JSON.stringify({ on }) });
+
+// One week's note, read from the portal (never sent by email: spec §10).
+export const getWeekly = (grantId) => request(`/v1/grants/${grantId}/weekly`);
+
 /**
  * The message to put in front of a client for a thrown request error.
  * FastAPI's 422 detail is a list of {loc, msg, type}; its other errors put a

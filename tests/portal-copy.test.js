@@ -203,3 +203,38 @@ test('a failed retry puts the button back and says why', async () => {
   assert.equal(cta.hidden, false);
   assert.match(card.querySelector('.card-retry-status').textContent, /nothing to try again/);
 });
+
+// 2026-09-23: the weekly emails are off and on from the card, and the note never travels by email.
+test('the weekly toggle asks the API and flips what the line says', async () => {
+  const { wireWeekly } = await import('../assets/js/main-portal.js');
+  const { renderCard } = await import('../assets/js/cards.js');
+  const { getProduct } = await import('../assets/js/registry.js');
+  const doc = createDocument();
+  const dashboard = doc.createElement('div');
+  const grant = { grant_id: 12, edition: 1, has_intake: true, available_at: new Date(Date.now() - 1000).toISOString(),
+                  weekly_total: 52, weekly_week: 7, weekly_off: false };
+  dashboard.append(renderCard(getProduct('transits'), grant, doc));
+  const asked = [];
+  wireWeekly(dashboard, doc, async (id, on) => { asked.push([id, on]); return { ok: true, weekly_off: !on }; });
+  const toggle = dashboard.querySelector('.card-weekly-toggle');
+  await Promise.all(dashboard.dispatchEvent({ type: 'click', target: toggle, preventDefault() {} }));
+  assert.deepEqual(asked, [['12', false]]);
+  assert.match(dashboard.querySelector('.card-weekly').textContent, /weekly emails are off/i);
+  assert.equal(toggle.dataset.weeklyOn, 'true');
+  assert.match(toggle.textContent, /turn them back on/i);
+});
+
+test('a failed weekly toggle says why and leaves the state alone', async () => {
+  const { wireWeekly } = await import('../assets/js/main-portal.js');
+  const { renderCard } = await import('../assets/js/cards.js');
+  const { getProduct } = await import('../assets/js/registry.js');
+  const doc = createDocument();
+  const dashboard = doc.createElement('div');
+  dashboard.append(renderCard(getProduct('transits'), { grant_id: 12, edition: 1, has_intake: true,
+    available_at: new Date(Date.now() - 1000).toISOString(), weekly_total: 52, weekly_week: 7, weekly_off: false }, doc));
+  wireWeekly(dashboard, doc, async () => { throw new Error('nope'); });
+  const toggle = dashboard.querySelector('.card-weekly-toggle');
+  await Promise.all(dashboard.dispatchEvent({ type: 'click', target: toggle, preventDefault() {} }));
+  assert.equal(toggle.dataset.weeklyOn, 'false');
+  assert.match(dashboard.querySelector('.card-weekly-status').textContent, /did not work/i);
+});

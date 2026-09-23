@@ -172,3 +172,51 @@ test('a queued or running job still reads as being prepared, not delayed', () =>
 test('a released grant is ready whatever the job says', () => {
   assert.equal(cardState(gen, { has_intake: true, available_at: past(), job_status: 'failed' }), 'ready');
 });
+
+// 2026-09-23: Transits is a year. A released grant carries the weekly fields, so the card says
+// which week is waiting in the portal and lets the parent turn the weekly emails off and on.
+// Products without those fields are untouched.
+const transits = getProduct('transits');
+const readyWeekly = (extra = {}) => ({ grant_id: 12, edition: 1, has_intake: true, available_at: past(),
+                                       weekly_total: 52, weekly_week: 7, weekly_off: false, ...extra });
+
+test('a released transits card names this week and links to it in the portal', () => {
+  const card = renderCard(transits, readyWeekly(), createDocument());
+  const line = card.querySelector('.card-weekly');
+  assert.ok(line, 'no weekly line on the card');
+  assert.match(line.textContent, /Week 7 of 52/);
+  const link = card.querySelector('.card-weekly-link');
+  assert.equal(link.href, '/portal/weekly.html?grant=12');
+});
+
+test('the card offers to turn the weekly emails off, and says so when they are off', () => {
+  const on = renderCard(transits, readyWeekly(), createDocument());
+  const offControl = on.querySelector('.card-weekly-toggle');
+  assert.equal(offControl.dataset.weekly, '12');
+  assert.equal(offControl.dataset.weeklyOn, 'false');       // clicking asks for off
+  assert.match(offControl.textContent, /stop the weekly emails/i);
+
+  const off = renderCard(transits, readyWeekly({ weekly_off: true }), createDocument());
+  assert.match(off.querySelector('.card-weekly').textContent, /weekly emails are off/i);
+  assert.match(off.querySelector('.card-weekly').textContent, /still in your portal/i);
+  const onControl = off.querySelector('.card-weekly-toggle');
+  assert.equal(onControl.dataset.weeklyOn, 'true');
+  assert.match(onControl.textContent, /turn them back on/i);
+});
+
+test('before the first week there is no week number, only the state', () => {
+  const card = renderCard(transits, readyWeekly({ weekly_week: null }), createDocument());
+  assert.ok(!/Week \d+ of/.test(card.querySelector('.card-weekly').textContent));
+  assert.ok(card.querySelector('.card-weekly-toggle'));
+});
+
+test('a product with no weekly fields renders exactly as before', () => {
+  const card = renderCard(getProduct('north-star'), { grant_id: 3, edition: 1, has_intake: true, available_at: past() }, createDocument());
+  assert.equal(card.querySelector('.card-weekly'), null);
+  assert.equal(card.querySelector('.card-weekly-toggle'), null);
+});
+
+test('the weekly line only shows once the report is released', () => {
+  const card = renderCard(transits, { grant_id: 12, edition: 1, has_intake: true, available_at: null, weekly_total: 52, weekly_week: null, weekly_off: false }, createDocument());
+  assert.equal(card.querySelector('.card-weekly'), null);
+});

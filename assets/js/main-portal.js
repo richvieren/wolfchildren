@@ -12,10 +12,10 @@
 // published so a parent who cannot get in can ask instead of refunding.
 
 import { getSession, sendMagicLink, signOut, takeSignInNotice } from './auth.js?v=c0266db9';
-import { getGrants, getChildren, getDownloadUrl, retryGrant, firstErrorMessage } from './api.js?v=51d13c99';
+import { getGrants, getChildren, getDownloadUrl, retryGrant, setWeekly, firstErrorMessage } from './api.js?v=9e96d9b6';
 import { grantableProducts } from './registry.js?v=fceef213';
 import { groupGrants } from './dashboard.js?v=0e225e15';
-import { renderCard, pollDelayMs } from './cards.js?v=c96442d3';
+import { renderCard, pollDelayMs, WEEKLY_COPY } from './cards.js?v=4dabae0a';
 
 export const SUPPORT = 'hello@wolfchildren.co';
 
@@ -146,6 +146,37 @@ export function wireRetries(dashboard, doc, retry = retryGrant, reload = null) {
 }
 
 /**
+ * 2026-09-23: the weekly emails off and on, from the card. The notes stay in the portal whatever
+ * this says; the switch only decides whether an email tells the parent a new one is there.
+ */
+export function wireWeekly(dashboard, doc, set = setWeekly) {
+  dashboard.addEventListener('click', async (event) => {
+    const toggle = event.target && event.target.closest ? event.target.closest('.card-weekly-toggle[data-weekly]') : null;
+    if (!toggle) return;
+    event.preventDefault();
+    const card = toggle.closest('.card');
+    const line = card && card.querySelector('.card-weekly');
+    let status = card && card.querySelector('.card-weekly-status');
+    if (card && !status) {
+      status = doc.createElement('p');
+      status.className = 'card-weekly-status small';
+      card.append(status);
+    }
+    const wantOn = toggle.dataset.weeklyOn === 'true';
+    if (status) status.textContent = wantOn ? 'Turning them back on…' : 'Turning them off…';
+    try {
+      await set(toggle.dataset.weekly, wantOn);
+      toggle.dataset.weeklyOn = wantOn ? 'false' : 'true';
+      toggle.textContent = wantOn ? WEEKLY_COPY.stop : WEEKLY_COPY.start;
+      if (line) line.textContent = wantOn ? WEEKLY_COPY.noWeekYet : WEEKLY_COPY.off;
+      if (status) status.textContent = '';
+    } catch (err) {
+      if (status) status.textContent = `That did not work. ${firstErrorMessage(err)} If it keeps happening, write to ${SUPPORT}.`;
+    }
+  });
+}
+
+/**
  * The sign-in screen's three states on one form: asking, sending, sent.
  * Exported so the DOM stub can drive it in tests.
  */
@@ -226,7 +257,7 @@ async function init() {
   const notice = takeSignInNotice();
   if (notice) showNotice(document, notice);
 
-  if (dashboard) { wireDownloads(dashboard, document); wireRetries(dashboard, document); }
+  if (dashboard) { wireDownloads(dashboard, document); wireRetries(dashboard, document); wireWeekly(dashboard, document); }
 
   const session = await getSession();
 

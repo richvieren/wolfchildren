@@ -37,6 +37,17 @@ export const COPY = {
 // While a card is being made the dashboard asks again every five seconds, for three minutes
 // at most: long enough for the render (about nine seconds on the server) and a slow queue,
 // short enough that a failed render does not poll forever. Then the parent refreshes.
+// 2026-09-23: Transits is a year. A released grant carries weekly_total, weekly_week and
+// weekly_off; the note itself lives in the portal, never in the email (spec §10).
+export const WEEKLY_COPY = {
+  week: (n, total) => `Week ${n} of ${total} is in your portal.`,
+  noWeekYet: 'Your weekly notes are in your portal.',
+  off: 'The weekly emails are off. Your notes are still in your portal.',
+  read: 'Read this week’s note →',
+  stop: 'Stop the weekly emails',
+  start: 'Turn them back on',
+};
+
 export const POLL_EVERY_MS = 5000;
 export const POLL_FOR_MS = 180000;
 
@@ -116,5 +127,31 @@ export function renderCard(product, grant, doc = document) {
     n.textContent = c.note;
     el.append(n);
   }
+  if (state === 'ready' && typeof grant.weekly_total === 'number') appendWeekly(el, grant, doc);
   return el;
+}
+
+/** The weekly-notes line and its off/on control, for a released year-long reading. */
+function appendWeekly(el, grant, doc) {
+  const line = doc.createElement('p');
+  line.className = 'card-weekly small';
+  line.textContent = grant.weekly_off ? WEEKLY_COPY.off
+    : (typeof grant.weekly_week === 'number' ? WEEKLY_COPY.week(grant.weekly_week, grant.weekly_total)
+                                             : WEEKLY_COPY.noWeekYet);
+  el.append(line);
+
+  const read = doc.createElement('a');
+  read.className = 'card-weekly-link';
+  read.textContent = WEEKLY_COPY.read;
+  read.href = `/portal/weekly.html?grant=${grant.grant_id}`;
+  el.append(read);
+
+  // The click is delegated in main-portal.js: data-weekly-on carries what to ASK for.
+  const toggle = doc.createElement('a');
+  toggle.className = 'card-weekly-toggle small';
+  toggle.href = '#';
+  toggle.dataset.weekly = String(grant.grant_id);
+  toggle.dataset.weeklyOn = grant.weekly_off ? 'true' : 'false';
+  toggle.textContent = grant.weekly_off ? WEEKLY_COPY.start : WEEKLY_COPY.stop;
+  el.append(toggle);
 }

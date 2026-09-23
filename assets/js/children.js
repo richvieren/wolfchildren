@@ -8,7 +8,7 @@
 // made stay on the dashboard without the name (dashboard.js, "removed").
 
 import { getSession } from './auth.js?v=c0266db9';
-import { getChildren, addChild, deleteChild, firstErrorMessage } from './api.js?v=51d13c99';
+import { getChildren, addChild, deleteChild, firstErrorMessage } from './api.js?v=9e96d9b6';
 import { mountChildForm, readChildForm } from './child-form.js?v=9e142cbe';
 
 export function removeConfirmText(name) {
