@@ -47,6 +47,7 @@ export const indexable = false;                          // flips to true when n
 // --links --live: metadata.slug=compass, terms consent, promotion codes, the sibling as an optional item).
 const CHECKOUT_URL = 'https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07';
 const CTA_LABEL = `Get ${product.name}`;
+const SAMPLE_URL = '/readings/compass/sample/';   // a whole Compass for a child who does not exist
 const theCta = (extra = {}) => ({ label: CTA_LABEL, href: '#offer', ...extra });
 const REFUNDS = h('a', { href: '/legal/refunds/' }, 'refund page');
 
@@ -64,44 +65,78 @@ const PHOTOS = {
 
 export function sections() {
   return [
-    ['banner', banner(`${product.name}: one page about who your child is, from the birth chart, ${PRICE}.`)],
+    ['banner', banner(`${product.name}: one page about your child, ${PRICE}.`)],
 
     ['header', header({ ctaLabel: CTA_LABEL, ctaHref: '#offer' })],
 
+    // Richard, 2026-09-24: the page opens on the parent's state, never on the product, and the
+    // deliverable comes late. A parent buys direction, not improvement: she is guessing about
+    // something specific and current and wants to stop. brand-bible §7's "headlines say what the
+    // thing is" was updated the same day to match.
     ['hero', hero({
       eyebrow: `${product.name} · one child · one page · ${PRICE}`,
-      h1: 'One page about who your child is. Plain words, from the night she was born.',
-      sub: `You read about children, and you still want to understand this one rather than manage her. ${product.name} takes her birth date, time and place and builds one page from them: what settles her when the day has been too much, how she takes things in, where her energy goes, and one question worth sitting with. Every widget is headed by the placement it reads from, so nothing needs decoding first.`,
+      h1: 'You are guessing, and you would like to stop.',
+      sub: 'There is one thing your child does that you have never worked out. It happens most days. You have a theory, someone else in the house has a different one, and every few weeks you try a new approach and watch to see whether it helped. That is what wears you down. The guessing more than the behaviour.',
       bullets: [
-        'What settles her, read from the Moon, so the next hard evening has a name and a way back',
-        'How she takes things in, so you know when to explain, when to show, and when to wait',
-        'Where her energy goes, out in the world or at home, so a quiet day stops reading as a bad one',
-        'One question to sit with, from the chart’s own ruler, so the page ends in your hands and never in a verdict',
+        `${product.name} is one page about this child, written for you`,
+        'It will not tell you who she will become',
+        'It tells you what she is working with, so the next time it happens you are not starting from nothing',
       ],
-      cta: theCta({ subtext: h('span', {}, 'One child, one page, yours to keep on your phone. It needs the birth time.') }),
-      badges: ['Secure checkout by Stripe', 'Her name, date and place never leave our own server', `The full reading is North Star, ${NS_PRICE}`],
+      cta: theCta({ subtext: h('span', {}, 'Ready in minutes, on your phone, yours to keep.') }),
+      badges: ['Secure checkout by Stripe', 'It needs her birth time', 'Her name, date and place never leave our own server'],
       media: [slot(PHOTOS.hero), slot(PHOTOS.heroDetail)],
     })],
 
     ['photo-band', photoBand(PHOTOS.band)],
 
-    ['what', prose({
-      eyebrow: `What ${product.name} is`,
-      heading: 'A reading written for the parent, in words you could say to her face.',
+    ['line', prose({
+      eyebrow: 'The chart',
+      heading: 'A birth chart is the same sky, read differently. The same night, one layer deeper.',
       paragraphs: [
-        'Most things written from a birth chart are written about the person, as a verdict: strengths, weaknesses, a future. This page is written for you, about the child in front of you, as she is now. Twenty-four widgets, twenty-two of them with text, each headed by the placement it reads from, in the present tense, about a child.',
-        'It does not tell you how to parent. It says who she is, so the decisions you already make every day are made with her in view. The only test that matters happens at your kitchen table: does it sound like her?',
-        `${product.name} is the smallest reading Wolf Children makes, and the one to start with. When one page is not enough, North Star is the full reading, written for you from the same chart and your own three answers.`,
+        'Everyone born that week got the same sky. This is what it looked like from the place she arrived, at the minute she did.',
       ],
     })],
 
-    ['gallery', gallery({
-      label: 'The page',
+    // The refusal is the centre of the page, not a footnote: the promise not to label a child is
+    // the product (Richard, 2026-09-24, from the grounded end of the market).
+    ['will-not', steps({
+      eyebrow: `What ${product.name} will not do`,
+      heading: 'No labels. No verdicts. No diagnosis.',
       items: [
-        { media: slot(PHOTOS.page), caption: 'The page, as it opens on a phone. One scroll, top to bottom.' },
-        { media: slot(PHOTOS.settles), caption: 'Start with “What settles her”. It is the widget written for the end of a hard day.' },
+        { name: 'It does not diagnose', key: true, tag: 'Never a clinical opinion',
+          line: 'Nothing here is a clinical opinion or a developmental assessment, and none of it replaces someone who knows your child in person. If something worries you, that is the conversation to have, and this page is not it.' },
+        { name: 'It does not label her',
+          line: 'No type, no score, no percentile, no word she has to carry into a parents’ evening. A label closes the question. This page keeps it open.' },
+        { name: 'It does not predict',
+          line: 'No year she will struggle, no subject she will be good at, no person she turns into. The chart describes the ground she is standing on, never the road ahead.' },
+        { name: 'It does not tell you how to parent her',
+          line: 'No plan, no routine, no list of things to change by Tuesday. You know her. This gives you something to think with.' },
+      ],
+      after: 'A page written about a child can go wrong in those four ways. This one is built to fail none of them.',
+    })],
+
+    ['for', prose({
+      eyebrow: 'What it is for',
+      heading: 'The thing that keeps happening.',
+      paragraphs: [
+        'Most of what is written from a birth chart is written about the person, as a summary: strengths, weaknesses, a future. This page is written about the week you are actually in.',
+        'It starts where you already are. The hour that goes wrong. The refusal that arrives every single time. The change you did not expect her to take this hard. You are not looking for a description of her character. You are looking for a way to decide what to do on Thursday.',
+        'So the page reads her the way a good teacher would after a term of watching her: what brings her back when the day has gone past her, how she takes things in, where her energy goes and what it costs her when it has nowhere to go. Those are the things you can act on this week.',
       ],
     })],
+
+    // Greene gives the whole child report away at $69.90 (astro.com, read 2026-09-24). A written
+    // product proves itself by sample, not by testimonial. The link is a plain one: the build test
+    // allows a product page exactly one .btn label.
+    ['sample', h('section', { class: 'section sample-section', id: 'sample' },
+      h('div', { class: 'container l-stack' },
+        h('div', { class: 'stack-head' },
+          eyebrow('A whole one, free'),
+          heading('h2', 't-head', 'Read one before you buy one.')),
+        h('div', { class: 'stack-body' },
+          h('p', { class: 'serif' }, 'This is a complete ', product.name, ', start to finish, for a child who does not exist: born 12 January 2020, at half past two in the afternoon, in Ghent. Nothing is held back and nothing is blurred.'),
+          h('p', { class: 'serif' }, 'Read it. If it does not sound like a real child to you, do not buy one.'),
+          h('p', {}, h('a', { class: 'link-lg', href: SAMPLE_URL }, `Read the whole sample ${product.name}`)))))],
 
     ['wheel', h('section', { class: 'section wheel-section', id: 'wheel' },
       h('div', { class: 'container l-split' },
@@ -115,31 +150,25 @@ export function sections() {
           h('script', { type: 'application/json', id: 'wheel-sample-data' }, raw(WHEEL_DATA.replace(/</g, '\\u003c'))),
           h('script', { type: 'module', src: WHEEL_JS }, ''))))],
 
-    ['how', steps({
-      eyebrow: 'How it is made',
-      heading: 'Three facts in, one page out.',
+    ['gallery', gallery({
+      label: 'The page',
       items: [
-        { name: 'Date, time, place', key: true, tag: 'The birth time is required', line: 'You enter the three. The time sets the rising sign and the houses, which carry half the page, so it is required. The birth certificate or the hospital record usually has it, to the minute.' },
-        { name: 'Positions', line: 'From those three facts the chart is worked out on our own server: where the Sun, the Moon and the planets stood, and the rising sign on the eastern horizon.' },
-        { name: 'Words', line: 'Each placement resolves to one short text, written in advance under the same rules as every Wolf Children reading: plain, present tense, about a child, never a verdict.' },
-        { name: 'The page', line: 'Twenty-four widgets in one scroll on your phone: badges, a wheel, bars, three lines, a gauge, cards, and one question at the end. Yours to keep.' },
+        { media: slot(PHOTOS.page), caption: 'The page, as it opens on a phone. One scroll, top to bottom.' },
+        { media: slot(PHOTOS.settles), caption: 'Start with “What settles her”. It is the part written for the end of a hard day.' },
       ],
-      after: 'Her name, her date and her place of birth stay on our server. The texts were written in advance, so no writing model ever receives anything about her.',
     })],
 
     ['inside', peek({
       eyebrow: `Inside ${product.name}`,
-      heading: 'What is on the page, in the order you scroll it.',
+      heading: 'What is on it, in the order you scroll.',
       media: slot(PHOTOS.how),
       items: [
-        { title: 'Who she is', line: 'Her Sun, Moon and rising sign as three badges, the planet that runs her chart, the direction she leans, and a paragraph on who she is becoming, so the rest of the page has a frame.' },
-        { title: 'The wheel', line: 'Her birth chart drawn as a wheel, the rising sign on the left where the horizon was. Tap a planet and its connections light up, so the rest of the page has a picture to point at.' },
-        { title: 'The chart at a glance', line: 'Four element bars, three pace bars, three lines with a dot on each (dreamer or doer, starter or finisher, settled or adaptable), so you see her shape before you read a word.' },
-        { title: 'What settles her', line: 'The Moon, read for the end of a hard day: what brings her back and what makes it worse, so you stop trying the thing that makes it worse.' },
-        { title: 'Holding on and being seen', line: 'What she keeps and what she lets go of, how she is in front of others, how she explains herself, how she takes things in, so the school gate and the dinner table make more sense.' },
-        { title: 'Keeping, rhythm, being known', line: 'Three cards: what she keeps, her daily rhythm and her body, and what she is known for among her people, so you can plan the day around the child you have.' },
-        { title: 'Turned inward, and a cluster', line: 'Any planet turned inward at her birth, and where the chart gathers its weight, if it does, so the quiet strengths get named too.' },
-        { title: 'A question to sit with', line: 'One question for you, from the chart’s ruler. A question, never an instruction, so the page ends with you thinking about her.' },
+        { title: 'The wheel of her chart', line: 'Every placement marked, so the rest of the page has somewhere to point.' },
+        { title: 'What settles her', line: 'Read from the Moon, so the next bad evening has a name and a way back.' },
+        { title: 'How she takes things in', line: 'So you know when to explain, when to show her, and when to leave it alone.' },
+        { title: 'Where her energy goes', line: 'Out in the world or kept at home, so a quiet day stops reading as a bad one.' },
+        { title: 'What she is like under pressure', line: 'So the version of her you meet at the end of a long day is recognisable.' },
+        { title: 'One question to sit with', line: 'So the page ends in your hands.' },
       ],
     })],
 
@@ -149,11 +178,10 @@ export function sections() {
       columns: ['A horoscope app', product.name, 'North Star'],
       highlight: 1,
       rows: [
-        { label: 'About', cells: ['Everyone born in a month', 'Your child, from her date, time and place', 'Your child, in depth, with your three answers'] },
-        { label: 'Length', cells: ['A line a day', 'One page you scroll', 'Eight sections, about three thousand words'] },
-        { label: 'Language', cells: ['Vague on purpose', 'Plain words under a heading that names the placement', 'Plain words, written for you'] },
+        { label: 'About', cells: ['Everyone born in a month', 'Your child, from her date, time and place', 'Your child in depth, with your own answers read in'] },
+        { label: 'Length', cells: ['A line a day', 'One page you scroll', 'Nine to fifteen pages'] },
         { label: 'Needs from you', cells: ['A sign', 'Date, time and place', 'Date, time, place and three answers'] },
-        { label: 'When it arrives', cells: ['Now', 'Once the details are in', 'Within 24 hours'] },
+        { label: 'When it arrives', cells: ['Now', 'Minutes after the details are in', 'Within 24 hours'] },
         { label: 'Price', price: true, cells: ['Free', PRICE, NS_PRICE] },
       ],
     })],
@@ -162,20 +190,20 @@ export function sections() {
       eyebrow: 'Questions',
       heading: 'Before you decide.',
       items: [
-        { q: 'We do not know the exact birth time. Does it still work?',
-          a: [`${product.name} needs the time. The rising sign and the houses come from it, and they carry half the widgets on the page, so a page without a time would be a page with holes. The birth certificate, the hospital record or the baby book usually has it, to the minute. If it cannot be found, North Star is the reading that works without it.`] },
-        { q: 'I am not sure about astrology.',
-          a: ['Fair. Here is how it is held at Wolf Children: a birth chart is a set of positions on a date, a time and a place. From those, a page is written in plain words, and the only test that matters happens at your kitchen table. Does it sound like her? If it does, you have words for something you were already living with. If it does not, reply and say where it missed. Those replies are read.'] },
-        { q: 'Will it tell me how to parent her?',
-          a: ['No. It says who she is: what settles her, how she takes things in, where her energy goes, what she keeps, how she is with other children, and one question for you. It does not predict events, it does not diagnose, and it gives no instructions. What you do with it is yours. Nothing on the page would not be said to the child’s face.'] },
-        { q: 'Which ages is it for?',
-          a: ['The chart is the same at three and at thirteen; what changes is how much of it has shown up. The page is written about the child as a child, not as the adult she might become, so it reads at any age from toddler to teenager.'] },
-        { q: 'What happens to her details?',
-          a: ['Her name, her date of birth and her place of birth are stored on our own server and never leave it. The chart is worked out there. The texts on the page were written in advance, so no model ever receives anything about her. You can delete her from the portal at any time, and everything goes with her.'] },
+        { q: 'I am not sure I believe in astrology.',
+          a: [h('span', {}, 'Then read ', h('a', { href: SAMPLE_URL }, 'the sample'), ' first and decide whether it describes a real child. That is the only test that counts here. If it reads like a horoscope, you have lost nothing.')] },
+        { q: 'She is three. Is it too early?',
+          a: ['No. The page describes how she meets the day, which is already true at three and will still be true at eleven.'] },
+        { q: 'I do not have her exact birth time.',
+          a: [`${product.name} needs it. The birth certificate usually has it, and the hospital will have it on file. Without the time the page would be guessing, which is the thing you came here to stop. If it cannot be found, North Star is the reading that works without it.`] },
         { q: 'What if it does not sound like her?',
-          a: [h('span', {}, 'Reply and say where it missed; a person reads every reply. If the page has a mistake of ours, it is redone or refunded within 30 days. If the birth details were entered wrong, the page is rewritten once from the corrected details at no cost. The ', REFUNDS, ' has the rules in full.')] },
-        { q: 'How is it delivered?',
-          a: ['As a page in your private portal, on your phone or a screen. You sign in by email link, with no password to remember. Add the child once; the page is built from the details and appears on your dashboard.'] },
+          a: [h('span', {}, 'Then tell us and we refund it. A page that does not sound like your child is no use to you and no use to us. The ', REFUNDS, ' has the rules in full, and a person reads every reply.')] },
+        { q: 'Will it say something I do not want to read?',
+          a: ['It may say something you already suspected. It will not say she is difficult, or behind, or a type. There is no bad here to find.'] },
+        { q: 'A digital product, to get us off screens?',
+          a: ['The page is how it reaches you. What it is for happens away from the screen, in the hour that keeps going wrong.'] },
+        { q: 'What happens to her details?',
+          a: ['Her name, her date of birth and her place of birth are stored on our own server and never leave it. You can delete her from the portal at any time, and everything goes with her.'] },
       ],
     })],
 
@@ -186,19 +214,20 @@ export function sections() {
       tagline: 'One child, one page, yours to keep.',
       media: slot(PHOTOS.offer),
       includes: [
-        `The ${product.name} page: twenty-four widgets, twenty-two of them with text about your child`,
-        'Sun, Moon and rising; what settles her; how she takes things in; where her energy goes; one question',
+        'The full page for one child, on your phone or printed',
+        'Ready in minutes, once you give her birth date, time and place',
+        'A page of questions, so you can keep reading it with Claude or ChatGPT',
         'Her name, date and place of birth kept on our own server',
-        'Your private portal, sign-in by email link',
         'Two children? Each child is her own page',
       ],
       cta: theCta({ href: CHECKOUT_URL, size: 'btn-lg' }),
       note: h('span', {}, 'A mistake of ours is redone or refunded within 30 days; a wrong birth entry is rewritten once at no cost. The ', REFUNDS, ' says how. When one page is not enough: North Star, the full reading, ', NS_PRICE, '.'),
     })],
 
+    // The golden thread closes on Richard's own line, which the 2026-09-14 rebuild had cut.
     ['final', finalCta({
-      heading: 'See the child in front of you.',
-      sub: `${product.name}, ${PRICE}. One page, in plain words, about who she is.`,
+      heading: 'The same night, one layer deeper.',
+      sub: 'You already know this child. This is the same one, read from the night she arrived.',
       cta: theCta({ size: 'btn-lg' }),
       guarantee: 'A mistake of ours is redone or refunded within 30 days.',
     })],

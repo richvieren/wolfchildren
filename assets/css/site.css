@@ -302,3 +302,12 @@ ul, ol { padding: 0; list-style: none; }
 .wheel-live .planet:focus-visible .hit { stroke-opacity: 1; }
 .wheel-caption { margin: 12px 0 0; text-align: center; font-size: var(--t-small); }
 .wheel-note { margin-top: 8px; text-align: center; font-size: var(--t-small); }
+
+/* The sample link (2026-09-24): a written product proves itself by sample, and the link has to
+   read as an invitation without becoming a second button. A product page is allowed exactly one
+   .btn label (tests/build.test.js), so this is a text link at body-copy scale. */
+.link-lg {
+  font-family: var(--f-mono);
+  font-size: var(--t-body);
+  text-underline-offset: 0.25em;
+}
