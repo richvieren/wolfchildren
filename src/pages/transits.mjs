@@ -11,7 +11,7 @@ import { readingPage } from '../lib/reading-page.mjs';
 // The price behind it moves with the catalog; the link id does not.
 const page = readingPage({
   slug: 'transits',
-  checkoutUrl: 'https://buy.stripe.com/4gM8wP1mC8MscoCfWK1kA01',
+  checkoutUrl: 'https://buy.stripe.com/cNibJ1ghw4wcdsGeSG1kA08',
   description: 'A year of transits for your child: one report covering twelve months from the day you give the details, and a note for every one of the fifty-two weeks, in your portal.',
   bannerLine: 'a year for your child, and a note every week',
   eyebrowLine: 'one child · twelve months',

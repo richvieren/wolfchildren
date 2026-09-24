@@ -42,7 +42,7 @@ export const PRODUCTS = {
     fulfilment: 'generated',
     requiresIntake: true,
     subject: 'child',
-    priceCents: 19700,
+    priceCents: 19900,
     currency: 'usd',
     active: true,
     assetPath: null,
