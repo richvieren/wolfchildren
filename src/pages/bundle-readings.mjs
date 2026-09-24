@@ -16,7 +16,7 @@ const page = readingPage({
     sub: 'All Readings is one purchase of the five written readings: North Star, Transits, Astrocartography, Solar Return and Numerology. Each one waits on your portal until you give its details, so you can start North Star now and Transits in the spring, for one child or for different children.',
     bullets: [
       'North Star, the full portrait of who your child is',
-      'Transits, the next three months, month by month',
+      'Transits, the year ahead, with a note every week',
       'Astrocartography, three places you choose',
       'Solar Return and Numerology, the year from the next birthday and the numbers in the date of birth',
     ],
@@ -31,7 +31,7 @@ const page = readingPage({
   insideHeading: 'The five readings.',
   inside: [
     { title: 'North Star', line: read('north-star', 'Who your child is, in eight sections') },
-    { title: 'Transits', line: read('transits', 'The next three months, month by month') },
+    { title: 'Transits', line: read('transits', 'The year ahead, and a note every week') },
     { title: 'Astrocartography', line: read('astrocartography', 'Three places you choose') },
     { title: 'Solar Return', line: read('solar-return', 'The year from the next birthday') },
     { title: 'Numerology', line: read('numerology', 'The numbers in the date of birth') },

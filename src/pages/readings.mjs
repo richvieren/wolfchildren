@@ -12,7 +12,7 @@ export const indexable = false;
 const LINES = {
   'compass': 'One page about who your child is, from the birth date, time and place. On your portal within a minute.',
   'north-star': 'The full portrait of who your child is, written for you, with your three answers read against the chart.',
-  'transits': 'The next three months for your child, one month at a time.',
+  'transits': 'The year ahead for your child, and a short note every week of it.',
   'astrocartography': 'Three places you choose, and what each one draws out in your child.',
   'solar-return': 'The year that starts on your child’s next birthday.',
   'numerology': 'The numbers in your child’s date of birth, and the year ahead.',

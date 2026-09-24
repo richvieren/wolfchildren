@@ -19,8 +19,10 @@ test('every product has a valid fulfilment type', () => {
 });
 
 test('prices match the decision of 2026-09-12, in USD cents', () => {
+  // Transits moved from 9900 to 19700 on 2026-09-23: one product, a year, one report and
+  // fifty-two weekly notes. The three-month reading is gone rather than sold beside it.
   const expected = {
-    'compass': 2700, 'north-star': 19900, 'transits': 9900, 'astrocartography': 9900,
+    'compass': 2700, 'north-star': 19900, 'transits': 19700, 'astrocartography': 9900,
     'solar-return': 19900, 'numerology': 9900, 'parent-child': 9900, 'bundle-readings': 49900,
     'photo-course': null, 'retreat': null,
   };
