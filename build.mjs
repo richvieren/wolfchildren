@@ -22,6 +22,10 @@ const check = argv.includes('--check');
 
 const css = readFileSync(join(ROOT, 'assets/css/site.css'));
 const cssHash = createHash('md5').update(css).digest('hex').slice(0, 8);
+// Same hash stamp-assets.sh computes (md5, first 8), so the two never disagree and
+// `build.mjs --check` stays green after a stamping run.
+const pixel = readFileSync(join(ROOT, 'assets/js/pixel.js'));
+const pixelHash = createHash('md5').update(pixel).digest('hex').slice(0, 8);
 
 export async function renderAll() {
   const out = [];
@@ -29,7 +33,7 @@ export async function renderAll() {
     const page = await import(pathToFileURL(join(ROOT, 'src/pages', f)).href);
     const sections = page.sections().map(([name, html]) => ({ name, html: String(html) }));
     const body = sections.map((s) => s.html).join('\n');
-    const html = document({ title: page.title, description: page.description, path: page.path, body, indexable: page.indexable === true, cssHash });
+    const html = document({ title: page.title, description: page.description, path: page.path, body, indexable: page.indexable === true, cssHash, pixelHash });
     const slug = page.path.split('/').filter(Boolean).pop();
     out.push({ file: f, slug, path: page.path, target: join(ROOT, page.path.replace(/^\//, ''), 'index.html'), html, sections, indexable: page.indexable === true });
   }

@@ -218,7 +218,12 @@ export function finalCta({ heading: hd, sub, cta: c, guarantee }) {
 
 // ---------- document -----------------------------------------------------
 
-export function document({ title, description, path, body, indexable = false, cssHash = 'dev' }) {
+// The Meta pixel goes on every page of the site (Richard, 2026-09-24, dataset 1622703732974632).
+// The code lives once in assets/js/pixel.js; this emits the tag, hashed like the stylesheet so a
+// change to the file busts the 10-minute GitHub Pages cache. The noscript fallback uses the
+// `hidden` attribute rather than an inline style: `zero inline styles` is a build invariant, and
+// a hidden img is still fetched, so the no-JS pageview still lands.
+export function document({ title, description, path, body, indexable = false, cssHash = 'dev', pixelHash = 'dev' }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -231,8 +236,10 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}<title>$
 <link rel="preload" href="/assets/fonts/montserrat-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/site.css?v=${cssHash}">
+<script src="/assets/js/pixel.js?v=${pixelHash}"></script>
 </head>
 <body>
+<noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=1622703732974632&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
 ${body}
 </body>
 </html>
