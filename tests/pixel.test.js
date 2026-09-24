@@ -24,7 +24,8 @@ const portalPages = readdirSync(join(ROOT, 'portal'))
 // 2026-09-24: a whole Compass for a child who does not exist, rendered by the API's own builder
 // and published so the sales page can give one away (api-compass/scripts/publish_compass_sample.py).
 // It is not built by build.mjs and is not hand-written, so it is listed here on purpose.
-const generatedPages = ['readings/compass/sample/index.html'];
+const generatedPages = ['readings/compass/sample/nora/index.html',
+                        'readings/compass/sample/finn/index.html'];
 
 test('the pixel file initialises the dataset and tracks a pageview', () => {
   assert.ok(PIXEL.includes(`fbq('init', '${DATASET}')`), 'init with the dataset id');
@@ -78,7 +79,7 @@ for (const rel of generatedPages) {
   test(`${rel} is noindex and holds no real child`, () => {
     assert.ok(html.includes('name="robots" content="noindex'), 'a sample page stays out of search');
     assert.ok(!html.includes('file://'), 'a local path would break every asset and name this machine');
-    assert.ok(html.includes('Nora'), 'the fictional child the sales page names');
+    assert.ok(/Nora|Finn/.test(html), 'one of the two fictional children the sales page names');
   });
 }
 

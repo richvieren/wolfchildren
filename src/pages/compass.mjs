@@ -47,7 +47,9 @@ export const indexable = false;                          // flips to true when n
 // --links --live: metadata.slug=compass, terms consent, promotion codes, the sibling as an optional item).
 const CHECKOUT_URL = 'https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07';
 const CTA_LABEL = `Get ${product.name}`;
-const SAMPLE_URL = '/readings/compass/sample/';   // a whole Compass for a child who does not exist
+// One sample per sex, because a named child has a pronoun and the site should not assume one.
+const SAMPLE_GIRL = '/readings/compass/sample/nora/';
+const SAMPLE_BOY = '/readings/compass/sample/finn/';
 const theCta = (extra = {}) => ({ label: CTA_LABEL, href: '#offer', ...extra });
 const REFUNDS = h('a', { href: '/legal/refunds/' }, 'refund page');
 
@@ -65,25 +67,25 @@ const PHOTOS = {
 
 export function sections() {
   return [
-    ['banner', banner(`${product.name}: one page about your child, ${PRICE}.`)],
+    ['banner', banner(`${product.name}, one page about your child, ${PRICE}.`)],
 
     ['header', header({ ctaLabel: CTA_LABEL, ctaHref: '#offer' })],
 
-    // Richard, 2026-09-24: the page opens on the parent's state, never on the product, and the
-    // deliverable comes late. A parent buys direction, not improvement: she is guessing about
-    // something specific and current and wants to stop. brand-bible §7's "headlines say what the
-    // thing is" was updated the same day to match.
+    // Richard, 2026-09-24. Two rules this page is written to. The reader's state opens it and the
+    // deliverable comes late, because a parent buys direction rather than improvement: she is
+    // guessing about something specific and current and wants to stop. And the child has no sex
+    // here. The page used to say "she" and "her" 53 times; half of parents have sons.
     ['hero', hero({
       eyebrow: `${product.name} · one child · one page · ${PRICE}`,
-      h1: 'You are guessing, and you would like to stop.',
-      sub: 'There is one thing your child does that you have never worked out. It happens most days. You have a theory, someone else in the house has a different one, and every few weeks you try a new approach and watch to see whether it helped. That is what wears you down. The guessing more than the behaviour.',
+      h1: 'Your child has done the same thing for six months and you still don\u2019t know why.',
+      sub: 'It happens most days. You have a theory, someone else in the house has another, and every few weeks you try something different and watch to see whether it helped. Six months of that wears you out more than the behaviour does.',
       bullets: [
-        `${product.name} is one page about this child, written for you`,
-        'It will not tell you who she will become',
-        'It tells you what she is working with, so the next time it happens you are not starting from nothing',
+        `One page about your child, written for you`,
+        'Built from the date, time and place of their birth',
+        'Something to think with on the next bad evening',
       ],
       cta: theCta({ subtext: h('span', {}, 'Ready in minutes, on your phone, yours to keep.') }),
-      badges: ['Secure checkout by Stripe', 'It needs her birth time', 'Her name, date and place never leave our own server'],
+      badges: ['Secure checkout by Stripe', 'It needs their birth time', 'Your child\u2019s name, date and place never leave our own server'],
       media: [slot(PHOTOS.hero), slot(PHOTOS.heroDetail)],
     })],
 
@@ -93,50 +95,50 @@ export function sections() {
       eyebrow: 'The chart',
       heading: 'A birth chart is the same sky, read differently. The same night, one layer deeper.',
       paragraphs: [
-        'Everyone born that week got the same sky. This is what it looked like from the place she arrived, at the minute she did.',
+        'Everyone born that week got the same sky. Your child got it from one place, at one minute, and we read it from there.',
       ],
     })],
 
-    // The refusal is the centre of the page, not a footnote: the promise not to label a child is
-    // the product (Richard, 2026-09-24, from the grounded end of the market).
+    // The refusal is the centre of the page. Rewritten 2026-09-24 to clear the anti-slop audit:
+    // it was four "It does not X" tiles under a three-beat staccato heading, which is the banned
+    // rhythm twice over. Every line now names who is doing the refusing, which is what killed the
+    // machine sound: the page no longer does things, we do.
     ['will-not', steps({
       eyebrow: `What ${product.name} will not do`,
-      heading: 'No labels. No verdicts. No diagnosis.',
+      heading: 'We will not label your child.',
       items: [
-        { name: 'It does not diagnose', key: true, tag: 'Never a clinical opinion',
-          line: 'Nothing here is a clinical opinion or a developmental assessment, and none of it replaces someone who knows your child in person. If something worries you, that is the conversation to have, and this page is not it.' },
-        { name: 'It does not label her',
-          line: 'No type, no score, no percentile, no word she has to carry into a parents’ evening. A label closes the question. This page keeps it open.' },
-        { name: 'It does not predict',
-          line: 'No year she will struggle, no subject she will be good at, no person she turns into. The chart describes the ground she is standing on, never the road ahead.' },
-        { name: 'It does not tell you how to parent her',
-          line: 'No plan, no routine, no list of things to change by Tuesday. You know her. This gives you something to think with.' },
+        { name: 'Nothing here is clinical', key: true, tag: 'Never an assessment',
+          line: 'We are not doctors, and a page from us carries no diagnosis and no developmental assessment. If something about your child worries you, talk to someone who has met them.' },
+        { name: 'No word to carry',
+          line: 'We hand you no type, no score and no percentile. A label ends the conversation about a child, and we would rather you kept asking.' },
+        { name: 'We leave the road ahead alone',
+          line: 'We write about the ground your child is standing on now. You will not read which year will be hard, which subject they will shine at, or who they turn into.' },
+        { name: 'No plan to follow',
+          line: 'There is no routine to start on Monday and no list of things to change by Tuesday. You already know your child better than we do. We give you something to think with, and what you do on Thursday is yours.' },
       ],
-      after: 'A page written about a child can go wrong in those four ways. This one is built to fail none of them.',
+      after: 'A page written about a child can go wrong in those four ways, and we built this one to fail none of them.',
     })],
 
     ['for', prose({
       eyebrow: 'What it is for',
       heading: 'The thing that keeps happening.',
       paragraphs: [
-        'Most of what is written from a birth chart is written about the person, as a summary: strengths, weaknesses, a future. This page is written about the week you are actually in.',
-        'It starts where you already are. The hour that goes wrong. The refusal that arrives every single time. The change you did not expect her to take this hard. You are not looking for a description of her character. You are looking for a way to decide what to do on Thursday.',
-        'So the page reads her the way a good teacher would after a term of watching her: what brings her back when the day has gone past her, how she takes things in, where her energy goes and what it costs her when it has nowhere to go. Those are the things you can act on this week.',
+        'Most writing from a birth chart describes the person in summary: strengths, weaknesses, a future. We write about the week you are in.',
+        'It starts where you already are. The hour that goes wrong. The refusal that arrives every single time. The change you did not expect them to take this hard. You want a way to decide what to do on Thursday, not a description of a character.',
+        'So we read your child the way a good teacher would after a term of watching them: what brings them back when the day has gone past them, how they take things in, where their energy goes and what it costs them when it has nowhere to go. You can act on all of it this week.',
       ],
     })],
 
-    // Greene gives the whole child report away at $69.90 (astro.com, read 2026-09-24). A written
-    // product proves itself by sample, not by testimonial. The link is a plain one: the build test
-    // allows a product page exactly one .btn label.
     ['sample', h('section', { class: 'section sample-section', id: 'sample' },
       h('div', { class: 'container l-stack' },
         h('div', { class: 'stack-head' },
           eyebrow('A whole one, free'),
           heading('h2', 't-head', 'Read one before you buy one.')),
         h('div', { class: 'stack-body' },
-          h('p', { class: 'serif' }, 'This is a complete ', product.name, ', start to finish, for a child who does not exist: born 12 January 2020, at half past two in the afternoon, in Ghent. Nothing is held back and nothing is blurred.'),
-          h('p', { class: 'serif' }, 'Read it. If it does not sound like a real child to you, do not buy one.'),
-          h('p', {}, h('a', { class: 'link-lg', href: SAMPLE_URL }, `Read the whole sample ${product.name}`)))))],
+          h('p', { class: 'serif' }, 'Below are two complete ', product.name, ' pages, start to finish, for children who do not exist. There are two, one for a boy and one for a girl, so you can read the page for whichever you have at home. Nothing is held back and nothing is blurred.'),
+          h('p', { class: 'serif' }, 'Read one. If it does not sound like a real child to you, do not buy it.'),
+          h('p', {}, h('a', { class: 'link-lg', href: SAMPLE_GIRL }, 'Read the one written for a girl')),
+          h('p', {}, h('a', { class: 'link-lg', href: SAMPLE_BOY }, 'Read the one written for a boy')))))],
 
     ['wheel', h('section', { class: 'section wheel-section', id: 'wheel' },
       h('div', { class: 'container l-split' },
@@ -144,7 +146,7 @@ export function sections() {
           eyebrow('The wheel'),
           heading('h2', 't-head', 'Tap a planet.')),
         h('div', { class: 'split-body' },
-          h('p', { class: 'serif' }, 'The page draws her chart as a wheel, the rising sign on the left where the horizon was when she was born. Tap a planet: the lines to the planets it connects with stay lit, and the centre says where it stood.'),
+          h('p', { class: 'serif' }, 'We draw their chart as a wheel, the rising sign on the left where the horizon was when they were born. Tap a planet and the lines to the planets it connects with stay lit, with the centre naming where it stood.'),
           h('div', { class: 'wheel-live', id: 'wheel-sample' }),
           h('p', { class: 'wheel-note' }, 'A sample chart for a child who does not exist: 12 January 2020, 14:30, Ghent.'),
           h('script', { type: 'application/json', id: 'wheel-sample-data' }, raw(WHEEL_DATA.replace(/</g, '\\u003c'))),
@@ -154,7 +156,7 @@ export function sections() {
       label: 'The page',
       items: [
         { media: slot(PHOTOS.page), caption: 'The page, as it opens on a phone. One scroll, top to bottom.' },
-        { media: slot(PHOTOS.settles), caption: 'Start with “What settles her”. It is the part written for the end of a hard day.' },
+        { media: slot(PHOTOS.settles), caption: 'Start with \u201cWhat settles them\u201d. It is written for the end of a hard day.' },
       ],
     })],
 
@@ -163,11 +165,11 @@ export function sections() {
       heading: 'What is on it, in the order you scroll.',
       media: slot(PHOTOS.how),
       items: [
-        { title: 'The wheel of her chart', line: 'Every placement marked, so the rest of the page has somewhere to point.' },
-        { title: 'What settles her', line: 'Read from the Moon, so the next bad evening has a name and a way back.' },
-        { title: 'How she takes things in', line: 'So you know when to explain, when to show her, and when to leave it alone.' },
-        { title: 'Where her energy goes', line: 'Out in the world or kept at home, so a quiet day stops reading as a bad one.' },
-        { title: 'What she is like under pressure', line: 'So the version of her you meet at the end of a long day is recognisable.' },
+        { title: 'The wheel of their chart', line: 'Every placement marked, so the rest of the page has somewhere to point.' },
+        { title: 'What settles them', line: 'Read from the Moon, so the next bad evening has a name and a way back.' },
+        { title: 'How they take things in', line: 'So you know when to explain, when to show them, and when to leave it alone.' },
+        { title: 'Where their energy goes', line: 'Out in the world or kept at home, so a quiet day stops reading as a bad one.' },
+        { title: 'What they are like under pressure', line: 'So the version of your child you meet at the end of a long day is recognisable.' },
         { title: 'One question to sit with', line: 'So the page ends in your hands.' },
       ],
     })],
@@ -178,7 +180,7 @@ export function sections() {
       columns: ['A horoscope app', product.name, 'North Star'],
       highlight: 1,
       rows: [
-        { label: 'About', cells: ['Everyone born in a month', 'Your child, from her date, time and place', 'Your child in depth, with your own answers read in'] },
+        { label: 'About', cells: ['Everyone born in a month', 'Your child, from their date, time and place', 'Your child in depth, with your own answers read in'] },
         { label: 'Length', cells: ['A line a day', 'One page you scroll', 'Nine to fifteen pages'] },
         { label: 'Needs from you', cells: ['A sign', 'Date, time and place', 'Date, time, place and three answers'] },
         { label: 'When it arrives', cells: ['Now', 'Minutes after the details are in', 'Within 24 hours'] },
@@ -191,19 +193,19 @@ export function sections() {
       heading: 'Before you decide.',
       items: [
         { q: 'I am not sure I believe in astrology.',
-          a: [h('span', {}, 'Then read ', h('a', { href: SAMPLE_URL }, 'the sample'), ' first and decide whether it describes a real child. That is the only test that counts here. If it reads like a horoscope, you have lost nothing.')] },
-        { q: 'She is three. Is it too early?',
-          a: ['No. The page describes how she meets the day, which is already true at three and will still be true at eleven.'] },
-        { q: 'I do not have her exact birth time.',
-          a: [`${product.name} needs it. The birth certificate usually has it, and the hospital will have it on file. Without the time the page would be guessing, which is the thing you came here to stop. If it cannot be found, North Star is the reading that works without it.`] },
-        { q: 'What if it does not sound like her?',
-          a: [h('span', {}, 'Then tell us and we refund it. A page that does not sound like your child is no use to you and no use to us. The ', REFUNDS, ' has the rules in full, and a person reads every reply.')] },
+          a: [h('span', {}, 'Read ', h('a', { href: SAMPLE_GIRL }, 'a sample'), ' first and decide whether it describes a real child. The only test that counts happens at your kitchen table. If it reads like a horoscope, you have lost nothing.')] },
+        { q: 'They are three. Is it too early?',
+          a: ['It is not too early. How your child meets the day is already true at three and still true at eleven.'] },
+        { q: 'I do not have their exact birth time.',
+          a: [`${product.name} needs it. The birth certificate usually has it, and the hospital will have it on file. Without the time we would be guessing, and guessing is what you came here to stop. If it cannot be found, North Star is the reading that works without it.`] },
+        { q: 'What if it does not sound like them?',
+          a: [h('span', {}, 'Tell us and we refund it. A page that does not sound like your child is no use to you and none to us. The ', REFUNDS, ' has the rules, and a person reads every reply.')] },
         { q: 'Will it say something I do not want to read?',
-          a: ['It may say something you already suspected. It will not say she is difficult, or behind, or a type. There is no bad here to find.'] },
+          a: ['It may name something you already suspected. You will not read that your child is difficult, or behind, or a type.'] },
         { q: 'A digital product, to get us off screens?',
           a: ['The page is how it reaches you. What it is for happens away from the screen, in the hour that keeps going wrong.'] },
-        { q: 'What happens to her details?',
-          a: ['Her name, her date of birth and her place of birth are stored on our own server and never leave it. You can delete her from the portal at any time, and everything goes with her.'] },
+        { q: 'What happens to their details?',
+          a: ['Your child\u2019s name, date of birth and place of birth are stored on our own server and never leave it. You can delete a child from the portal at any time, and everything goes with them.'] },
       ],
     })],
 
@@ -215,19 +217,18 @@ export function sections() {
       media: slot(PHOTOS.offer),
       includes: [
         'The full page for one child, on your phone or printed',
-        'Ready in minutes, once you give her birth date, time and place',
+        'Ready in minutes, once you give their birth date, time and place',
         'A page of questions, so you can keep reading it with Claude or ChatGPT',
-        'Her name, date and place of birth kept on our own server',
-        'Two children? Each child is her own page',
+        'Your child\u2019s name, date and place of birth kept on our own server',
+        'Two children? Each child gets their own page',
       ],
       cta: theCta({ href: CHECKOUT_URL, size: 'btn-lg' }),
       note: h('span', {}, 'A mistake of ours is redone or refunded within 30 days; a wrong birth entry is rewritten once at no cost. The ', REFUNDS, ' says how. When one page is not enough: North Star, the full reading, ', NS_PRICE, '.'),
     })],
 
-    // The golden thread closes on Richard's own line, which the 2026-09-14 rebuild had cut.
     ['final', finalCta({
       heading: 'The same night, one layer deeper.',
-      sub: 'You already know this child. This is the same one, read from the night she arrived.',
+      sub: 'You already know this child. We read the same one from the night they arrived.',
       cta: theCta({ size: 'btn-lg' }),
       guarantee: 'A mistake of ours is redone or refunded within 30 days.',
     })],

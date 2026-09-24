@@ -73,7 +73,7 @@ export function sections() {
       eyebrow: 'Your account',
       heading: 'No password. A link that lasts 48 hours.',
       paragraphs: [
-        'You sign in with a link we email you. It works once and stops working 48 hours after we sent it. Anyone with the link can open your portal, so do not forward it. You can delete a child, and everything written about her or him, from the portal at any time.',
+        'You sign in with a link we email you. It works once and stops working 48 hours after we sent it. Anyone with the link can open your portal, so do not forward it. You can delete a child, and everything written about them, from the portal at any time.',
       ],
     })],
 

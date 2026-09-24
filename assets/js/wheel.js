@@ -28,6 +28,9 @@ export const MIN_SEPARATION = 8;
 
 export const GREEN = '#495543', TAN = '#CDB494', ORANGE = '#DA4635', CREAM = '#DFD7C3';
 export const TAN_SOFT = 'rgba(205,180,148,.45)';
+// The fallbacks stay here and are deliberately absent from the server twin (reader/wheel.py):
+// in a browser a missing web font should still draw a glyph, and nothing is embedded. In the PDF
+// the same fallback got embedded and tripped the brand-font guard (2026-09-24).
 const GLYPH_FONT = "'Wheel Glyphs', 'Noto Sans Symbols', 'Apple Symbols', sans-serif";
 const MONO_FONT = "'IBM Plex Mono', ui-monospace, Menlo, monospace";
 
