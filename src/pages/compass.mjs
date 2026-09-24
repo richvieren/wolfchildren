@@ -51,7 +51,10 @@ const CTA_LABEL = `Get ${product.name}`;
 const SAMPLE_GIRL = '/readings/compass/sample/nora/';
 const SAMPLE_BOY = '/readings/compass/sample/finn/';
 const theCta = (extra = {}) => ({ label: CTA_LABEL, href: '#offer', ...extra });
-const REFUNDS = h('a', { href: '/legal/refunds/' }, 'refund page');
+// Richard, 2026-09-24: no money-back framing in marketing copy. It is a digital product and the
+// buyer has the value once it is delivered. What the page states is the policy: a wrong entry
+// rewritten once at no cost, a mistake in the reading redone. The legal terms are untouched and
+// reachable from the footer, because the refund rights themselves still exist and must.
 
 // Photo slots: id, ratio, crop, intent, min. Richard's own photography; nothing
 // celestial (brand-bible §6). The photographs carry what the copy does not claim.
@@ -199,7 +202,7 @@ export function sections() {
         { q: 'I do not have their exact birth time.',
           a: [`${product.name} needs it. The birth certificate usually has it, and the hospital will have it on file. Without the time we would be guessing, and guessing is what you came here to stop. If it cannot be found, North Star is the reading that works without it.`] },
         { q: 'What if it does not sound like them?',
-          a: [h('span', {}, 'Tell us and we refund it. A page that does not sound like your child is no use to you and none to us. The ', REFUNDS, ' has the rules, and a person reads every reply.')] },
+          a: ['Say so, and it is looked at. A page that does not sound like your child is no use to anyone, and a person reads every reply.'] },
         { q: 'Will it say something I do not want to read?',
           a: ['It may name something you already suspected. You will not read that your child is difficult, or behind, or a type.'] },
         { q: 'A digital product, to get us off screens?',
@@ -223,14 +226,14 @@ export function sections() {
         'Two children? Each child gets their own page',
       ],
       cta: theCta({ href: CHECKOUT_URL, size: 'btn-lg' }),
-      note: h('span', {}, 'A mistake of ours is redone or refunded within 30 days; a wrong birth entry is rewritten once at no cost. The ', REFUNDS, ' says how. When one page is not enough: North Star, the full reading, ', NS_PRICE, '.'),
+      note: h('span', {}, 'A wrong birth entry is rewritten once at no cost. A mistake in the reading is redone. When one page is not enough: North Star, the full reading, ', NS_PRICE, '.'),
     })],
 
     ['final', finalCta({
       heading: 'The same night, one layer deeper.',
       sub: 'You already know this child. We read the same one from the night they arrived.',
       cta: theCta({ size: 'btn-lg' }),
-      guarantee: 'A mistake of ours is redone or refunded within 30 days.',
+      guarantee: 'A wrong birth entry is rewritten once at no cost. A mistake in the reading is redone.',
     })],
 
     ['footer', footer({

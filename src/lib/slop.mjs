@@ -21,9 +21,12 @@ const RE = {
     for (let i = 0; i < sents.length - 1; i += 1) {
       const a = sents[i];
       const b = sents[i + 1];
-      const negatesLate = /\b(not|never|no)\b[^.]{0,40}[.!?]?$/i.test(a);
+      // 2026-09-24: contractions were slipping through. The skill's REGISTER RULE says a pattern
+      // is banned in every register, so "You aren't failing. You're just guessing." is the same
+      // violation as the uncontracted form. n't and 're and 's now count.
+      const negatesLate = /\b(not|never|no)\b[^.]{0,40}[.!?]?$|n[’']t\b[^.]{0,40}[.!?]?$/i.test(a);
       const affirmsShort = b.split(/\s+/).length <= 14
-        && /^(It|This|That|You|She|He|They|The|We)\b.{0,60}\b(is|are|was|were|tells|says|gives|keeps|describes|writes|need|needs)\b/.test(b);
+        && /^(It|This|That|You|She|He|They|The|We)\b(['’](s|re|m|ve)\b|.{0,60}\b(is|are|was|were|tells|says|gives|keeps|describes|writes|need|needs)\b)/i.test(b);
       if (negatesLate && affirmsShort) out.push(`${a} || ${b}`);
     }
     return out;
@@ -47,7 +50,8 @@ const RE = {
   // is ordinary typography and was being flagged across every page.
   colonTitle: (sents) => sents.filter((s) => /^(The|Our|Your|My|A|An) \w+: [a-z]/.test(s)),
   // PART: the word "part" as a narrative pointer, banned outright in this voice.
-  partPointer: (sents) => sents.filter((s) => /\bpart\b/i.test(s) && !/\b(party|participant|apart|partner|particular)\b/i.test(s)),
+  partPointer: (sents) => sents.filter((s) => /\bpart\b|\b\d+-part\b/i.test(s)
+    && !/\b(party|participant|apart|partner|particular|partly|partial)\b/i.test(s)),
   // AGENCY: an abstract subject performing a human verb.
   // Narrowed 2026-09-24: a document saying or describing something is ordinary English ("this page
   // says what we collect"). The pattern is a thing given a mind or a gaze.
@@ -55,8 +59,31 @@ const RE = {
     || /\b(the|this) (page|chart|reading)\b\s+reads\s+(you|them|her|him|your|their)\b/i.test(s)),
   // Z: the epiphany-question formula.
   epiphanyQuestion: (sents) => sents.filter((s) => /question (to sit with|worth sitting with)/i.test(s)),
-  // N: "This is not X. This is Y." inside one sentence.
-  isNotReframe: (sents) => sents.filter((s) => /\b(is|are) not\b.*\.\s*(It|This|That)\b/i.test(s)),
+  // N: "This is not X. This is Y." inside one sentence, and the "never about A, it is about B"
+  // skin, which also travels inside one sentence joined by a dash or comma.
+  isNotReframe: (sents) => sents.filter((s) => /\b(is|are) not\b.*\.\s*(It|This|That)\b/i.test(s)
+    || /\b(is|are)n[’']t about\b.{0,80}\bit[’']?s about\b/i.test(s)
+    || /\bnever about\b.{0,60}\bit (is|was) about\b/i.test(s)),
+  // G: "You don't need X. You need Y."
+  dontNeedNeed: (sents) => {
+    const out = [];
+    for (let i = 0; i < sents.length - 1; i += 1) {
+      if (/\byou (do ?n[’']?t|do not) need\b/i.test(sents[i]) && /\byou (just |only )?need\b/i.test(sents[i + 1])) {
+        out.push(`${sents[i]} || ${sents[i + 1]}`);
+      }
+    }
+    return out;
+  },
+  // C: "Stop X. Start Y."
+  stopStart: (sents) => {
+    const out = [];
+    for (let i = 0; i < sents.length - 1; i += 1) {
+      if (/^Stop\b/i.test(sents[i]) && /^Start\b/i.test(sents[i + 1])) out.push(`${sents[i]} ${sents[i + 1]}`);
+    }
+    return out;
+  },
+  // I: "Here's the truth" / "What nobody tells you".
+  truthReveal: (sents) => sents.filter((s) => /\bhere[’']?s the truth\b|\bwhat nobody tells you\b|\bthe truth is\b/i.test(s)),
 };
 
 const CAPS = { negationAffirmation: 2, demonstrativeCloser: 2, epiphanyQuestion: 1 };
