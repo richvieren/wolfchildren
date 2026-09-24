@@ -57,5 +57,8 @@ test('the birth time is optional and the three questions are asked', () => {
 
 test('delivery is the published promise, and the year of notes follows it', () => {
   assert.match(page.html, /within 24 hours/);
-  assert.match(page.html, /refund page/i);
+  // 2026-09-24: the page no longer advertises money back. What it publishes is the policy, the
+  // same sentence every product page and every design variant carries.
+  assert.match(page.html, /A wrong birth entry is rewritten once at no cost/);
+  assert.ok(!/refunded|money back/i.test(page.html), 'no money-back framing in marketing copy');
 });

@@ -73,7 +73,7 @@ export function sections() {
         { media: slot(PHOTOS.beforeAfter), caption: 'Before: a bedtime that ends in tears, and no idea why. After: you know what their Moon needs at seven in the evening.' },
         { media: slot(PHOTOS.spread), caption: 'Written in plain sentences. Each sign and planet is explained where it appears, so you need no background to read it.' },
         { media: slotGrid([PHOTOS.child1, PHOTOS.child2, PHOTOS.child3, PHOTOS.child4]), caption: 'Four children, four charts, four different bedtimes.' },
-        { media: slot(PHOTOS.guarantee), caption: h('span', {}, ph('GUARANTEE TERMS')) },
+        { media: slot(PHOTOS.guarantee), caption: 'A wrong birth entry is rewritten once at no cost. A mistake in the reading is redone.' },
         { media: slot(PHOTOS.collage), caption: h('span', {}, 'From parents who have read theirs. ', ph('TESTIMONIALS')) },
       ],
     })],
@@ -164,7 +164,7 @@ export function sections() {
         'Every placement explained in plain words, where it appears',
         'One page written for you, the parent',
         'Your private portal, sign-in by email link',
-        h('span', {}, ph('GUARANTEE')),
+        'A wrong birth entry is rewritten once at no cost. A mistake in the reading is redone.',
       ],
       cta: theCta({ href: 'https://buy.stripe.com/cNi8wPc1g1k01JY7qe1kA00', size: 'btn-lg' }),   // live Payment Link plink_1UFYiyED8VMwHJ64v5AsSAH5 (2026-09-15 audit: this button was a dead #)
       note: 'Two children? Each child is their own Portrait.',
@@ -174,7 +174,7 @@ export function sections() {
       heading: 'Understand the child you already have.',
       sub: `The ${product.name}, ${PRICE}. Read it tonight, and again in ten years.`,
       cta: theCta({ size: 'btn-lg' }),
-      guarantee: h('span', {}, ph('GUARANTEE, one line')),
+      guarantee: 'A wrong birth entry is rewritten once at no cost. A mistake in the reading is redone.',
     })],
 
     ['footer', footer({

@@ -14,7 +14,11 @@ import {
 import { PRODUCTS } from '../../assets/js/registry.js';
 
 export const DELIVERY = 'Written after you give the details, read by us before it is released, and on your portal within 24 hours.';
-export const REFUND_NOTE = 'A mistake of ours is redone or refunded within 30 days; a wrong birth entry is rewritten once at no cost. The refund page says how.';
+// Richard, 2026-09-24: no money-back framing in marketing copy on any product page. These are
+// digital products and the buyer has the value once it is delivered. What every page states is
+// the policy, in the one sentence the Compass page and the ten design variants also use. The
+// legal terms are untouched and still linked from every footer.
+export const POLICY_NOTE = 'A wrong birth entry is rewritten once at no cost. A mistake in the reading is redone.';
 
 export function price(slug) {
   const p = PRODUCTS[slug];
@@ -73,9 +77,9 @@ export function readingPage(spec) {
         media: photo('offer', '3x2', '2400×1600', spec.photos.offer),
         includes: spec.includes,
         cta: { label: CTA_LABEL, href: spec.checkoutUrl, size: 'btn-lg' },
-        note: h('span', {}, REFUND_NOTE.replace('The refund page says how.', 'The '), h('a', { href: '/legal/refunds/' }, 'refund page'), ' says how. ', h('a', { href: '/readings/' }, 'Every reading'), ' is on the readings page.'),
+        note: h('span', {}, POLICY_NOTE, ' ', h('a', { href: '/readings/' }, 'Every reading'), ' is on the readings page.'),
       })],
-      ['final', finalCta({ heading: spec.final.heading, sub: `${product.name}, ${PRICE}. ${spec.final.sub}`, cta: { ...toOffer, size: 'btn-lg' }, guarantee: 'A mistake of ours is redone or refunded within 30 days.' })],
+      ['final', finalCta({ heading: spec.final.heading, sub: `${product.name}, ${PRICE}. ${spec.final.sub}`, cta: { ...toOffer, size: 'btn-lg' }, guarantee: POLICY_NOTE })],
       ['footer', FOOTER],
     ],
   };
