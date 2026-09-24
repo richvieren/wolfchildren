@@ -21,6 +21,11 @@ const portalPages = readdirSync(join(ROOT, 'portal'))
   .filter((n) => n.endsWith('.html'))
   .map((n) => join('portal', n));
 
+// 2026-09-24: a whole Compass for a child who does not exist, rendered by the API's own builder
+// and published so the sales page can give one away (api-compass/scripts/publish_compass_sample.py).
+// It is not built by build.mjs and is not hand-written, so it is listed here on purpose.
+const generatedPages = ['readings/compass/sample/index.html'];
+
 test('the pixel file initialises the dataset and tracks a pageview', () => {
   assert.ok(PIXEL.includes(`fbq('init', '${DATASET}')`), 'init with the dataset id');
   assert.ok(PIXEL.includes("fbq('track', 'PageView')"), 'PageView tracked');
@@ -59,11 +64,29 @@ for (const rel of portalPages) {
   });
 }
 
+for (const rel of generatedPages) {
+  const html = readFileSync(join(ROOT, rel), 'utf8');
+
+  test(`${rel} loads the pixel`, () => {
+    assert.match(html, /<script src="\/assets\/js\/pixel\.js\?v=[0-9a-f]{8}"><\/script>/);
+  });
+
+  test(`${rel} carries the no-script fallback`, () => {
+    assert.ok(html.includes(`facebook.com/tr?id=${DATASET}`));
+  });
+
+  test(`${rel} is noindex and holds no real child`, () => {
+    assert.ok(html.includes('name="robots" content="noindex'), 'a sample page stays out of search');
+    assert.ok(!html.includes('file://'), 'a local path would break every asset and name this machine');
+    assert.ok(html.includes('Nora'), 'the fictional child the sales page names');
+  });
+}
+
 test('every HTML file in the site is covered', () => {
   // Anything servable that is neither a built page nor a portal page would be a page with no
   // pixel and no test. There is nothing else today; this fails the day someone adds one.
   const built = new Set(pages.map((p) => join(p.path.replace(/^\//, ''), 'index.html')));
-  const known = new Set([...built, ...portalPages]);
+  const known = new Set([...built, ...portalPages, ...generatedPages]);
   const found = [];
   const walk = (dir) => {
     for (const e of readdirSync(join(ROOT, dir), { withFileTypes: true })) {
