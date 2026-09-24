@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>stitch-design-taste | Compass</title>
+<title>MengTo · editorial-tech | Compass</title>
 <script src="/assets/js/pixel.js?v=d54ec4f6"></script>
 <style>
 @font-face{font-family:"Montserrat";src:url("/assets/fonts/montserrat-900.woff2") format("woff2");font-weight:900;font-display:swap}
@@ -68,62 +68,80 @@ footer{padding:56px 0}
 .which{font:400 12px/1.5 "IBM Plex Mono",monospace;background:#111;color:#fff;padding:8px 14px;letter-spacing:.04em}
 .which b{font-weight:700}.which span{opacity:.62}
 
-body{background:#FBFAF7;color:#1F2421;font:400 15px/1.66 "IBM Plex Mono",monospace}
-.s{padding:80px 0}@media(min-width:900px){.s{padding:128px 0}}
-h1,h2,h3{font-family:"Montserrat",sans-serif;font-weight:900;letter-spacing:-.028em}
-h1{font-size:clamp(2.4rem,4.8vw,4rem);line-height:1.02;max-width:18ch}
-h2{font-size:clamp(1.6rem,2.8vw,2.4rem);line-height:1.08;max-width:22ch}
-h3{font:700 14px/1.35 "IBM Plex Mono",monospace}
-.lead{font:400 16px/1.7 "IBM Plex Mono",monospace;max-width:60ch;color:#5B635A}
-.eyebrow{font:700 11px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#2E7D6B;margin-bottom:24px}
-.small{font-size:13px;color:#8A918A}
-.announce{background:#1F2421;color:#FBFAF7;text-align:center;padding:12px;font-size:13px}
-.nav{background:rgba(251,250,247,.92);backdrop-filter:blur(8px);border-bottom:1px solid #E4E2DC}
-.nav .mark{font:900 14px "Montserrat",sans-serif}
-.btn{background:#2E7D6B;color:#FBFAF7;font:700 13px/1 "IBM Plex Mono",monospace;letter-spacing:.04em;border-radius:8px}
-.btn:hover{background:#245F52;transform:translateY(-1px)}
-.hero{padding-top:80px}
-@media(min-width:1000px){.hero .wrap>*{max-width:calc(1180px * .58)}}
-.band{padding:40px 0;background:#F3F1EB;border-top:1px solid #E4E2DC;border-bottom:1px solid #E4E2DC}
-.bullet{font-size:14px;color:#5B635A}
-.sample{background:#1F2421;color:#FBFAF7}
-.sample h2{color:#FBFAF7}.sample .lead{color:#A9B0A8}
-.stat{border-left:3px solid #2E7D6B;padding-left:16px}
-.stat b{display:block;font:900 clamp(2.4rem,3.8vw,3.2rem)/1 "Montserrat",sans-serif;letter-spacing:-.03em}
-.stat i{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8A918A;margin:8px 0 12px}
-@media(min-width:900px){.reason{grid-template-columns:56px minmax(0,7fr) minmax(0,5fr)}}
-.reason{padding:32px 0;border-bottom:1px solid #E4E2DC}
-.reason .n{font:700 12px "IBM Plex Mono",monospace;color:#2E7D6B}
-.reason p{font-size:14px;color:#5B635A;max-width:54ch}
-.outcomes p{padding:16px 0;border-bottom:1px solid #E4E2DC;font-size:14px;color:#5B635A}
-@media(min-width:900px){.offer{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}}
-.price{font:900 clamp(2.8rem,4.4vw,3.6rem)/1 "Montserrat",sans-serif;letter-spacing:-.03em;margin:16px 0;color:#2E7D6B}
-.includes{margin-top:24px}
-.includes p{padding:14px 0;border-bottom:1px solid #E4E2DC;font-size:14px;color:#5B635A}
-.note-line{margin-top:24px;max-width:52ch}
-.step{background:#F3F1EB;border:1px solid #E4E2DC;border-radius:8px;padding:20px}
-.step .sn{display:block;font:700 11px "IBM Plex Mono",monospace;color:#2E7D6B;margin-bottom:8px}
-.step b{display:block;font:700 13px "IBM Plex Mono",monospace;margin-bottom:6px}
-.step p{font-size:13.5px;color:#5B635A}
-.banner{background:#2E7D6B;color:#FBFAF7}
-.banner h2{color:#FBFAF7;max-width:24ch}.bsub{color:#BFE0D7;margin:16px 0 32px;max-width:52ch;font-size:14px}
-.banner .btn{background:#FBFAF7;color:#2E7D6B}
-table{font-size:13.5px}
-thead th{font:700 11px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#8A918A;border-bottom:2px solid #1F2421}
-tbody th{font:400 13px "IBM Plex Mono",monospace;color:#8A918A;width:16%}
-th,td{border-bottom:1px solid #E4E2DC}
-td:nth-child(3){background:rgba(46,125,107,.07)}
-.faq{border-top:1px solid #E4E2DC}
-details{border-bottom:1px solid #E4E2DC}
-summary{font:700 14px "IBM Plex Mono",monospace}
-summary:hover{color:#2E7D6B}
-details p{font-size:14px;color:#5B635A}
-footer{background:#1F2421;color:#8A918A;font-size:13px}
+html,body{overflow-x:clip}
+body{background:#121316;color:#D6D3CC;font:400 16px/1.7 "IBM Plex Mono",monospace}
+.s{padding:96px 0;position:relative}@media(min-width:900px){.s{padding:132px 0}}
+.wrap{max-width:1240px;padding:0 32px}
+/* Exposed grid traces. */
+.reasons-s:before,.compare-s:before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(90deg,transparent 0 calc(16.666% - 1px),rgba(214,211,204,.055) calc(16.666% - 1px) 16.666%)}
+h1,h2,h3{font-family:"Montserrat",sans-serif;font-weight:900;letter-spacing:-.04em;color:#F2F0EA}
+h1{font-size:clamp(2.5rem,6vw,4.8rem);line-height:.96;max-width:15ch}
+h2{font-size:clamp(1.7rem,3.2vw,2.7rem);line-height:1;max-width:18ch}
+h3{font-size:14px;line-height:1.4;letter-spacing:-.01em}
+.lead{font:400 17px/1.7 "Libre Baskerville",Georgia,serif;max-width:54ch;color:#9C9891}
+.eyebrow{font:400 10.5px/1 "IBM Plex Mono",monospace;letter-spacing:.26em;text-transform:uppercase;color:#C8552F;margin-bottom:20px}
+.small{font-size:13px;color:#83807A}
+.announce{background:#0B0C0E;color:#83807A;text-align:center;padding:11px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #26282C}
+.nav{background:rgba(18,19,22,.9);backdrop-filter:blur(10px);border-bottom:1px solid #26282C}
+.nav .mark{font:900 14px "Montserrat",sans-serif;color:#F2F0EA}
+.btn{background:#C8552F;color:#0B0C0E;font:900 13px/1 "Montserrat",sans-serif;border-radius:0;padding:16px 28px;white-space:nowrap}
+.btn:hover{background:#F2F0EA}
+.btn--nav{padding:10px 16px;font-size:11.5px}
+.act{margin-top:44px;gap:24px}
+/* Offset alignment, the skill's core move. */
+@media(min-width:1000px){
+  .hero .wrap{padding-left:8%}
+  .recognition-s .wrap,.outcomes-s .wrap{padding-left:33.33%}
+  .sample .wrap{padding-left:16.666%}
+}
+.band{border-top:1px solid #26282C;border-bottom:1px solid #26282C;padding:36px 0;background:#0B0C0E}
+.bullet{font-size:14px;color:#9C9891}
+.badges{margin-top:28px;gap:10px 36px}
+.recognition{gap:20px;max-width:52ch}
+.recognition p{font:400 17px/1.7 "Libre Baskerville",Georgia,serif;color:#9C9891}
+.links{gap:14px}
+.link{font:900 14px "Montserrat",sans-serif;color:#C8552F;border-bottom:1px solid #C8552F;padding-bottom:3px}
+.stats{margin-top:56px}
+.stat b{display:block;font:900 clamp(2.8rem,4.6vw,3.8rem)/1 "Montserrat",sans-serif;letter-spacing:-.05em;color:#F2F0EA}
+.stat i{display:block;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:#C8552F;margin:12px 0 12px}
+.reasons{margin-top:56px;gap:0;position:relative;z-index:2}
+.reason{padding:30px 0;border-top:1px solid #26282C}
+.reason:last-child{border-bottom:1px solid #26282C}
+.reason .n{font-size:10.5px;letter-spacing:.2em;color:#C8552F}
+.reason p{font-size:14px;line-height:1.75;color:#9C9891;max-width:52ch}
+.refusals{margin-top:52px;gap:28px 48px}
+.refusal{border-top:1px solid #26282C;padding-top:20px}
+.refusal b{font-size:10.5px;letter-spacing:.2em;color:#C8552F}
+.refusal p{margin-top:12px;font-size:14px;line-height:1.75;color:#9C9891}
+.outcomes p{font-size:14px;line-height:1.75;color:#9C9891;padding:12px 0;border-bottom:1px solid #26282C}
+.offer{gap:56px}
+.price{font:900 clamp(3rem,4.8vw,4rem)/1 "Montserrat",sans-serif;letter-spacing:-.05em;margin:14px 0;color:#C8552F}
+.includes{margin-top:24px;border-top:1px solid #26282C}
+.includes p{padding:15px 0;border-bottom:1px solid #26282C;font-size:14px}
+.note-line{margin-top:22px;max-width:50ch}
+.step{border-top:1px solid #26282C;padding-top:18px}
+.step .sn{display:block;font-size:10.5px;letter-spacing:.24em;color:#C8552F;margin-bottom:10px}
+.step b{display:block;font:900 13px "Montserrat",sans-serif;margin-bottom:6px;color:#F2F0EA}
+.step p{font-size:13px;line-height:1.7;color:#83807A}
+.banner{background:#0B0C0E;border-top:1px solid #26282C;border-bottom:1px solid #26282C}
+.bsub{color:#83807A;margin:16px 0 30px;max-width:50ch}
+.tablewrap{position:relative;z-index:2}
+table{font-size:13.5px;min-width:680px}
+thead th{font:900 10.5px "Montserrat",sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#C8552F;border-bottom:1px solid #26282C;padding:18px 12px}
+tbody th{color:#83807A;width:16%}
+th,td{border-bottom:1px solid #26282C;padding:16px 12px}
+.faq{margin-top:44px;border-top:1px solid #26282C}
+details{border-bottom:1px solid #26282C}
+summary{font:900 15px "Montserrat",sans-serif;padding:24px 0;color:#F2F0EA}
+details p{font-size:14px;line-height:1.75;color:#9C9891}
+.close{text-align:center}
+footer{border-top:1px solid #26282C;padding:56px 0;font-size:12px;color:#83807A;letter-spacing:.1em}
 </style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=1622703732974632&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
-<p class="which"><b>stitch-design-taste</b> <span>its DESIGN.md semantics applied directly · strict 8px grid, asymmetric 7/5 splits, one calibrated accent, tight type scale · micro-motion is hover and focus only, since the page carries no script</span></p>
+<p class="which"><b>MengTo · editorial-tech</b> <span>asymmetric columns on controlled dark neutrals, offset alignment, exposed grid traces and section rules, mono utility labels, one punctuating accent · NOT BUILT, DECLARED: the cinematic media bands and inset photo panels, half its identity, because the variant skeleton carries no photography</span></p>
 
 <p class="announce">A whole Compass is free to read before you buy one.</p>
 <nav class="nav"><span class="mark">Wolf Children</span><a class="btn btn--nav" href="#offer">Get Compass</a></nav>

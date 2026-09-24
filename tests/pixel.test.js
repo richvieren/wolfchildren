@@ -44,7 +44,24 @@ const generatedPages = ['readings/compass/sample/nora/index.html',
                         'readings/compass/stitch/index.html',
                         'readings/compass/redesign/index.html',
                         'readings/compass/hue/index.html',
-                        'readings/compass/hyperframes/index.html'];
+                        'readings/compass/hyperframes/index.html',
+                        // 2026-09-24: fifteen more design languages from the seven new skill
+                        // repos in _tools/design-skills/repo (variants2.mjs). Same copy again.
+                        'readings/compass/elaya-landing/index.html',
+                        'readings/compass/tastemaker/index.html',
+                        'readings/compass/web-design-engineer/index.html',
+                        'readings/compass/mengto-beige/index.html',
+                        'readings/compass/mengto-book/index.html',
+                        'readings/compass/mengto-editorial-tech/index.html',
+                        'readings/compass/mengto-paper-technical/index.html',
+                        'readings/compass/mengto-documentary/index.html',
+                        'readings/compass/mengto-agency-grid/index.html',
+                        'readings/compass/mengto-split/index.html',
+                        'readings/compass/mengto-orange-paper/index.html',
+                        'readings/compass/mengto-product-proof/index.html',
+                        'readings/compass/mengto-wireframe/index.html',
+                        'readings/compass/mengto-skeuomorphic/index.html',
+                        'readings/compass/mengto-dark-blue/index.html'];
 
 test('the pixel file initialises the dataset and tracks a pageview', () => {
   assert.ok(PIXEL.includes(`fbq('init', '${DATASET}')`), 'init with the dataset id');

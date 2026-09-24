@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>stitch-design-taste | Compass</title>
+<title>tastemaker | Compass</title>
 <script src="/assets/js/pixel.js?v=d54ec4f6"></script>
 <style>
 @font-face{font-family:"Montserrat";src:url("/assets/fonts/montserrat-900.woff2") format("woff2");font-weight:900;font-display:swap}
@@ -68,62 +68,85 @@ footer{padding:56px 0}
 .which{font:400 12px/1.5 "IBM Plex Mono",monospace;background:#111;color:#fff;padding:8px 14px;letter-spacing:.04em}
 .which b{font-weight:700}.which span{opacity:.62}
 
-body{background:#FBFAF7;color:#1F2421;font:400 15px/1.66 "IBM Plex Mono",monospace}
-.s{padding:80px 0}@media(min-width:900px){.s{padding:128px 0}}
-h1,h2,h3{font-family:"Montserrat",sans-serif;font-weight:900;letter-spacing:-.028em}
-h1{font-size:clamp(2.4rem,4.8vw,4rem);line-height:1.02;max-width:18ch}
-h2{font-size:clamp(1.6rem,2.8vw,2.4rem);line-height:1.08;max-width:22ch}
-h3{font:700 14px/1.35 "IBM Plex Mono",monospace}
-.lead{font:400 16px/1.7 "IBM Plex Mono",monospace;max-width:60ch;color:#5B635A}
-.eyebrow{font:700 11px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#2E7D6B;margin-bottom:24px}
-.small{font-size:13px;color:#8A918A}
-.announce{background:#1F2421;color:#FBFAF7;text-align:center;padding:12px;font-size:13px}
-.nav{background:rgba(251,250,247,.92);backdrop-filter:blur(8px);border-bottom:1px solid #E4E2DC}
-.nav .mark{font:900 14px "Montserrat",sans-serif}
-.btn{background:#2E7D6B;color:#FBFAF7;font:700 13px/1 "IBM Plex Mono",monospace;letter-spacing:.04em;border-radius:8px}
-.btn:hover{background:#245F52;transform:translateY(-1px)}
-.hero{padding-top:80px}
-@media(min-width:1000px){.hero .wrap>*{max-width:calc(1180px * .58)}}
-.band{padding:40px 0;background:#F3F1EB;border-top:1px solid #E4E2DC;border-bottom:1px solid #E4E2DC}
-.bullet{font-size:14px;color:#5B635A}
-.sample{background:#1F2421;color:#FBFAF7}
-.sample h2{color:#FBFAF7}.sample .lead{color:#A9B0A8}
-.stat{border-left:3px solid #2E7D6B;padding-left:16px}
-.stat b{display:block;font:900 clamp(2.4rem,3.8vw,3.2rem)/1 "Montserrat",sans-serif;letter-spacing:-.03em}
-.stat i{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8A918A;margin:8px 0 12px}
-@media(min-width:900px){.reason{grid-template-columns:56px minmax(0,7fr) minmax(0,5fr)}}
-.reason{padding:32px 0;border-bottom:1px solid #E4E2DC}
-.reason .n{font:700 12px "IBM Plex Mono",monospace;color:#2E7D6B}
-.reason p{font-size:14px;color:#5B635A;max-width:54ch}
-.outcomes p{padding:16px 0;border-bottom:1px solid #E4E2DC;font-size:14px;color:#5B635A}
-@media(min-width:900px){.offer{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}}
-.price{font:900 clamp(2.8rem,4.4vw,3.6rem)/1 "Montserrat",sans-serif;letter-spacing:-.03em;margin:16px 0;color:#2E7D6B}
-.includes{margin-top:24px}
-.includes p{padding:14px 0;border-bottom:1px solid #E4E2DC;font-size:14px;color:#5B635A}
-.note-line{margin-top:24px;max-width:52ch}
-.step{background:#F3F1EB;border:1px solid #E4E2DC;border-radius:8px;padding:20px}
-.step .sn{display:block;font:700 11px "IBM Plex Mono",monospace;color:#2E7D6B;margin-bottom:8px}
-.step b{display:block;font:700 13px "IBM Plex Mono",monospace;margin-bottom:6px}
-.step p{font-size:13.5px;color:#5B635A}
-.banner{background:#2E7D6B;color:#FBFAF7}
-.banner h2{color:#FBFAF7;max-width:24ch}.bsub{color:#BFE0D7;margin:16px 0 32px;max-width:52ch;font-size:14px}
-.banner .btn{background:#FBFAF7;color:#2E7D6B}
-table{font-size:13.5px}
-thead th{font:700 11px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#8A918A;border-bottom:2px solid #1F2421}
-tbody th{font:400 13px "IBM Plex Mono",monospace;color:#8A918A;width:16%}
-th,td{border-bottom:1px solid #E4E2DC}
-td:nth-child(3){background:rgba(46,125,107,.07)}
-.faq{border-top:1px solid #E4E2DC}
-details{border-bottom:1px solid #E4E2DC}
-summary{font:700 14px "IBM Plex Mono",monospace}
-summary:hover{color:#2E7D6B}
-details p{font-size:14px;color:#5B635A}
-footer{background:#1F2421;color:#8A918A;font-size:13px}
+html,body{overflow-x:clip}
+body{background:#F6F1E7;color:#2A2622;font:400 17px/1.7 "Libre Baskerville",Georgia,serif}
+.s{padding:128px 0}
+@media(max-width:899px){.s{padding:72px 0}}
+.wrap{max-width:1100px}
+h1,h2,h3{font-family:"Montserrat",sans-serif;font-weight:900;font-style:normal;
+  letter-spacing:-.03em;overflow-wrap:anywhere;min-width:0}
+h1{font-size:clamp(2.6rem,5.6vw,4.6rem);line-height:1;max-width:15ch}
+h2{font-size:clamp(1.9rem,3.4vw,2.9rem);line-height:1.05;max-width:19ch}
+h3{font-size:17px;line-height:1.35}
+.lead{font-size:19px;line-height:1.65;max-width:58ch;color:#4A433C}
+.eyebrow{font:400 12px/1 "IBM Plex Mono",monospace;letter-spacing:.16em;text-transform:uppercase;
+  color:#8A7F72;margin-bottom:20px}
+.reasons-s .eyebrow,.faq-s .eyebrow{display:none}
+.small{font:400 14px/1.6 "IBM Plex Mono",monospace;color:#8A7F72}
+.announce{background:#2A2622;color:#F6F1E7;text-align:center;padding:14px;
+  font:400 13px/1 "IBM Plex Mono",monospace;letter-spacing:.08em}
+.nav{background:rgba(246,241,231,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(42,38,34,.07)}
+.nav .mark{font:900 16px "Montserrat",sans-serif;letter-spacing:-.02em}
+.btn{background:#B4522E;color:#FFF8EC;font:900 15px/1 "Montserrat",sans-serif;border-radius:10px;
+  white-space:nowrap;min-height:48px;box-shadow:0 6px 18px rgba(180,82,46,.26);letter-spacing:-.01em}
+.btn:hover{background:#9A4426;transform:translateY(-1px);box-shadow:0 10px 26px rgba(180,82,46,.3)}
+.btn--nav{min-height:40px;padding:11px 18px;font-size:13px}
+.link{white-space:nowrap}
+.act{margin-top:44px;gap:24px}
+/* Gate 22: alternating tint is the only separation mechanism on this page. */
+.band,.stats-s,.refusal-s,.compare-s{background:#EDE4D4}
+.sample,.outcomes-s,.faq-s{background:#F1EADC}
+.band{padding:56px 0}
+.bullet{font-size:16px;line-height:1.6}
+.badges{margin-top:32px;gap:12px 40px}
+.recognition{gap:22px;max-width:60ch}
+.recognition p{font-size:19px;line-height:1.65;color:#4A433C}
+.links{gap:16px}
+.stat b{display:block;font:900 clamp(3rem,5vw,4.2rem)/1 "Montserrat",sans-serif;letter-spacing:-.04em;color:#B4522E}
+.stat i{display:block;font:400 12px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;
+  text-transform:uppercase;color:#8A7F72;margin:12px 0 14px}
+.reasons{gap:40px}
+.reason{background:#FFFBF2;border-radius:16px;padding:32px;box-shadow:0 2px 10px rgba(42,38,34,.06)}
+@media(min-width:900px){.reason{grid-template-columns:56px minmax(0,20ch) minmax(0,1fr);gap:32px}}
+.reason .n{font:900 20px/1 "Montserrat",sans-serif;color:#D8C6A8}
+.reason p{font-size:16px;line-height:1.65;color:#4A433C}
+.refusals{gap:40px}
+.refusal{background:#FFFBF2;border-radius:16px;padding:32px;box-shadow:0 2px 10px rgba(42,38,34,.06)}
+.refusal b{font:900 13px/1 "Montserrat",sans-serif;letter-spacing:.06em;color:#B4522E}
+.refusal p{margin-top:12px;font-size:16px;line-height:1.65;color:#4A433C}
+.outcomes p{font-size:16px;line-height:1.65;color:#4A433C;padding:14px 0}
+.offer{gap:56px}
+.price{font:900 clamp(3.2rem,5vw,4.2rem)/1 "Montserrat",sans-serif;letter-spacing:-.04em;margin:14px 0;color:#B4522E}
+.includes{margin-top:26px;background:#FFFBF2;border-radius:16px;padding:12px 28px;box-shadow:0 2px 10px rgba(42,38,34,.06)}
+.includes p{padding:18px 0;font-size:16px;line-height:1.6;box-shadow:0 1px 0 rgba(42,38,34,.07)}
+.includes p:last-child{box-shadow:none}
+.note-line{margin-top:26px;max-width:52ch}
+.step{background:#FFFBF2;border-radius:16px;padding:28px;box-shadow:0 2px 10px rgba(42,38,34,.06)}
+.step .sn{display:block;font:900 17px/1 "Montserrat",sans-serif;color:#D8C6A8;margin-bottom:8px}
+.step b{display:block;font:900 15px "Montserrat",sans-serif;margin-bottom:8px;letter-spacing:-.01em}
+.step p{font:400 15px/1.6 "Libre Baskerville",Georgia,serif;color:#4A433C}
+.banner{background:#2A2622;color:#F6F1E7}
+.banner h2{color:#F6F1E7;max-width:22ch}
+.bsub{color:#C9BDAC;margin:20px 0 36px;font-size:18px;max-width:52ch}
+.banner .btn{background:#F6F1E7;color:#2A2622;box-shadow:0 6px 18px rgba(0,0,0,.28)}
+.banner .btn:hover{background:#FFFFFF}
+.tablewrap{background:#FFFBF2;border-radius:16px;box-shadow:0 2px 10px rgba(42,38,34,.06)}
+table{font-size:15px;min-width:680px}
+thead th{font:900 12px "Montserrat",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8A7F72;padding:22px 20px}
+tbody th{font:400 14px/1.5 "IBM Plex Mono",monospace;color:#8A7F72;width:16%;padding:18px 20px}
+td{padding:18px 20px}
+tbody tr:nth-child(odd) td,tbody tr:nth-child(odd) th{background:rgba(237,228,212,.5)}
+.faq{margin-top:48px}
+details{background:#FFFBF2;border-radius:14px;margin-bottom:12px;padding:0 24px;box-shadow:0 2px 10px rgba(42,38,34,.06)}
+summary{font:900 16px "Montserrat",sans-serif;letter-spacing:-.01em}
+details p{font-size:16px;line-height:1.65;color:#4A433C}
+.close{text-align:center}
+footer{padding:64px 0;font:400 14px/1.6 "IBM Plex Mono",monospace;color:#8A7F72}
 </style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=1622703732974632&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
-<p class="which"><b>stitch-design-taste</b> <span>its DESIGN.md semantics applied directly · strict 8px grid, asymmetric 7/5 splits, one calibrated accent, tight type scale · micro-motion is hover and focus only, since the page carries no script</span></p>
+<p class="which"><b>tastemaker</b> <span>built to its numbered gates, not a palette · gate 36 forces a serif body where every other variant here is mono · gate 22 one separation mechanism, alternating tint only · gate 52 raised surfaces instead of the hairline-and-flat-fill reflex · gates 20, 23, 25, 26, 37, 38, 51 applied</span></p>
 
 <p class="announce">A whole Compass is free to read before you buy one.</p>
 <nav class="nav"><span class="mark">Wolf Children</span><a class="btn btn--nav" href="#offer">Get Compass</a></nav>

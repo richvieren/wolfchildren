@@ -5,8 +5,12 @@
 // six-brand teardown, empty slots silent. Only the design language changes.
 //
 // THE MODULE ORDER, identical in all nine:
-//   announce · nav with sticky CTA · hero · support band · sample · stats · five reasons ·
-//   outcomes · offer · CTA banner · compare · CTA banner · FAQ · close · footer
+//   announce · nav with sticky CTA · hero · support band · recognition · sample · stats ·
+//   six reasons · refusal · outcomes · offer · CTA banner · compare · CTA banner · FAQ ·
+//   close · footer
+//   recognition and refusal were added 2026-09-24 with the copywriter's blueprint. The teardown
+//   order is untouched; these two sit where the blueprint puts them, because the blueprint's
+//   structure is approved and the refusal is the centre of the page.
 //   Slots 2 (proof line), 3 (press), 9 (customer images), 11 (endorsement) and 14 (reviews) are
 //   empty and silent. Slots 6 and 8 were never recorded in the teardown, so nothing is placed.
 //
@@ -21,16 +25,16 @@
 
 import { writeFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { audit, report } from './src/lib/slop.mjs';
 import { C } from './src/lib/compass-copy.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
-const PIXEL = createHash('md5').update(readFileSync(join(ROOT, 'assets/js/pixel.js'))).digest('hex').slice(0, 8);
-const DATASET = '1622703732974632';
+export const PIXEL = createHash('md5').update(readFileSync(join(ROOT, 'assets/js/pixel.js'))).digest('hex').slice(0, 8);
+export const DATASET = '1622703732974632';
 
-const FONTS = `
+export const FONTS = `
 @font-face{font-family:"Montserrat";src:url("/assets/fonts/montserrat-900.woff2") format("woff2");font-weight:900;font-display:swap}
 @font-face{font-family:"Libre Baskerville";src:url("/assets/fonts/libre-baskerville-400.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Libre Baskerville";src:url("/assets/fonts/libre-baskerville-400-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
@@ -42,7 +46,7 @@ const FONTS = `
 
 // The shared skeleton. Every theme restyles and re-lays it out through CSS and the data-theme
 // hook; nothing here changes between variants, so a difference you see is a design decision.
-const BODY = `
+export const BODY = `
 <p class="announce">${C.announce}</p>
 <nav class="nav"><span class="mark">Wolf Children</span><a class="btn btn--nav" href="#offer">Get Compass</a></nav>
 
@@ -56,6 +60,11 @@ const BODY = `
 <div class="band"><div class="wrap band-grid">
   ${C.support.bullets.map((b) => `<p class="bullet">${b}</p>`).join('')}
 </div><div class="wrap"><div class="badges">${C.support.badges.map((b) => `<span class="small">${b}</span>`).join('')}</div></div></div>
+
+<section class="s recognition-s"><div class="wrap">
+  <h2>${C.recognition.h2}</h2>
+  <div class="recognition">${C.recognition.body.map((t) => `<p>${t}</p>`).join('')}</div>
+</div></section>
 
 <section class="s sample"><div class="wrap">
   <h2>${C.sample.h2}</h2>
@@ -72,6 +81,11 @@ const BODY = `
   <p class="eyebrow">${C.reasons.eyebrow}</p>
   <h2>${C.reasons.h2}</h2>
   <div class="reasons">${C.reasons.items.map(([t, p], i) => `<div class="reason"><span class="n">${String(i + 1).padStart(2, '0')}</span><h3>${t}</h3><p>${p}</p></div>`).join('')}</div>
+</div></section>
+
+<section class="s refusal-s"><div class="wrap">
+  <h2>${C.refusal.h2}</h2>
+  <div class="refusals">${C.refusal.items.map(([t, d]) => `<div class="refusal"><b>${t}</b><p>${d}</p></div>`).join('')}</div>
 </div></section>
 
 <section class="s outcomes-s"><div class="wrap">
@@ -124,7 +138,7 @@ const BODY = `
 `;
 
 // Structure every theme inherits. Themes override freely.
-const BASE = `
+export const BASE = `
 *{box-sizing:border-box}
 body{margin:0}
 .wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 24px}
@@ -170,6 +184,11 @@ details p{padding:0 0 22px;max-width:64ch}
 .close{text-align:center}
 .close h2,.close .lead{margin-left:auto;margin-right:auto}
 footer{padding:56px 0}
+.recognition{margin-top:24px;display:grid;gap:20px;max-width:62ch}
+.refusals{margin-top:56px;display:grid;gap:24px}
+@media(min-width:820px){.refusals{grid-template-columns:repeat(2,1fr);gap:32px 48px}}
+.refusal b{display:block}
+.refusal p{margin-top:8px}
 .which{font:400 12px/1.5 "IBM Plex Mono",monospace;background:#111;color:#fff;padding:8px 14px;letter-spacing:.04em}
 .which b{font-weight:700}.which span{opacity:.62}
 `;
@@ -757,12 +776,9 @@ footer{background:#3F4A3A;color:#CDB494;font-size:13px}
   },
 };
 
-const hits = audit(JSON.stringify(C).replace(/","/g, '\n').replace(/[{}"[\]]/g, ' ').replace(/\w+:/g, ' '));
-if (hits.length) { console.error(report(hits)); process.exit(1); }
-console.log('anti-slop audit on the shared copy: clean');
-
-for (const [slug, t] of Object.entries(THEMES)) {
-  const html = `<!doctype html>
+/** The whole page for one theme. Identical copy and module order in every variant. */
+export function variantPage(t) {
+  return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -779,8 +795,24 @@ ${BODY}
 </body>
 </html>
 `;
+}
+
+/** Writes one variant. Returns its path. */
+export function writeVariant(slug, t) {
   const dir = join(ROOT, 'readings/compass', slug);
   mkdirSync(dir, { recursive: true });
-  writeFileSync(join(dir, 'index.html'), html);
-  console.log(`wrote /readings/compass/${slug}/`);
+  writeFileSync(join(dir, 'index.html'), variantPage(t));
+  return `/readings/compass/${slug}/`;
+}
+
+/** The shared copy, flattened for the audit. Exported so every builder runs the same gate. */
+export function auditShared() {
+  const hits = audit(JSON.stringify(C).replace(/","/g, '\n').replace(/[{}"[\]]/g, ' ').replace(/\w+:/g, ' '));
+  if (hits.length) { console.error(report(hits)); process.exit(1); }
+  console.log('anti-slop audit on the shared copy: clean');
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  auditShared();
+  for (const [slug, t] of Object.entries(THEMES)) console.log(`wrote ${writeVariant(slug, t)}`);
 }

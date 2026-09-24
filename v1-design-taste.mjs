@@ -189,6 +189,11 @@ const shell = (title, note, body) => `<!doctype html>
 @font-face{font-family:"IBM Plex Mono";src:url("/assets/fonts/ibm-plex-mono-300.woff2") format("woff2");font-weight:300;font-display:swap}
 @font-face{font-family:"IBM Plex Mono";src:url("/assets/fonts/ibm-plex-mono-400.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"IBM Plex Mono";src:url("/assets/fonts/ibm-plex-mono-700.woff2") format("woff2");font-weight:700;font-display:swap}
+.recognition{margin-top:24px;display:grid;gap:20px;max-width:62ch}
+.refusals{margin-top:56px;display:grid;gap:24px}
+@media(min-width:820px){.refusals{grid-template-columns:repeat(2,1fr);gap:32px 48px}}
+.refusal b{display:block}
+.refusal p{margin-top:8px}
 .which{font:400 12px/1.5 "IBM Plex Mono",monospace;background:#111;color:#fff;padding:8px 14px;letter-spacing:.04em}
 .which b{font-weight:700}.which span{opacity:.62}
 ${CSS}</style>
@@ -221,6 +226,11 @@ const build = (withNotes) => {
 
 ${withNotes ? `<section><div class="wrap">${n('press')}</div></section>` : ''}
 
+<section><div class="wrap">
+  <h2>${C.recognition.h2}</h2>
+  <div class="recognition">${C.recognition.body.map((t) => `<p>${t}</p>`).join('')}</div>
+</div></section>
+
 <section class="invert"><div class="wrap">
   <h2>${C.sample.h2}</h2>
   <p class="lead">${C.sample.body}</p>
@@ -241,6 +251,11 @@ ${withNotes ? `<section><div class="wrap">${n('press')}</div></section>` : ''}
   <div class="reasons">
     ${C.reasons.items.map(([t, p], i) => `<div class="reason"><span class="n">${String(i + 1).padStart(2, '0')}</span><h3>${t}</h3><p>${p}</p></div>`).join('')}
   </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>${C.refusal.h2}</h2>
+  <div class="refusals">${C.refusal.items.map(([t, d]) => `<div class="refusal"><b>${t}</b><p>${d}</p></div>`).join('')}</div>
 </div></section>
 
 <section><div class="wrap">
