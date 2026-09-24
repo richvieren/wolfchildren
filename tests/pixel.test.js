@@ -34,7 +34,17 @@ const generatedPages = ['readings/compass/sample/nora/index.html',
                         // Step 4: version one, built twice so Richard can judge whether an empty
                         // slot explains itself or stays silent.
                         'readings/compass/v1/notes/index.html',
-                        'readings/compass/v1/silent/index.html'];
+                        'readings/compass/v1/silent/index.html',
+                        // The full page in nine more design languages (variants.mjs).
+                        'readings/compass/v1-original/index.html',
+                        'readings/compass/high-end/index.html',
+                        'readings/compass/minimalist/index.html',
+                        'readings/compass/brutalist/index.html',
+                        'readings/compass/gpt-taste/index.html',
+                        'readings/compass/stitch/index.html',
+                        'readings/compass/redesign/index.html',
+                        'readings/compass/hue/index.html',
+                        'readings/compass/hyperframes/index.html'];
 
 test('the pixel file initialises the dataset and tracks a pageview', () => {
   assert.ok(PIXEL.includes(`fbq('init', '${DATASET}')`), 'init with the dataset id');

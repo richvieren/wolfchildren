@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>design-taste-frontend-v1 | Compass</title>
+<script src="/assets/js/pixel.js?v=d54ec4f6"></script>
+<style>
+@font-face{font-family:"Montserrat";src:url("/assets/fonts/montserrat-900.woff2") format("woff2");font-weight:900;font-display:swap}
+@font-face{font-family:"Libre Baskerville";src:url("/assets/fonts/libre-baskerville-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Libre Baskerville";src:url("/assets/fonts/libre-baskerville-400-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Libre Baskerville";src:url("/assets/fonts/libre-baskerville-700.woff2") format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("/assets/fonts/ibm-plex-mono-300.woff2") format("woff2");font-weight:300;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("/assets/fonts/ibm-plex-mono-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("/assets/fonts/ibm-plex-mono-700.woff2") format("woff2");font-weight:700;font-display:swap}
+
+*{box-sizing:border-box}
+body{margin:0}
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 24px}
+.s{padding:88px 0}
+@media(min-width:900px){.s{padding:128px 0}}
+h1,h2,h3{margin:0}
+p{margin:0}
+/* Space after a heading is structure, not decoration: without it the lead butts against the
+   headline, which is the spacing fault Richard called amateur. Themes may override. */
+h1 + .lead,h2 + .lead{margin-top:24px}
+h2 + .lead + .links,h2 + .lead + .tablewrap{margin-top:32px}
+.eyebrow + h1,.eyebrow + h2{margin-top:0}
+a{color:inherit}
+.nav{position:sticky;top:0;z-index:50;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;
+  padding:17px 32px;transition:all 180ms cubic-bezier(.22,.61,.36,1)}
+.btn--nav{padding:11px 20px;font-size:12px}
+.act{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:24px}
+.band-grid{display:grid;gap:24px}
+@media(min-width:820px){.band-grid{grid-template-columns:repeat(3,1fr);gap:40px}}
+.badges{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px 40px}
+.links{margin-top:40px;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.stats{margin-top:56px;display:grid;gap:40px}
+@media(min-width:760px){.stats{grid-template-columns:repeat(3,1fr);gap:64px}}
+.stat i{display:block;font-style:normal}
+.reasons{margin-top:56px;display:grid}
+.reason{display:grid;grid-template-columns:auto 1fr;gap:24px;padding:36px 0}
+@media(min-width:900px){.reason{grid-template-columns:72px minmax(0,20ch) minmax(0,1fr);gap:40px;align-items:start}}
+.outcomes{margin-top:40px;display:grid;gap:16px}
+@media(min-width:820px){.outcomes{grid-template-columns:1fr 1fr;gap:16px 64px}}
+.offer{display:grid;gap:40px}
+@media(min-width:900px){.offer{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start}}
+.steps{display:grid;gap:16px}
+.tablewrap{margin-top:40px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{text-align:left;padding:16px 8px;vertical-align:top}
+.faq{margin-top:40px}
+details summary{cursor:pointer;list-style:none;padding:22px 0;display:flex;justify-content:space-between;gap:24px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+"}
+details[open] summary::after{content:"–"}
+details p{padding:0 0 22px;max-width:64ch}
+.close{text-align:center}
+.close h2,.close .lead{margin-left:auto;margin-right:auto}
+footer{padding:56px 0}
+.which{font:400 12px/1.5 "IBM Plex Mono",monospace;background:#111;color:#fff;padding:8px 14px;letter-spacing:.04em}
+.which b{font-weight:700}.which span{opacity:.62}
+
+body{background:#DFD7C3;color:#495543;font:300 15px/1.65 "IBM Plex Mono",monospace}
+.s{padding:72px 0}@media(min-width:900px){.s{padding:104px 0}}
+h1,h2,h3{font-family:"Montserrat",sans-serif;font-weight:900;letter-spacing:-.025em}
+h1{font-size:clamp(2.4rem,5.4vw,4.5rem);line-height:.98;max-width:15ch}
+h2{font-size:clamp(1.6rem,3vw,2.5rem);line-height:1.04;max-width:19ch}
+h3{font-size:15px;line-height:1.3}
+.lead{font:400 17px/1.55 "Libre Baskerville",serif;letter-spacing:-.01em;max-width:56ch;color:#3A4435}
+.eyebrow{font:400 10.5px/1 "IBM Plex Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:#6A745F;margin-bottom:20px}
+.small{font-size:12.5px;color:#6A745F}
+.announce{background:#495543;color:#DFD7C3;text-align:center;padding:10px;font-size:12.5px}
+.nav{background:rgba(223,215,195,.94);border-bottom:1px solid #CDB494}
+.nav .mark{font:900 14px "Montserrat",sans-serif}
+.btn{background:#AC2E20;color:#DFD7C3;font:700 13px/1 "IBM Plex Mono",monospace;letter-spacing:.05em;border-radius:0}
+.btn:hover{background:#8F251A}
+.hero{padding-top:72px}
+@media(min-width:1000px){.hero .wrap{padding-left:8%}}
+.band{border-top:1px solid #CDB494;border-bottom:1px solid #CDB494;padding:32px 0;background:rgba(205,180,148,.14)}
+.bullet{font-size:14px}
+.sample{background:#495543;color:#DFD7C3}.sample h2,.sample .lead{color:#DFD7C3}
+.stat b{display:block;font:900 clamp(2.2rem,3.6vw,3.2rem)/1 "Montserrat",sans-serif;letter-spacing:-.03em}
+.stat i{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#6A745F;margin:6px 0 12px}
+.stat{border-top:3px solid #495543;padding-top:14px}
+.reason{border-top:1px solid #CDB494;padding:30px 0}
+.reason:last-child{border-bottom:1px solid #CDB494}
+.reason .n{font:900 12px "Montserrat",sans-serif;color:#DA4635}
+.reason p{font-size:14px;color:#3A4435;max-width:56ch}
+.outcomes p{padding:14px 0;border-bottom:1px solid #CDB494;font-size:14px}
+.price{font:900 clamp(2.8rem,4.6vw,3.8rem)/1 "Montserrat",sans-serif;letter-spacing:-.03em;margin:14px 0}
+.includes p{padding:13px 0;border-bottom:1px solid rgba(205,180,148,.7);font-size:14px}
+.includes{margin-top:22px}.note-line{margin-top:20px;max-width:50ch}
+.step{border:1px solid #CDB494;padding:20px;background:rgba(255,255,255,.3)}
+.step .sn{font:900 11px "Montserrat",sans-serif;color:#DA4635;display:block;margin-bottom:6px}
+.step b{display:block;font:700 13px "IBM Plex Mono",monospace;margin-bottom:6px}
+.step p{font-size:13.5px;color:#3A4435}
+.banner{background:#AC2E20;color:#DFD7C3;text-align:left}
+.banner h2{color:#DFD7C3;max-width:22ch}.bsub{color:#F0DAD4;margin:14px 0 32px;max-width:48ch}
+.banner .btn{background:#DFD7C3;color:#AC2E20}
+table{font-size:13.5px}
+thead th{font:700 10.5px "IBM Plex Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:#6A745F;border-bottom:2px solid #495543}
+tbody th{font:400 12.5px "IBM Plex Mono",monospace;color:#6A745F;width:15%}
+th,td{border-bottom:1px solid #CDB494}
+td:nth-child(3){background:rgba(205,180,148,.3)}
+details{border-bottom:1px solid #CDB494}.faq{border-top:1px solid #CDB494}
+summary{font:700 14px "IBM Plex Mono",monospace}
+details p{font-size:14px;color:#3A4435}
+footer{background:#495543;color:#CDB494;font-size:12.5px}
+</style>
+</head>
+<body>
+<noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=1622703732974632&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
+<p class="which"><b>design-taste-frontend-v1</b> <span>dials 8/6/4 · higher variance and density than v2 · offset hero, denser rhythm · brand faces stand in for Geist and Satoshi</span></p>
+
+<p class="announce">A whole Compass is free to read before you buy one.</p>
+<nav class="nav"><span class="mark">Wolf Children</span><a class="btn btn--nav" href="#offer">Get Compass</a></nav>
+
+<section class="s hero"><div class="wrap">
+  <p class="eyebrow">Compass · one child · one page · $27</p>
+  <h1>Your child has done the same thing for six months and you still don’t know why.</h1>
+  <p class="lead">It happens most days. You have a theory, someone else in the house has another, and every few weeks you try something different and watch to see whether it helped. Six months of that wears you out more than the behaviour does.</p>
+  <div class="act"><a class="btn" href="#offer">Get Compass</a><p class="small">Ready in minutes, on your phone, yours to keep.</p></div>
+</div></section>
+
+<div class="band"><div class="wrap band-grid">
+  <p class="bullet">One page about your child, written for you</p><p class="bullet">Built from the date, time and place of their birth</p><p class="bullet">Something to think with on the next bad evening</p>
+</div><div class="wrap"><div class="badges"><span class="small">Secure checkout by Stripe</span><span class="small">It needs their birth time</span><span class="small">Your child’s name, date and place never leave our own server</span></div></div></div>
+
+<section class="s sample"><div class="wrap">
+  <h2>Read one before you buy one.</h2>
+  <p class="lead">Two complete Compass pages, start to finish, for children who do not exist. One for a boy and one for a girl. Nothing is held back and nothing is blurred.</p>
+  <div class="links"><a class="link" href="/readings/compass/sample/nora/">Read the one written for a girl</a><a class="link" href="/readings/compass/sample/finn/">Read the one written for a boy</a></div>
+</div></section>
+
+<section class="s stats-s"><div class="wrap">
+  <h2>What one page holds.</h2>
+  <div class="stats"><div class="stat"><b>24</b><i>sections</i><p class="small">Every one about your child, in the order you scroll.</p></div><div class="stat"><b>3</b><i>facts in</i><p class="small">The date, the time and the place, and nothing else is asked of you.</p></div><div class="stat"><b>$27</b><i>once</i><p class="small">No subscription, and no second page to buy before this one makes sense.</p></div></div>
+</div></section>
+
+<section class="s reasons-s"><div class="wrap">
+  <p class="eyebrow">What is on it</p>
+  <h2>What the page tells you about the week you are in.</h2>
+  <div class="reasons"><div class="reason"><span class="n">01</span><h3>What settles them</h3><p>Read from the Moon, for the end of a day that went past them. What brings them back, and what makes it worse, so the next bad evening has a name and a way back.</p></div><div class="reason"><span class="n">02</span><h3>How they take things in</h3><p>Whether an explanation lands, or showing them does, or neither until later. This is the one that changes what you say at the door on a school morning.</p></div><div class="reason"><span class="n">03</span><h3>Where their energy goes</h3><p>Out into the world, or kept at home. A quiet day stops reading as a bad day once you know which one you have.</p></div><div class="reason"><span class="n">04</span><h3>What they are like under pressure</h3><p>The version of your child you meet at the end of a long day, described plainly, so you recognise it instead of taking it personally.</p></div><div class="reason"><span class="n">05</span><h3>One question to sit with</h3><p>For you, not for them. A question, never an instruction, so the page ends in your hands.</p></div></div>
+</div></section>
+
+<section class="s outcomes-s"><div class="wrap">
+  <h2>The guessing stops being the whole job.</h2>
+  <div class="outcomes"><p>A name for the thing that keeps happening, which is most of the relief</p><p>A reason to stop trying the approach that has never once worked</p><p>Something to hand the other adult in the house, so you are arguing about less</p><p>One page you will read again in a year and find true</p></div>
+</div></section>
+
+<section class="s offer-s" id="offer"><div class="wrap">
+  <p class="eyebrow">The offer</p>
+  <div class="offer">
+    <div class="offer-main">
+      <h2>Compass</h2>
+      <p class="price">$27</p>
+      <p class="lead">One child, one page, yours to keep.</p>
+      <div class="includes"><p>The full page for one child, on your phone or printed</p><p>A page of questions, so you can keep reading it with Claude or ChatGPT</p><p>Your child’s name, date and place of birth kept on our own server</p><p>Two children? Each child gets their own page</p></div>
+      <div class="act"><a class="btn" href="#">Get Compass</a></div>
+      <p class="small note-line">A mistake of ours is redone or refunded within 30 days. A wrong birth entry is rewritten once at no cost.</p>
+    </div>
+    <div class="steps"><div class="step"><span class="sn">1</span><b>Give three facts</b><p>The birth date, the time and the place. The time is required, and the birth certificate usually has it.</p></div><div class="step"><span class="sn">2</span><b>The page is written</b><p>It is ready in minutes, on your phone, while you are still sitting there.</p></div><div class="step"><span class="sn">3</span><b>You keep it</b><p>In your portal, to read again, or printed for the fridge.</p></div></div>
+  </div>
+</div></section>
+
+<section class="s banner"><div class="wrap">
+  <h2>You have read five of them. The page has twenty-four.</h2><p class="bsub">All of it about your child, in plain words.</p><a class="btn" href="#offer">Get Compass</a>
+</div></section>
+
+<section class="s compare-s"><div class="wrap">
+  <h2>Next to a horoscope, and next to the full reading.</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th></th><th>A horoscope app</th><th>Compass</th><th>North Star</th></tr></thead>
+    <tbody><tr><th>About</th><td>Everyone born in a month</td><td>Your child, from their date, time and place</td><td>Your child in depth, with your own answers read in</td></tr><tr><th>Length</th><td>A line a day</td><td>One page you scroll</td><td>Nine to fifteen pages</td></tr><tr><th>Needs from you</th><td>A sign</td><td>Date, time and place</td><td>Date, time, place and three answers</td></tr><tr><th>When it arrives</th><td>Now</td><td>Minutes after the details are in</td><td>Within 24 hours</td></tr><tr><th>Price</th><td>Free</td><td>$27</td><td>$199</td></tr></tbody>
+  </table></div>
+</div></section>
+
+<section class="s banner banner--two"><div class="wrap">
+  <h2>Six months of guessing, or twenty-seven dollars.</h2><p class="bsub">Read a whole one free first, then decide.</p><a class="btn" href="#offer">Get Compass</a>
+</div></section>
+
+<section class="s faq-s"><div class="wrap">
+  <p class="eyebrow">Questions</p>
+  <h2>Before you decide.</h2>
+  <div class="faq"><details><summary>I am not sure I believe in astrology.</summary><p>Read a sample first and decide whether it describes a real child. The only test that counts happens at your kitchen table. If it reads like a horoscope, you have lost nothing.</p></details><details><summary>They are three. Is it too early?</summary><p>It is not too early. How your child meets the day is already true at three and still true at eleven.</p></details><details><summary>I do not have their exact birth time.</summary><p>Compass needs it. The birth certificate usually has it, and the hospital will have it on file. Without the time we would be guessing, and guessing is what you came here to stop.</p></details><details><summary>What if it does not sound like them?</summary><p>Tell us and we refund it. A page that does not sound like your child is no use to you and none to us.</p></details><details><summary>Will it say something I do not want to read?</summary><p>It may name something you already suspected. You will not read that your child is difficult, or behind, or a type.</p></details><details><summary>What happens to their details?</summary><p>Your child’s name, date of birth and place of birth are stored on our own server and never leave it. You can delete a child from the portal at any time.</p></details></div>
+</div></section>
+
+<section class="s close"><div class="wrap">
+  <h2>The same night, one layer deeper.</h2><p class="lead">You already know this child. We read the same one from the night they arrived.</p><a class="btn" href="#offer">Get Compass</a>
+</div></section>
+
+<footer><div class="wrap">Wolf Children · hello@wolfchildren.co</div></footer>
+
+</body>
+</html>
