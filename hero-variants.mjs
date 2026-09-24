@@ -110,47 +110,6 @@ const control = () => page(
     <div class="media"><div class="slot">PHOTO · hero<br>4:5</div><div class="slot detail">PHOTO · hero-detail<br>2:3</div></div>
   </div></div>`);
 
-// ───────────────────────────────────────────────── 2. lore-design, applied literally
-// Craft rules from the skill: type is the hero (140px+ desktop), the dark stage #161215 with
-// #000 banned, one accent (lilac #EAABFE) in at most three places, radius 0 everywhere, vertical
-// space 96-192px, bracketed CTAs. The skill requires declaring fonts: PODIUM Sharp is not on this
-// machine, so Montserrat 900 stands in for the display face and the note says so.
-const lore = () => page(
-  'lore-design',
-  'the Lore design system applied literally. Dark stage, type as architecture, lilac accent, zero radius, bracketed CTA. PODIUM Sharp is unavailable, so Montserrat 900 stands in.',
-  `body{background:#161215;color:#fff;font:400 16px/1.6 "IBM Plex Mono",monospace}
-  .wrap{max-width:1440px;margin:0 auto;padding:192px 32px 128px}
-  .eyebrow{font:400 12px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;
-    color:#EAABFE;margin:0 0 64px}
-  h1{font:900 64px/0.92 "Montserrat",sans-serif;letter-spacing:-.02em;text-transform:uppercase;
-    margin:0 0 96px;max-width:14ch}
-  @media(min-width:1000px){h1{font-size:140px}}
-  .lower{display:grid;gap:64px}
-  @media(min-width:1000px){.lower{grid-template-columns:1fr 1fr;gap:96px}}
-  .lead{font:400 18px/1.7 "IBM Plex Mono",monospace;color:#B9B2B6;margin:0;max-width:56ch}
-  ul{list-style:none;margin:0;padding:0}
-  li{font:400 14px/1.6 "IBM Plex Mono",monospace;color:#B9B2B6;padding:16px 0;border-top:1px solid #2A2427}
-  li:last-child{border-bottom:1px solid #2A2427}
-  .cta{display:inline-block;margin:96px 0 0;font:900 20px/1 "Montserrat",sans-serif;
-    letter-spacing:.02em;color:#EAABFE;text-decoration:none;text-transform:uppercase}
-  .ctasub{margin:24px 0 0;font-size:13px;color:#6E6669}
-  .badges{margin:96px 0 0;display:flex;flex-wrap:wrap;gap:32px;list-style:none;padding:0}
-  .badges li{border:0;padding:0;font-size:12px;color:#6E6669;letter-spacing:.04em;text-transform:uppercase}
-  .stage{margin:128px 0 0;background:#1e1a1d;aspect-ratio:21/9;display:flex;align-items:center;
-    justify-content:center;color:#3A3438;font-size:12px;letter-spacing:.14em;text-transform:uppercase}`,
-  `<div class="wrap">
-    <p class="eyebrow">${COPY.eyebrow}</p>
-    <h1>${COPY.h1}</h1>
-    <div class="lower">
-      <p class="lead">${COPY.sub}</p>
-      <ul>${COPY.bullets.map((b) => `<li>${b}</li>`).join('')}</ul>
-    </div>
-    <a class="cta" href="#">[${COPY.cta}]</a>
-    <p class="ctasub">${COPY.ctaSub}</p>
-    <ul class="badges">${COPY.badges.map((b) => `<li>${b}</li>`).join('')}</ul>
-    <div class="stage">PHOTO · hero · 21:9</div>
-  </div>`);
-
 // ───────────────────────────────────────── 3. hue, run as its own process on this brand
 // hue's mandatory step is the hero stage: a background field, an optional hero subject, and the
 // relation between them. Wolf Children is a lifestyle brand whose authority comes from the
@@ -253,7 +212,6 @@ const houseStyle = () => page(
 
 const VARIANTS = {
   control: control(),
-  'lore-design': lore(),
   hue: hueVersion(),
   'hyperframes-creative': houseStyle(),
 };

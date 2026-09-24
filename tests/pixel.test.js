@@ -29,9 +29,11 @@ const generatedPages = ['readings/compass/sample/nora/index.html',
                         // 2026-09-24: the hero rebuilt once per design skill, for side-by-side
                         // review (hero-variants.mjs). Same copy in each, noindex, not linked.
                         'readings/compass/hero/control/index.html',
-                        'readings/compass/hero/lore-design/index.html',
                         'readings/compass/hero/hue/index.html',
-                        'readings/compass/hero/hyperframes-creative/index.html'];
+                        'readings/compass/hero/hyperframes-creative/index.html',
+                        // The full page on the teardown's module order, one per design language.
+                        'readings/compass/full/hue/index.html',
+                        'readings/compass/full/hyperframes-creative/index.html'];
 
 test('the pixel file initialises the dataset and tracks a pageview', () => {
   assert.ok(PIXEL.includes(`fbq('init', '${DATASET}')`), 'init with the dataset id');
