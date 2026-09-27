@@ -194,6 +194,19 @@ const shell = (title, note, body) => `<!doctype html>
 @media(min-width:820px){.refusals{grid-template-columns:repeat(2,1fr);gap:32px 48px}}
 .refusal b{display:block}
 .refusal p{margin-top:8px}
+.shot{display:block;width:100%;height:auto}
+.hero-media{margin-top:48px;display:grid;gap:16px}
+@media(min-width:900px){.hero-media{grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:start}}
+.shot--detail{display:none}
+@media(min-width:900px){.shot--detail{display:block}}
+.bleed{margin:0}
+.bleed img{display:block;width:100%;height:auto;max-height:58vh;object-fit:cover}
+.sample-shot{margin:40px 0}
+.gallery{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:820px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}}
+.gallery img{aspect-ratio:4/5;object-fit:cover}
+.offer-shot{margin:0 0 40px;max-width:320px}
+@media(min-width:900px){.offer-shot{float:right;margin:0 0 24px 40px}}
 .which{font:400 12px/1.5 "IBM Plex Mono",monospace;background:#111;color:#fff;padding:8px 14px;letter-spacing:.04em}
 .which b{font-weight:700}.which span{opacity:.62}
 ${CSS}</style>
@@ -220,9 +233,16 @@ const build = (withNotes) => {
   <div class="act"><a class="btn" href="#offer">${C.hero.cta}</a><p class="small">${C.hero.ctaSub}</p></div>
 </div></section>
 
+<div class="hero-media wrap">
+  <img class="shot" src="/assets/img/compass/hero.jpg" width="1400" height="1750" alt="A child on a beach at sunset, small against the water">
+  <img class="shot shot--detail" src="/assets/img/compass/hero-detail.jpg" width="1200" height="1800" alt="The same evening, close: a child crouched in long grass" loading="lazy">
+</div>
+
 <div class="band"><div class="wrap">
   ${C.support.bullets.map((b) => `<p>${b}</p>`).join('')}
 </div><div class="wrap"><div class="badges">${C.support.badges.map((b) => `<span class="small">${b}</span>`).join('')}</div></div></div>
+
+<figure class="bleed"><img src="/assets/img/compass/band-dusk.jpg" width="2048" height="878" alt="A beach at dusk, mountains behind, one child small in the frame" loading="lazy"></figure>
 
 ${withNotes ? `<section><div class="wrap">${n('press')}</div></section>` : ''}
 
@@ -234,6 +254,7 @@ ${withNotes ? `<section><div class="wrap">${n('press')}</div></section>` : ''}
 <section class="invert"><div class="wrap">
   <h2>${C.sample.h2}</h2>
   <p class="lead">${C.sample.body}</p>
+  <figure class="sample-shot"><img class="shot" src="/assets/img/compass/sample.jpg" width="2048" height="1365" alt="A child building a sandcastle at the end of the day" loading="lazy"></figure>
   <div class="links">${C.sample.links.map(([l, h]) => `<a class="link" href="${h}">${l}</a>`).join('')}</div>
 </div></section>
 
@@ -254,6 +275,15 @@ ${withNotes ? `<section><div class="wrap">${n('press')}</div></section>` : ''}
 </div></section>
 
 <section><div class="wrap">
+  <div class="gallery">
+    <img class="shot" src="/assets/img/compass/reason-1.jpg" width="1200" height="1500" alt="A child standing on a rock in a forest, looking back" loading="lazy">
+    <img class="shot" src="/assets/img/compass/reason-2.jpg" width="1200" height="1500" alt="A child at a fence, absorbed in an animal on the other side" loading="lazy">
+    <img class="shot" src="/assets/img/compass/reason-3.jpg" width="1200" height="1500" alt="A child running down a grass slope" loading="lazy">
+    <img class="shot" src="/assets/img/compass/reason-4.jpg" width="1200" height="1500" alt="A child small on a path between tall pines" loading="lazy">
+  </div>
+</div></section>
+
+<section><div class="wrap">
   <h2>${C.refusal.h2}</h2>
   <div class="refusals">${C.refusal.items.map(([t, d]) => `<div class="refusal"><b>${t}</b><p>${d}</p></div>`).join('')}</div>
 </div></section>
@@ -264,6 +294,7 @@ ${withNotes ? `<section><div class="wrap">${n('press')}</div></section>` : ''}
 </div></section>
 
 <section id="offer"><div class="wrap">
+  <figure class="offer-shot"><img class="shot" src="/assets/img/compass/offer.jpg" width="1229" height="2048" alt="A child in a doorway at the end of the day" loading="lazy"></figure>
   <p class="eyebrow">${C.offer.eyebrow}</p>
   <div class="offer">
     <div>
@@ -300,11 +331,15 @@ ${withNotes ? `<section><div class="wrap">${n('endorse')}</div></section>` : ''}
 
 ${withNotes ? `<section><div class="wrap">${n('reviews')}</div></section>` : ''}
 
+<figure class="bleed"><img src="/assets/img/compass/band-season.jpg" width="2048" height="878" alt="A forest path, a child small among the trees" loading="lazy"></figure>
+
 <section><div class="wrap">
   <p class="eyebrow">${C.faq.eyebrow}</p>
   <h2>${C.faq.h2}</h2>
   <div class="faq">${C.faq.items.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
 </div></section>
+
+<figure class="bleed"><img src="/assets/img/compass/close.jpg" width="2048" height="1365" alt="A child walking back along the beach at dusk" loading="lazy"></figure>
 
 <section class="close"><div class="wrap">
   <h2>${C.close[0]}</h2><p class="lead">${C.close[1]}</p><a class="btn" href="#offer">${C.close[2]}</a>
