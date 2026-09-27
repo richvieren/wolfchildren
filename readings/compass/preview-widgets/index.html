@@ -156,7 +156,13 @@ footer{max-width:1180px;margin:0 auto;padding:64px 24px;font-size:12.5px;color:#
 .wc-live .pending{color:var(--orange)}
 .wc-live{max-width:100%;overflow-x:clip}
 .wc-live .card{margin:0}
-.wc-live .wheel-wrap{margin:0 auto}
+/* The reading is a fixed-width document, so four of its rules carry hard pixel
+   widths that are wider than a phone. They are capped here rather than edited
+   in the extract, so the snapshot stays a faithful copy and the landing page
+   owns the responsive behaviour. Fidelity above these widths is unchanged. */
+.wc-live .wheel-wrap{margin:0 auto;width:min(398px,100%)}
+.wc-live .letter-text{width:auto;max-width:620px}
+.wc-live .badge-desc,.wc-live .badge-basis,.wc-live .stellium-desc{width:auto;max-width:100%}
 </style>
 </head>
 <body>
