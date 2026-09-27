@@ -48,6 +48,7 @@ const html = `<!doctype html>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
 <style>${FONTS}
 *{box-sizing:border-box}
+html,body{overflow-x:clip}
 body{margin:0;background:#DFD7C3;color:#495543;font:400 16px/1.7 "IBM Plex Mono",monospace}
 .note{background:#495543;color:#DFD7C3;padding:14px 24px;font-size:12.5px;line-height:1.6}
 .note b{color:#DA4635}
@@ -66,15 +67,16 @@ h1{font:900 clamp(1.9rem,3.6vw,2.9rem)/1.06 "Montserrat",sans-serif;letter-spaci
   text-transform:uppercase;color:#AC2E20}
 .reason__live{margin:28px 0 0;min-width:0;max-width:100%}
 @media(min-width:880px){
-  .reason{grid-template-columns:1fr 1fr;gap:64px;padding:80px 40px;max-width:1260px;margin:0 auto;
-    width:100%;background:none;position:relative}
-  .reason:before{content:"";position:absolute;inset:0 -50vw;background:inherit;z-index:-1}
+  /* The row IS the band, exactly as the reference does it: full width, tinted
+     edge to edge, content centred by padding rather than by a max-width. An
+     earlier version centred the row and faked the bleed with a pseudo-element
+     at inset 0 -50vw, which pushed the document to 2248px on a 1625px viewport. */
+  .reason{grid-template-columns:1fr 1fr;gap:64px;
+    padding:80px max(40px, calc((100% - 1180px) / 2))}
   .reason__live{margin:0;justify-self:end;width:100%;max-width:570px}
   .reason:nth-of-type(even) .reason__live{grid-column:1;grid-row:1;justify-self:start}
   .reason:nth-of-type(even) .reason__text{grid-column:2;grid-row:1}
 }
-/* the band has to tint edge to edge, so the row keeps its own colour */
-.band{background:#DFD7C3}.band--alt{background:#D8CFB7}
 footer{max-width:1180px;margin:0 auto;padding:64px 24px;font-size:12.5px;color:#6A745F}
 
 /* The product's own stylesheet, scoped so it cannot touch the page around it. */
