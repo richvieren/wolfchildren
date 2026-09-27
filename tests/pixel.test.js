@@ -61,7 +61,10 @@ const generatedPages = ['readings/compass/sample/nora/index.html',
                         'readings/compass/mengto-product-proof/index.html',
                         'readings/compass/mengto-wireframe/index.html',
                         'readings/compass/mengto-skeuomorphic/index.html',
-                        'readings/compass/mengto-dark-blue/index.html'];
+                        'readings/compass/mengto-dark-blue/index.html',
+                        // 2026-09-27: the reasons block with the real product in it
+                        // (preview-widgets.mjs). Preview only, noindex, unlinked.
+                        'readings/compass/preview-widgets/index.html'];
 
 test('the pixel file initialises the dataset and tracks a pageview', () => {
   assert.ok(PIXEL.includes(`fbq('init', '${DATASET}')`), 'init with the dataset id');
