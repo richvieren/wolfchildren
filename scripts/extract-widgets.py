@@ -49,9 +49,27 @@ def letter(s, label):
 DROP = {'html', '.wrap', 'h1', '.hero', '.photo', '.disclaimer', '.product',
         '.product-price', '.cta', '.fine', '.section', '.sh', '.grid2', '.grid2.texts'}
 
+# The SVG attributes an HTML parser lowercases. SVG is case sensitive, and a
+# viewBox spelled "viewbox" is no viewBox at all: the wheel stops scaling and
+# gets clipped by its container. Caught in the first preview, 2026-09-27.
+SVG_CAMEL = ['viewBox', 'preserveAspectRatio', 'patternUnits', 'gradientUnits',
+             'markerWidth', 'markerHeight', 'refX', 'refY', 'textLength',
+             'clipPath', 'clipPathUnits', 'maskUnits', 'strokeWidth']
+
+def fix_svg_case(markup):
+    for a in SVG_CAMEL:
+        markup = re.sub(r'\b' + a.lower() + r'=', a + '=', markup)
+    return markup
+
 def scope_css(css, ns):
     """Prefix every rule with the namespace so nothing leaks into the host page."""
-    css = re.sub(r'@font-face\s*\{[^}]*\}', '', css)      # the site already serves these faces
+    # The landing page already serves Montserrat, Libre Baskerville and IBM Plex
+    # Mono. It does NOT serve "Wheel Glyphs", the subset font carrying the twelve
+    # zodiac codepoints, so that one face has to travel with the widgets or the
+    # wheel falls back to system emoji. Also caught in the first preview.
+    faces = [m.group(0) for m in re.finditer(r'@font-face\s*\{[^}]*\}', css)
+             if 'Wheel Glyphs' in m.group(0)]
+    css = re.sub(r'@font-face\s*\{[^}]*\}', '', css)
     css = re.sub(r'@page\s*\{[^}]*\}', '', css)
     out = []
     for m in re.finditer(r'([^{}]+)\{([^}]*)\}', css):
@@ -70,7 +88,7 @@ def scope_css(css, ns):
                 keep.append(f'{ns} {p}')
         if keep:
             out.append(', '.join(keep) + '{' + body + '}')
-    return '\n'.join(out)
+    return '\n'.join(faces + out)
 
 def main():
     html = io.open(SRC, encoding='utf-8').read()
@@ -82,7 +100,7 @@ def main():
         el = fn(s)
         if el is None:
             sys.exit(f"MISSING BLOCK: {key} ({label}) — refusing to write a partial file")
-        blocks[key] = (str(el), label)
+        blocks[key] = (fix_svg_case(str(el)), label)
 
     scoped = scope_css(css, '.wc-live')
     digest = hashlib.md5(html.encode()).hexdigest()[:8]
