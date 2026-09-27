@@ -79,6 +79,13 @@ footer{padding:56px 0}
 .gallery img{aspect-ratio:4/5;object-fit:cover}
 .offer-shot{margin:0 0 40px;max-width:320px}
 @media(min-width:900px){.offer-shot{float:right;margin:0 0 24px 40px}}
+.widget{display:block;width:100%;height:auto}
+.hero-widget{margin:40px 0 0;max-width:620px}
+.sample-pair{margin-top:40px;display:grid;gap:16px}
+@media(min-width:820px){.sample-pair{grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:start}}
+.reasons-widget-s{padding-top:0;padding-bottom:0}
+.reasons-widget{margin:0;max-width:760px}
+.banner-widget{margin:0 0 28px;max-width:420px}
 .which{font:400 12px/1.5 "IBM Plex Mono",monospace;background:#111;color:#fff;padding:8px 14px;letter-spacing:.04em}
 .which b{font-weight:700}.which span{opacity:.62}
 
@@ -165,6 +172,7 @@ footer{padding:56px 0;font-size:13px;color:#6B7280;
   <h1>Stop Guessing What Your Child Needs Right Now.</h1>
   <p class="lead">A plain, warm, 24-section guide to your child’s natural temperament, without personality labels, developmental assessments, predictions, or parenting advice.</p>
   <div class="act"><a class="btn" href="#offer">Get Your Child’s Compass Reading, $27</a><p class="small">Birth date, time and place. Ready in minutes, in your private web portal.</p></div>
+  <figure class="hero-widget"><img class="widget" src="/assets/img/compass/widget-big3.jpg" width="1440" height="960" alt="The opening block of a Compass page: Sun, Moon and Rising, with the chart ruler beneath" loading="eager"></figure>
   <div class="hero-media">
     <img class="shot" src="/assets/img/compass/hero.jpg" width="1400" height="1750" alt="A child on a beach at sunset, small against the water" loading="eager">
     <img class="shot shot--detail" src="/assets/img/compass/hero-detail.jpg" width="1200" height="1800" alt="The same evening, close: a child crouched in long grass" loading="lazy">
@@ -185,7 +193,10 @@ footer{padding:56px 0;font-size:13px;color:#6B7280;
 <section class="s sample"><div class="wrap">
   <h2>Read one before you buy one.</h2>
   <p class="lead">Two complete Compass pages, start to finish, for children who do not exist. One for a boy and one for a girl. Nothing is held back and nothing is blurred.</p>
-  <figure class="sample-shot"><img class="shot" src="/assets/img/compass/sample.jpg" width="2048" height="1365" alt="A child building a sandcastle at the end of the day" loading="lazy"></figure>
+  <div class="sample-pair">
+    <img class="shot" src="/assets/img/compass/sample.jpg" width="2048" height="1365" alt="A child building a sandcastle at the end of the day" loading="lazy">
+    <img class="widget" src="/assets/img/compass/widget-wheel.jpg" width="1200" height="1500" alt="The natal wheel from a Compass page" loading="lazy">
+  </div>
   <div class="links"><a class="link" href="/readings/compass/sample/nora/">Read the one written for a girl</a><a class="link" href="/readings/compass/sample/finn/">Read the one written for a boy</a></div>
 </div></section>
 
@@ -198,6 +209,10 @@ footer{padding:56px 0;font-size:13px;color:#6B7280;
   <p class="eyebrow">What is on it</p>
   <h2>One Page. 24 Clear Insights Into Your Child’s World.</h2>
   <div class="reasons"><div class="reason"><span class="n">01</span><h3>What Settles Them</h3><p>Learn what restores their calm when emotions run high.</p></div><div class="reason"><span class="n">02</span><h3>How They Take Things In</h3><p>See how their mind processes information and environments.</p></div><div class="reason"><span class="n">03</span><h3>Where Their Energy Goes</h3><p>What naturally drives them, against what drains them.</p></div><div class="reason"><span class="n">04</span><h3>Under Pressure</h3><p>Understand their default reaction to stress and expectations.</p></div><div class="reason"><span class="n">05</span><h3>The Chart Wheel</h3><p>A visual breakdown of their exact astronomical placements.</p></div><div class="reason"><span class="n">06</span><h3>The Closing Question</h3><p>A reflective question written for you, the parent.</p></div></div>
+</div></section>
+
+<section class="s reasons-widget-s"><div class="wrap">
+  <figure class="reasons-widget"><img class="widget" src="/assets/img/compass/widget-bars.jpg" width="1440" height="960" alt="One widget from a Compass page: the elements, as four measured bars" loading="lazy"></figure>
 </div></section>
 
 <section class="s gallery-s"><div class="wrap">
@@ -236,6 +251,7 @@ footer{padding:56px 0;font-size:13px;color:#6B7280;
 </div></section>
 
 <section class="s banner"><div class="wrap">
+  <figure class="banner-widget"><img class="widget" src="/assets/img/compass/widget-letter.jpg" width="1440" height="960" alt="A passage from a Compass page, written about one child" loading="lazy"></figure>
   <h2>You have read five of them. The page has twenty-four.</h2><p class="bsub">All of it about your child, in plain words.</p><a class="btn" href="#offer">Get Compass</a>
 </div></section>
 
@@ -248,6 +264,7 @@ footer{padding:56px 0;font-size:13px;color:#6B7280;
 </div></section>
 
 <section class="s banner banner--two"><div class="wrap">
+  <figure class="banner-widget"><img class="widget" src="/assets/img/compass/widget-letter.jpg" width="1440" height="960" alt="A passage from a Compass page, written about one child" loading="lazy"></figure>
   <h2>Six months of guessing, or twenty-seven dollars.</h2><p class="bsub">Read a whole one free first, then decide.</p><a class="btn" href="#offer">Get Compass</a>
 </div></section>
 
