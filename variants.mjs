@@ -55,7 +55,6 @@ export const BODY = `
   <h1>${C.hero.h1}</h1>
   <p class="lead">${C.hero.sub}</p>
   <div class="act"><a class="btn" href="#offer">${C.hero.cta}</a><p class="small">${C.hero.ctaSub}</p></div>
-  <figure class="hero-widget"><img class="widget" src="/assets/img/compass/widget-big3.jpg" width="1440" height="960" alt="The opening block of a Compass page: Sun, Moon and Rising, with the chart ruler beneath" loading="eager"></figure>
   <div class="hero-media">
     <img class="shot" src="/assets/img/compass/hero.jpg" width="1400" height="1750" alt="A child on a beach at sunset, small against the water" loading="eager">
     <img class="shot shot--detail" src="/assets/img/compass/hero-detail.jpg" width="1200" height="1800" alt="The same evening, close: a child crouched in long grass" loading="lazy">
@@ -76,10 +75,7 @@ export const BODY = `
 <section class="s sample"><div class="wrap">
   <h2>${C.sample.h2}</h2>
   <p class="lead">${C.sample.body}</p>
-  <div class="sample-pair">
-    <img class="shot" src="/assets/img/compass/sample.jpg" width="2048" height="1365" alt="A child building a sandcastle at the end of the day" loading="lazy">
-    <img class="widget" src="/assets/img/compass/widget-wheel.jpg" width="1200" height="1500" alt="The natal wheel from a Compass page" loading="lazy">
-  </div>
+  <figure class="sample-shot"><img class="shot" src="/assets/img/compass/sample.jpg" width="2048" height="1365" alt="A child building a sandcastle at the end of the day" loading="lazy"></figure>
   <div class="links">${C.sample.links.map(([l, h]) => `<a class="link" href="${h}">${l}</a>`).join('')}</div>
 </div></section>
 
@@ -92,10 +88,6 @@ export const BODY = `
   <p class="eyebrow">${C.reasons.eyebrow}</p>
   <h2>${C.reasons.h2}</h2>
   <div class="reasons">${C.reasons.items.map(([t, p], i) => `<div class="reason"><span class="n">${String(i + 1).padStart(2, '0')}</span><h3>${t}</h3><p>${p}</p></div>`).join('')}</div>
-</div></section>
-
-<section class="s reasons-widget-s"><div class="wrap">
-  <figure class="reasons-widget"><img class="widget" src="/assets/img/compass/widget-bars.jpg" width="1440" height="960" alt="One widget from a Compass page: the elements, as four measured bars" loading="lazy"></figure>
 </div></section>
 
 <section class="s gallery-s"><div class="wrap">
@@ -134,7 +126,6 @@ export const BODY = `
 </div></section>
 
 <section class="s banner"><div class="wrap">
-  <figure class="banner-widget"><img class="widget" src="/assets/img/compass/widget-letter.jpg" width="1440" height="960" alt="A passage from a Compass page, written about one child" loading="lazy"></figure>
   <h2>${C.banner1[0]}</h2><p class="bsub">${C.banner1[1]}</p><a class="btn" href="#offer">Get Compass</a>
 </div></section>
 
@@ -147,7 +138,6 @@ export const BODY = `
 </div></section>
 
 <section class="s banner banner--two"><div class="wrap">
-  <figure class="banner-widget"><img class="widget" src="/assets/img/compass/widget-letter.jpg" width="1440" height="960" alt="A passage from a Compass page, written about one child" loading="lazy"></figure>
   <h2>${C.banner2[0]}</h2><p class="bsub">${C.banner2[1]}</p><a class="btn" href="#offer">Get Compass</a>
 </div></section>
 
@@ -234,13 +224,6 @@ footer{padding:56px 0}
 .gallery img{aspect-ratio:4/5;object-fit:cover}
 .offer-shot{margin:0 0 40px;max-width:320px}
 @media(min-width:900px){.offer-shot{float:right;margin:0 0 24px 40px}}
-.widget{display:block;width:100%;height:auto}
-.hero-widget{margin:40px 0 0;max-width:620px}
-.sample-pair{margin-top:40px;display:grid;gap:16px}
-@media(min-width:820px){.sample-pair{grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:start}}
-.reasons-widget-s{padding-top:0;padding-bottom:0}
-.reasons-widget{margin:0;max-width:760px}
-.banner-widget{margin:0 0 28px;max-width:420px}
 .which{font:400 12px/1.5 "IBM Plex Mono",monospace;background:#111;color:#fff;padding:8px 14px;letter-spacing:.04em}
 .which b{font-weight:700}.which span{opacity:.62}
 `;
