@@ -23,7 +23,7 @@ import { C } from './src/lib/compass-copy.mjs';
 const ROOT = dirname(fileURLToPath(import.meta.url));
 
 // Each approved reason, against the section of the reading it names.
-const PAIRS = ['big3', 'spectra', 'energy', 'seen', 'wheel', 'question'];
+const PAIRS = ['big3', 'card-three-lines', 'card-energy', 'card-being-seen', 'wheel', 'letter-question'];
 
 const rows = C.reasons.items.map(([title, body], i) => {
   const w = WIDGETS[PAIRS[i]];

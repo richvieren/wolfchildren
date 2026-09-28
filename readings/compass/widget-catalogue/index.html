@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Reasons with live widgets | Compass</title>
+<title>Every Compass block | catalogue</title>
 <script src="/assets/js/pixel.js?v=d54ec4f6"></script>
 <style>
 @font-face{font-family:"Montserrat";src:url("/assets/fonts/montserrat-900.woff2") format("woff2");font-weight:900;font-display:swap}
@@ -17,37 +17,30 @@
 
 *{box-sizing:border-box}
 html,body{overflow-x:clip}
-body{margin:0;background:#DFD7C3;color:#495543;font:400 16px/1.7 "IBM Plex Mono",monospace}
-.note{background:#495543;color:#DFD7C3;padding:14px 24px;font-size:12.5px;line-height:1.6}
-.note b{color:#DA4635}
-.head{max-width:1180px;margin:0 auto;padding:72px 24px 40px}
-h1{font:900 clamp(1.9rem,3.6vw,2.9rem)/1.06 "Montserrat",sans-serif;letter-spacing:-.03em;margin:0;max-width:20ch}
-.head p{margin:20px 0 0;font:400 17px/1.6 "Libre Baskerville",serif;max-width:56ch;color:#3A4435}
+body{margin:0;background:#CFC6AE;color:#495543;font:400 15px/1.6 "IBM Plex Mono",monospace}
+.wrapper{max-width:1180px;margin:0 auto;padding:0 24px 96px}
+header.top{padding:64px 0 32px}
+h1{font:900 clamp(1.9rem,3.6vw,2.8rem)/1.06 "Montserrat",sans-serif;letter-spacing:-.03em;margin:0;max-width:22ch}
+.top p{margin:18px 0 0;font:400 16px/1.65 "Libre Baskerville",serif;max-width:62ch;color:#3A4435}
+.counts{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;color:#5D6A56}
+h2.sec{margin:56px 0 18px;font:900 12px/1 "Montserrat",sans-serif;letter-spacing:.18em;
+  text-transform:uppercase;color:#AC2E20;border-bottom:1px solid #B5A98C;padding-bottom:12px}
+.item{margin:0 0 20px;border:1px solid #B5A98C;background:#DFD7C3}
+.bar{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;padding:12px 16px;
+  background:#495543;color:#DFD7C3;font-size:12.5px}
+.n{font:900 12px/1 "Montserrat",sans-serif;color:#CDB494}
+.id{font-size:12.5px;color:#fff;background:rgba(255,255,255,.14);padding:3px 7px;border-radius:3px}
+.lbl{flex:1 1 220px;color:#CDB494}
+.tag{font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.tag--ok{background:#6F8A5E;color:#0F140C}
+.tag--gen{background:#DA4635;color:#2B0E09}
+/* The stage is the reading's own page ground, so each block sits on the colour
+   it was designed against rather than on the catalogue's. */
+.stage{padding:28px 20px;background:#DFD7C3;overflow-x:auto}
+.wc-live{max-width:100%}
+footer{padding:56px 24px;max-width:1180px;margin:0 auto;font-size:12.5px;color:#5D6A56;
+  border-top:1px solid #B5A98C}
 
-/* Cato's reason row: the row IS the band, content sits on the grid inside it. */
-.reason{display:grid;gap:0;align-items:center;padding:56px 24px;background:#DFD7C3}
-.reason:nth-of-type(even){background:#D8CFB7}
-.reason__meta{display:flex;align-items:baseline;gap:12px;margin:0 0 10px}
-.reason__num{font:900 24px/1.1 "Montserrat",sans-serif;letter-spacing:-.05em;color:#AC2E20;font-variant-numeric:tabular-nums}
-.reason__cat{font:900 clamp(1.3rem,2.3vw,1.9rem)/1.15 "Montserrat",sans-serif;letter-spacing:-.03em}
-.reason__body{margin:0;font:400 17px/1.6 "Libre Baskerville",serif;color:#3A4435;max-width:46ch}
-.reason__proof{margin:18px 0 0;font:400 12px/1.6 "IBM Plex Mono",monospace;letter-spacing:.06em;
-  text-transform:uppercase;color:#AC2E20}
-.reason__live{margin:28px 0 0;min-width:0;max-width:100%}
-@media(min-width:880px){
-  /* The row IS the band, exactly as the reference does it: full width, tinted
-     edge to edge, content centred by padding rather than by a max-width. An
-     earlier version centred the row and faked the bleed with a pseudo-element
-     at inset 0 -50vw, which pushed the document to 2248px on a 1625px viewport. */
-  .reason{grid-template-columns:1fr 1fr;gap:64px;
-    padding:80px max(40px, calc((100% - 1180px) / 2))}
-  .reason__live{margin:0;justify-self:end;width:100%;max-width:570px}
-  .reason:nth-of-type(even) .reason__live{grid-column:1;grid-row:1;justify-self:start}
-  .reason:nth-of-type(even) .reason__text{grid-column:2;grid-row:1}
-}
-footer{max-width:1180px;margin:0 auto;padding:64px 24px;font-size:12.5px;color:#6A745F}
-
-/* The product's own stylesheet, scoped so it cannot touch the page around it. */
 @font-face{font-family:"Wheel Glyphs";src:url("/assets/fonts/wheel-glyphs.woff2")}
 .wc-live{--cream:#DFD7C3;--green:#495543;--tan:#CDB494;--orange:#DA4635;--cta:#AC2E20;--tan-soft:rgba(205,180,148,.45)}
 .wc-live body{margin:0;color:var(--green);font-family:"IBM Plex Mono";font-size:14px;line-height:1.6}
@@ -166,68 +159,88 @@ footer{max-width:1180px;margin:0 auto;padding:64px 24px;font-size:12.5px;color:#
 .wc-live .photo.placeholder{background:var(--tan-soft);display:flex;align-items:center;justify-content:center}
 .wc-live .photo.placeholder span{font-family:Montserrat;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
 .wc-live .pending{color:var(--orange)}
-.wc-live{max-width:100%;overflow-x:clip}
-.wc-live .card{margin:0}
-/* The reading is a fixed-width document, so four of its rules carry hard pixel
-   widths that are wider than a phone. They are capped here rather than edited
-   in the extract, so the snapshot stays a faithful copy and the landing page
-   owns the responsive behaviour. Fidelity above these widths is unchanged. */
+/* The reading is a fixed-width document; these four rules carry hard pixel
+   widths wider than a phone. Capped here, not in the extract, so the snapshot
+   stays a faithful copy. Nothing changes above those widths. */
 .wc-live .wheel-wrap{margin:0 auto;width:min(398px,100%)}
 .wc-live .letter-text{width:auto;max-width:620px}
 .wc-live .badge-desc,.wc-live .badge-basis,.wc-live .stellium-desc{width:auto;max-width:100%}
+.wc-live .card{margin:0}
+.wc-live .photo{max-width:520px}
 </style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=1622703732974632&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
-<p class="note"><b>Preview only.</b> Six approved reasons, six real widgets lifted from the published Compass sample. Not screenshots: this is the product's own markup and stylesheet, so the text is selectable and it reflows. <b>Known and unfixed:</b> the sample is written to a girl, so the widgets say &ldquo;she&rdquo; and name Nora, a child who does not exist. The reader has only &ldquo;she&rdquo; and &ldquo;he&rdquo;, so a neutral sample needs a change there first.</p>
-<div class="head">
-  <h1>One Page. 24 Clear Insights Into Your Child’s World.</h1>
-  <p>Each row shows the section of the reading it names, rendered from the reading itself.</p>
-</div>
-
-<article class="reason">
-  <div class="reason__text">
-    <p class="reason__meta"><span class="reason__num">01</span><span class="reason__cat">What Settles Them</span></p>
-    <p class="reason__body">Learn what restores their calm when emotions run high.</p>
-    <p class="reason__proof">In the reading: Sun, Moon and Rising</p>
+<div class="wrapper">
+<header class="top">
+  <h1>Every block a Compass renders</h1>
+  <p>All 30, in the order the reading renders them, lifted from the published sample. This is the product's own markup and stylesheet, not pictures of it. Quote an id back to place one on a page.</p>
+  <div class="counts">
+    <span>30 blocks</span>
+    <span>9 carry no gendered word</span>
+    <span>21 name the child or say she / her</span>
+    <span>source: the sample for Nora, a child who does not exist</span>
   </div>
-  <div class="reason__live wc-live"><div class="big3-grid"><div class="card big3"><div class="big3-circle earth"><span class="big3-word">Sun</span></div><div class="big3-sign">Capricorn</div><div class="big3-sub">who she is becoming</div></div><div class="card big3"><div class="big3-circle fire"><span class="big3-word">Moon</span></div><div class="big3-sign">Leo</div><div class="big3-sub">what settles her</div></div><div class="card big3"><div class="big3-circle air"><span class="big3-word">Rising</span></div><div class="big3-sign">Gemini</div><div class="big3-sub">how she meets the world</div></div></div></div>
+</header>
+<h2 class="sec">Opening</h2>
+<article class="item">
+  <div class="bar">
+    <span class="n">01</span>
+    <code class="id">hero</code>
+    <span class="lbl">Name, age and the headline placements</span>
+    <span class="tag tag--gen">says a girl, nora</span>
+  </div>
+  <div class="stage"><div class="wc-live"><header class="hero"><div class="overline">Compass</div><h1>Nora</h1><div class="big3-line">6 years old · a girl · Capricorn Sun, Leo Moon, Gemini rising</div></header></div></div>
 </article>
 
-<article class="reason">
-  <div class="reason__text">
-    <p class="reason__meta"><span class="reason__num">02</span><span class="reason__cat">How They Take Things In</span></p>
-    <p class="reason__body">See how their mind processes information and environments.</p>
-    <p class="reason__proof">In the reading: Three lines</p>
+<article class="item">
+  <div class="bar">
+    <span class="n">02</span>
+    <code class="id">big3</code>
+    <span class="lbl">Sun, Moon and Rising</span>
+    <span class="tag tag--gen">says her, she</span>
   </div>
-  <div class="reason__live wc-live"><div class="card"><div class="wlabel">Three lines</div><div class="spec-rows"><div class="spec"><div class="spec-poles"><span class="pole on">Dreamer</span><span class="pole">Doer</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:40%"></div></div><div class="spec-context">Ideas arrive in Nora long before any hand moves toward them, and they arrive fully formed enough to be interesting on their own. She can spend a long stretch inside something imagined without needing it to become real, so the gap between wanting a thing and starting it stays wide, and the wanting itself is the part that holds her attention.</div></div><div class="spec"><div class="spec-poles"><span class="pole on">Starter</span><span class="pole">Finisher</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:48%"></div></div><div class="spec-context">Some things Nora carries all the way to the end and others she leaves standing once the interesting part is done. The deciding factor sits in how much the thing holds her, so her follow-through looks inconsistent until you see what she is choosing between.</div></div><div class="spec"><div class="spec-poles"><span class="pole on">Settled</span><span class="pole">Adaptable</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:44%"></div></div><div class="spec-context">Nora holds on to certain fixed points and lets a good deal else move around them without much trouble. She takes most changes in stride, though a few particular things matter more than their size suggests, and those are where she digs in.</div></div></div></div></div>
+  <div class="stage"><div class="wc-live"><div class="big3-grid"><div class="card big3"><div class="big3-circle earth"><span class="big3-word">Sun</span></div><div class="big3-sign">Capricorn</div><div class="big3-sub">who she is becoming</div></div><div class="card big3"><div class="big3-circle fire"><span class="big3-word">Moon</span></div><div class="big3-sign">Leo</div><div class="big3-sub">what settles her</div></div><div class="card big3"><div class="big3-circle air"><span class="big3-word">Rising</span></div><div class="big3-sign">Gemini</div><div class="big3-sub">how she meets the world</div></div></div></div></div>
 </article>
 
-<article class="reason">
-  <div class="reason__text">
-    <p class="reason__meta"><span class="reason__num">03</span><span class="reason__cat">Where Their Energy Goes</span></p>
-    <p class="reason__body">What naturally drives them, against what drains them.</p>
-    <p class="reason__proof">In the reading: Where the energy goes</p>
+<article class="item">
+  <div class="bar">
+    <span class="n">03</span>
+    <code class="id">pill-ruler</code>
+    <span class="lbl">Chart ruler</span>
+    <span class="tag tag--ok">gender free</span>
   </div>
-  <div class="reason__live wc-live"><div class="card"><div class="wlabel">Where the energy goes</div><div class="hemi-grid"><div class="hemi-cell"><div class="hemi-title">Out in the world</div><div class="hemi-sub">on her own</div></div><div class="hemi-cell on"><div class="hemi-title">Out in the world</div><div class="hemi-sub">with others</div></div><div class="hemi-cell"><div class="hemi-title">At home</div><div class="hemi-sub">on her own</div></div><div class="hemi-cell"><div class="hemi-title">At home</div><div class="hemi-sub">with others</div></div></div><div class="hemi-footer">Much of what Nora does is aimed at the wider world and shaped by who else is in it. The upper west quarter of the chart carries most of the weight, so her energy travels outward rather than inward, and it travels alongside other people rather than ahead of them. Things gain their point for her when they are shared, answered, or taken up by someone.</div></div></div>
+  <div class="stage"><div class="wc-live"><div class="pill-wrap"><div class="pill"><span class="pill-label">Chart ruler</span><span class="pill-div"></span><span class="pill-text">Mercury in Capricorn · eighth house</span></div></div></div></div>
 </article>
 
-<article class="reason">
-  <div class="reason__text">
-    <p class="reason__meta"><span class="reason__num">04</span><span class="reason__cat">Under Pressure</span></p>
-    <p class="reason__body">Understand their default reaction to stress and expectations.</p>
-    <p class="reason__proof">In the reading: Being seen</p>
+<article class="item">
+  <div class="bar">
+    <span class="n">04</span>
+    <code class="id">pill-leans</code>
+    <span class="lbl">Leans towards</span>
+    <span class="tag tag--ok">gender free</span>
   </div>
-  <div class="reason__live wc-live"><div class="card vis"><div class="wlabel">Being seen</div><svg height="140" viewBox="0 0 240 140" width="240"><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#CDB494" stroke-linecap="round" stroke-width="10"></path><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#495543" stroke-dasharray="283" stroke-dashoffset="62.3" stroke-linecap="round" stroke-width="10"></path><text fill="#495543" font-family="Montserrat" font-size="44" font-weight="900" text-anchor="middle" x="120" y="108">78%</text><text fill="#495543" font-family="Montserrat" font-size="9" font-weight="900" letter-spacing="2" text-anchor="middle" x="120" y="132">IN THE OPEN</text></svg><div class="pill small"><span class="pill-text">Midheaven in Aquarius</span></div></div></div>
+  <div class="stage"><div class="wc-live"><div class="pill-wrap"><div class="pill"><span class="pill-label">Leans towards</span><span class="pill-div"></span><span class="pill-text">Cancer · the North Node</span></div></div></div></div>
 </article>
-
-<article class="reason">
-  <div class="reason__text">
-    <p class="reason__meta"><span class="reason__num">05</span><span class="reason__cat">The Chart Wheel</span></p>
-    <p class="reason__body">A visual breakdown of their exact astronomical placements.</p>
-    <p class="reason__proof">In the reading: The chart wheel</p>
+<h2 class="sec">Letter</h2>
+<article class="item">
+  <div class="bar">
+    <span class="n">05</span>
+    <code class="id">letter-who</code>
+    <span class="lbl">Who they are</span>
+    <span class="tag tag--gen">says her, nora, she</span>
   </div>
-  <div class="reason__live wc-live"><div class="wheel-wrap"><svg aria-label="The birth chart, the Ascendant on the left" class="wheel" role="img" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  <div class="stage"><div class="wc-live"><section class="letter"><div class="letter-label">Who Nora is</div><div class="letter-rule"></div><p class="letter-text">Talk and quick handling of whatever is in front of her come naturally to Nora, and behind that lightness sits a much more serious sense of purpose. The Sun in Capricorn keeps a long aim in view, even when the manner around it stays curious and mobile. What grows is someone who sounds casual about things she has every intention of finishing.</p></section></div></div>
+</article>
+<h2 class="sec">Opening</h2>
+<article class="item">
+  <div class="bar">
+    <span class="n">06</span>
+    <code class="id">wheel</code>
+    <span class="lbl">The chart wheel</span>
+    <span class="tag tag--ok">gender free</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="wheel-wrap"><svg aria-label="The birth chart, the Ascendant on the left" class="wheel" role="img" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
 <path class="sign" d="M154.00,47.12 A292.00,292.00 0 0,0 47.12,154.00 L81.76,174.00 A252.00,252.00 0 0,1 174.00,81.76 Z" fill="rgba(205,180,148,.45)" stroke="#CDB494" stroke-width="1"></path>
 <path class="sign" d="M47.12,154.00 A292.00,292.00 0 0,0 8.00,300.00 L48.00,300.00 A252.00,252.00 0 0,1 81.76,174.00 Z" fill="none" stroke="#CDB494" stroke-width="1"></path>
 <path class="sign" d="M8.00,300.00 A292.00,292.00 0 0,0 47.12,446.00 L81.76,426.00 A252.00,252.00 0 0,1 48.00,300.00 Z" fill="rgba(205,180,148,.45)" stroke="#CDB494" stroke-width="1"></path>
@@ -431,17 +444,249 @@ footer{max-width:1180px;margin:0 auto;padding:64px 24px;font-size:12.5px;color:#
 <text class="glyph" dominant-baseline="central" fill="#495543" font-family="'Wheel Glyphs'" font-size="19" font-weight="400" text-anchor="middle" x="487.18" y="200.46">☋</text>
 <text class="degree" dominant-baseline="central" fill="#495543" font-family="'IBM Plex Mono'" font-size="9" font-weight="400" text-anchor="middle" x="467.75" y="210.79">8°<tspan dx="1" font-size="7" font-weight="700">R</tspan></text>
 </g>
-</svg></div></div>
+</svg></div></div></div>
+</article>
+<h2 class="sec">01 The chart at a glance</h2>
+<article class="item">
+  <div class="bar">
+    <span class="n">07</span>
+    <code class="id">card-elements</code>
+    <span class="lbl">Elements</span>
+    <span class="tag tag--gen">says her, nora</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card"><div class="wlabel">Elements</div><div class="bar-rows"><div class="bar"><div class="bar-head"><span class="bar-name">fire</span><span class="bar-count">35%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">earth</span><span class="bar-count">35%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">air</span><span class="bar-count">25%</span></div><div class="bar-track"><div class="bar-fill" style="width:71%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">water</span><span class="bar-count">5%</span></div><div class="bar-track"><div class="bar-fill" style="width:14%"></div></div></div></div><div class="bar-footer">Most of: <span>fire</span></div><div class="wcontext">Nora meets the day head on and spends energy without much accounting for it. Fire is her fullest element and water her scarcest. Feeling registers as action, so what another child might sit with quietly comes out of her as movement or heat. Naming the softer undercurrent in herself, or noticing it in someone else, is the part that stays out of reach longest.</div></div></div></div>
 </article>
 
-<article class="reason">
-  <div class="reason__text">
-    <p class="reason__meta"><span class="reason__num">06</span><span class="reason__cat">The Closing Question</span></p>
-    <p class="reason__body">A reflective question written for you, the parent.</p>
-    <p class="reason__proof">In the reading: A question to sit with</p>
+<article class="item">
+  <div class="bar">
+    <span class="n">08</span>
+    <code class="id">card-pace</code>
+    <span class="lbl">Pace</span>
+    <span class="tag tag--gen">says her, nora, she</span>
   </div>
-  <div class="reason__live wc-live"><section class="letter"><div class="letter-label">A question to sit with</div><div class="letter-rule"></div><p class="letter-text italic">Undercurrents get noticed by Nora long before anyone names them, and the noticing rarely becomes a comment. Mercury in the eighth house draws the mind toward what is hidden, unsaid or only half explained. The question worth holding is how much she has already worked out that she has decided to keep to herself.</p></section></div>
+  <div class="stage"><div class="wc-live"><div class="card"><div class="wlabel">Pace</div><div class="bar-rows"><div class="bar"><div class="bar-head"><span class="bar-name">cardinal</span><span class="bar-count">38%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">fixed</span><span class="bar-count">35%</span></div><div class="bar-track"><div class="bar-fill" style="width:92%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">mutable</span><span class="bar-count">27%</span></div><div class="bar-track"><div class="bar-fill" style="width:71%"></div></div></div></div><div class="bar-footer">Leading: <span>cardinal</span></div><div class="wcontext">Nora gets things going before the rest of the room has settled on a plan, and the starting is the part she does most easily. Cardinal is the leading note in her chart, so beginnings come quickly and the middle stretch of a thing holds less interest. Changing course is simple for her when a new beginning is available. Finishing asks more, because by then the pull has moved on.</div></div></div></div>
 </article>
-<footer>Wolf Children &middot; preview, noindex, not linked from anywhere</footer>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">09</span>
+    <code class="id">card-three-lines</code>
+    <span class="lbl">Three lines</span>
+    <span class="tag tag--gen">says her, nora, she</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card"><div class="wlabel">Three lines</div><div class="spec-rows"><div class="spec"><div class="spec-poles"><span class="pole on">Dreamer</span><span class="pole">Doer</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:40%"></div></div><div class="spec-context">Ideas arrive in Nora long before any hand moves toward them, and they arrive fully formed enough to be interesting on their own. She can spend a long stretch inside something imagined without needing it to become real, so the gap between wanting a thing and starting it stays wide, and the wanting itself is the part that holds her attention.</div></div><div class="spec"><div class="spec-poles"><span class="pole on">Starter</span><span class="pole">Finisher</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:48%"></div></div><div class="spec-context">Some things Nora carries all the way to the end and others she leaves standing once the interesting part is done. The deciding factor sits in how much the thing holds her, so her follow-through looks inconsistent until you see what she is choosing between.</div></div><div class="spec"><div class="spec-poles"><span class="pole on">Settled</span><span class="pole">Adaptable</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:44%"></div></div><div class="spec-context">Nora holds on to certain fixed points and lets a good deal else move around them without much trouble. She takes most changes in stride, though a few particular things matter more than their size suggests, and those are where she digs in.</div></div></div></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">10</span>
+    <code class="id">card-energy</code>
+    <span class="lbl">Where the energy goes</span>
+    <span class="tag tag--gen">says her, nora</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card"><div class="wlabel">Where the energy goes</div><div class="hemi-grid"><div class="hemi-cell"><div class="hemi-title">Out in the world</div><div class="hemi-sub">on her own</div></div><div class="hemi-cell on"><div class="hemi-title">Out in the world</div><div class="hemi-sub">with others</div></div><div class="hemi-cell"><div class="hemi-title">At home</div><div class="hemi-sub">on her own</div></div><div class="hemi-cell"><div class="hemi-title">At home</div><div class="hemi-sub">with others</div></div></div><div class="hemi-footer">Much of what Nora does is aimed at the wider world and shaped by who else is in it. The upper west quarter of the chart carries most of the weight, so her energy travels outward rather than inward, and it travels alongside other people rather than ahead of them. Things gain their point for her when they are shared, answered, or taken up by someone.</div></div></div></div>
+</article>
+<h2 class="sec">Letter</h2>
+<article class="item">
+  <div class="bar">
+    <span class="n">11</span>
+    <code class="id">letter-glance</code>
+    <span class="lbl">At a glance</span>
+    <span class="tag tag--gen">says her, nora</span>
+  </div>
+  <div class="stage"><div class="wc-live"><section class="letter"><div class="letter-label">At a glance</div><div class="letter-rule"></div><p class="letter-text">Nora lives at the front edge of her own energy, wanting a thing and going after it in the same breath. Fire gives the heat and cardinal gives the push, so the day arrives in bursts of starting rather than long even stretches. Interest runs hot while it lasts, and once a plan exists in her head, waiting for it feels like being held still.</p></section></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">12</span>
+    <code class="id">letter-settles</code>
+    <span class="lbl">What settles them</span>
+    <span class="tag tag--gen">says her, nora</span>
+  </div>
+  <div class="stage"><div class="wc-live"><section class="letter"><div class="letter-label">What settles her</div><div class="letter-rule"></div><p class="letter-text">Warmth directed straight at her is what brings Nora back after a day that has taken too much. The Moon in Leo needs the upset to be seen and taken seriously by someone who matters. Being laughed at while raw, or having the feeling treated as a small thing, turns a passing low into a long one. Attention given generously ends it sooner than any reasoning will.</p></section></div></div>
+</article>
+<h2 class="sec">02 Holding on and being seen</h2>
+<article class="item">
+  <div class="bar">
+    <span class="n">13</span>
+    <code class="id">card-holding</code>
+    <span class="lbl">Lets go / holds on, careful / bold, shared / their own</span>
+    <span class="tag tag--gen">says her</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card"><div class="spec-rows"><div class="spec"><div class="spec-poles"><span class="pole">Lets go</span><span class="pole on">Holds on</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:75%"></div></div></div><div class="spec"><div class="spec-poles"><span class="pole">Careful</span><span class="pole on">Bold</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:100%"></div></div></div><div class="spec"><div class="spec-poles"><span class="pole on">Shared</span><span class="pole">Her own</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:0%"></div></div></div></div><div class="bar-footer">Cancer on the second house · water</div></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">14</span>
+    <code class="id">card-being-seen</code>
+    <span class="lbl">Being seen</span>
+    <span class="tag tag--ok">gender free</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card vis"><div class="wlabel">Being seen</div><svg height="140" viewBox="0 0 240 140" width="240"><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#CDB494" stroke-linecap="round" stroke-width="10"></path><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#495543" stroke-dasharray="283" stroke-dashoffset="62.3" stroke-linecap="round" stroke-width="10"></path><text fill="#495543" font-family="Montserrat" font-size="44" font-weight="900" text-anchor="middle" x="120" y="108">78%</text><text fill="#495543" font-family="Montserrat" font-size="9" font-weight="900" letter-spacing="2" text-anchor="middle" x="120" y="132">IN THE OPEN</text></svg><div class="pill small"><span class="pill-text">Midheaven in Aquarius</span></div></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">15</span>
+    <code class="id">badge-explains</code>
+    <span class="lbl">How they explain themselves</span>
+    <span class="tag tag--gen">says her, nora, she</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card badge"><div class="badge-label">How she explains herself</div><div class="badge-halo earth"><span class="big3-word">earth</span></div><div class="badge-type">Shows you instead</div><p class="badge-desc">Asked how something works, Nora lays it out in order and leaves nothing important unsaid. Mercury in an earth sign shows in the steadiness of her explaining, the pause before answering, the preference for the useful word over the impressive one. She would rather be accurate than quick, and she dislikes being hurried through the part that matters.</p><div class="badge-rule"></div><div class="badge-placement">Mercury in Capricorn · eighth house</div><p class="badge-basis">Words come out of Nora after she has already decided they are worth saying, which makes speech slower and firmer than it looks from outside. Mercury in Capricorn tends toward short, weighted sentences with little decoration. She dislikes being caught in a statement she cannot stand behind, so silence often stands in for a half-formed answer, and certainty arrives late but arrives solid.</p></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">16</span>
+    <code class="id">badge-group</code>
+    <span class="lbl">In a group</span>
+    <span class="tag tag--gen">says her, nora, she</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card badge"><div class="badge-label">In a group</div><div class="badge-halo earth"><span class="big3-word">earth</span></div><div class="badge-type">The steady one</div><p class="badge-desc">Nora holds steady in a group while the noise sorts itself out around her, and other children drift toward her once the game needs someone to hold the shape of it. With the Sun in an earth sign, her weight in a room comes from staying put and finishing what she started. She takes a while to warm to new company, then works alongside them easily.</p><div class="badge-rule"></div><div class="badge-placement">Sun in Capricorn · Mars in Sagittarius</div><p class="badge-basis">Pushing for something, Nora argues the whole shape of it out loud, often widening the question rather than narrowing it. Mars in Sagittarius moves by conviction, so wanting a thing and believing it is fair arrive together and sound the same. She pursues hard while the case still feels alive, then drifts once the matter is agreed and the next question has already caught her.</p></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">17</span>
+    <code class="id">texts-holds</code>
+    <span class="lbl">What they hold on to / how they take things in</span>
+    <span class="tag tag--gen">says her, nora, she</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="grid2 texts"><div class="biz"><div class="biz-label">What she holds on to</div><p class="biz-body">Certain objects become part of Nora's sense of safety and cannot be quietly removed. Cancer on the second house ties keeping to feeling secure, so what she holds onto is chosen by comfort rather than worth. She hoards small things, remembers where they came from, and notices immediately when one has gone missing from the set.</p></div><div class="biz"><div class="biz-label">In front of others</div><p class="biz-body">Under an audience Nora tends to step slightly sideways from whatever everyone expects. Attention registers as pressure to conform, and the response is a small deliberate difference in what she says or how she stands. The Midheaven in Aquarius makes being typical feel worse than being odd. Approval matters less than keeping some visible proof that she has her own mind about the thing.</p></div><div class="biz"><div class="biz-label">The direction she leans</div><p class="biz-body">Care keeps pulling Nora back towards the smaller, nearer world of people she already knows. The North Node in Cancer shows as a lean towards tending rather than achieving, towards being known at home rather than admired further out. Her competence is real and comes easily, yet the moments that settle her are the ones where feeling gets named and somebody stays close.</p></div></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">18</span>
+    <code class="id">sub-label</code>
+    <span class="lbl">Sub-section label</span>
+    <span class="tag tag--gen">says her, nora, she</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="sub"><div class="sub-head">Keeping, rhythm, being known</div><div class="grid3"><div class="card cusp"><div class="cusp-head"><span class="cusp-num">2</span><div><div class="cusp-label">What she keeps</div><div class="cusp-sign">Cancer on the second house · water</div></div></div><p class="cusp-text">Nora holds on to things that have been her for a long time, well past their use. Old items keep their standing simply because they were there first, and replacing them is treated as a real loss. She gathers and stores, tucking belongings into places she considers safe. Habits form around the familiar, and what is worn or outgrown is still counted as her own.</p></div><div class="card cusp"><div class="cusp-head"><span class="cusp-num">6</span><div><div class="cusp-label">Daily rhythm</div><div class="cusp-sign">Scorpio on the sixth house · water</div></div></div><p class="cusp-text">Nora holds the shape of her own day close and dislikes having it handled by other people. Scorpio on the sixth house cusp gives meals, rest and small tasks a private weight, so a change in routine registers more than it looks like it should. Tiredness and hunger tend to stay hidden until they are considerable, and then they show in mood rather than in words.</p></div><div class="card cusp"><div class="cusp-head"><span class="cusp-num">10</span><div><div class="cusp-label">What she is known for</div><div class="cusp-sign">Pisces on the tenth house · water</div></div></div><p class="cusp-text">Nora leaves people with an impression rather than a firm account of who she is. Different adults describe her differently, and each version sounds true. Pisces on the tenth house cusp keeps the public name soft at the edges, built on atmosphere and kindness more than on anything countable. Her reputation shifts a little with the company she is in.</p></div></div></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">19</span>
+    <code class="id">cusp-2</code>
+    <span class="lbl">House 2, what they keep</span>
+    <span class="tag tag--gen">says her, nora, she</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card cusp"><div class="cusp-head"><span class="cusp-num">2</span><div><div class="cusp-label">What she keeps</div><div class="cusp-sign">Cancer on the second house · water</div></div></div><p class="cusp-text">Nora holds on to things that have been her for a long time, well past their use. Old items keep their standing simply because they were there first, and replacing them is treated as a real loss. She gathers and stores, tucking belongings into places she considers safe. Habits form around the familiar, and what is worn or outgrown is still counted as her own.</p></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">20</span>
+    <code class="id">cusp-6</code>
+    <span class="lbl">House 6, daily rhythm</span>
+    <span class="tag tag--gen">says her, nora</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card cusp"><div class="cusp-head"><span class="cusp-num">6</span><div><div class="cusp-label">Daily rhythm</div><div class="cusp-sign">Scorpio on the sixth house · water</div></div></div><p class="cusp-text">Nora holds the shape of her own day close and dislikes having it handled by other people. Scorpio on the sixth house cusp gives meals, rest and small tasks a private weight, so a change in routine registers more than it looks like it should. Tiredness and hunger tend to stay hidden until they are considerable, and then they show in mood rather than in words.</p></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">21</span>
+    <code class="id">cusp-10</code>
+    <span class="lbl">House 10, what they are known for</span>
+    <span class="tag tag--gen">says her, nora, she</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card cusp"><div class="cusp-head"><span class="cusp-num">10</span><div><div class="cusp-label">What she is known for</div><div class="cusp-sign">Pisces on the tenth house · water</div></div></div><p class="cusp-text">Nora leaves people with an impression rather than a firm account of who she is. Different adults describe her differently, and each version sounds true. Pisces on the tenth house cusp keeps the public name soft at the edges, built on atmosphere and kindness more than on anything countable. Her reputation shifts a little with the company she is in.</p></div></div></div>
+</article>
+<h2 class="sec">03 Turned inward</h2>
+<article class="item">
+  <div class="bar">
+    <span class="n">22</span>
+    <code class="id">card-retrogrades</code>
+    <span class="lbl">Retrogrades</span>
+    <span class="tag tag--ok">gender free</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card"><div class="wlabel">Retrogrades</div><div class="retro-rows"><div class="retro-none">None of Mercury, Venus, Mars, Jupiter or Saturn was turned inward at birth.</div></div></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">23</span>
+    <code class="id">stellium</code>
+    <span class="lbl">A cluster</span>
+    <span class="tag tag--gen">says nora, she</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="stellium"><div class="stellium-label">A cluster</div><div class="stellium-name">5 planets in Capricorn, all in the eighth house</div><p class="stellium-desc">A large share of Nora's chart collects in Capricorn, so one note sounds through most of what she does. Weight in one place gives a child unusual steadiness there and less flexibility elsewhere. She tends to meet very different situations with the same approach, which works well often enough that she rarely looks for another one.</p><div class="spills"><div class="spill">Sun · Capricorn 22°</div><div class="spill">Mercury · Capricorn 23°</div><div class="spill">Jupiter · Capricorn 9°</div><div class="spill">Saturn · Capricorn 23°</div><div class="spill">Pluto · Capricorn 23°</div></div></div></div></div>
+</article>
+<h2 class="sec">Closing</h2>
+<article class="item">
+  <div class="bar">
+    <span class="n">24</span>
+    <code class="id">letter-question</code>
+    <span class="lbl">A question to sit with</span>
+    <span class="tag tag--gen">says nora, she</span>
+  </div>
+  <div class="stage"><div class="wc-live"><section class="letter"><div class="letter-label">A question to sit with</div><div class="letter-rule"></div><p class="letter-text italic">Undercurrents get noticed by Nora long before anyone names them, and the noticing rarely becomes a comment. Mercury in the eighth house draws the mind toward what is hidden, unsaid or only half explained. The question worth holding is how much she has already worked out that she has decided to keep to herself.</p></section></div></div>
+</article>
+<h2 class="sec">Structure</h2>
+<article class="item">
+  <div class="bar">
+    <span class="n">25</span>
+    <code class="id">sh</code>
+    <span class="lbl">Section heading</span>
+    <span class="tag tag--ok">gender free</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="sh"><span class="sh-label">The chart at a glance</span><span class="sh-line"></span><span class="sh-num">01</span></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">26</span>
+    <code class="id">divider</code>
+    <span class="lbl">Divider rule</span>
+    <span class="tag tag--ok">gender free</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="divider"></div></div></div>
+</article>
+<h2 class="sec">04 Keep going</h2>
+<article class="item">
+  <div class="bar">
+    <span class="n">27</span>
+    <code class="id">product-open</code>
+    <span class="lbl">The next reading, offered</span>
+    <span class="tag tag--gen">says nora</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card product"><div class="product-name">North Star</div><p class="product-desc">The full reading. Eight sections, about three thousand words, your three answers about Nora read against the chart. A PDF, and a page to keep reading it with Claude or ChatGPT.</p><div class="product-price">$199</div><a class="cta" href="https://wolfchildren.co/readings/north-star/">Get North Star</a></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">28</span>
+    <code class="id">product-locked</code>
+    <span class="lbl">A reading not bought yet</span>
+    <span class="tag tag--ok">gender free</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="card product locked"><div class="product-name">Transits</div><div class="product-price">$199</div></div></div></div>
+</article>
+<h2 class="sec">Structure</h2>
+<article class="item">
+  <div class="bar">
+    <span class="n">29</span>
+    <code class="id">photo</code>
+    <span class="lbl">Photograph slot</span>
+    <span class="tag tag--ok">gender free</span>
+  </div>
+  <div class="stage"><div class="wc-live"><div class="photo wide" style="aspect-ratio:4 / 3"><img alt="" src="/assets/compass/nature-1.jpg"/></div></div></div>
+</article>
+
+<article class="item">
+  <div class="bar">
+    <span class="n">30</span>
+    <code class="id">disclaimer</code>
+    <span class="lbl">Disclaimer line</span>
+    <span class="tag tag--gen">says nora</span>
+  </div>
+  <div class="stage"><div class="wc-live"><p class="disclaimer">This is a portrait of how Nora is wired, drawn from the birth chart. It is not parenting advice, not a diagnosis, and not a substitute for professional support. If something here worries you, talk to someone who knows your child in person.</p></div></div>
+</article>
+</div>
+<footer>Wolf Children &middot; catalogue, noindex, not linked from anywhere. Regenerate with <code>python3 scripts/extract-widgets.py &amp;&amp; node widget-catalogue.mjs</code></footer>
 </body>
 </html>
