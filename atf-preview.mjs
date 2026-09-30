@@ -63,7 +63,7 @@ h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 .sub{margin:7px auto 0;max-width:48ch;text-align:center;font-size:13.5px;line-height:1.36;letter-spacing:-.01em;color:var(--muted)}
 
 /* 5 square carousel */
-.carousel{margin:8px 0 0;position:relative}
+.carousel{margin:8px 20px 0;position:relative}
 .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .slides::-webkit-scrollbar{display:none}
 .slide{flex:0 0 100%;scroll-snap-align:center;height:240px;position:relative}
@@ -97,11 +97,12 @@ h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 .under a{color:var(--sienna)}
 
 /* 8 reassurance */
-.fuds{margin:12px 0 0;padding:12px 14px;border:1px solid var(--line);border-radius:4px;display:grid;gap:5px}
-.fud{display:grid;grid-template-columns:14px 1fr;gap:7px;font-size:11.5px;line-height:1.3;color:var(--muted)}
+.fuds{margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-radius:4px;
+  display:grid;grid-template-columns:1fr 1fr;gap:7px 12px}
+.fud{display:grid;grid-template-columns:12px 1fr;gap:6px;font-size:10.5px;line-height:1.28;color:var(--muted)}
 .fud b{color:var(--ink);font-weight:400}
-.tick{width:14px;height:14px;margin-top:1px;border:1px solid var(--sienna);border-radius:50%;position:relative}
-.tick:after{content:"";position:absolute;left:4px;top:2px;width:3.5px;height:7px;
+.tick{width:12px;height:12px;margin-top:1px;border:1px solid var(--sienna);border-radius:50%;position:relative}
+.tick:after{content:"";position:absolute;left:3.5px;top:1.5px;width:3px;height:6px;
   border-right:1.5px solid var(--sienna);border-bottom:1.5px solid var(--sienna);transform:rotate(42deg)}
 
 /* 9 sticky bar */
