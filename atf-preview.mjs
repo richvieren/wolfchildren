@@ -42,61 +42,61 @@ body{margin:0;background:var(--paper);color:var(--ink);
 
 /* 1 announce */
 .announce{background:var(--rust);color:var(--paper);text-align:center;
-  padding:9px 16px;font-size:12.5px;letter-spacing:.01em}
+  padding:6px 16px;font-size:12px;letter-spacing:.01em}
 
 /* 2 header */
-.hdr{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
-.mark{height:26px;width:132px;background:var(--ink);
+.hdr{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.mark{height:24px;width:124px;background:var(--ink);
   -webkit-mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain;
           mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain}
 .menu{width:24px;height:14px;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);position:relative}
 .menu:after{content:"";position:absolute;left:0;top:5.25px;width:100%;border-top:1.5px solid var(--ink)}
 
 /* 3 moon + eyebrow */
-.badge{text-align:center;padding-top:10px}
-.moon{width:22px;height:22px;color:var(--olive);display:inline-block}
+.badge{text-align:center;padding-top:2px}
+.moon{width:18px;height:18px;color:var(--olive);display:inline-block}
 .moon svg{display:block;width:100%;height:100%}
-.eyebrow{margin:8px 0 0;font-size:12.5px;letter-spacing:.02em;color:var(--muted)}
-.stem{width:1px;height:20px;background:var(--line);margin:8px auto 0}
+.eyebrow{margin:3px 0 0;font-size:12px;letter-spacing:.02em;color:var(--muted)}
+.stem{display:none}
 
 /* 4 headline + sub */
-h1{margin:14px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
-  font-size:38px;line-height:1.04;letter-spacing:-.005em;text-align:center;text-wrap:balance}
-.sub{margin:14px auto 0;max-width:34ch;text-align:center;font-size:14.5px;line-height:1.5;color:var(--muted)}
+h1{margin:6px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
+  font-size:36px;line-height:.98;letter-spacing:-.02em;text-align:center;text-wrap:balance}
+.sub{margin:7px auto 0;max-width:48ch;text-align:center;font-size:13.5px;line-height:1.36;letter-spacing:-.01em;color:var(--muted)}
 
 /* 5 square carousel */
-.carousel{margin-top:16px;position:relative}
+.carousel{margin:8px auto 0;position:relative;width:228px;max-width:100%}
 .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .slides::-webkit-scrollbar{display:none}
 .slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:1/1;position:relative}
-.slide img{display:block;width:100%;height:100%;object-fit:contain;padding:26px}
-.dots{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center;gap:7px}
+.slide img{display:block;width:100%;height:100%;object-fit:contain}
+.dots{position:absolute;left:0;right:0;bottom:2px;display:flex;justify-content:center;gap:7px}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--line)}
 .dot.on{background:var(--sienna)}
-.tag{position:absolute;left:14px;top:14px;background:rgba(248,245,236,.9);color:var(--sienna);
+.tag{position:absolute;left:0;top:0;background:rgba(248,245,236,.9);color:var(--sienna);
   font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;padding:5px 9px;border:1px solid var(--line)}
 
 /* 6 birth details */
-.form{margin-top:18px}
-.flabel{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--sienna);margin-bottom:8px}
-.row{display:flex;gap:8px}
-.field{flex:1;height:46px;border:1px solid var(--line);background:#FDFBF5;border-radius:3px;
-  padding:0 12px;font:400 14px/46px "Special Elite",monospace;color:var(--muted)}
+.form{margin-top:8px}
+.flabel{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--sienna);margin-bottom:6px}
+.row{display:flex;gap:6px}
+.field{flex:1;height:44px;border:1px solid var(--line);background:#FDFBF5;border-radius:3px;
+  padding:0 12px;font:400 13.5px/44px "Special Elite",monospace;color:var(--muted)}
 .field + .field{flex:0 0 118px}
-.field.full{margin-top:8px;flex:1 1 auto}
+.field.full{margin-top:6px;flex:1 1 auto}
 
 /* 7 CTA */
-.cta{display:block;margin-top:14px;width:100%;height:54px;border:0;border-radius:3px;
-  background:var(--rust);color:var(--paper);font:400 15.5px/54px "Special Elite",monospace;
+.cta{display:block;margin-top:8px;width:100%;height:50px;border:0;border-radius:3px;
+  background:var(--rust);color:var(--paper);font:400 15px/50px "Special Elite",monospace;
   letter-spacing:.06em;text-align:center;text-decoration:none}
-.under{margin-top:9px;text-align:center;font-size:12px;color:var(--muted)}
+.under{margin-top:7px;text-align:center;font-size:11.5px;color:var(--muted)}
 .under a{color:var(--sienna)}
 
 /* 8 reassurance */
-.fuds{margin:18px 0 0;padding:16px 0 0;border-top:1px solid var(--line);display:grid;gap:10px}
-.fud{display:grid;grid-template-columns:16px 1fr;gap:9px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.fuds{margin:12px 0 0;padding:11px 0 0;border-top:1px solid var(--line);display:grid;gap:7px}
+.fud{display:grid;grid-template-columns:15px 1fr;gap:8px;font-size:12px;line-height:1.32;color:var(--muted)}
 .fud b{color:var(--ink);font-weight:400}
-.tick{width:16px;height:16px;margin-top:1px;border:1px solid var(--sienna);border-radius:50%;position:relative}
+.tick{width:15px;height:15px;margin-top:1px;border:1px solid var(--sienna);border-radius:50%;position:relative}
 .tick:after{content:"";position:absolute;left:4.5px;top:2.5px;width:4px;height:8px;
   border-right:1.5px solid var(--sienna);border-bottom:1.5px solid var(--sienna);transform:rotate(42deg)}
 
