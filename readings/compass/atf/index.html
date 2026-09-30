@@ -32,28 +32,28 @@ body{margin:0;background:var(--paper);color:var(--ink);
 
 /* 3 moon + eyebrow */
 .badge{text-align:center;padding-top:8px}
-.moon{width:18px;height:18px;color:var(--olive);display:inline-block}
+.moon{width:18px;height:18px;color:var(--olive);display:block;margin:0 auto -3px}
 .moon svg{display:block;width:100%;height:100%}
-.eyebrow{margin:3px 0 0;font-size:12px;letter-spacing:.02em;color:var(--muted)}
-.stem{width:1px;height:16px;background:var(--line);margin:6px auto 0}
+.eyebrow{margin:0;font-size:12px;letter-spacing:.02em;color:var(--muted)}
+.stem{width:1px;height:16px;background:var(--line);margin:5px auto 0}
 
 /* 4 headline + sub */
-h1{margin:6px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
+h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
   font-size:36px;line-height:.98;letter-spacing:-.02em;text-align:center;text-wrap:balance}
 .sub{margin:7px auto 0;max-width:48ch;text-align:center;font-size:13.5px;line-height:1.36;letter-spacing:-.01em;color:var(--muted)}
 
 /* 5 square carousel */
-.carousel{margin:8px auto 0;position:relative;width:228px;max-width:100%}
+.carousel{margin:8px 0 0;position:relative}
 .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .slides::-webkit-scrollbar{display:none}
-.slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:1/1;position:relative}
+.slide{flex:0 0 100%;scroll-snap-align:center;height:240px;position:relative}
 .slide img{display:block;width:100%;height:100%;object-fit:contain}
 .empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:18px;
   border:1px dashed var(--line);color:var(--sienna);opacity:.75;font-size:11.5px;line-height:1.4}
 .arrow{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;padding:0;
   border:1px solid var(--line);background:rgba(248,245,236,.92);color:var(--sienna);border-radius:50%;
   font:400 17px/28px "Special Elite",monospace;cursor:pointer;z-index:2}
-.arrow.prev{left:-14px}.arrow.next{right:-14px}
+.arrow.prev{left:4px}.arrow.next{right:4px}
 .dots{position:absolute;left:0;right:0;bottom:2px;display:flex;justify-content:center;gap:7px}
 .dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer}
 .dot.on{background:var(--sienna)}
