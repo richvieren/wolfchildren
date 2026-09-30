@@ -45,19 +45,17 @@ body{margin:0;background:var(--paper);color:var(--ink);
   padding:6px 16px;font-size:12px;letter-spacing:.01em}
 
 /* 2 header */
-.hdr{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
-.mark{height:24px;width:124px;background:var(--ink);
+.hdr{height:0;position:relative;z-index:3}
+.mark{position:absolute;left:20px;top:10px;height:24px;width:124px;background:var(--ink);
   -webkit-mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain;
           mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain}
-.menu{width:24px;height:14px;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);position:relative}
-.menu:after{content:"";position:absolute;left:0;top:5.25px;width:100%;border-top:1.5px solid var(--ink)}
 
 /* 3 moon + eyebrow */
-.badge{text-align:center;padding-top:2px}
+.badge{text-align:center;padding-top:8px}
 .moon{width:18px;height:18px;color:var(--olive);display:inline-block}
 .moon svg{display:block;width:100%;height:100%}
 .eyebrow{margin:3px 0 0;font-size:12px;letter-spacing:.02em;color:var(--muted)}
-.stem{display:none}
+.stem{width:1px;height:16px;background:var(--line);margin:6px auto 0}
 
 /* 4 headline + sub */
 h1{margin:6px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
@@ -70,8 +68,14 @@ h1{margin:6px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 .slides::-webkit-scrollbar{display:none}
 .slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:1/1;position:relative}
 .slide img{display:block;width:100%;height:100%;object-fit:contain}
+.empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:18px;
+  border:1px dashed var(--line);color:var(--sienna);opacity:.75;font-size:11.5px;line-height:1.4}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;padding:0;
+  border:1px solid var(--line);background:rgba(248,245,236,.92);color:var(--sienna);border-radius:50%;
+  font:400 17px/28px "Special Elite",monospace;cursor:pointer;z-index:2}
+.arrow.prev{left:-14px}.arrow.next{right:-14px}
 .dots{position:absolute;left:0;right:0;bottom:2px;display:flex;justify-content:center;gap:7px}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--line)}
+.dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer}
 .dot.on{background:var(--sienna)}
 .tag{position:absolute;left:0;top:0;background:rgba(248,245,236,.9);color:var(--sienna);
   font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;padding:5px 9px;border:1px solid var(--line)}
@@ -93,11 +97,11 @@ h1{margin:6px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 .under a{color:var(--sienna)}
 
 /* 8 reassurance */
-.fuds{margin:12px 0 0;padding:11px 0 0;border-top:1px solid var(--line);display:grid;gap:7px}
-.fud{display:grid;grid-template-columns:15px 1fr;gap:8px;font-size:12px;line-height:1.32;color:var(--muted)}
+.fuds{margin:12px 0 0;padding:12px 14px;border:1px solid var(--line);border-radius:4px;display:grid;gap:5px}
+.fud{display:grid;grid-template-columns:14px 1fr;gap:7px;font-size:11.5px;line-height:1.3;color:var(--muted)}
 .fud b{color:var(--ink);font-weight:400}
-.tick{width:15px;height:15px;margin-top:1px;border:1px solid var(--sienna);border-radius:50%;position:relative}
-.tick:after{content:"";position:absolute;left:4.5px;top:2.5px;width:4px;height:8px;
+.tick{width:14px;height:14px;margin-top:1px;border:1px solid var(--sienna);border-radius:50%;position:relative}
+.tick:after{content:"";position:absolute;left:4px;top:2px;width:3.5px;height:7px;
   border-right:1.5px solid var(--sienna);border-bottom:1.5px solid var(--sienna);transform:rotate(42deg)}
 
 /* 9 sticky bar */
@@ -116,7 +120,7 @@ h1{margin:6px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 
 <p class="announce">${T.announce}</p>
 
-<header class="hdr"><span class="mark"></span><span class="menu"></span></header>
+<header class="hdr"><span class="mark"></span></header>
 
 <div class="wrap">
   <div class="badge">
@@ -130,10 +134,14 @@ h1{margin:6px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 </div>
 
 <div class="carousel">
-  <div class="slides">
-    <div class="slide"><img src="/assets/img/atf/zodiac-map.svg" width="900" height="900" alt="Your child's birth chart, drawn as a wheel"><span class="tag">${T.slideTag}</span></div>
+  <div class="slides" id="slides">
+    ${T.slides.map((s, i) => s.src
+      ? `<div class="slide"><img src="${s.src}" width="${s.w}" height="${s.h}" alt="${s.alt}" ${i ? 'loading="lazy"' : ''}></div>`
+      : `<div class="slide"><span class="empty">${s.brief}</span></div>`).join('\n    ')}
   </div>
-  <div class="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+  ${T.slides.length > 1 ? `<button class="arrow prev" type="button" aria-label="Previous">&#8249;</button>
+  <button class="arrow next" type="button" aria-label="Next">&#8250;</button>
+  <div class="dots">${T.slides.map((_, i) => `<button class="dot${i ? '' : ' on'}" type="button" aria-label="Slide ${i + 1}"></button>`).join('')}</div>` : ''}
 </div>
 
 <div class="wrap">
@@ -160,6 +168,22 @@ h1{margin:6px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
   <a class="cta" href="#">${T.stickyCta}</a>
 </div>
 
+<script>
+(function(){
+  var sc=document.getElementById('slides'); if(!sc) return;
+  var dots=[].slice.call(document.querySelectorAll('.dot'));
+  if(!dots.length) return;
+  var at=function(){ return Math.round(sc.scrollLeft/sc.clientWidth); };
+  var go=function(i){ i=Math.max(0,Math.min(dots.length-1,i)); sc.scrollTo({left:sc.clientWidth*i,behavior:'smooth'}); };
+  dots.forEach(function(d,i){ d.addEventListener('click',function(){ go(i); }); });
+  var p=document.querySelector('.arrow.prev'), n=document.querySelector('.arrow.next');
+  if(p) p.addEventListener('click',function(){ go(at()-1); });
+  if(n) n.addEventListener('click',function(){ go(at()+1); });
+  sc.addEventListener('scroll',function(){
+    var i=at(); dots.forEach(function(d,j){ d.classList.toggle('on', j===i); });
+  },{passive:true});
+})();
+</script>
 </body>
 </html>
 `;

@@ -21,7 +21,6 @@ export const SLOTS = {
   // <br> marks the line break. Richard's preview breaks after "child's".
   headline:   [`Discover your child's<br>astrology cheat sheet`],
   sub:        ['The Compass helps you understand and empower your child based on their unique astrology chart.'],
-  slideTag:   ['Their chart'],
   formLabel:  ['Start with their birth details'],
   fieldDate:  ['Date of birth'],
   fieldTime:  ['Time'],
@@ -40,6 +39,25 @@ export const SLOTS = {
   stickyCta:   ['Get their Compass'],
 };
 
+/** The gallery. `src` null means the slide is an empty frame with its brief showing.
+ *  Square, 1440 x 1440 when supplied. Order is the order they appear. */
+export const SLIDES = [
+  { src: '/assets/img/atf/zodiac-map.svg', w: 900, h: 900, alt: "Your child's birth chart, drawn as a wheel" },
+  { src: null, brief: 'Inside the reading: widgets around a portrait' },
+  { src: null, brief: 'A child outdoors' },
+  { src: null, brief: 'What you get: the page on a phone' },
+];
+
+/** The offer block. Index 0 is the single $27 offer and renders no selector.
+ *  A future set uses mode 'select' with an options array, for the buy-two tests. */
+export const OFFERS = [
+  { mode: 'single' },
+  // { mode: 'select', options: [
+  //   { label: 'Buy two, get one free', sub: 'Three children', price: '$54', badge: 'Most popular' },
+  //   { label: 'Buy once',              sub: 'One child',     price: '$27' },
+  // ] },
+];
+
 /** Named test cells. `control` takes index 0 everywhere. */
 export const CELLS = {
   control: {},
@@ -52,7 +70,8 @@ export const CELLS = {
 export function resolve(cellName) {
   const cell = CELLS[cellName];
   if (!cell) throw new Error(`no such cell: ${cellName}`);
-  const out = {};
+  const out = { offer: OFFERS[cell.offer ?? 0], slides: SLIDES };
+  if (!out.offer) throw new Error(`cell "${cellName}" wants offer[${cell.offer}], which does not exist`);
   for (const [slot, variants] of Object.entries(SLOTS)) {
     const i = cell[slot] ?? 0;
     if (variants[i] === undefined) throw new Error(`cell "${cellName}" wants ${slot}[${i}], which does not exist`);
