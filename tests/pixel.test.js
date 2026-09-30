@@ -70,7 +70,10 @@ const generatedPages = ['readings/compass/sample/nora/index.html',
                         'readings/compass/widget-catalogue/index.html',
                         // 2026-09-30: the above-the-fold section, one page per A/B cell
                         // (atf-preview.mjs + src/lib/atf-copy.mjs).
-                        'readings/compass/atf/index.html'];
+                        'readings/compass/atf/index.html',
+                        // The phone frame that wraps the page above, so the mobile
+                        // layout can be reviewed and refreshed from a desktop browser.
+                        'readings/compass/atf/preview/index.html'];
 
 test('the pixel file initialises the dataset and tracks a pageview', () => {
   assert.ok(PIXEL.includes(`fbq('init', '${DATASET}')`), 'init with the dataset id');
