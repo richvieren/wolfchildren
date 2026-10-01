@@ -12,7 +12,7 @@
 //   node widget-all.mjs
 
 import { writeFileSync, mkdirSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PIXEL, DATASET } from './variants.mjs';
 import { FORMS } from './widget-forms.mjs';
@@ -24,7 +24,7 @@ const ROOT = dirname(fileURLToPath(import.meta.url));
 // Morning Memories ships one weight, so 900 becomes 400 rather than a faked bold.
 // His note on E15 and E16: keep the caps on a short label, not on a long line, so
 // badge-placement loses its uppercase.
-const RESKIN = WIDGET_CSS
+export const RESKIN = WIDGET_CSS
   .replace(/font-family:Montserrat/g, 'font-family:"Morning Memories",Georgia,serif')
   .replace(/font-family:"Libre Baskerville"/g, 'font-family:"Special Elite","Courier New",monospace')
   .replace(/font-family:"IBM Plex Mono"/g, 'font-family:"Special Elite","Courier New",monospace')
@@ -177,10 +177,37 @@ function card(it) {
 }
 
 
+export const PHOTO_CSS = `
+/* ── Photographs ──────────────────────────────────────────────────────────
+   the-almanac.showit.site layers PNGs from Showit's CDN over its photos:
+   instaxpolaroid-frame.png, squarecard.png, tape-1/4/7.png, plus paper.png and
+   grain.png as texture. Those are their assets on their servers, so none of
+   them is used here. The geometry is taken from their own layout numbers and
+   rebuilt in CSS: the polaroid frame is 432 by 653 with the photo at 361 by 456
+   inset 36 across and 71 down, which is 8.3% of the frame width at the sides,
+   16.4% on top and 29.2% underneath. The shadow is their value. */
+.ph{display:block;position:relative;margin:0;background:#F7F3E9;line-height:0}
+.ph img{display:block;width:100%;height:auto}
+.ph-matte{padding:5.5%}
+.ph-polaroid{padding:16.4% 8.3% 29.2%}
+.ph-shadow{box-shadow:-1px 1px 3px rgba(22,21,20,.5),0 10px 26px rgba(22,21,20,.2)}
+.ph-tilt{transform:rotate(-1.6deg)}
+/* their tape is a 4:1 PNG with torn ends, so the ends are cut rather than drawn */
+.ph-tape{overflow:visible}
+.ph-tape::before{content:"";position:absolute;top:-13px;left:50%;width:46%;aspect-ratio:4/1;
+  transform:translateX(-50%) rotate(-2.4deg);
+  background:linear-gradient(176deg,rgba(214,201,170,.86),rgba(233,223,199,.74));
+  box-shadow:0 1px 2px rgba(22,21,20,.16);
+  clip-path:polygon(0 14%,4% 0,8% 16%,92% 5%,96% 0,100% 18%,96% 100%,92% 85%,8% 97%,4% 100%,0 84%)}
+.ph-grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
+.why em.built,.why em{vertical-align:1px}
+`;
+
 // The reading's own running order, with the drawn forms placed in the section
 // their data belongs to. Ids never move, so a note about N04 or E13 still lands
 // on the same widget wherever it sits in the flow.
-const ORDER = [
+export const ORDER = [
   ['Opening', ['E01', 'E02', 'E06', 'E03', 'E04', 'E05']],
   ['01 The chart at a glance', ['N06', 'E07', 'N03', 'N10', 'N08', 'N04', 'N07', 'N01', 'N05', 'E08', 'E09', 'E10']],
   ['The letter', ['E11', 'E12']],
@@ -197,6 +224,21 @@ const formCard = (f) => `<article class="card" id="${f.id}">
   ${f.art}
   <p class="said">${f.said}</p>
   <p class="why"><em>DRAFT</em>${f.why}</p></article>`;
+
+// The sample's blocks with Richard's patches and the font remap applied, keyed
+// by id. The real-reading preview assembles from this, so a decision made here
+// cannot drift out of sync with what he signed off on the review page.
+export function patchedBlocks() {
+  const out = new Map();
+  for (const it of items) {
+    const p = it.patch;
+    if (p.removed || p.replacedBy) continue;
+    out.set(it.id, { id: it.id, key: it.key, label: p.title || it.label, section: it.section,
+                     split: !!p.split, html: reskinHtml(p.html ? p.html(it.html) : it.html) });
+  }
+  return out;
+}
+export const TRIO = trio;
 
 const byId = new Map();
 for (const f of FORMS) byId.set(f.id, formCard(f));
@@ -306,30 +348,7 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
 .key i{flex:0 0 auto;width:9px;height:9px;border-radius:2px;margin-top:4px}
 .key i.hollow{border:1.5px dashed var(--green);background:none;border-radius:50%}
 .key b{font-weight:400;text-transform:uppercase;letter-spacing:.06em;font-size:10px}
-/* ── Photographs ──────────────────────────────────────────────────────────
-   the-almanac.showit.site layers PNGs from Showit's CDN over its photos:
-   instaxpolaroid-frame.png, squarecard.png, tape-1/4/7.png, plus paper.png and
-   grain.png as texture. Those are their assets on their servers, so none of
-   them is used here. The geometry is taken from their own layout numbers and
-   rebuilt in CSS: the polaroid frame is 432 by 653 with the photo at 361 by 456
-   inset 36 across and 71 down, which is 8.3% of the frame width at the sides,
-   16.4% on top and 29.2% underneath. The shadow is their value. */
-.ph{display:block;position:relative;margin:0;background:#F7F3E9;line-height:0}
-.ph img{display:block;width:100%;height:auto}
-.ph-matte{padding:5.5%}
-.ph-polaroid{padding:16.4% 8.3% 29.2%}
-.ph-shadow{box-shadow:-1px 1px 3px rgba(22,21,20,.5),0 10px 26px rgba(22,21,20,.2)}
-.ph-tilt{transform:rotate(-1.6deg)}
-/* their tape is a 4:1 PNG with torn ends, so the ends are cut rather than drawn */
-.ph-tape{overflow:visible}
-.ph-tape::before{content:"";position:absolute;top:-13px;left:50%;width:46%;aspect-ratio:4/1;
-  transform:translateX(-50%) rotate(-2.4deg);
-  background:linear-gradient(176deg,rgba(214,201,170,.86),rgba(233,223,199,.74));
-  box-shadow:0 1px 2px rgba(22,21,20,.16);
-  clip-path:polygon(0 14%,4% 0,8% 16%,92% 5%,96% 0,100% 18%,96% 100%,92% 85%,8% 97%,4% 100%,0 84%)}
-.ph-grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
-.why em.built,.why em{vertical-align:1px}
+${PHOTO_CSS}
 /* the sample's own CSS, families remapped */
 ${RESKIN}
 .live{overflow-x:auto}
@@ -367,7 +386,9 @@ ${body}
 </html>
 `;
 
-const dir = join(ROOT, 'readings/compass/widget-all');
-mkdirSync(dir, { recursive: true });
-writeFileSync(join(dir, 'index.html'), html);
-console.log(`wrote /readings/compass/widget-all/  (${FORMS.length} new + ${items.length} existing, ${Object.keys(PATCH).length} patched)`);
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const dir = join(ROOT, 'readings/compass/widget-all');
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, 'index.html'), html);
+  console.log(`wrote /readings/compass/widget-all/  (${FORMS.length} new + ${items.length} existing, ${Object.keys(PATCH).length} patched)`);
+}

@@ -76,6 +76,10 @@ const generatedPages = ['readings/compass/sample/nora/index.html',
                         // the landing page fonts, for the keep / modify / drop pass
                         // (widget-all.mjs).
                         'readings/compass/widget-all/index.html',
+                        // 2026-10-01: Nora's Compass as it would actually read, with the
+                        // new module order and the photographs in frames
+                        // (compass-preview.mjs).
+                        'readings/compass/preview/index.html',
                         // 2026-09-30: the above-the-fold section, one page per A/B cell
                         // (atf-preview.mjs + src/lib/atf-copy.mjs).
                         'readings/compass/atf/index.html',
