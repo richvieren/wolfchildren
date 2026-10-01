@@ -64,14 +64,13 @@ h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 
 /* 5 carousel. The slide was a fixed 240px tall with a fluid width, so its ratio
    drifted from 1.33 on a 375px phone to 1.56 on a 430px one and no single image
-   ratio could fit it. It is pinned to 3:2 now: camera-native, wider than the
-   square it replaced, and 15px shorter than the old box at 393px, which the fold
-   gets back. A square SVG still pillarboxes inside it, which is what the chart
-   wheel wants. */
+   ratio could fit it. It is pinned now, so one delivered ratio fits every phone.
+   4:3, because that is what Richard's own composites are and cropping his files
+   to fit a box of mine is the wrong way round. */
 .carousel{margin:8px 20px 0;position:relative}
 .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .slides::-webkit-scrollbar{display:none}
-.slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:3/2;position:relative}
+.slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:4/3;position:relative}
 .slide img{display:block;width:100%;height:100%;object-fit:contain}
 .empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:18px;
   border:1px dashed var(--line);color:var(--sienna);opacity:.75;font-size:11.5px;line-height:1.4}

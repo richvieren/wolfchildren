@@ -41,11 +41,20 @@ export const SLOTS = {
 
 /** The gallery. `src` null means the slide is an empty frame with its brief showing.
  *  Square, 1440 x 1440 when supplied. Order is the order they appear. */
+// Richard's own composites, delivered 2026-10-02 from NIGHT/LP. His filenames are
+// kept exactly as he exports them, so a re-export drops straight in. All three are
+// 4:3, which is why the slide box is 4:3: his files are not cropped to fit a box.
+// Shipped at 1400 wide as WebP, which is 69% lighter than the JPEGs at the same
+// quality. The alt text is mine, since it describes a picture rather than selling
+// anything; the copy slots above are his.
 export const SLIDES = [
-  { src: '/assets/img/atf/zodiac-map.svg', w: 900, h: 900, alt: "Your child's birth chart, drawn as a wheel" },
-  { src: null, brief: 'Inside the reading: widgets around a portrait' },
-  { src: null, brief: 'A child outdoors' },
-  { src: null, brief: 'What you get: the page on a phone' },
+  { src: '/assets/img/atf/slide-0.webp', w: 1400, h: 1050,
+    alt: 'A child on a beach at sunset, with the zodiac wheel drawn across the sky' },
+  { src: '/assets/img/atf/slide-1.webp', w: 1400, h: 1050,
+    alt: 'Four cards from the reading, floating above a child walking on a beach' },
+  { src: '/assets/img/atf/slide-2.webp', w: 1400, h: 1050,
+    alt: 'Two cards from the reading, beside a child standing at the shoreline' },
+  { src: null, brief: 'What you get: the reading on a phone' },
 ];
 
 /** The offer block. Index 0 is the single $27 offer and renders no selector.

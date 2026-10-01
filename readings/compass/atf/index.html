@@ -44,14 +44,13 @@ h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 
 /* 5 carousel. The slide was a fixed 240px tall with a fluid width, so its ratio
    drifted from 1.33 on a 375px phone to 1.56 on a 430px one and no single image
-   ratio could fit it. It is pinned to 3:2 now: camera-native, wider than the
-   square it replaced, and 15px shorter than the old box at 393px, which the fold
-   gets back. A square SVG still pillarboxes inside it, which is what the chart
-   wheel wants. */
+   ratio could fit it. It is pinned now, so one delivered ratio fits every phone.
+   4:3, because that is what Richard's own composites are and cropping his files
+   to fit a box of mine is the wrong way round. */
 .carousel{margin:8px 20px 0;position:relative}
 .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .slides::-webkit-scrollbar{display:none}
-.slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:3/2;position:relative}
+.slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:4/3;position:relative}
 .slide img{display:block;width:100%;height:100%;object-fit:contain}
 .empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:18px;
   border:1px dashed var(--line);color:var(--sienna);opacity:.75;font-size:11.5px;line-height:1.4}
@@ -121,10 +120,10 @@ h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 
 <div class="carousel">
   <div class="slides" id="slides">
-    <div class="slide"><img src="/assets/img/atf/zodiac-map.svg" width="900" height="900" alt="Your child's birth chart, drawn as a wheel" ></div>
-    <div class="slide"><span class="empty">Inside the reading: widgets around a portrait</span></div>
-    <div class="slide"><span class="empty">A child outdoors</span></div>
-    <div class="slide"><span class="empty">What you get: the page on a phone</span></div>
+    <div class="slide"><img src="/assets/img/atf/slide-0.webp" width="1400" height="1050" alt="A child on a beach at sunset, with the zodiac wheel drawn across the sky" ></div>
+    <div class="slide"><img src="/assets/img/atf/slide-1.webp" width="1400" height="1050" alt="Four cards from the reading, floating above a child walking on a beach" loading="lazy"></div>
+    <div class="slide"><img src="/assets/img/atf/slide-2.webp" width="1400" height="1050" alt="Two cards from the reading, beside a child standing at the shoreline" loading="lazy"></div>
+    <div class="slide"><span class="empty">What you get: the reading on a phone</span></div>
   </div>
   <button class="arrow prev" type="button" aria-label="Previous">&#8249;</button>
   <button class="arrow next" type="button" aria-label="Next">&#8250;</button>
