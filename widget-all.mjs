@@ -83,7 +83,7 @@ const PATCH = {
       .replace('<span class="bar-name">cardinal</span>', '<span class="bar-name">starts it</span>')
       .replace('<span class="bar-name">fixed</span>', '<span class="bar-name">holds it</span>')
       .replace('<span class="bar-name">mutable</span>', '<span class="bar-name">changes it</span>'),
-    alt: 'N02 Ring, same numbers',
+    alt: 'N02 Hundred squares, same numbers',
     flag: 'The bar names now read in plain words, but your own footer below still says "Leading: cardinal" and the paragraph explains "Cardinal is the leading note". I did not touch your words. Tell me whether the prose follows the labels, or whether the labels go back.' },
   E09: { note: 'great, but the title is ass. turn it into three separate widgets', split: 3 },
   E10: { note: 'weird execution. can we not turn this into a matrix?',
@@ -160,8 +160,8 @@ function card(it) {
   ${p.flag ? `<p class="flag"><em>NEEDS YOU</em>${p.flag}</p>` : ''}</article>`;
 }
 
-const newCards = FORMS.map((f, i) => `<article class="card" id="N${String(i + 1).padStart(2, '0')}">
-  <div class="tag"><span class="id">N${String(i + 1).padStart(2, '0')}</span><span class="form">${f.form}</span><span class="badge has">drawn</span></div>
+const newCards = FORMS.map((f) => `<article class="card" id="${f.id}">
+  <div class="tag"><span class="id">${f.id}</span><span class="form">${f.form}</span><span class="badge has">drawn</span></div>
   <h2>${f.title}</h2>
   ${f.art}
   <p class="said">${f.said}</p>

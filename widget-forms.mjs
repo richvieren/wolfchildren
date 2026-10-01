@@ -57,18 +57,21 @@ function moon() {
     ${pits}<circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="#2F382B" stroke-width="1.4"/></svg>`;
 }
 
-// ── N02 the ring, now carrying pace ────────────────────────────────────────
-function ring() {
-  const keys = Object.keys(MOD); let a = 0; const cols = ['#C0623A', '#495543', '#A9A07E'];
-  const segs = keys.map((k, i) => {
-    const sweep = MOD[k] / 100 * 360, d = arc(70, 70, 50, a + 1.6, a + sweep - 1.6); a += sweep;
-    return `<path d="${d}" fill="none" stroke="${cols[i]}" stroke-width="17"/>`;
+// ── N02 a hundred squares, one per part ────────────────────────────────────
+// Richard, 2026-10-01: the donut was wrong, not just ugly. Cleveland and McGill
+// rank angle fourth among perceptual tasks and position or count first, and three
+// near-equal shares are the worst case for a pie. A hundred squares makes "38" a
+// thing you can count, which is the whole brief: tangible at a glance.
+function waffle() {
+  const rows = [['Starts it', MOD.cardinal, '#C0623A'], ['Holds it', MOD.fixed, '#495543'],
+                ['Changes it', MOD.mutable, '#A9A07E']];
+  const fill = rows.flatMap(([, n, c]) => Array(n).fill(c));
+  const cells = fill.map((c, i) => {
+    const x = 10 + (i % 10) * 30, y = 8 + Math.floor(i / 10) * 30;
+    return `<rect x="${x}" y="${y}" width="23" height="23" rx="3.5" fill="${c}"/>`;
   }).join('');
-  return `<svg viewBox="0 0 140 140" class="art">${segs}
-    </svg>
-    ${key([[cols[0], 'Starts it', `${MOD.cardinal}%`],
-           [cols[1], 'Holds it', `${MOD.fixed}%`],
-           [cols[2], 'Changes it', `${MOD.mutable}%`]])}`;
+  return `<svg viewBox="0 0 310 308" class="art wide">${cells}</svg>
+    ${key(rows.map(([n, v, c]) => [c, n, `${v} of 100`]))}`;
 }
 
 // ── N03 twelve places ──────────────────────────────────────────────────────
@@ -178,31 +181,31 @@ function steps() {
 // Each form: the shape's name, the line a parent reads, the drawing, what Nora's
 // answer is, and a draft line saying what the widget measures.
 export const FORMS = [
-  { form: 'Moon phase', title: 'The moon the night she arrived', art: moon(),
+  { id: 'N01', form: 'Moon phase', title: 'The moon the night she arrived', art: moon(),
     said: 'Two days past full. Almost all of it still lit.',
     why: 'A fact about her birth night, drawn to scale. It carries no verdict about her.' },
-  { form: 'Ring', title: 'How she meets anything new', art: ring(),
-    said: 'She starts things more often than she holds or bends them, but all three are close.',
-    why: 'Three ways of handling something new: start it, hold it steady, or change direction. The ring shows how much of each she runs on.' },
-  { form: 'Twelve places', title: 'Where most of her sits', art: slots(),
+  { id: 'N02', form: 'Hundred squares', title: 'How she meets anything new', art: waffle(),
+    said: 'Of every hundred parts of her, 38 start things, 35 hold them steady, 27 change direction.',
+    why: 'Three ways of handling something new: start it, hold it steady, or change direction. Each square is one part of her, out of a hundred.' },
+  { id: 'N03', form: 'Twelve places', title: 'Where most of her sits', art: slots(),
     said: 'Six of her thirteen placements landed in one box. The other seven sit alone.',
     why: 'The sky is cut into twelve places. A full box is a part of life she will feel more strongly than most children do.' },
-  { form: 'Tug of war', title: 'Prepares, or goes with the flow', art: tug(),
+  { id: 'N04', form: 'Tug of war', title: 'Prepares, or goes with the flow', art: tug(),
     said: 'She prepares. Of these two habits, 58 in every 100 go to getting ready first.',
     why: 'Two habits pulling against each other. The knot shows which one wins in her, and by how much.' },
-  { form: 'Horizon', title: 'Born with the sun up or down', art: horizon(),
+  { id: 'N05', form: 'Horizon', title: 'Born with the sun up or down', art: horizon(),
     said: 'The sun was still up. Nora is a day child.',
     why: 'Astrologers call this sect, and it is one of the oldest splits in the craft. A day child is read as leading with the sun, outward and visible. A night child leads with the moon, inward and felt.' },
-  { form: 'Web', title: 'What she is made of', art: web(),
+  { id: 'N06', form: 'Web', title: 'What she is made of', art: web(),
     said: 'Wide on fire and earth. Almost nothing on water.',
     why: 'Four elements, four ways of handling life. The shape shows which she has plenty of and which she has little of.' },
-  { form: 'Dial', title: 'How fast her moods move', art: dial(),
+  { id: 'N07', form: 'Dial', title: 'How fast her moods move', art: dial(),
     said: 'Quick. Three quarters of the way towards the fast end.',
     why: 'How far the moon travelled on her birth day. A faster moon is read as moods that arrive and pass quickly.' },
-  { form: 'Constellation', title: 'What is wired to what', art: constellation(),
+  { id: 'N08', form: 'Constellation', title: 'What is wired to what', art: constellation(),
     said: 'Being, thinking and pushing pull together. Loving runs on its own.',
     why: 'Each circle is one part of her. A line means those two parts move together. A part with no lines runs separately from the rest.' },
-  { form: 'Columns', title: 'Which parts pull the most weight', art: steps(),
+  { id: 'N10', form: 'Columns', title: 'Which parts pull the most weight', art: steps(),
     said: 'Being and thinking pull hardest. Loving pulls nothing along with it.',
     why: 'How many other parts each one is tied to. A tall column drags the rest along when it moves. A flat one acts alone.' },
 ];
@@ -253,8 +256,8 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
 <div class="wrap">
 <header><h1>The widget forms</h1>
 <p>Ten shapes, Nora's real numbers. Every one now says what it measures. Lines marked DRAFT are mine and are yours to overwrite.</p></header>
-${FORMS.map((f, i) => `<article class="card">
-  <div class="hd"><b>${f.title}</b><span>N${String(i + 1).padStart(2, '0')} ${f.form}</span></div>
+${FORMS.map((f) => `<article class="card" id="${f.id}">
+  <div class="hd"><b>${f.title}</b><span>${f.id} ${f.form}</span></div>
   ${f.art}
   <p class="said">${f.said}</p>
   <p class="why"><em>DRAFT</em>${f.why}</p></article>`).join('\n')}
