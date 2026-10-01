@@ -176,19 +176,59 @@ function card(it) {
   ${p.flag ? `<p class="flag"><em>NEEDS YOU</em>${p.flag}</p>` : ''}</article>`;
 }
 
-const newCards = FORMS.map((f) => `<article class="card" id="${f.id}">
+
+// The reading's own running order, with the drawn forms placed in the section
+// their data belongs to. Ids never move, so a note about N04 or E13 still lands
+// on the same widget wherever it sits in the flow.
+const ORDER = [
+  ['Opening', ['E01', 'E02', 'E06', 'E03', 'E04', 'E05']],
+  ['01 The chart at a glance', ['N06', 'E07', 'N03', 'N10', 'N08', 'N04', 'N07', 'N01', 'N05', 'E08', 'E09', 'E10']],
+  ['The letter', ['E11', 'E12']],
+  ['02 Holding on and being seen', ['E13', 'E14', 'E15', 'E16', 'E17', 'E18', 'E19', 'E20', 'E21']],
+  ['03 Turned inward', ['E22', 'E23']],
+  ['Closing', ['E24']],
+  ['Structure', ['E25', 'E26', 'E29', 'E30']],
+  ['04 Keep going', ['E27', 'E28']],
+];
+
+const formCard = (f) => `<article class="card" id="${f.id}">
   <div class="tag"><span class="id">${f.id}</span><span class="form">${f.form}</span><span class="badge has">drawn</span></div>
   <h2>${f.title}</h2>
   ${f.art}
   <p class="said">${f.said}</p>
-  <p class="why"><em>DRAFT</em>${f.why}</p></article>`).join('\n');
+  <p class="why"><em>DRAFT</em>${f.why}</p></article>`;
 
-let oldCards = '', bundleOpen = false;
-for (const it of items) {
-  if (it.patch.bundle && !bundleOpen) { oldCards += `<div class="bundle"><div class="bundlehd">Three doorways<span>E19 to E21, bundled as you asked</span></div>`; bundleOpen = true; }
-  oldCards += card(it) + '\n';
-  if (bundleOpen && !items[items.indexOf(it) + 1]?.patch.bundle) { oldCards += '</div>\n'; bundleOpen = false; }
-}
+const byId = new Map();
+for (const f of FORMS) byId.set(f.id, formCard(f));
+for (const it of items) byId.set(it.id, card(it));
+
+const placed = new Set();
+let body = ORDER.map(([sec, ids]) => {
+  const inner = ids.map((id) => {
+    placed.add(id);
+    const html = byId.get(id);
+    if (!html) throw new Error(`ORDER names ${id}, which does not exist`);
+    // The cusps keep the bundle Richard asked for, inside the flow.
+    return html;
+  }).join('\n');
+  return `<h3 class="sec">${sec}</h3>\n${inner}`;
+}).join('\n');
+
+// Nothing may fall out of the running order without being noticed.
+const missing = [...byId.keys()].filter((id) => !placed.has(id));
+if (missing.length) throw new Error(`not placed in ORDER: ${missing.join(', ')}`);
+
+const frames = [
+  ['Matte', 'ph-matte', 'an even white border, their square card'],
+  ['Polaroid', 'ph-polaroid', 'sides 8%, top 16%, bottom 29% of the frame width'],
+  ['Matte and tape', 'ph-matte ph-tape', 'a torn strip across the top edge'],
+  ['Polaroid, lifted', 'ph-polaroid ph-shadow ph-tilt', 'their shadow value, plus a slight tilt'],
+].map(([name, cls, note], i) => `<article class="card" id="P0${i + 1}">
+  <div class="tag"><span class="id">P0${i + 1}</span><span class="form">${name}</span><span class="badge has">frame</span></div>
+  <figure class="ph ${cls}"><img src="/assets/compass/nature-${i + 1}.jpg" alt="" loading="lazy" width="1400" height="1050"></figure>
+  <p class="why"><em class="built">BUILT</em>${note}</p></article>`).join('\n');
+
+body += `\n<h3 class="sec">Photographs</h3>\n${frames}`;
 
 const html = `<!doctype html>
 <html lang="en">
@@ -226,6 +266,7 @@ header p{margin:10px 0 0;font-size:13px;opacity:.76}
 h2{margin:0 0 12px;font:400 22px/1.14 "Morning Memories",Georgia,serif}
 h2 em,.note em,.why em{font-style:normal;background:var(--orange);color:#F3EEE2;padding:1px 5px;border-radius:3px;font:400 9px/1.5 "Special Elite",monospace;letter-spacing:.08em;vertical-align:2px;margin-right:5px}
 .note em{background:var(--green)}
+.why em.built{background:#5B7E86}
 .flag{margin:9px 0 0;padding:9px 10px;border-radius:4px;background:rgba(192,98,58,.14);border:1px solid var(--orange);font-size:11.5px}
 .flag em{font-style:normal;background:#8B2E1E;color:#F3EEE2;padding:1px 5px;border-radius:3px;font:400 9px/1.5 "Special Elite",monospace;letter-spacing:.08em;margin-right:5px}
 .note,.why{margin:9px 0 0;font-size:11.5px;opacity:.76}
@@ -252,6 +293,30 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
 .key i{flex:0 0 auto;width:9px;height:9px;border-radius:2px;margin-top:4px}
 .key i.hollow{border:1.5px dashed var(--green);background:none;border-radius:50%}
 .key b{font-weight:400;text-transform:uppercase;letter-spacing:.06em;font-size:10px}
+/* ── Photographs ──────────────────────────────────────────────────────────
+   the-almanac.showit.site layers PNGs from Showit's CDN over its photos:
+   instaxpolaroid-frame.png, squarecard.png, tape-1/4/7.png, plus paper.png and
+   grain.png as texture. Those are their assets on their servers, so none of
+   them is used here. The geometry is taken from their own layout numbers and
+   rebuilt in CSS: the polaroid frame is 432 by 653 with the photo at 361 by 456
+   inset 36 across and 71 down, which is 8.3% of the frame width at the sides,
+   16.4% on top and 29.2% underneath. The shadow is their value. */
+.ph{display:block;position:relative;margin:0;background:#F7F3E9;line-height:0}
+.ph img{display:block;width:100%;height:auto}
+.ph-matte{padding:5.5%}
+.ph-polaroid{padding:16.4% 8.3% 29.2%}
+.ph-shadow{box-shadow:-1px 1px 3px rgba(22,21,20,.5),0 10px 26px rgba(22,21,20,.2)}
+.ph-tilt{transform:rotate(-1.6deg)}
+/* their tape is a 4:1 PNG with torn ends, so the ends are cut rather than drawn */
+.ph-tape{overflow:visible}
+.ph-tape::before{content:"";position:absolute;top:-13px;left:50%;width:46%;aspect-ratio:4/1;
+  transform:translateX(-50%) rotate(-2.4deg);
+  background:linear-gradient(176deg,rgba(214,201,170,.86),rgba(233,223,199,.74));
+  box-shadow:0 1px 2px rgba(22,21,20,.16);
+  clip-path:polygon(0 14%,4% 0,8% 16%,92% 5%,96% 0,100% 18%,96% 100%,92% 85%,8% 97%,4% 100%,0 84%)}
+.ph-grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
+.why em.built,.why em{vertical-align:1px}
 /* the sample's own CSS, families remapped */
 ${RESKIN}
 .live{overflow-x:auto}
@@ -281,13 +346,9 @@ ${RESKIN}
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
 <div class="wrap">
 <header><h1>Every widget, old and new</h1>
-<p>Your review applied. ${FORMS.length} drawn forms and ${items.length} blocks. A green YOU SAID chip is your note. An orange DRAFT chip is my words. IN MODULE means the title is written into the widget itself. CARD ONLY means it is just a label on this page.</p></header>
+<p>Your review applied. ${FORMS.length} drawn forms and ${items.length} blocks. A green YOU SAID chip is your note. An orange DRAFT chip is my words. IN MODULE means the title is written into the widget itself. CARD ONLY means it is just a label on this page. Everything runs in the order the reading renders it.</p></header>
 
-<div class="group"><b>The drawn forms</b><span>N01 to N${String(FORMS.length).padStart(2, '0')}. Was twelve, now ten. Weighted words and the single bar are gone.</span></div>
-${newCards}
-
-<div class="group"><b>In the reading today</b><span>E01 to E${String(items.length).padStart(2, '0')}. The wheel moved up to third, as you asked.</span></div>
-${oldCards}
+${body}
 </div>
 </body>
 </html>
