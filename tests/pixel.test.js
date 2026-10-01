@@ -68,6 +68,10 @@ const generatedPages = ['readings/compass/sample/nora/index.html',
                         // 2026-09-28: every block the reading renders, labelled,
                         // so Richard can choose which go on a page.
                         'readings/compass/widget-catalogue/index.html',
+                        // 2026-10-01: twelve shapes a widget could take, drawn with Nora's
+                        // real numbers, so a direction can be picked from drawings rather
+                        // than from descriptions (widget-forms.mjs).
+                        'readings/compass/widget-forms/index.html',
                         // 2026-09-30: the above-the-fold section, one page per A/B cell
                         // (atf-preview.mjs + src/lib/atf-copy.mjs).
                         'readings/compass/atf/index.html',
