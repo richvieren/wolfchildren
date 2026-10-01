@@ -72,20 +72,17 @@ const PATCH = {
       .join('').replace(/^/, '<div class="big3-grid">') + '</div>' },
   E03: { note: 'great, but what does it do',
     why: 'One planet is given the job of running the whole chart. Whatever that planet is doing colours everything else. Hers is Mercury, so thinking leads.' },
-  E04: { note: 'UNCLEAR, clarify', title: 'What she is growing towards',
-    why: 'A point in the chart that marks unfamiliar ground, the direction she grows in rather than the ground she starts on. Hers points at Cancer: caring for people close to her.' },
+  E04: { note: 'still not clear what she is growing towards. make it tangible or take it out',
+    title: 'What she is growing towards', inModule: true,
+    html: (h) => h.replace('<span class="pill-label">Leans towards</span>', '<span class="pill-label">Growing towards</span>')
+      .replace('<span class="pill-text">Cancer · the North Node</span>',
+               '<span class="pill-text">Looking after the people closest to her</span>'),
+    why: 'The sign name was doing no work for a parent, so the module now carries the plain meaning instead of the term.' },
   E06: { note: 'move it higher up, between two and three', move: 2 },
   E07: { note: 'covered in the new ones, so can be replaced', replacedBy: 'N06 Web' },
-  E08: { note: 'unclear what a cardinal pace of 38% means. clarify or title it better',
-    title: 'How she meets anything new',
-    why: 'Three habits: starting things, holding them steady, changing direction. The percentages are how much of her chart sits in each.',
-    html: (h) => h.replace('<div class="wlabel">Pace</div>', '<div class="wlabel">How she meets anything new</div>')
-      .replace('<span class="bar-name">cardinal</span>', '<span class="bar-name">starts it</span>')
-      .replace('<span class="bar-name">fixed</span>', '<span class="bar-name">holds it</span>')
-      .replace('<span class="bar-name">mutable</span>', '<span class="bar-name">changes it</span>'),
-    alt: 'N02 Hundred squares, same numbers',
-    flag: 'The bar names now read in plain words, but your own footer below still says "Leading: cardinal" and the paragraph explains "Cardinal is the leading note". I did not touch your words. Tell me whether the prose follows the labels, or whether the labels go back.' },
-  E09: { note: 'great, but the title is ass. turn it into three separate widgets', split: 3 },
+  E08: { note: 'take it out. "how she meets anything new, holds it" does not say anything',
+    removed: true },
+  E09: { note: 'do not title the whole thing. keep the widget titles, drop the filler', split: 3 },
   E10: { note: 'weird execution. can we not turn this into a matrix?',
     title: 'Where her energy goes',
     why: 'Her thirteen placements sorted two ways at once: out in the world or at home, and on her own or with other people. The fullest box is where most of her life happens.',
@@ -98,7 +95,8 @@ const PATCH = {
       }
       return out;
     } },
-  E13: { note: 'needs a way better title. strong module', title: 'Three things she does by habit',
+  E13: { note: '"three things she does by habit" does not match it. careful or bold is not something you do',
+    title: 'Three traits, and where she sits', 
     why: 'Each line is a pair of opposites. The dot is where she actually sits between them, not a score out of ten.' },
   E14: { note: 'needs a better label. use this number font everywhere',
     title: 'How much she wants to be noticed',
@@ -143,17 +141,32 @@ const trio = [0, 1, 2].map((n) => ({ a: poleNames[n * 2], b: poleNames[n * 2 + 1
 
 function card(it) {
   const p = it.patch;
+  const chip = (id) => `<span class="id">${id}</span>`;
+
+  // Taken out of the reading. The id stays so earlier notes still resolve.
+  if (p.removed) {
+    return `<article class="card gone" id="${it.id}">
+  <div class="tag">${chip(it.id)}<span class="form">${it.key}</span><span class="badge out">taken out</span></div>
+  <h2>${it.label}</h2>
+  <p class="note"><em>YOU SAID</em>${p.note}</p></article>`;
+  }
+
+  // Three spectrums, three widgets, each named by its own two ends. No group
+  // title: he has asked three times not to call the set "Three lines".
+  if (p.split) {
+    return trio.map((t, n) => `<article class="card" id="${it.id}-${n + 1}">
+  <div class="tag">${chip(`${it.id}.${n + 1}`)}<span class="form">${it.key}</span><span class="badge has">drawn</span></div>
+  <h2>${t.a} or ${t.b}</h2>
+  <div class="wc-live live only-${n + 1}">${reskinHtml(it.html).replace('<div class="wlabel">Three lines</div>', '')}</div>
+  ${n === 0 ? `<p class="note"><em>YOU SAID</em>${p.note}</p>` : ''}</article>`).join('\n');
+  }
+
   const title = p.title || it.label;
   const badge = p.replacedBy ? `replace with ${p.replacedBy}` : (drawn(it.html) ? 'drawn' : `text, ${chars(it.html)}ch`);
-  const cls = p.replacedBy ? 'card out' : 'card';
-  const body = p.split
-    ? trio.map((t, n) => `<div class="sub"><div class="subhd"><b>${t.a} or ${t.b}</b><span>${it.id}.${n + 1}</span></div>
-        <div class="wc-live live only-${n + 1}">${reskinHtml(it.html)}</div></div>`).join('')
-    : `<div class="wc-live live">${reskinHtml(p.html ? p.html(it.html) : it.html)}</div>`;
-  return `<article class="${cls}" id="${it.id}">
-  <div class="tag"><span class="id">${it.id}</span><span class="form">${it.key}</span><span class="badge ${p.replacedBy ? 'out' : drawn(it.html) ? 'has' : 'txt'}">${badge}</span></div>
-  <h2>${title}${p.title ? ' <em>DRAFT</em>' : ''}</h2>
-  ${body}
+  return `<article class="${p.replacedBy ? 'card out' : 'card'}" id="${it.id}">
+  <div class="tag">${chip(it.id)}<span class="form">${it.key}</span><span class="badge ${p.replacedBy ? 'out' : drawn(it.html) ? 'has' : 'txt'}">${badge}</span></div>
+  <h2>${title}${p.title ? ` <em>DRAFT &middot; ${p.inModule ? 'IN MODULE' : 'CARD ONLY'}</em>` : ''}</h2>
+  <div class="wc-live live">${reskinHtml(p.html ? p.html(it.html) : it.html)}</div>
   ${p.note ? `<p class="note"><em>YOU SAID</em>${p.note}</p>` : ''}
   ${p.why ? `<p class="why"><em>DRAFT</em>${p.why}</p>` : ''}
   ${p.alt ? `<p class="why"><em>ALT FORM</em>${p.alt}</p>` : ''}
@@ -198,6 +211,8 @@ header p{margin:10px 0 0;font-size:13px;opacity:.76}
 .group span{display:block;margin-top:4px;font-size:12px;opacity:.68}
 .card{margin:14px 0 0;border:1px solid var(--tan);border-radius:5px;background:rgba(255,255,255,.26);padding:14px 13px 13px}
 .card.out{opacity:.5;border-style:dashed}
+.card.gone{opacity:.45;border-style:dashed}
+.card.gone h2{text-decoration:line-through}
 .tag{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:9px;font-size:10.5px}
 .id{font:400 15px/1 "Special Elite",monospace;background:var(--green);color:#F3EEE2;padding:6px 9px;border-radius:4px;letter-spacing:.08em}
 .form{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.72}
@@ -224,7 +239,7 @@ h2 em,.note em,.why em{font-style:normal;background:var(--orange);color:#F3EEE2;
 .art{display:block;width:100%;max-width:210px;margin:0 auto;height:auto}
 .art.wide{max-width:100%}
 text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
-.num{font-family:"Morning Memories",Georgia,serif;text-anchor:middle;font-size:17px}
+.num{font-family:"Special Elite","Courier New",monospace;text-anchor:middle;font-size:17px}
 .num.big{font-size:30px}.num.sm{font-size:13px}.num.tag{font-size:11px;fill:#F3EEE2}
 .num.s{text-anchor:start}.num.e{text-anchor:end}
 .tiny{font-size:8.5px;text-anchor:middle;letter-spacing:.07em;opacity:.8}
@@ -238,6 +253,9 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
 ${RESKIN}
 .live{overflow-x:auto}
 .wc-live .hero,.wc-live .letter,.wc-live section{background:none}
+/* Every numeric read-out in the sample's blocks, in the body font, not the display one */
+.wc-live .bar-count,.wc-live .gauge-num,.wc-live .cusp-num,.wc-live .product-price,
+.wc-live .hemi-n,.wc-live .sh-num{font-family:"Special Elite","Courier New",monospace}
 /* E15 and E16: caps on the short label only */
 .wc-live .badge-placement{text-transform:none;letter-spacing:0}
 /* E01: the compass sits above the name */
@@ -260,7 +278,7 @@ ${RESKIN}
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
 <div class="wrap">
 <header><h1>Every widget, old and new</h1>
-<p>Your review applied. ${FORMS.length} drawn forms and ${items.length} blocks. A green YOU SAID chip is your note. An orange DRAFT chip is my words, not yours, and is there to be overwritten.</p></header>
+<p>Your review applied. ${FORMS.length} drawn forms and ${items.length} blocks. A green YOU SAID chip is your note. An orange DRAFT chip is my words. IN MODULE means the title is written into the widget itself. CARD ONLY means it is just a label on this page.</p></header>
 
 <div class="group"><b>The drawn forms</b><span>N01 to N${String(FORMS.length).padStart(2, '0')}. Was twelve, now ten. Weighted words and the single bar are gone.</span></div>
 ${newCards}

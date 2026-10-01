@@ -57,23 +57,6 @@ function moon() {
     ${pits}<circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="#2F382B" stroke-width="1.4"/></svg>`;
 }
 
-// ── N02 a hundred squares, one per part ────────────────────────────────────
-// Richard, 2026-10-01: the donut was wrong, not just ugly. Cleveland and McGill
-// rank angle fourth among perceptual tasks and position or count first, and three
-// near-equal shares are the worst case for a pie. A hundred squares makes "38" a
-// thing you can count, which is the whole brief: tangible at a glance.
-function waffle() {
-  const rows = [['Starts it', MOD.cardinal, '#C0623A'], ['Holds it', MOD.fixed, '#495543'],
-                ['Changes it', MOD.mutable, '#A9A07E']];
-  const fill = rows.flatMap(([, n, c]) => Array(n).fill(c));
-  const cells = fill.map((c, i) => {
-    const x = 10 + (i % 10) * 30, y = 8 + Math.floor(i / 10) * 30;
-    return `<rect x="${x}" y="${y}" width="23" height="23" rx="3.5" fill="${c}"/>`;
-  }).join('');
-  return `<svg viewBox="0 0 310 308" class="art wide">${cells}</svg>
-    ${key(rows.map(([n, v, c]) => [c, n, `${v} of 100`]))}`;
-}
-
 // ── N03 twelve places ──────────────────────────────────────────────────────
 function slots() {
   const cells = SIGNS.map((s, i) => {
@@ -89,19 +72,17 @@ function slots() {
 // ── N04 tug of war ─────────────────────────────────────────────────────────
 function tug() {
   const a = MOD.cardinal, b = MOD.mutable, tot = a + b;
-  const pa = Math.round(a / tot * 100), pb = 100 - pa;
   const k = 160 - ((a - b) / tot) * 92;
   const rope = Array.from({ length: 26 }, (_, i) => {
     const x = 36 + i * (248 / 25);
     return `${x},${48 + (i % 2 ? 2.4 : -2.4)}`;
   }).join(' ');
-  return `<svg viewBox="0 0 320 132" class="art wide">
+  return `<svg viewBox="0 0 320 104" class="art wide">
     <polyline points="${rope}" fill="none" stroke="#CDB494" stroke-width="3" stroke-linejoin="round"/>
     <line x1="160" y1="22" x2="160" y2="74" stroke="#495543" stroke-width="1" stroke-dasharray="3 4"/>
     <circle cx="${k}" cy="48" r="11" fill="#C0623A"/><circle cx="${k}" cy="48" r="4" fill="#F3EEE2"/>
-    <text x="14" y="90" class="tiny s">PREPARES</text>
-    <text x="306" y="90" class="tiny e">GOES WITH THE FLOW</text>
-    <text x="14" y="122" class="num xl s">${pa}%</text><text x="306" y="122" class="num xl e">${pb}%</text></svg>`;
+    <text x="14" y="92" class="tiny s">PREPARES</text>
+    <text x="306" y="92" class="tiny e">GOES WITH THE FLOW</text></svg>`;
 }
 
 // ── N05 above or below the horizon ─────────────────────────────────────────
@@ -131,8 +112,8 @@ function web() {
       <text x="${x + dx}" y="${y + dy + 12}" class="num sm" text-anchor="${ax}">${EL[k]}%</text>`;
   }).join('');
   return `<svg viewBox="0 0 200 172" class="art wide">${rings}
-    <polygon points="${P(pts)}" fill="rgba(192,98,58,.26)" stroke="#C0623A" stroke-width="1.2"/>
-    ${pts.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.3" fill="#C0623A"/>`).join('')}${labs}</svg>
+    <polygon points="${P(pts)}" fill="rgba(192,98,58,.26)" stroke="#C0623A" stroke-width="0.7"/>
+    ${pts.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.7" fill="#C0623A"/>`).join('')}${labs}</svg>
     ${key([['#C0623A', 'Fire', 'acts first, asks later'],
            ['#C0623A', 'Earth', 'wants it solid before moving'],
            ['#C0623A', 'Air', 'talks it through'],
@@ -184,14 +165,11 @@ export const FORMS = [
   { id: 'N01', form: 'Moon phase', title: 'The moon the night she arrived', art: moon(),
     said: 'Two days past full. Almost all of it still lit.',
     why: 'A fact about her birth night, drawn to scale. It carries no verdict about her.' },
-  { id: 'N02', form: 'Hundred squares', title: 'How she meets anything new', art: waffle(),
-    said: 'Of every hundred parts of her, 38 start things, 35 hold them steady, 27 change direction.',
-    why: 'Three ways of handling something new: start it, hold it steady, or change direction. Each square is one part of her, out of a hundred.' },
   { id: 'N03', form: 'Twelve places', title: 'Where most of her sits', art: slots(),
     said: 'Six of her thirteen placements landed in one box. The other seven sit alone.',
     why: 'The sky is cut into twelve places. A full box is a part of life she will feel more strongly than most children do.' },
   { id: 'N04', form: 'Tug of war', title: 'Prepares, or goes with the flow', art: tug(),
-    said: 'She prepares. Of these two habits, 58 in every 100 go to getting ready first.',
+    said: 'She prepares more than she goes with the flow.',
     why: 'Two habits pulling against each other. The knot shows which one wins in her, and by how much.' },
   { id: 'N05', form: 'Horizon', title: 'Born with the sun up or down', art: horizon(),
     said: 'The sun was still up. Nora is a day child.',
@@ -238,7 +216,7 @@ header p{margin:10px 0 0;font-size:13.5px;opacity:.78}
 .art{display:block;width:100%;max-width:210px;margin:0 auto;height:auto}
 .art.wide{max-width:100%}
 text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
-.num{font-family:"Morning Memories",Georgia,serif;text-anchor:middle;font-size:17px}
+.num{font-family:"Special Elite","Courier New",monospace;text-anchor:middle;font-size:17px}
 .num.big{font-size:34px}.num.xl{font-size:27px}.num.sm{font-size:13px}.num.tag{font-size:11px;fill:#F3EEE2}
 .num.s{text-anchor:start}.num.e{text-anchor:end}
 .tiny{font-size:8.5px;text-anchor:middle;letter-spacing:.07em;opacity:.8}
