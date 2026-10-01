@@ -32,9 +32,6 @@ const SIGNS = ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio
 // Connections per part, and the plain name Richard asked for: being, feeling,
 // thinking, loving, pushing.
 const WIRED = [['being',3],['feeling',1],['thinking',3],['loving',0],['pushing',1]];
-// Degrees per day. Fastest first. Read from the chart, not rounded by hand.
-const SPEED = [['feeling','Moon',14.4666],['thinking','Mercury',1.649],['loving','Venus',1.2152],
-               ['being','Sun',1.0186],['pushing','Mars',0.6764]];
 const MOON_SPEED = { v: 14.4666, lo: 11.8, hi: 15.4 };
 const MOON_ANGLE = 203.3;
 
@@ -68,10 +65,10 @@ function ring() {
     return `<path d="${d}" fill="none" stroke="${cols[i]}" stroke-width="17"/>`;
   }).join('');
   return `<svg viewBox="0 0 140 140" class="art">${segs}
-    <text x="70" y="66" class="num big">38%</text><text x="70" y="85" class="tiny">starts it</text></svg>
-    ${key([[cols[0], 'Starts it', `${MOD.cardinal}% · gets things moving`],
-           [cols[1], 'Holds it', `${MOD.fixed}% · keeps them going`],
-           [cols[2], 'Changes it', `${MOD.mutable}% · switches direction`]])}`;
+    </svg>
+    ${key([[cols[0], 'Starts it', `${MOD.cardinal}%`],
+           [cols[1], 'Holds it', `${MOD.fixed}%`],
+           [cols[2], 'Changes it', `${MOD.mutable}%`]])}`;
 }
 
 // ── N03 twelve places ──────────────────────────────────────────────────────
@@ -83,26 +80,25 @@ function slots() {
       <rect x="2" y="2" width="64" height="48" rx="4" fill="${n ? 'rgba(205,180,148,.34)' : 'none'}" stroke="#CDB494"/>
       ${dots}<text x="34" y="46" class="tiny">${s.slice(0, 3).toUpperCase()}</text></g>`;
   }).join('');
-  return `<svg viewBox="0 0 280 170" class="art wide">${cells}</svg>
-    ${key([['#495543', 'One dot', 'one of her thirteen placements'],
-           ['rgba(205,180,148,.34)', 'A filled box', 'a part of life she feels more strongly'],
-           [null, 'An empty box', 'quiet ground for her']])}`;
+  return `<svg viewBox="0 0 280 170" class="art wide">${cells}</svg>`;
 }
 
 // ── N04 tug of war ─────────────────────────────────────────────────────────
 function tug() {
-  const a = MOD.cardinal, b = MOD.mutable, k = 160 + ((a - b) / (a + b)) * 92;
+  const a = MOD.cardinal, b = MOD.mutable, tot = a + b;
+  const pa = Math.round(a / tot * 100), pb = 100 - pa;
+  const k = 160 - ((a - b) / tot) * 92;
   const rope = Array.from({ length: 26 }, (_, i) => {
     const x = 36 + i * (248 / 25);
     return `${x},${48 + (i % 2 ? 2.4 : -2.4)}`;
   }).join(' ');
-  return `<svg viewBox="0 0 320 104" class="art wide">
+  return `<svg viewBox="0 0 320 132" class="art wide">
     <polyline points="${rope}" fill="none" stroke="#CDB494" stroke-width="3" stroke-linejoin="round"/>
     <line x1="160" y1="22" x2="160" y2="74" stroke="#495543" stroke-width="1" stroke-dasharray="3 4"/>
     <circle cx="${k}" cy="48" r="11" fill="#C0623A"/><circle cx="${k}" cy="48" r="4" fill="#F3EEE2"/>
-    <text x="20" y="88" class="tiny s">PREPARES</text>
-    <text x="300" y="88" class="tiny e">GOES WITH THE FLOW</text>
-    <text x="20" y="100" class="num s">${a}%</text><text x="300" y="100" class="num e">${b}%</text></svg>`;
+    <text x="14" y="90" class="tiny s">PREPARES</text>
+    <text x="306" y="90" class="tiny e">GOES WITH THE FLOW</text>
+    <text x="14" y="122" class="num xl s">${pa}%</text><text x="306" y="122" class="num xl e">${pb}%</text></svg>`;
 }
 
 // ── N05 above or below the horizon ─────────────────────────────────────────
@@ -132,8 +128,8 @@ function web() {
       <text x="${x + dx}" y="${y + dy + 12}" class="num sm" text-anchor="${ax}">${EL[k]}%</text>`;
   }).join('');
   return `<svg viewBox="0 0 200 172" class="art wide">${rings}
-    <polygon points="${P(pts)}" fill="rgba(192,98,58,.30)" stroke="#C0623A" stroke-width="2"/>
-    ${pts.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.2" fill="#C0623A"/>`).join('')}${labs}</svg>
+    <polygon points="${P(pts)}" fill="rgba(192,98,58,.26)" stroke="#C0623A" stroke-width="1.2"/>
+    ${pts.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.3" fill="#C0623A"/>`).join('')}${labs}</svg>
     ${key([['#C0623A', 'Fire', 'acts first, asks later'],
            ['#C0623A', 'Earth', 'wants it solid before moving'],
            ['#C0623A', 'Air', 'talks it through'],
@@ -153,8 +149,8 @@ function dial() {
     <path d="${arc(CX, CY, 50, a0, a)}" fill="none" stroke="#C0623A" stroke-width="4"/>${ticks}
     <line x1="${CX}" y1="${CY}" x2="${nx}" y2="${ny}" stroke="#495543" stroke-width="3" stroke-linecap="round"/>
     <circle cx="${CX}" cy="${CY}" r="5" fill="#495543"/>
-    <text x="${CX}" y="138" class="num big">${v.toFixed(1)}°</text>
-    <text x="14" y="152" class="tiny s">SLOW ${lo}°</text><text x="146" y="152" class="tiny e">QUICK ${hi}°</text></svg>`;
+    <text x="${CX}" y="140" class="num big">${Math.round(f * 100)}%</text>
+    <text x="14" y="152" class="tiny s">SLOW</text><text x="146" y="152" class="tiny e">QUICK</text></svg>`;
 }
 
 // ── N08 what is wired to what ──────────────────────────────────────────────
@@ -167,22 +163,7 @@ function constellation() {
     return `<circle cx="${x}" cy="${y}" r="${7 + n * 2.6}" fill="${n ? '#495543' : 'none'}" stroke="#495543" stroke-width="${n ? 0 : 1.8}" stroke-dasharray="${n ? '' : '3 3'}"/>
       <text x="${x}" y="${y + (y > 100 ? 30 : -22)}" class="tiny">${k.toUpperCase()}</text>`;
   }).join('');
-  return `<svg viewBox="0 0 320 184" class="art wide">${ln}${nd}</svg>
-    ${key([['#495543', 'A filled circle', 'this part works with others'],
-           [null, 'A dashed circle', 'this part runs on its own'],
-           ['#CDB494', 'A line', 'these two pull together']])}`;
-}
-
-// ── N10 which parts change fastest ─────────────────────────────────────────
-function speedRings() {
-  const rs = [18, 31, 44, 57, 70];
-  const rings = rs.map((r, i) => `<circle cx="84" cy="84" r="${r}" fill="none" stroke="#CDB494" stroke-width="${i === 0 ? 1.8 : 1}"/>`).join('');
-  const dots = SPEED.map(([part], i) => {
-    const [x, y] = pol(84, 84, rs[i], i * 72 + 18);
-    return `<circle cx="${x}" cy="${y}" r="6" fill="#C0623A"/><text x="${x}" y="${y + 3.4}" class="num tag">${i + 1}</text>`;
-  }).join('');
-  return `<svg viewBox="0 0 168 168" class="art"><circle cx="84" cy="84" r="5" fill="#495543"/>${rings}${dots}</svg>
-    ${key(SPEED.map(([part, planet, sp], i) => ['#C0623A', `${i + 1} ${part}`, `${sp.toFixed(2)}° a day${i === 0 ? ' · fastest, changes daily' : i === SPEED.length - 1 ? ' · slowest, barely shifts' : ''}`]))}`;
+  return `<svg viewBox="0 0 320 184" class="art wide">${ln}${nd}</svg>`;
 }
 
 // ── N11 which parts pull the most weight ───────────────────────────────────
@@ -201,13 +182,13 @@ export const FORMS = [
     said: 'Two days past full. Almost all of it still lit.',
     why: 'A fact about her birth night, drawn to scale. It carries no verdict about her.' },
   { form: 'Ring', title: 'How she meets anything new', art: ring(),
-    said: 'She starts things more often than she bends with them, but all three are close.',
+    said: 'She starts things more often than she holds or bends them, but all three are close.',
     why: 'Three ways of handling something new: start it, hold it steady, or change direction. The ring shows how much of each she runs on.' },
   { form: 'Twelve places', title: 'Where most of her sits', art: slots(),
     said: 'Six of her thirteen placements landed in one box. The other seven sit alone.',
     why: 'The sky is cut into twelve places. A full box is a part of life she will feel more strongly than most children do.' },
   { form: 'Tug of war', title: 'Prepares, or goes with the flow', art: tug(),
-    said: 'She prepares. The rope sits well past the middle.',
+    said: 'She prepares. Of these two habits, 58 in every 100 go to getting ready first.',
     why: 'Two habits pulling against each other. The knot shows which one wins in her, and by how much.' },
   { form: 'Horizon', title: 'Born with the sun up or down', art: horizon(),
     said: 'The sun was still up. Nora is a day child.',
@@ -216,14 +197,11 @@ export const FORMS = [
     said: 'Wide on fire and earth. Almost nothing on water.',
     why: 'Four elements, four ways of handling life. The shape shows which she has plenty of and which she has little of.' },
   { form: 'Dial', title: 'How fast her moods move', art: dial(),
-    said: 'Quick. Near the top of the range.',
+    said: 'Quick. Three quarters of the way towards the fast end.',
     why: 'How far the moon travelled on her birth day. A faster moon is read as moods that arrive and pass quickly.' },
   { form: 'Constellation', title: 'What is wired to what', art: constellation(),
     said: 'Being, thinking and pushing pull together. Loving runs on its own.',
     why: 'Each circle is one part of her. A line means those two parts move together. A part with no lines runs separately from the rest.' },
-  { form: 'Speed rings', title: 'Which parts of her change fastest', art: speedRings(),
-    said: 'Feeling changes daily. Pushing barely shifts.',
-    why: 'Each part of her is carried by one planet, and planets move at very different speeds. The inner ring changes most often. The outer ring stays put for years.' },
   { form: 'Columns', title: 'Which parts pull the most weight', art: steps(),
     said: 'Being and thinking pull hardest. Loving pulls nothing along with it.',
     why: 'How many other parts each one is tied to. A tall column drags the rest along when it moves. A flat one acts alone.' },
@@ -256,7 +234,7 @@ header p{margin:10px 0 0;font-size:13.5px;opacity:.78}
 .art.wide{max-width:100%}
 text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
 .num{font-family:"Morning Memories",Georgia,serif;text-anchor:middle;font-size:17px}
-.num.big{font-size:30px}.num.sm{font-size:13px}.num.tag{font-size:11px;fill:#F3EEE2}
+.num.big{font-size:34px}.num.xl{font-size:27px}.num.sm{font-size:13px}.num.tag{font-size:11px;fill:#F3EEE2}
 .num.s{text-anchor:start}.num.e{text-anchor:end}
 .tiny{font-size:8.5px;text-anchor:middle;letter-spacing:.07em;opacity:.8}
 .tiny.s{text-anchor:start}.tiny.e{text-anchor:end}
