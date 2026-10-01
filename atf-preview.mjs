@@ -62,11 +62,16 @@ h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
   font-size:36px;line-height:.98;letter-spacing:-.02em;text-align:center;text-wrap:balance}
 .sub{margin:7px auto 0;max-width:48ch;text-align:center;font-size:13.5px;line-height:1.36;letter-spacing:-.01em;color:var(--muted)}
 
-/* 5 square carousel */
+/* 5 carousel. The slide was a fixed 240px tall with a fluid width, so its ratio
+   drifted from 1.33 on a 375px phone to 1.56 on a 430px one and no single image
+   ratio could fit it. It is pinned to 3:2 now: camera-native, wider than the
+   square it replaced, and 15px shorter than the old box at 393px, which the fold
+   gets back. A square SVG still pillarboxes inside it, which is what the chart
+   wheel wants. */
 .carousel{margin:8px 20px 0;position:relative}
 .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .slides::-webkit-scrollbar{display:none}
-.slide{flex:0 0 100%;scroll-snap-align:center;height:240px;position:relative}
+.slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:3/2;position:relative}
 .slide img{display:block;width:100%;height:100%;object-fit:contain}
 .empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:18px;
   border:1px dashed var(--line);color:var(--sienna);opacity:.75;font-size:11.5px;line-height:1.4}
