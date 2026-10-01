@@ -21,6 +21,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PIXEL, DATASET } from './variants.mjs';
+import { TOKENS } from './src/lib/widget-theme.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 
@@ -61,9 +62,9 @@ function moon() {
 function slots() {
   const cells = SIGNS.map((s, i) => {
     const n = PER_SIGN[s] || 0;
-    const dots = Array.from({ length: n }, (_, j) => `<circle cx="${12 + (j % 3) * 9}" cy="${30 - Math.floor(j / 3) * 9}" r="3.4" fill="#495543"/>`).join('');
+    const dots = Array.from({ length: n }, (_, j) => `<circle cx="${12 + (j % 3) * 9}" cy="${30 - Math.floor(j / 3) * 9}" r="3.4" fill="var(--green)"/>`).join('');
     return `<g transform="translate(${(i % 4) * 70},${Math.floor(i / 4) * 56})">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="${n ? 'rgba(205,180,148,.34)' : 'none'}" stroke="#CDB494"/>
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="${n ? 'var(--tan-soft)' : 'none'}" stroke="var(--tan)"/>
       ${dots}<text x="34" y="46" class="tiny">${s.slice(0, 3).toUpperCase()}</text></g>`;
   }).join('');
   return `<svg viewBox="0 0 280 170" class="art wide">${cells}</svg>`;
@@ -78,9 +79,9 @@ function tug() {
     return `${x},${48 + (i % 2 ? 2.4 : -2.4)}`;
   }).join(' ');
   return `<svg viewBox="0 0 320 104" class="art wide">
-    <polyline points="${rope}" fill="none" stroke="#CDB494" stroke-width="3" stroke-linejoin="round"/>
-    <line x1="160" y1="22" x2="160" y2="74" stroke="#495543" stroke-width="1" stroke-dasharray="3 4"/>
-    <circle cx="${k}" cy="48" r="11" fill="#C0623A"/><circle cx="${k}" cy="48" r="4" fill="#F3EEE2"/>
+    <polyline points="${rope}" fill="none" stroke="var(--tan)" stroke-width="3" stroke-linejoin="round"/>
+    <line x1="160" y1="22" x2="160" y2="74" stroke="var(--green)" stroke-width="1" stroke-dasharray="3 4"/>
+    <circle cx="${k}" cy="48" r="11" fill="var(--orange)"/><circle cx="${k}" cy="48" r="4" fill="var(--on-accent)"/>
     <text x="14" y="92" class="tiny s">PREPARES</text>
     <text x="306" y="92" class="tiny e">GOES WITH THE FLOW</text></svg>`;
 }
@@ -89,35 +90,39 @@ function tug() {
 function horizon() {
   const rays = Array.from({ length: 12 }, (_, i) => {
     const [x1, y1] = pol(214, 40, 27, i * 30), [x2, y2] = pol(214, 40, 33, i * 30);
-    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#C0623A" stroke-width="2"/>`;
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--orange)" stroke-width="2"/>`;
   }).join('');
   return `<svg viewBox="0 0 320 128" class="art wide">
     <rect x="0" y="0" width="320" height="76" fill="rgba(205,180,148,.28)"/>
-    <line x1="0" y1="76" x2="320" y2="76" stroke="#495543" stroke-width="1.5"/>
-    <circle cx="214" cy="40" r="19" fill="#C0623A"/>${rays}
+    <line x1="0" y1="76" x2="320" y2="76" stroke="var(--green)" stroke-width="1.5"/>
+    <circle cx="214" cy="40" r="19" fill="var(--orange)"/>${rays}
     <text x="10" y="18" class="tiny s">SKY</text><text x="10" y="94" class="tiny s">GROUND</text>
     <text x="10" y="118" class="tiny s">14:30 · the sun is up · a day child</text></svg>`;
 }
 
 // ── N06 the web of four elements ───────────────────────────────────────────
+// Richard, 2026-10-01: the labels were not aligned. They had been placed at a
+// fixed radius plus a hand-tuned nudge per side, so the four sat at four
+// different distances. Every anchor is now exactly LR from the centre and the
+// two lines stack the same way on all four, so the spacing is equal by
+// construction rather than by eye.
 function web() {
-  const keys = Object.keys(EL), R = 46, CX = 100, CY = 80;
+  const keys = Object.keys(EL), CX = 130, CY = 118, R = 48, LR = R + 30;
   const pts = keys.map((k, i) => pol(CX, CY, R * (EL[k] / 40), i * 90));
-  const rings = [0.33, 0.66, 1].map((f) => `<polygon points="${P(keys.map((_, i) => pol(CX, CY, R * f, i * 90)))}" fill="none" stroke="#CDB494" stroke-width="1"/>`).join('');
-  // Labels sit outside the shape, anchored away from the centre, so nothing hides.
-  const place = [['middle', 0, -10], ['start', 8, 4], ['middle', 0, 18], ['end', -8, 4]];
+  const rings = [0.33, 0.66, 1].map((f) => `<polygon points="${P(keys.map((_, i) => pol(CX, CY, R * f, i * 90)))}" fill="none" stroke="var(--tan)" stroke-width="1"/>`).join('');
+  const anchor = ['middle', 'start', 'middle', 'end'];
   const labs = keys.map((k, i) => {
-    const [ax, dx, dy] = place[i], [x, y] = pol(CX, CY, R + 14, i * 90);
-    return `<text x="${x + dx}" y="${y + dy}" class="tiny" text-anchor="${ax}">${k.toUpperCase()}</text>
-      <text x="${x + dx}" y="${y + dy + 12}" class="num sm" text-anchor="${ax}">${EL[k]}%</text>`;
+    const [x, y] = pol(CX, CY, LR, i * 90);
+    return `<text x="${x}" y="${y - 4}" class="tiny" text-anchor="${anchor[i]}">${k.toUpperCase()}</text>
+      <text x="${x}" y="${y + 15}" class="num sm" text-anchor="${anchor[i]}">${EL[k]}%</text>`;
   }).join('');
-  return `<svg viewBox="0 0 200 172" class="art wide">${rings}
-    <polygon points="${P(pts)}" fill="rgba(192,98,58,.26)" stroke="#C0623A" stroke-width="0.7"/>
-    ${pts.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.7" fill="#C0623A"/>`).join('')}${labs}</svg>
-    ${key([['#C0623A', 'Fire', 'acts first, asks later'],
-           ['#C0623A', 'Earth', 'wants it solid before moving'],
-           ['#C0623A', 'Air', 'talks it through'],
-           ['#C0623A', 'Water', 'feels it first']])}`;
+  return `<svg viewBox="0 0 260 244" class="art wide">${rings}
+    <polygon points="${P(pts)}" fill="var(--orange-soft)" stroke="var(--orange)" stroke-width="0.7"/>
+    ${pts.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.7" fill="var(--orange)"/>`).join('')}${labs}</svg>
+    ${key([['var(--orange)', 'Fire', 'acts first, asks later'],
+           ['var(--orange)', 'Earth', 'wants it solid before moving'],
+           ['var(--orange)', 'Air', 'talks it through'],
+           ['var(--orange)', 'Water', 'feels it first']])}`;
 }
 
 // ── N07 the dial, labels below the drawing ─────────────────────────────────
@@ -127,12 +132,12 @@ function dial() {
   const [nx, ny] = pol(CX, CY, 44, a);
   const ticks = Array.from({ length: 9 }, (_, i) => {
     const t = a0 + i * (a1 - a0) / 8, [x1, y1] = pol(CX, CY, 50, t), [x2, y2] = pol(CX, CY, 56, t);
-    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#CDB494" stroke-width="1.6"/>`;
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--tan)" stroke-width="1.6"/>`;
   }).join('');
-  return `<svg viewBox="0 0 160 158" class="art"><path d="${arc(CX, CY, 50, a0, a1)}" fill="none" stroke="#CDB494" stroke-width="3"/>
-    <path d="${arc(CX, CY, 50, a0, a)}" fill="none" stroke="#C0623A" stroke-width="4"/>${ticks}
-    <line x1="${CX}" y1="${CY}" x2="${nx}" y2="${ny}" stroke="#495543" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="${CX}" cy="${CY}" r="5" fill="#495543"/>
+  return `<svg viewBox="0 0 160 158" class="art"><path d="${arc(CX, CY, 50, a0, a1)}" fill="none" stroke="var(--tan)" stroke-width="3"/>
+    <path d="${arc(CX, CY, 50, a0, a)}" fill="none" stroke="var(--orange)" stroke-width="4"/>${ticks}
+    <line x1="${CX}" y1="${CY}" x2="${nx}" y2="${ny}" stroke="var(--green)" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${CX}" cy="${CY}" r="5" fill="var(--green)"/>
     <text x="${CX}" y="140" class="num big">${Math.round(f * 100)}%</text>
     <text x="14" y="152" class="tiny s">SLOW</text><text x="146" y="152" class="tiny e">QUICK</text></svg>`;
 }
@@ -141,10 +146,10 @@ function dial() {
 function constellation() {
   const nodes = { being: [160, 36], thinking: [250, 80], pushing: [214, 140], feeling: [96, 140], loving: [58, 74] };
   const links = [['being', 'thinking'], ['being', 'pushing'], ['thinking', 'pushing'], ['being', 'feeling']];
-  const ln = links.map(([a, b]) => `<line x1="${nodes[a][0]}" y1="${nodes[a][1]}" x2="${nodes[b][0]}" y2="${nodes[b][1]}" stroke="#CDB494" stroke-width="1.6"/>`).join('');
+  const ln = links.map(([a, b]) => `<line x1="${nodes[a][0]}" y1="${nodes[a][1]}" x2="${nodes[b][0]}" y2="${nodes[b][1]}" stroke="var(--tan)" stroke-width="1.6"/>`).join('');
   const nd = Object.entries(nodes).map(([k, [x, y]]) => {
     const n = WIRED.find((w) => w[0] === k)[1];
-    return `<circle cx="${x}" cy="${y}" r="${7 + n * 2.6}" fill="${n ? '#495543' : 'none'}" stroke="#495543" stroke-width="${n ? 0 : 1.8}" stroke-dasharray="${n ? '' : '3 3'}"/>
+    return `<circle cx="${x}" cy="${y}" r="${7 + n * 2.6}" fill="${n ? 'var(--green)' : 'none'}" stroke="var(--green)" stroke-width="${n ? 0 : 1.8}" stroke-dasharray="${n ? '' : '3 3'}"/>
       <text x="${x}" y="${y + (y > 100 ? 30 : -22)}" class="tiny">${k.toUpperCase()}</text>`;
   }).join('');
   return `<svg viewBox="0 0 320 184" class="art wide">${ln}${nd}</svg>`;
@@ -153,7 +158,7 @@ function constellation() {
 // ── N11 which parts pull the most weight ───────────────────────────────────
 function steps() {
   const vals = WIRED.map(([, n]) => n), mx = Math.max(...vals);
-  const bars = WIRED.map(([k, n], i) => `<rect x="${12 + i * 60}" y="${n ? 112 - (n / mx) * 84 : 110}" width="40" height="${n ? (n / mx) * 84 : 2}" rx="3" fill="${n ? '#495543' : '#CDB494'}"/>
+  const bars = WIRED.map(([k, n], i) => `<rect x="${12 + i * 60}" y="${n ? 112 - (n / mx) * 84 : 110}" width="40" height="${n ? (n / mx) * 84 : 2}" rx="3" fill="${n ? 'var(--green)' : 'var(--tan)'}"/>
     <text x="${32 + i * 60}" y="${n ? 106 - (n / mx) * 84 : 104}" class="num">${n}</text>
     <text x="${32 + i * 60}" y="128" class="tiny">${k.toUpperCase()}</text>`).join('');
   return `<svg viewBox="0 0 320 140" class="art wide">${bars}</svg>`;
@@ -199,7 +204,7 @@ const html = `<!doctype html>
 <style>
 @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
-:root{--cream:#DFD7C3;--green:#495543;--tan:#CDB494;--orange:#C0623A;--tan-soft:rgba(205,180,148,.45)}
+${TOKENS}
 *{box-sizing:border-box}
 html,body{overflow-x:clip}
 body{margin:0;background:var(--cream);color:var(--green);font:400 15px/1.6 "Special Elite","Courier New",monospace}
@@ -207,7 +212,7 @@ body{margin:0;background:var(--cream);color:var(--green);font:400 15px/1.6 "Spec
 header{padding:40px 0 8px}
 h1{margin:0;font:400 36px/1.04 "Morning Memories",Georgia,serif}
 header p{margin:10px 0 0;font-size:13.5px;opacity:.78}
-.card{margin:16px 0 0;border:1px solid var(--tan);border-radius:5px;background:rgba(255,255,255,.26);padding:15px 14px 14px}
+.card{margin:16px 0 0;border:1px solid var(--tan);border-radius:12px;background:rgba(255,255,255,.26);padding:15px 14px 14px}
 .tag{display:flex;align-items:center;gap:9px;margin-bottom:10px}
 .idchip{font:400 15px/1 "Special Elite",monospace;background:var(--green);color:#F3EEE2;padding:6px 9px;border-radius:4px;letter-spacing:.08em}
 .tag .form{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.72}

@@ -22,12 +22,18 @@ import { fileURLToPath } from 'node:url';
 import { PIXEL, DATASET } from './variants.mjs';
 import { FORMS } from './widget-forms.mjs';
 import { patchedBlocks, RESKIN, PHOTO_CSS, TRIO } from './widget-all.mjs';
+import { TOKENS, ROUND, TONES } from './src/lib/widget-theme.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const B = patchedBlocks();
 const F = new Map(FORMS.map((f) => [f.id, f]));
 
-const block = (id) => {
+// A block in a toned wrapper, so the tone's tokens reach everything inside it.
+const toned = (id, html) => (TONES[id] ? `<div class="${TONES[id]}">${html}</div>` : html);
+
+const block = (id) => toned(id, rawBlock(id));
+
+const rawBlock = (id) => {
   const b = B.get(id);
   if (!b) throw new Error(`no block ${id}`);
   if (!b.split) return b.html;
@@ -40,7 +46,7 @@ const block = (id) => {
 const form = (id) => {
   const f = F.get(id);
   if (!f) throw new Error(`no form ${id}`);
-  return `<div class="card"><div class="wlabel">${f.title}</div>${f.art}
+  return `<div class="card ${TONES[id] || ''}"><div class="wlabel">${f.title}</div>${f.art}
     <p class="wcontext">${f.said}</p><p class="wcontext dim">${f.why}</p></div>`;
 };
 
@@ -93,7 +99,7 @@ const html = `<!doctype html>
 <style>
 @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
-:root{--cream:#DFD7C3;--green:#495543;--tan:#CDB494;--orange:#C0623A;--tan-soft:rgba(205,180,148,.45)}
+${TOKENS}
 *{box-sizing:border-box}
 html,body{overflow-x:clip}
 body{margin:0;background:var(--cream);color:var(--green);font:400 15px/1.6 "Special Elite","Courier New",monospace}
@@ -124,6 +130,7 @@ ${PHOTO_CSS}
 .only-1 .spec:not(:nth-of-type(1)),.only-2 .spec:not(:nth-of-type(2)),.only-3 .spec:not(:nth-of-type(3)){display:none}
 .spec-one .card>.wlabel{display:none}
 ${RESKIN}
+${ROUND}
 .wc-live .rose{display:block;width:52px;height:52px;margin:0 auto 6px}
 .wc-live .big3.flat{text-align:center}
 .wc-live .big3-glyph{font-family:"Wheel Glyphs";font-size:30px;line-height:1;margin:2px 0 4px;color:var(--orange)}

@@ -17,6 +17,7 @@ import { fileURLToPath } from 'node:url';
 import { PIXEL, DATASET } from './variants.mjs';
 import { FORMS } from './widget-forms.mjs';
 import { WIDGETS, WIDGET_CSS } from './src/lib/compass-widgets.mjs';
+import { TOKENS, ROUND, TONES } from './src/lib/widget-theme.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 
@@ -315,7 +316,7 @@ const html = `<!doctype html>
 <style>
 @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
-:root{--cream:#DFD7C3;--green:#495543;--tan:#CDB494;--orange:#C0623A;--tan-soft:rgba(205,180,148,.45)}
+${TOKENS}
 *{box-sizing:border-box}
 html,body{overflow-x:clip}
 body{margin:0;background:var(--cream);color:var(--green);font:400 15px/1.6 "Special Elite","Courier New",monospace}
@@ -326,7 +327,7 @@ header p{margin:10px 0 0;font-size:13px;opacity:.76}
 .group{margin:32px 0 0;padding-top:15px;border-top:2px solid var(--green)}
 .group b{display:block;font:400 24px/1.1 "Morning Memories",Georgia,serif}
 .group span{display:block;margin-top:4px;font-size:12px;opacity:.68}
-.card{margin:14px 0 0;border:1px solid var(--tan);border-radius:5px;background:rgba(255,255,255,.26);padding:14px 13px 13px}
+.card{margin:14px 0 0;border:1px solid var(--tan);border-radius:12px;background:rgba(255,255,255,.26);padding:14px 13px 13px}
 .card.out{opacity:.5;border-style:dashed}
 .card.gone{opacity:.45;border-style:dashed}
 .card.gone h2{text-decoration:line-through}
@@ -370,6 +371,7 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
 ${PHOTO_CSS}
 /* the sample's own CSS, families remapped */
 ${RESKIN}
+${ROUND}
 .live{overflow-x:auto}
 .wc-live .hero,.wc-live .letter,.wc-live section{background:none}
 /* Every numeric read-out in the sample's blocks, in the body font, not the display one */

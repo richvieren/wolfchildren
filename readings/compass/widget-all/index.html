@@ -9,7 +9,14 @@
 <style>
 @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
-:root{--cream:#DFD7C3;--green:#495543;--tan:#CDB494;--orange:#C0623A;--tan-soft:rgba(205,180,148,.45)}
+:root{--cream:#DFD7C3;--green:#495543;--tan:#CDB494;--orange:#C0623A;
+  --tan-soft:rgba(205,180,148,.45);--series3:#A9A07E;--on-accent:#F3EEE2;--orange-soft:rgba(192,98,58,.26)}
+.tone-white{--cream:#F7F3E9;--tan:#D6C7A8}
+.tone-green{--cream:#3A4435;--green:#EDE5D2;--tan:rgba(237,229,210,.34);--tan-soft:rgba(237,229,210,.16);
+  --orange:#E09A6F;--orange-soft:rgba(224,154,111,.24);--series3:#9AA68E}
+.tone-white>.card,.tone-green>.card,.card.tone-white,.card.tone-green{
+  background:var(--cream);border-color:var(--tan);color:var(--green)}
+
 *{box-sizing:border-box}
 html,body{overflow-x:clip}
 body{margin:0;background:var(--cream);color:var(--green);font:400 15px/1.6 "Special Elite","Courier New",monospace}
@@ -20,7 +27,7 @@ header p{margin:10px 0 0;font-size:13px;opacity:.76}
 .group{margin:32px 0 0;padding-top:15px;border-top:2px solid var(--green)}
 .group b{display:block;font:400 24px/1.1 "Morning Memories",Georgia,serif}
 .group span{display:block;margin-top:4px;font-size:12px;opacity:.68}
-.card{margin:14px 0 0;border:1px solid var(--tan);border-radius:5px;background:rgba(255,255,255,.26);padding:14px 13px 13px}
+.card{margin:14px 0 0;border:1px solid var(--tan);border-radius:12px;background:rgba(255,255,255,.26);padding:14px 13px 13px}
 .card.out{opacity:.5;border-style:dashed}
 .card.gone{opacity:.45;border-style:dashed}
 .card.gone h2{text-decoration:line-through}
@@ -225,6 +232,10 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
 .wc-live .photo.placeholder{background:var(--tan-soft);display:flex;align-items:center;justify-content:center}
 .wc-live .photo.placeholder span{font-family:"Morning Memories",Georgia,serif;font-weight:400;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
 .wc-live .pending{color:var(--orange)}
+.wc-live .card,.wc-live .stellium,.wc-live .photo,.wc-live .badge{border-radius:14px}
+.wc-live .big3{border-radius:12px}
+.wc-live .spec-track,.wc-live .bar-track{border-radius:999px}
+
 .live{overflow-x:auto}
 .wc-live .hero,.wc-live .letter,.wc-live section{background:none}
 /* Every numeric read-out in the sample's blocks, in the body font, not the display one */
@@ -517,14 +528,14 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
 <article class="card" id="N06">
   <div class="tag"><span class="id">N06</span><span class="form">Web</span><span class="badge has">drawn</span></div>
   <h2>What she is made of</h2>
-  <svg viewBox="0 0 200 172" class="art wide"><polygon points="100,64.82 115.18,80 100,95.18 84.82,80" fill="none" stroke="#CDB494" stroke-width="1"/><polygon points="100,49.64 130.36,80 100,110.36 69.64,80" fill="none" stroke="#CDB494" stroke-width="1"/><polygon points="100,34 146,80 100,126 54,80" fill="none" stroke="#CDB494" stroke-width="1"/>
-    <polygon points="100,39.75 140.25,80 100,108.75 94.25,80" fill="rgba(192,98,58,.26)" stroke="#C0623A" stroke-width="0.7"/>
-    <circle cx="100" cy="39.75" r="1.7" fill="#C0623A"/><circle cx="140.25" cy="80" r="1.7" fill="#C0623A"/><circle cx="100" cy="108.75" r="1.7" fill="#C0623A"/><circle cx="94.25" cy="80" r="1.7" fill="#C0623A"/><text x="100" y="10" class="tiny" text-anchor="middle">FIRE</text>
-      <text x="100" y="22" class="num sm" text-anchor="middle">35%</text><text x="168" y="84" class="tiny" text-anchor="start">EARTH</text>
-      <text x="168" y="96" class="num sm" text-anchor="start">35%</text><text x="100" y="158" class="tiny" text-anchor="middle">AIR</text>
-      <text x="100" y="170" class="num sm" text-anchor="middle">25%</text><text x="32" y="84.00000000000001" class="tiny" text-anchor="end">WATER</text>
-      <text x="32" y="96.00000000000001" class="num sm" text-anchor="end">5%</text></svg>
-    <ul class="key"><li><i style="background:#C0623A"></i><b>Fire</b> acts first, asks later</li><li><i style="background:#C0623A"></i><b>Earth</b> wants it solid before moving</li><li><i style="background:#C0623A"></i><b>Air</b> talks it through</li><li><i style="background:#C0623A"></i><b>Water</b> feels it first</li></ul>
+  <svg viewBox="0 0 260 244" class="art wide"><polygon points="130,102.16 145.84,118 130,133.84 114.16,118" fill="none" stroke="var(--tan)" stroke-width="1"/><polygon points="130,86.32 161.68,118 130,149.68 98.32,118" fill="none" stroke="var(--tan)" stroke-width="1"/><polygon points="130,70 178,118 130,166 82,118" fill="none" stroke="var(--tan)" stroke-width="1"/>
+    <polygon points="130,76 172,118 130,148 124,118" fill="var(--orange-soft)" stroke="var(--orange)" stroke-width="0.7"/>
+    <circle cx="130" cy="76" r="1.7" fill="var(--orange)"/><circle cx="172" cy="118" r="1.7" fill="var(--orange)"/><circle cx="130" cy="148" r="1.7" fill="var(--orange)"/><circle cx="124" cy="118" r="1.7" fill="var(--orange)"/><text x="130" y="36" class="tiny" text-anchor="middle">FIRE</text>
+      <text x="130" y="55" class="num sm" text-anchor="middle">35%</text><text x="208" y="114" class="tiny" text-anchor="start">EARTH</text>
+      <text x="208" y="133" class="num sm" text-anchor="start">35%</text><text x="130" y="192" class="tiny" text-anchor="middle">AIR</text>
+      <text x="130" y="211" class="num sm" text-anchor="middle">25%</text><text x="52" y="114.00000000000001" class="tiny" text-anchor="end">WATER</text>
+      <text x="52" y="133" class="num sm" text-anchor="end">5%</text></svg>
+    <ul class="key"><li><i style="background:var(--orange)"></i><b>Fire</b> acts first, asks later</li><li><i style="background:var(--orange)"></i><b>Earth</b> wants it solid before moving</li><li><i style="background:var(--orange)"></i><b>Air</b> talks it through</li><li><i style="background:var(--orange)"></i><b>Water</b> feels it first</li></ul>
   <p class="said">Wide on fire and earth. Almost nothing on water.</p>
   <p class="why"><em>DRAFT</em>Four elements, four ways of handling life. The shape shows which she has plenty of and which she has little of.</p></article>
 <article class="card out" id="E07">
@@ -539,44 +550,44 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
   <div class="tag"><span class="id">N03</span><span class="form">Twelve places</span><span class="badge has">drawn</span></div>
   <h2>Where most of her sits</h2>
   <svg viewBox="0 0 280 170" class="art wide"><g transform="translate(0,0)">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="rgba(205,180,148,.34)" stroke="#CDB494"/>
-      <circle cx="12" cy="30" r="3.4" fill="#495543"/><text x="34" y="46" class="tiny">ARI</text></g><g transform="translate(70,0)">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="rgba(205,180,148,.34)" stroke="#CDB494"/>
-      <circle cx="12" cy="30" r="3.4" fill="#495543"/><text x="34" y="46" class="tiny">TAU</text></g><g transform="translate(140,0)">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="none" stroke="#CDB494"/>
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">ARI</text></g><g transform="translate(70,0)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">TAU</text></g><g transform="translate(140,0)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="none" stroke="var(--tan)"/>
       <text x="34" y="46" class="tiny">GEM</text></g><g transform="translate(210,0)">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="rgba(205,180,148,.34)" stroke="#CDB494"/>
-      <circle cx="12" cy="30" r="3.4" fill="#495543"/><text x="34" y="46" class="tiny">CAN</text></g><g transform="translate(0,56)">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="rgba(205,180,148,.34)" stroke="#CDB494"/>
-      <circle cx="12" cy="30" r="3.4" fill="#495543"/><text x="34" y="46" class="tiny">LEO</text></g><g transform="translate(70,56)">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="none" stroke="#CDB494"/>
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">CAN</text></g><g transform="translate(0,56)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">LEO</text></g><g transform="translate(70,56)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="none" stroke="var(--tan)"/>
       <text x="34" y="46" class="tiny">VIR</text></g><g transform="translate(140,56)">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="none" stroke="#CDB494"/>
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="none" stroke="var(--tan)"/>
       <text x="34" y="46" class="tiny">LIB</text></g><g transform="translate(210,56)">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="none" stroke="#CDB494"/>
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="none" stroke="var(--tan)"/>
       <text x="34" y="46" class="tiny">SCO</text></g><g transform="translate(0,112)">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="rgba(205,180,148,.34)" stroke="#CDB494"/>
-      <circle cx="12" cy="30" r="3.4" fill="#495543"/><text x="34" y="46" class="tiny">SAG</text></g><g transform="translate(70,112)">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="rgba(205,180,148,.34)" stroke="#CDB494"/>
-      <circle cx="12" cy="30" r="3.4" fill="#495543"/><circle cx="21" cy="30" r="3.4" fill="#495543"/><circle cx="30" cy="30" r="3.4" fill="#495543"/><circle cx="12" cy="21" r="3.4" fill="#495543"/><circle cx="21" cy="21" r="3.4" fill="#495543"/><circle cx="30" cy="21" r="3.4" fill="#495543"/><text x="34" y="46" class="tiny">CAP</text></g><g transform="translate(140,112)">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="rgba(205,180,148,.34)" stroke="#CDB494"/>
-      <circle cx="12" cy="30" r="3.4" fill="#495543"/><text x="34" y="46" class="tiny">AQU</text></g><g transform="translate(210,112)">
-      <rect x="2" y="2" width="64" height="48" rx="4" fill="rgba(205,180,148,.34)" stroke="#CDB494"/>
-      <circle cx="12" cy="30" r="3.4" fill="#495543"/><text x="34" y="46" class="tiny">PIS</text></g></svg>
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">SAG</text></g><g transform="translate(70,112)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><circle cx="21" cy="30" r="3.4" fill="var(--green)"/><circle cx="30" cy="30" r="3.4" fill="var(--green)"/><circle cx="12" cy="21" r="3.4" fill="var(--green)"/><circle cx="21" cy="21" r="3.4" fill="var(--green)"/><circle cx="30" cy="21" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">CAP</text></g><g transform="translate(140,112)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">AQU</text></g><g transform="translate(210,112)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">PIS</text></g></svg>
   <p class="said">Six of her thirteen placements landed in one box. The other seven sit alone.</p>
   <p class="why"><em>DRAFT</em>The sky is cut into twelve places. A full box is a part of life she will feel more strongly than most children do.</p></article>
 <article class="card" id="N10">
   <div class="tag"><span class="id">N10</span><span class="form">Columns</span><span class="badge has">drawn</span></div>
   <h2>Which parts pull the most weight</h2>
-  <svg viewBox="0 0 320 140" class="art wide"><rect x="12" y="28" width="40" height="84" rx="3" fill="#495543"/>
+  <svg viewBox="0 0 320 140" class="art wide"><rect x="12" y="28" width="40" height="84" rx="3" fill="var(--green)"/>
     <text x="32" y="22" class="num">3</text>
-    <text x="32" y="128" class="tiny">BEING</text><rect x="72" y="84" width="40" height="28" rx="3" fill="#495543"/>
+    <text x="32" y="128" class="tiny">BEING</text><rect x="72" y="84" width="40" height="28" rx="3" fill="var(--green)"/>
     <text x="92" y="78" class="num">1</text>
-    <text x="92" y="128" class="tiny">FEELING</text><rect x="132" y="28" width="40" height="84" rx="3" fill="#495543"/>
+    <text x="92" y="128" class="tiny">FEELING</text><rect x="132" y="28" width="40" height="84" rx="3" fill="var(--green)"/>
     <text x="152" y="22" class="num">3</text>
-    <text x="152" y="128" class="tiny">THINKING</text><rect x="192" y="110" width="40" height="2" rx="3" fill="#CDB494"/>
+    <text x="152" y="128" class="tiny">THINKING</text><rect x="192" y="110" width="40" height="2" rx="3" fill="var(--tan)"/>
     <text x="212" y="104" class="num">0</text>
-    <text x="212" y="128" class="tiny">LOVING</text><rect x="252" y="84" width="40" height="28" rx="3" fill="#495543"/>
+    <text x="212" y="128" class="tiny">LOVING</text><rect x="252" y="84" width="40" height="28" rx="3" fill="var(--green)"/>
     <text x="272" y="78" class="num">1</text>
     <text x="272" y="128" class="tiny">PUSHING</text></svg>
   <p class="said">Being and thinking pull hardest. Loving pulls nothing along with it.</p>
@@ -584,11 +595,11 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
 <article class="card" id="N08">
   <div class="tag"><span class="id">N08</span><span class="form">Constellation</span><span class="badge has">drawn</span></div>
   <h2>What is wired to what</h2>
-  <svg viewBox="0 0 320 184" class="art wide"><line x1="160" y1="36" x2="250" y2="80" stroke="#CDB494" stroke-width="1.6"/><line x1="160" y1="36" x2="214" y2="140" stroke="#CDB494" stroke-width="1.6"/><line x1="250" y1="80" x2="214" y2="140" stroke="#CDB494" stroke-width="1.6"/><line x1="160" y1="36" x2="96" y2="140" stroke="#CDB494" stroke-width="1.6"/><circle cx="160" cy="36" r="14.8" fill="#495543" stroke="#495543" stroke-width="0" stroke-dasharray=""/>
-      <text x="160" y="14" class="tiny">BEING</text><circle cx="250" cy="80" r="14.8" fill="#495543" stroke="#495543" stroke-width="0" stroke-dasharray=""/>
-      <text x="250" y="58" class="tiny">THINKING</text><circle cx="214" cy="140" r="9.6" fill="#495543" stroke="#495543" stroke-width="0" stroke-dasharray=""/>
-      <text x="214" y="170" class="tiny">PUSHING</text><circle cx="96" cy="140" r="9.6" fill="#495543" stroke="#495543" stroke-width="0" stroke-dasharray=""/>
-      <text x="96" y="170" class="tiny">FEELING</text><circle cx="58" cy="74" r="7" fill="none" stroke="#495543" stroke-width="1.8" stroke-dasharray="3 3"/>
+  <svg viewBox="0 0 320 184" class="art wide"><line x1="160" y1="36" x2="250" y2="80" stroke="var(--tan)" stroke-width="1.6"/><line x1="160" y1="36" x2="214" y2="140" stroke="var(--tan)" stroke-width="1.6"/><line x1="250" y1="80" x2="214" y2="140" stroke="var(--tan)" stroke-width="1.6"/><line x1="160" y1="36" x2="96" y2="140" stroke="var(--tan)" stroke-width="1.6"/><circle cx="160" cy="36" r="14.8" fill="var(--green)" stroke="var(--green)" stroke-width="0" stroke-dasharray=""/>
+      <text x="160" y="14" class="tiny">BEING</text><circle cx="250" cy="80" r="14.8" fill="var(--green)" stroke="var(--green)" stroke-width="0" stroke-dasharray=""/>
+      <text x="250" y="58" class="tiny">THINKING</text><circle cx="214" cy="140" r="9.6" fill="var(--green)" stroke="var(--green)" stroke-width="0" stroke-dasharray=""/>
+      <text x="214" y="170" class="tiny">PUSHING</text><circle cx="96" cy="140" r="9.6" fill="var(--green)" stroke="var(--green)" stroke-width="0" stroke-dasharray=""/>
+      <text x="96" y="170" class="tiny">FEELING</text><circle cx="58" cy="74" r="7" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-dasharray="3 3"/>
       <text x="58" y="52" class="tiny">LOVING</text></svg>
   <p class="said">Being, thinking and pushing pull together. Loving runs on its own.</p>
   <p class="why"><em>DRAFT</em>Each circle is one part of her. A line means those two parts move together. A part with no lines runs separately from the rest.</p></article>
@@ -596,9 +607,9 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
   <div class="tag"><span class="id">N04</span><span class="form">Tug of war</span><span class="badge has">drawn</span></div>
   <h2>Prepares, or goes with the flow</h2>
   <svg viewBox="0 0 320 104" class="art wide">
-    <polyline points="36,45.6 45.92,50.4 55.84,45.6 65.75999999999999,50.4 75.68,45.6 85.6,50.4 95.52,45.6 105.44,50.4 115.36,45.6 125.28,50.4 135.2,45.6 145.12,50.4 155.04,45.6 164.96,50.4 174.88,45.6 184.8,50.4 194.72,45.6 204.64,50.4 214.56,45.6 224.48,50.4 234.4,45.6 244.32,50.4 254.24,45.6 264.15999999999997,50.4 274.08,45.6 284,50.4" fill="none" stroke="#CDB494" stroke-width="3" stroke-linejoin="round"/>
-    <line x1="160" y1="22" x2="160" y2="74" stroke="#495543" stroke-width="1" stroke-dasharray="3 4"/>
-    <circle cx="144.43076923076922" cy="48" r="11" fill="#C0623A"/><circle cx="144.43076923076922" cy="48" r="4" fill="#F3EEE2"/>
+    <polyline points="36,45.6 45.92,50.4 55.84,45.6 65.75999999999999,50.4 75.68,45.6 85.6,50.4 95.52,45.6 105.44,50.4 115.36,45.6 125.28,50.4 135.2,45.6 145.12,50.4 155.04,45.6 164.96,50.4 174.88,45.6 184.8,50.4 194.72,45.6 204.64,50.4 214.56,45.6 224.48,50.4 234.4,45.6 244.32,50.4 254.24,45.6 264.15999999999997,50.4 274.08,45.6 284,50.4" fill="none" stroke="var(--tan)" stroke-width="3" stroke-linejoin="round"/>
+    <line x1="160" y1="22" x2="160" y2="74" stroke="var(--green)" stroke-width="1" stroke-dasharray="3 4"/>
+    <circle cx="144.43076923076922" cy="48" r="11" fill="var(--orange)"/><circle cx="144.43076923076922" cy="48" r="4" fill="var(--on-accent)"/>
     <text x="14" y="92" class="tiny s">PREPARES</text>
     <text x="306" y="92" class="tiny e">GOES WITH THE FLOW</text></svg>
   <p class="said">She prepares more than she goes with the flow.</p>
@@ -606,10 +617,10 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
 <article class="card" id="N07">
   <div class="tag"><span class="id">N07</span><span class="form">Dial</span><span class="badge has">drawn</span></div>
   <h2>How fast her moods move</h2>
-  <svg viewBox="0 0 160 158" class="art"><path d="M 36.69872981077807 117 A 50 50 0 1 1 123.30127018922194 117" fill="none" stroke="#CDB494" stroke-width="3"/>
-    <path d="M 36.69872981077807 117 A 50 50 0 0 1 122.29725313030295 65.3364972737812" fill="none" stroke="#C0623A" stroke-width="4"/><line x1="36.69872981077807" y1="117" x2="31.502577388071437" y2="120" stroke="#CDB494" stroke-width="1.6"/><line x1="30" y1="92" x2="24" y2="92" stroke="#CDB494" stroke-width="1.6"/><line x1="36.69872981077806" y1="67" x2="31.50257738807143" y2="64" stroke="#CDB494" stroke-width="1.6"/><line x1="55.000000000000014" y1="48.69872981077806" x2="52.000000000000014" y2="43.50257738807143" stroke="#CDB494" stroke-width="1.6"/><line x1="80" y1="42" x2="80" y2="36" stroke="#CDB494" stroke-width="1.6"/><line x1="105" y1="48.69872981077807" x2="108" y2="43.50257738807144" stroke="#CDB494" stroke-width="1.6"/><line x1="123.30127018922194" y1="67" x2="128.49742261192858" y2="64" stroke="#CDB494" stroke-width="1.6"/><line x1="130" y1="92" x2="136" y2="92" stroke="#CDB494" stroke-width="1.6"/><line x1="123.30127018922194" y1="117" x2="128.49742261192858" y2="120" stroke="#CDB494" stroke-width="1.6"/>
-    <line x1="80" y1="92" x2="117.2215827546666" y2="68.53611760092745" stroke="#495543" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="80" cy="92" r="5" fill="#495543"/>
+  <svg viewBox="0 0 160 158" class="art"><path d="M 36.69872981077807 117 A 50 50 0 1 1 123.30127018922194 117" fill="none" stroke="var(--tan)" stroke-width="3"/>
+    <path d="M 36.69872981077807 117 A 50 50 0 0 1 122.29725313030295 65.3364972737812" fill="none" stroke="var(--orange)" stroke-width="4"/><line x1="36.69872981077807" y1="117" x2="31.502577388071437" y2="120" stroke="var(--tan)" stroke-width="1.6"/><line x1="30" y1="92" x2="24" y2="92" stroke="var(--tan)" stroke-width="1.6"/><line x1="36.69872981077806" y1="67" x2="31.50257738807143" y2="64" stroke="var(--tan)" stroke-width="1.6"/><line x1="55.000000000000014" y1="48.69872981077806" x2="52.000000000000014" y2="43.50257738807143" stroke="var(--tan)" stroke-width="1.6"/><line x1="80" y1="42" x2="80" y2="36" stroke="var(--tan)" stroke-width="1.6"/><line x1="105" y1="48.69872981077807" x2="108" y2="43.50257738807144" stroke="var(--tan)" stroke-width="1.6"/><line x1="123.30127018922194" y1="67" x2="128.49742261192858" y2="64" stroke="var(--tan)" stroke-width="1.6"/><line x1="130" y1="92" x2="136" y2="92" stroke="var(--tan)" stroke-width="1.6"/><line x1="123.30127018922194" y1="117" x2="128.49742261192858" y2="120" stroke="var(--tan)" stroke-width="1.6"/>
+    <line x1="80" y1="92" x2="117.2215827546666" y2="68.53611760092745" stroke="var(--green)" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="80" cy="92" r="5" fill="var(--green)"/>
     <text x="80" y="140" class="num big">74%</text>
     <text x="14" y="152" class="tiny s">SLOW</text><text x="146" y="152" class="tiny e">QUICK</text></svg>
   <p class="said">Quick. Three quarters of the way towards the fast end.</p>
@@ -628,8 +639,8 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
   <h2>Born with the sun up or down</h2>
   <svg viewBox="0 0 320 128" class="art wide">
     <rect x="0" y="0" width="320" height="76" fill="rgba(205,180,148,.28)"/>
-    <line x1="0" y1="76" x2="320" y2="76" stroke="#495543" stroke-width="1.5"/>
-    <circle cx="214" cy="40" r="19" fill="#C0623A"/><line x1="214" y1="13" x2="214" y2="7" stroke="#C0623A" stroke-width="2"/><line x1="227.5" y1="16.61731409782016" x2="230.5" y2="11.421161675113527" stroke="#C0623A" stroke-width="2"/><line x1="237.38268590217984" y1="26.5" x2="242.57883832488648" y2="23.500000000000004" stroke="#C0623A" stroke-width="2"/><line x1="241" y1="40" x2="247" y2="40" stroke="#C0623A" stroke-width="2"/><line x1="237.38268590217984" y1="53.5" x2="242.57883832488648" y2="56.5" stroke="#C0623A" stroke-width="2"/><line x1="227.5" y1="63.382685902179844" x2="230.5" y2="68.57883832488648" stroke="#C0623A" stroke-width="2"/><line x1="214" y1="67" x2="214" y2="73" stroke="#C0623A" stroke-width="2"/><line x1="200.5" y1="63.382685902179844" x2="197.5" y2="68.57883832488648" stroke="#C0623A" stroke-width="2"/><line x1="190.61731409782016" y1="53.5" x2="185.42116167511352" y2="56.5" stroke="#C0623A" stroke-width="2"/><line x1="187" y1="40" x2="181" y2="40.00000000000001" stroke="#C0623A" stroke-width="2"/><line x1="190.61731409782016" y1="26.499999999999996" x2="185.42116167511352" y2="23.499999999999996" stroke="#C0623A" stroke-width="2"/><line x1="200.5" y1="16.61731409782016" x2="197.5" y2="11.421161675113531" stroke="#C0623A" stroke-width="2"/>
+    <line x1="0" y1="76" x2="320" y2="76" stroke="var(--green)" stroke-width="1.5"/>
+    <circle cx="214" cy="40" r="19" fill="var(--orange)"/><line x1="214" y1="13" x2="214" y2="7" stroke="var(--orange)" stroke-width="2"/><line x1="227.5" y1="16.61731409782016" x2="230.5" y2="11.421161675113527" stroke="var(--orange)" stroke-width="2"/><line x1="237.38268590217984" y1="26.5" x2="242.57883832488648" y2="23.500000000000004" stroke="var(--orange)" stroke-width="2"/><line x1="241" y1="40" x2="247" y2="40" stroke="var(--orange)" stroke-width="2"/><line x1="237.38268590217984" y1="53.5" x2="242.57883832488648" y2="56.5" stroke="var(--orange)" stroke-width="2"/><line x1="227.5" y1="63.382685902179844" x2="230.5" y2="68.57883832488648" stroke="var(--orange)" stroke-width="2"/><line x1="214" y1="67" x2="214" y2="73" stroke="var(--orange)" stroke-width="2"/><line x1="200.5" y1="63.382685902179844" x2="197.5" y2="68.57883832488648" stroke="var(--orange)" stroke-width="2"/><line x1="190.61731409782016" y1="53.5" x2="185.42116167511352" y2="56.5" stroke="var(--orange)" stroke-width="2"/><line x1="187" y1="40" x2="181" y2="40.00000000000001" stroke="var(--orange)" stroke-width="2"/><line x1="190.61731409782016" y1="26.499999999999996" x2="185.42116167511352" y2="23.499999999999996" stroke="var(--orange)" stroke-width="2"/><line x1="200.5" y1="16.61731409782016" x2="197.5" y2="11.421161675113531" stroke="var(--orange)" stroke-width="2"/>
     <text x="10" y="18" class="tiny s">SKY</text><text x="10" y="94" class="tiny s">GROUND</text>
     <text x="10" y="118" class="tiny s">14:30 · the sun is up · a day child</text></svg>
   <p class="said">The sun was still up. Nora is a day child.</p>
