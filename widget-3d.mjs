@@ -85,8 +85,13 @@ header p{margin:10px 0 0;font-size:13px;opacity:.78}
   /* light from the upper left, so a turning face catches it along one edge */
   background-image:linear-gradient(105deg,rgba(255,255,255,.5),rgba(255,255,255,0) 46%,rgba(22,21,20,.07));
   box-shadow:0 1px 0 rgba(255,255,255,.5) inset}
-/* the extruded side, pushed back so it reads as thickness rather than a border */
-.edge{position:absolute;inset:0;border-radius:14px;background:rgba(58,68,53,.55);transform:translateZ(-10px)}
+/* The extruded side, pushed back so it reads as thickness rather than a border.
+   It has to stay darker than the face it sits behind or the two merge into one
+   slab, which is what happened on the dark green cards. Hence a flat black at
+   low alpha: it darkens whatever ground it lands on instead of competing with
+   it. */
+.edge{position:absolute;inset:0;border-radius:14px;background:rgba(22,21,20,.42);transform:translateZ(-9px)}
+.tone-green .edge{background:rgba(10,14,9,.78)}
 /* the shadow lies on the ground as its own plane */
 .stage::after{content:"";display:block;height:26px;margin:-6px 10% 0;border-radius:50%;
   background:radial-gradient(ellipse at 50% 0,rgba(22,21,20,.3),rgba(22,21,20,0) 70%)}
