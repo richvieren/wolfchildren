@@ -202,6 +202,25 @@ export const PHOTO_CSS = `
 .ph-grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
 .why em.built,.why em{vertical-align:1px}
+/* ── Their furniture, used as published ──────────────────────────────────
+   instaxpolaroid-frame.png is an overlay, not a border: its alpha channel has a
+   real window at inset L40 R38 T73 B132 on 439 by 665, so the photo sits behind
+   it and shows through. squarecard.png and paper.png have no window, so they
+   back a photo instead of covering one.
+   These selectors carry an extra class on purpose. ".ph img" is one class plus
+   one element, which outranks a bare class, so a plain ".ph-tape-img" loses to
+   it and the tape renders full width. */
+.ph-instax{background:none;aspect-ratio:439/665}
+.ph-instax img.ph-photo{position:absolute;left:9.11%;top:10.98%;width:82.23%;height:69.17%;object-fit:cover}
+.ph img.ph-over{position:absolute;inset:0;width:100%;height:100%}
+.ph-card,.ph-paper{background-repeat:no-repeat;background-size:100% 100%;background-color:transparent}
+.ph-card{background-image:url("/assets/img/frames/squarecard.png");padding:7.5% 7.5% 11%}
+.ph-paper{background-image:url("/assets/img/frames/paper.png");padding:9% 8% 16%}
+.ph-card img.ph-photo,.ph-paper img.ph-photo{width:100%;height:auto}
+.ph img.ph-tape-img{position:absolute;height:auto}
+.ph img.ph-tape-img.t1{top:-4%;left:27%;width:46%;transform:rotate(-2.5deg)}
+.ph img.ph-tape-img.t4{top:-5%;right:-7%;width:34%;transform:rotate(27deg)}
+.ph img.ph-tape-img.t7{top:-4%;left:-8%;width:32%;transform:rotate(-24deg)}
 `;
 
 // The reading's own running order, with the drawn forms placed in the section
