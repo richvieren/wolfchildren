@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Widgets in 3D</title>
+<script src="/assets/js/pixel.js?v=d54ec4f6"></script>
+<style>
+@font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
+:root{--cream:#DFD7C3;--green:#495543;--tan:#CDB494;--orange:#C0623A;
+  --tan-soft:rgba(205,180,148,.45);--series3:#A9A07E;--on-accent:#F3EEE2;--orange-soft:rgba(192,98,58,.26)}
+.tone-white{--cream:#F7F3E9;--tan:#D6C7A8}
+.tone-green{--cream:#3A4435;--green:#EDE5D2;--tan:rgba(237,229,210,.34);--tan-soft:rgba(237,229,210,.16);
+  --orange:#E09A6F;--orange-soft:rgba(224,154,111,.24);--series3:#9AA68E}
+.tone-white>.card,.tone-green>.card,.card.tone-white,.card.tone-green{
+  background:var(--cream);border-color:var(--tan);color:var(--green)}
+
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--cream);color:var(--green);font:400 15px/1.6 "Special Elite","Courier New",monospace}
+.wrap{max-width:430px;margin:0 auto;padding:0 18px 90px}
+header{padding:40px 0 6px}
+h1{margin:0;font:400 34px/1.04 "Morning Memories",Georgia,serif}
+header p{margin:10px 0 0;font-size:13px;opacity:.78}
+.bar{position:sticky;top:0;z-index:5;display:flex;gap:7px;flex-wrap:wrap;margin:16px 0 4px;
+  padding:10px 0;background:var(--cream)}
+.bar button{font:400 11px/1 "Special Elite",monospace;letter-spacing:.08em;text-transform:uppercase;
+  padding:8px 11px;border:1px solid var(--tan);border-radius:999px;background:none;color:var(--green);cursor:pointer}
+.bar button[aria-pressed="true"]{background:var(--green);color:var(--on-accent);border-color:var(--green)}
+
+/* ── the scene ────────────────────────────────────────────────────────────
+   One camera per card. 900px of perspective at this width converges without
+   distorting: the far edge of a turned card is really shorter than the near
+   one, which is the thing a flat skew cannot do. */
+.stage{perspective:900px;perspective-origin:50% 42%;padding:34px 0 10px;margin-top:18px}
+.card3d{position:relative;transform-style:preserve-3d;
+  transform:translateZ(var(--z)) rotateX(var(--rx)) rotateY(var(--ry));
+  transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.face{position:relative;border-radius:14px;padding:18px 16px 16px;
+  background:var(--cream);border:1px solid var(--tan);
+  /* light from the upper left, so a turning face catches it along one edge */
+  background-image:linear-gradient(105deg,rgba(255,255,255,.5),rgba(255,255,255,0) 46%,rgba(22,21,20,.07));
+  box-shadow:0 1px 0 rgba(255,255,255,.5) inset}
+/* the extruded side, pushed back so it reads as thickness rather than a border */
+.edge{position:absolute;inset:0;border-radius:14px;background:rgba(58,68,53,.55);transform:translateZ(-10px)}
+/* the shadow lies on the ground as its own plane */
+.stage::after{content:"";display:block;height:26px;margin:-6px 10% 0;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 0,rgba(22,21,20,.3),rgba(22,21,20,0) 70%)}
+
+.wlabel{font:400 11px/1.3 "Special Elite",monospace;letter-spacing:.11em;text-transform:uppercase;opacity:.72;margin-bottom:8px}
+.said{margin:10px 0 0;padding-top:9px;border-top:1px solid var(--tan-soft);font-size:11.5px;opacity:.8}
+.tagline{margin-top:12px;text-align:center;font-size:11px;opacity:.62}
+.tagline .id{font:400 12px/1 "Special Elite",monospace;background:var(--green);color:var(--on-accent);padding:4px 7px;border-radius:4px;letter-spacing:.07em;margin-right:6px}
+
+/* the drawings, unchanged, riding on the tilted plane */
+.art{display:block;width:100%;max-width:200px;margin:8px auto;height:auto}
+.art.wide{max-width:100%}
+text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
+.num{font-family:"Special Elite","Courier New",monospace;text-anchor:middle;font-size:17px}
+.num.big{font-size:34px}.num.xl{font-size:27px}.num.sm{font-size:13px}.num.tag{font-size:11px;fill:var(--on-accent)}
+.num.s{text-anchor:start}.num.e{text-anchor:end}
+.tiny{font-size:8.5px;text-anchor:middle;letter-spacing:.07em;opacity:.8}
+.tiny.s{text-anchor:start}.tiny.e{text-anchor:end}
+.key{list-style:none;margin:10px 0 0;padding:0;font-size:11px}
+.key li{display:flex;gap:7px;align-items:baseline;padding:2px 0;opacity:.85}
+.key i{flex:0 0 auto;width:9px;height:9px;border-radius:2px;margin-top:4px}
+.key i.hollow{border:1.5px dashed var(--green);background:none;border-radius:50%}
+.key b{font-weight:400;text-transform:uppercase;letter-spacing:.06em;font-size:9.5px}
+
+/* flat: the same cards with the camera switched off, to compare against */
+body.flat .card3d{transform:none}
+body.flat .edge{display:none}
+body.flat .stage::after{opacity:0}
+/* turning: a slow pass, for judging how they read in motion */
+body.turn .card3d{animation:turn 9s ease-in-out infinite alternate}
+@keyframes turn{
+  from{transform:translateZ(var(--z)) rotateX(var(--rx)) rotateY(calc(var(--ry) - 10deg))}
+  to{transform:translateZ(var(--z)) rotateX(calc(var(--rx) * -1)) rotateY(calc(var(--ry) + 10deg))}}
+/* bare: no page ground and no furniture, for capturing a card on its own */
+body.bare{background:transparent}
+body.bare header,body.bare .bar,body.bare .tagline{display:none}
+@media (prefers-reduced-motion:reduce){body.turn .card3d{animation:none}}
+</style>
+</head>
+<body>
+<noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=1622703732974632&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
+<div class="wrap">
+<header><h1>Widgets in 3D</h1>
+<p>The live widgets standing on tilted planes, not pictures of them. Real perspective, so a turned card's far edge is shorter than its near one. The text stays text.</p></header>
+<div class="bar">
+  <button data-mode="" aria-pressed="true">Posed</button>
+  <button data-mode="turn" aria-pressed="false">Turning</button>
+  <button data-mode="flat" aria-pressed="false">Flat</button>
+  <button data-mode="bare" aria-pressed="false">No ground</button>
+</div>
+<div class="stage">
+  <div class="card3d tone-green" style="--ry:-22deg;--rx:7deg;--z:40px">
+    <div class="face">
+      <div class="wlabel">The moon the night she arrived</div>
+      <svg viewBox="0 0 140 140" class="art"><circle cx="70" cy="70" r="63" fill="#3A4435"/>
+    <circle cx="70" cy="70" r="52" fill="#5D6A56"/><path d="M 70,18 A 52,52 0 0,0 70,122 Z" fill="#F0E7D2"/>
+    <path d="M 70,18 A 47.8,52 0 0,1 70,122 Z" fill="#F0E7D2"/>
+    <circle cx="56" cy="52" r="10" fill="#C9BCA0" opacity=".32"/><circle cx="88" cy="62" r="7" fill="#C9BCA0" opacity=".32"/><circle cx="66" cy="90" r="8" fill="#C9BCA0" opacity=".32"/><circle cx="44" cy="78" r="5" fill="#C9BCA0" opacity=".32"/><circle cx="80" cy="40" r="4" fill="#C9BCA0" opacity=".32"/><circle cx="94" cy="86" r="5" fill="#C9BCA0" opacity=".32"/><circle cx="70" cy="70" r="52" fill="none" stroke="#2F382B" stroke-width="1.4"/></svg>
+      <p class="said">Two days past full. Almost all of it still lit.</p>
+    </div>
+    <div class="edge" aria-hidden="true"></div>
+  </div>
+  <div class="tagline"><span class="id">N01</span> Moon phase</div>
+</div>
+<div class="stage">
+  <div class="card3d " style="--ry:18deg;--rx:-5deg;--z:0px">
+    <div class="face">
+      <div class="wlabel">Where most of her sits</div>
+      <svg viewBox="0 0 280 170" class="art wide"><g transform="translate(0,0)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">ARI</text></g><g transform="translate(70,0)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">TAU</text></g><g transform="translate(140,0)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="none" stroke="var(--tan)"/>
+      <text x="34" y="46" class="tiny">GEM</text></g><g transform="translate(210,0)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">CAN</text></g><g transform="translate(0,56)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">LEO</text></g><g transform="translate(70,56)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="none" stroke="var(--tan)"/>
+      <text x="34" y="46" class="tiny">VIR</text></g><g transform="translate(140,56)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="none" stroke="var(--tan)"/>
+      <text x="34" y="46" class="tiny">LIB</text></g><g transform="translate(210,56)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="none" stroke="var(--tan)"/>
+      <text x="34" y="46" class="tiny">SCO</text></g><g transform="translate(0,112)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">SAG</text></g><g transform="translate(70,112)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><circle cx="21" cy="30" r="3.4" fill="var(--green)"/><circle cx="30" cy="30" r="3.4" fill="var(--green)"/><circle cx="12" cy="21" r="3.4" fill="var(--green)"/><circle cx="21" cy="21" r="3.4" fill="var(--green)"/><circle cx="30" cy="21" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">CAP</text></g><g transform="translate(140,112)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">AQU</text></g><g transform="translate(210,112)">
+      <rect x="2" y="2" width="64" height="48" rx="4" fill="var(--tan-soft)" stroke="var(--tan)"/>
+      <circle cx="12" cy="30" r="3.4" fill="var(--green)"/><text x="34" y="46" class="tiny">PIS</text></g></svg>
+      <p class="said">Six of her thirteen placements landed in one box. The other seven sit alone.</p>
+    </div>
+    <div class="edge" aria-hidden="true"></div>
+  </div>
+  <div class="tagline"><span class="id">N03</span> Twelve places</div>
+</div>
+<div class="stage">
+  <div class="card3d tone-white" style="--ry:-14deg;--rx:-8deg;--z:70px">
+    <div class="face">
+      <div class="wlabel">Prepares, or goes with the flow</div>
+      <svg viewBox="0 0 320 104" class="art wide">
+    <polyline points="36,45.6 45.92,50.4 55.84,45.6 65.75999999999999,50.4 75.68,45.6 85.6,50.4 95.52,45.6 105.44,50.4 115.36,45.6 125.28,50.4 135.2,45.6 145.12,50.4 155.04,45.6 164.96,50.4 174.88,45.6 184.8,50.4 194.72,45.6 204.64,50.4 214.56,45.6 224.48,50.4 234.4,45.6 244.32,50.4 254.24,45.6 264.15999999999997,50.4 274.08,45.6 284,50.4" fill="none" stroke="var(--tan)" stroke-width="3" stroke-linejoin="round"/>
+    <line x1="160" y1="22" x2="160" y2="74" stroke="var(--green)" stroke-width="1" stroke-dasharray="3 4"/>
+    <circle cx="144.43076923076922" cy="48" r="11" fill="var(--orange)"/><circle cx="144.43076923076922" cy="48" r="4" fill="var(--on-accent)"/>
+    <text x="14" y="92" class="tiny s">PREPARES</text>
+    <text x="306" y="92" class="tiny e">GOES WITH THE FLOW</text></svg>
+      <p class="said">She prepares more than she goes with the flow.</p>
+    </div>
+    <div class="edge" aria-hidden="true"></div>
+  </div>
+  <div class="tagline"><span class="id">N04</span> Tug of war</div>
+</div>
+<div class="stage">
+  <div class="card3d " style="--ry:26deg;--rx:6deg;--z:20px">
+    <div class="face">
+      <div class="wlabel">Born with the sun up or down</div>
+      <svg viewBox="0 0 320 128" class="art wide">
+    <rect x="0" y="0" width="320" height="76" fill="rgba(205,180,148,.28)"/>
+    <line x1="0" y1="76" x2="320" y2="76" stroke="var(--green)" stroke-width="1.5"/>
+    <circle cx="214" cy="40" r="19" fill="var(--orange)"/><line x1="214" y1="13" x2="214" y2="7" stroke="var(--orange)" stroke-width="2"/><line x1="227.5" y1="16.61731409782016" x2="230.5" y2="11.421161675113527" stroke="var(--orange)" stroke-width="2"/><line x1="237.38268590217984" y1="26.5" x2="242.57883832488648" y2="23.500000000000004" stroke="var(--orange)" stroke-width="2"/><line x1="241" y1="40" x2="247" y2="40" stroke="var(--orange)" stroke-width="2"/><line x1="237.38268590217984" y1="53.5" x2="242.57883832488648" y2="56.5" stroke="var(--orange)" stroke-width="2"/><line x1="227.5" y1="63.382685902179844" x2="230.5" y2="68.57883832488648" stroke="var(--orange)" stroke-width="2"/><line x1="214" y1="67" x2="214" y2="73" stroke="var(--orange)" stroke-width="2"/><line x1="200.5" y1="63.382685902179844" x2="197.5" y2="68.57883832488648" stroke="var(--orange)" stroke-width="2"/><line x1="190.61731409782016" y1="53.5" x2="185.42116167511352" y2="56.5" stroke="var(--orange)" stroke-width="2"/><line x1="187" y1="40" x2="181" y2="40.00000000000001" stroke="var(--orange)" stroke-width="2"/><line x1="190.61731409782016" y1="26.499999999999996" x2="185.42116167511352" y2="23.499999999999996" stroke="var(--orange)" stroke-width="2"/><line x1="200.5" y1="16.61731409782016" x2="197.5" y2="11.421161675113531" stroke="var(--orange)" stroke-width="2"/>
+    <text x="10" y="18" class="tiny s">SKY</text><text x="10" y="94" class="tiny s">GROUND</text>
+    <text x="10" y="118" class="tiny s">14:30 · the sun is up · a day child</text></svg>
+      <p class="said">The sun was still up. Nora is a day child.</p>
+    </div>
+    <div class="edge" aria-hidden="true"></div>
+  </div>
+  <div class="tagline"><span class="id">N05</span> Horizon</div>
+</div>
+<div class="stage">
+  <div class="card3d tone-white" style="--ry:-30deg;--rx:-4deg;--z:55px">
+    <div class="face">
+      <div class="wlabel">What she is made of</div>
+      <svg viewBox="0 0 260 244" class="art wide"><polygon points="130,102.16 145.84,118 130,133.84 114.16,118" fill="none" stroke="var(--tan)" stroke-width="1"/><polygon points="130,86.32 161.68,118 130,149.68 98.32,118" fill="none" stroke="var(--tan)" stroke-width="1"/><polygon points="130,70 178,118 130,166 82,118" fill="none" stroke="var(--tan)" stroke-width="1"/>
+    <polygon points="130,76 172,118 130,148 124,118" fill="var(--orange-soft)" stroke="var(--orange)" stroke-width="0.7"/>
+    <circle cx="130" cy="76" r="1.7" fill="var(--orange)"/><circle cx="172" cy="118" r="1.7" fill="var(--orange)"/><circle cx="130" cy="148" r="1.7" fill="var(--orange)"/><circle cx="124" cy="118" r="1.7" fill="var(--orange)"/><text x="130" y="36" class="tiny" text-anchor="middle">FIRE</text>
+      <text x="130" y="55" class="num sm" text-anchor="middle">35%</text><text x="208" y="114" class="tiny" text-anchor="start">EARTH</text>
+      <text x="208" y="133" class="num sm" text-anchor="start">35%</text><text x="130" y="192" class="tiny" text-anchor="middle">AIR</text>
+      <text x="130" y="211" class="num sm" text-anchor="middle">25%</text><text x="52" y="114.00000000000001" class="tiny" text-anchor="end">WATER</text>
+      <text x="52" y="133" class="num sm" text-anchor="end">5%</text></svg>
+    <ul class="key"><li><i style="background:var(--orange)"></i><b>Fire</b> acts first, asks later</li><li><i style="background:var(--orange)"></i><b>Earth</b> wants it solid before moving</li><li><i style="background:var(--orange)"></i><b>Air</b> talks it through</li><li><i style="background:var(--orange)"></i><b>Water</b> feels it first</li></ul>
+      <p class="said">Wide on fire and earth. Almost nothing on water.</p>
+    </div>
+    <div class="edge" aria-hidden="true"></div>
+  </div>
+  <div class="tagline"><span class="id">N06</span> Web</div>
+</div>
+<div class="stage">
+  <div class="card3d " style="--ry:12deg;--rx:9deg;--z:10px">
+    <div class="face">
+      <div class="wlabel">How fast her moods move</div>
+      <svg viewBox="0 0 160 158" class="art"><path d="M 36.69872981077807 117 A 50 50 0 1 1 123.30127018922194 117" fill="none" stroke="var(--tan)" stroke-width="3"/>
+    <path d="M 36.69872981077807 117 A 50 50 0 0 1 122.29725313030295 65.3364972737812" fill="none" stroke="var(--orange)" stroke-width="4"/><line x1="36.69872981077807" y1="117" x2="31.502577388071437" y2="120" stroke="var(--tan)" stroke-width="1.6"/><line x1="30" y1="92" x2="24" y2="92" stroke="var(--tan)" stroke-width="1.6"/><line x1="36.69872981077806" y1="67" x2="31.50257738807143" y2="64" stroke="var(--tan)" stroke-width="1.6"/><line x1="55.000000000000014" y1="48.69872981077806" x2="52.000000000000014" y2="43.50257738807143" stroke="var(--tan)" stroke-width="1.6"/><line x1="80" y1="42" x2="80" y2="36" stroke="var(--tan)" stroke-width="1.6"/><line x1="105" y1="48.69872981077807" x2="108" y2="43.50257738807144" stroke="var(--tan)" stroke-width="1.6"/><line x1="123.30127018922194" y1="67" x2="128.49742261192858" y2="64" stroke="var(--tan)" stroke-width="1.6"/><line x1="130" y1="92" x2="136" y2="92" stroke="var(--tan)" stroke-width="1.6"/><line x1="123.30127018922194" y1="117" x2="128.49742261192858" y2="120" stroke="var(--tan)" stroke-width="1.6"/>
+    <line x1="80" y1="92" x2="117.2215827546666" y2="68.53611760092745" stroke="var(--green)" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="80" cy="92" r="5" fill="var(--green)"/>
+    <text x="80" y="140" class="num big">74%</text>
+    <text x="14" y="152" class="tiny s">SLOW</text><text x="146" y="152" class="tiny e">QUICK</text></svg>
+      <p class="said">Quick. Three quarters of the way towards the fast end.</p>
+    </div>
+    <div class="edge" aria-hidden="true"></div>
+  </div>
+  <div class="tagline"><span class="id">N07</span> Dial</div>
+</div>
+<div class="stage">
+  <div class="card3d tone-green" style="--ry:-18deg;--rx:-7deg;--z:35px">
+    <div class="face">
+      <div class="wlabel">What is wired to what</div>
+      <svg viewBox="0 0 320 184" class="art wide"><line x1="160" y1="36" x2="250" y2="80" stroke="var(--tan)" stroke-width="1.6"/><line x1="160" y1="36" x2="214" y2="140" stroke="var(--tan)" stroke-width="1.6"/><line x1="250" y1="80" x2="214" y2="140" stroke="var(--tan)" stroke-width="1.6"/><line x1="160" y1="36" x2="96" y2="140" stroke="var(--tan)" stroke-width="1.6"/><circle cx="160" cy="36" r="14.8" fill="var(--green)" stroke="var(--green)" stroke-width="0" stroke-dasharray=""/>
+      <text x="160" y="14" class="tiny">BEING</text><circle cx="250" cy="80" r="14.8" fill="var(--green)" stroke="var(--green)" stroke-width="0" stroke-dasharray=""/>
+      <text x="250" y="58" class="tiny">THINKING</text><circle cx="214" cy="140" r="9.6" fill="var(--green)" stroke="var(--green)" stroke-width="0" stroke-dasharray=""/>
+      <text x="214" y="170" class="tiny">PUSHING</text><circle cx="96" cy="140" r="9.6" fill="var(--green)" stroke="var(--green)" stroke-width="0" stroke-dasharray=""/>
+      <text x="96" y="170" class="tiny">FEELING</text><circle cx="58" cy="74" r="7" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-dasharray="3 3"/>
+      <text x="58" y="52" class="tiny">LOVING</text></svg>
+      <p class="said">Being, thinking and pushing pull together. Loving runs on its own.</p>
+    </div>
+    <div class="edge" aria-hidden="true"></div>
+  </div>
+  <div class="tagline"><span class="id">N08</span> Constellation</div>
+</div>
+<div class="stage">
+  <div class="card3d tone-white" style="--ry:22deg;--rx:4deg;--z:65px">
+    <div class="face">
+      <div class="wlabel">Which parts pull the most weight</div>
+      <svg viewBox="0 0 320 140" class="art wide"><rect x="12" y="28" width="40" height="84" rx="3" fill="var(--green)"/>
+    <text x="32" y="22" class="num">3</text>
+    <text x="32" y="128" class="tiny">BEING</text><rect x="72" y="84" width="40" height="28" rx="3" fill="var(--green)"/>
+    <text x="92" y="78" class="num">1</text>
+    <text x="92" y="128" class="tiny">FEELING</text><rect x="132" y="28" width="40" height="84" rx="3" fill="var(--green)"/>
+    <text x="152" y="22" class="num">3</text>
+    <text x="152" y="128" class="tiny">THINKING</text><rect x="192" y="110" width="40" height="2" rx="3" fill="var(--tan)"/>
+    <text x="212" y="104" class="num">0</text>
+    <text x="212" y="128" class="tiny">LOVING</text><rect x="252" y="84" width="40" height="28" rx="3" fill="var(--green)"/>
+    <text x="272" y="78" class="num">1</text>
+    <text x="272" y="128" class="tiny">PUSHING</text></svg>
+      <p class="said">Being and thinking pull hardest. Loving pulls nothing along with it.</p>
+    </div>
+    <div class="edge" aria-hidden="true"></div>
+  </div>
+  <div class="tagline"><span class="id">N10</span> Columns</div>
+</div>
+</div>
+<script>
+const bar = document.querySelector('.bar');
+bar.addEventListener('click', (e) => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  for (const o of bar.querySelectorAll('button')) o.setAttribute('aria-pressed', String(o === b));
+  document.body.className = b.dataset.mode;
+});
+</script>
+</body>
+</html>

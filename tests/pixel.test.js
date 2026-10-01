@@ -80,6 +80,9 @@ const generatedPages = ['readings/compass/sample/nora/index.html',
                         // new module order and the photographs in frames
                         // (compass-preview.mjs).
                         'readings/compass/preview/index.html',
+                        // 2026-10-01: the widgets as cards standing in space, for the
+                        // landing page gallery and for animation (widget-3d.mjs).
+                        'readings/compass/widget-3d/index.html',
                         // 2026-09-30: the above-the-fold section, one page per A/B cell
                         // (atf-preview.mjs + src/lib/atf-copy.mjs).
                         'readings/compass/atf/index.html',
