@@ -30,10 +30,13 @@ const RESKIN = WIDGET_CSS
   .replace(/font-family:"IBM Plex Mono"/g, 'font-family:"Special Elite","Courier New",monospace')
   .replace(/font-weight:900/g, 'font-weight:400');
 
+// Text set inside a drawing is values and labels, so it takes the body face.
+// Morning Memories is for headings only. These are SVG presentation attributes,
+// which no stylesheet rule can reach.
 const reskinHtml = (h) => h
-  .replace(/font-family="'IBM Plex Mono'"/g, 'font-family="Morning Memories"')
-  .replace(/font-family="Montserrat"/g, 'font-family="Morning Memories"')
-  .replace(/(font-family="Morning Memories"[^>]*?)font-weight="900"/g, '$1font-weight="400"');
+  .replace(/font-family="'IBM Plex Mono'"/g, 'font-family="Special Elite"')
+  .replace(/font-family="Montserrat"/g, 'font-family="Special Elite"')
+  .replace(/(font-family="Special Elite"[^>]*?)font-weight="900"/g, '$1font-weight="400"');
 
 // ── small drawings his notes asked for ─────────────────────────────────────
 const compassRose = `<svg viewBox="0 0 64 64" class="rose" aria-hidden="true">
@@ -265,7 +268,7 @@ ${RESKIN}
 .wc-live .big3-glyph{font-family:"Wheel Glyphs";font-size:30px;line-height:1;margin:2px 0 4px;color:var(--orange)}
 .wc-live .big3.flat .big3-word{opacity:.6}
 /* E10: the matrix carries its counts */
-.wc-live .hemi-n{font-family:"Morning Memories",Georgia,serif;font-size:30px;line-height:1;margin-top:6px}
+.wc-live .hemi-n{font-family:"Special Elite","Courier New",monospace;font-size:28px;line-height:1;margin-top:6px}
 /* E24: the question mark */
 .wc-live .letter-label.with-icon{display:flex;align-items:center;gap:8px}
 .wc-live .qmark{width:26px;height:26px;flex:0 0 auto}
