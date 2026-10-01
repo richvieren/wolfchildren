@@ -230,9 +230,11 @@ header{padding:40px 0 8px}
 h1{margin:0;font:400 36px/1.04 "Morning Memories",Georgia,serif}
 header p{margin:10px 0 0;font-size:13.5px;opacity:.78}
 .card{margin:16px 0 0;border:1px solid var(--tan);border-radius:5px;background:rgba(255,255,255,.26);padding:15px 14px 14px}
+.tag{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.idchip{font:400 15px/1 "Special Elite",monospace;background:var(--green);color:#F3EEE2;padding:6px 9px;border-radius:4px;letter-spacing:.08em}
+.tag .form{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.72}
 .hd{margin-bottom:13px}
 .hd b{display:block;font:400 24px/1.12 "Morning Memories",Georgia,serif}
-.hd span{display:block;margin-top:5px;font-size:10px;letter-spacing:.13em;text-transform:uppercase;opacity:.5}
 .art{display:block;width:100%;max-width:210px;margin:0 auto;height:auto}
 .art.wide{max-width:100%}
 text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
@@ -255,9 +257,10 @@ text{font-family:"Special Elite","Courier New",monospace;fill:var(--green)}
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
 <div class="wrap">
 <header><h1>The widget forms</h1>
-<p>Ten shapes, Nora's real numbers. Every one now says what it measures. Lines marked DRAFT are mine and are yours to overwrite.</p></header>
+<p>${FORMS.length} shapes, Nora's real numbers. The green chip is the module number, so call anything out by it. Lines marked DRAFT are mine and are yours to overwrite.</p></header>
 ${FORMS.map((f) => `<article class="card" id="${f.id}">
-  <div class="hd"><b>${f.title}</b><span>${f.id} ${f.form}</span></div>
+  <div class="tag"><span class="idchip">${f.id}</span><span class="form">${f.form}</span></div>
+  <div class="hd"><b>${f.title}</b></div>
   ${f.art}
   <p class="said">${f.said}</p>
   <p class="why"><em>DRAFT</em>${f.why}</p></article>`).join('\n')}
