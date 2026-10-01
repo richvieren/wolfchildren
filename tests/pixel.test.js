@@ -72,6 +72,10 @@ const generatedPages = ['readings/compass/sample/nora/index.html',
                         // real numbers, so a direction can be picked from drawings rather
                         // than from descriptions (widget-forms.mjs).
                         'readings/compass/widget-forms/index.html',
+                        // 2026-10-01: the merge, every widget old and new in one page with
+                        // the landing page fonts, for the keep / modify / drop pass
+                        // (widget-all.mjs).
+                        'readings/compass/widget-all/index.html',
                         // 2026-09-30: the above-the-fold section, one page per A/B cell
                         // (atf-preview.mjs + src/lib/atf-copy.mjs).
                         'readings/compass/atf/index.html',

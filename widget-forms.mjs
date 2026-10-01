@@ -13,7 +13,7 @@
 //   node widget-forms.mjs
 
 import { writeFileSync, mkdirSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PIXEL, DATASET } from './variants.mjs';
 
@@ -173,7 +173,7 @@ function pills() {
 // Each row: the form's name, the line a parent reads, the drawing, the answer.
 // The plain line leads and the form name is a small tag, because the test is
 // whether the picture lands before the words do.
-const W = [
+export const FORMS = [
   ['Moon phase', 'The moon the night she arrived', moon(), 'Two days past full. Almost all of it still lit.'],
   ['Ring', "What she's made of", ring(), 'Equal parts fire and earth. Barely any water.'],
   ['Twelve slots', 'Where most of her sits', slots(), 'Six of her thirteen pieces landed in the same place.'],
@@ -228,7 +228,7 @@ text{font-family:"IBM Plex Mono",monospace;fill:var(--green)}
 <div class="wrap">
 <header><h1>Twelve shapes a widget could take</h1>
 <p>Nora's real numbers, drawn twelve ways. Hand-drawn SVG, no chart library. Pick the ten that carry the most at a glance.</p></header>
-${W.map(([form, head, art, said], i) => `<div class="card">
+${FORMS.map(([form, head, art, said], i) => `<div class="card">
   <div class="hd"><b>${head}</b><span>${String(i + 1).padStart(2, '0')} ${form}</span></div>
   ${art}
   <p class="cap">${said}</p></div>`).join('\n')}
@@ -237,7 +237,9 @@ ${W.map(([form, head, art, said], i) => `<div class="card">
 </html>
 `;
 
-const dir = join(ROOT, 'readings/compass/widget-forms');
-mkdirSync(dir, { recursive: true });
-writeFileSync(join(dir, 'index.html'), html);
-console.log(`wrote /readings/compass/widget-forms/  (${W.length} forms)`);
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const dir = join(ROOT, 'readings/compass/widget-forms');
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, 'index.html'), html);
+  console.log(`wrote /readings/compass/widget-forms/  (${FORMS.length} forms)`);
+}
