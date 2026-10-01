@@ -20,7 +20,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PIXEL, DATASET } from './variants.mjs';
 import { FORMS } from './widget-forms.mjs';
-import { TOKENS, TONES } from './src/lib/widget-theme.mjs';
+import { TOKENS } from './src/lib/widget-theme.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 
@@ -35,7 +35,7 @@ const POSE = [
 const card = (f, i) => {
   const p = POSE[i % POSE.length];
   return `<div class="stage">
-  <div class="card3d ${TONES[f.id] || ''}" style="--ry:${p.ry}deg;--rx:${p.rx}deg;--z:${p.z}px">
+  <div class="card3d tone-white" style="--ry:${p.ry}deg;--rx:${p.rx}deg;--z:${p.z}px">
     <div class="face">
       <div class="wlabel">${f.title}</div>
       ${f.art}
@@ -81,10 +81,7 @@ header p{margin:10px 0 0;font-size:13px;opacity:.78}
   transform:translateZ(var(--z)) rotateX(var(--rx)) rotateY(var(--ry));
   transition:transform .7s cubic-bezier(.2,.7,.2,1)}
 .face{position:relative;border-radius:14px;padding:18px 16px 16px;
-  background:var(--cream);border:1px solid var(--tan);
-  /* light from the upper left, so a turning face catches it along one edge */
-  background-image:linear-gradient(105deg,rgba(255,255,255,.5),rgba(255,255,255,0) 46%,rgba(22,21,20,.07));
-  box-shadow:0 1px 0 rgba(255,255,255,.5) inset}
+  background:var(--cream);border:1px solid var(--tan)}
 /* The extruded side, pushed back so it reads as thickness rather than a border.
    It has to stay darker than the face it sits behind or the two merge into one
    slab, which is what happened on the dark green cards. Hence a flat black at
@@ -92,9 +89,13 @@ header p{margin:10px 0 0;font-size:13px;opacity:.78}
    it. */
 .edge{position:absolute;inset:0;border-radius:14px;background:rgba(22,21,20,.42);transform:translateZ(-9px)}
 .tone-green .edge{background:rgba(10,14,9,.78)}
-/* the shadow lies on the ground as its own plane */
-.stage::after{content:"";display:block;height:26px;margin:-6px 10% 0;border-radius:50%;
+/* No ground shadow by default. The Shaded button puts the lighting and the
+   shadow back, for comparing. */
+.stage::after{content:"";display:block;height:26px;margin:-6px 10% 0;border-radius:50%;opacity:0;
   background:radial-gradient(ellipse at 50% 0,rgba(22,21,20,.3),rgba(22,21,20,0) 70%)}
+body.shaded .stage::after{opacity:1}
+body.shaded .face{background-image:linear-gradient(105deg,rgba(255,255,255,.5),rgba(255,255,255,0) 46%,rgba(22,21,20,.07));
+  box-shadow:0 1px 0 rgba(255,255,255,.5) inset}
 
 .wlabel{font:400 11px/1.3 "Special Elite",monospace;letter-spacing:.11em;text-transform:uppercase;opacity:.72;margin-bottom:8px}
 .said{margin:10px 0 0;padding-top:9px;border-top:1px solid var(--tan-soft);font-size:11.5px;opacity:.8}
@@ -135,10 +136,11 @@ body.bare header,body.bare .bar,body.bare .tagline{display:none}
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
 <div class="wrap">
 <header><h1>Widgets in 3D</h1>
-<p>The live widgets standing on tilted planes, not pictures of them. Real perspective, so a turned card's far edge is shorter than its near one. The text stays text.</p></header>
+<p>The live widgets standing on tilted planes, not pictures of them. White ground, no shading, so the depth is the camera and the card's own edge. Shaded puts the lighting and the ground shadow back.</p></header>
 <div class="bar">
   <button data-mode="" aria-pressed="true">Posed</button>
   <button data-mode="turn" aria-pressed="false">Turning</button>
+  <button data-mode="shaded" aria-pressed="false">Shaded</button>
   <button data-mode="flat" aria-pressed="false">Flat</button>
   <button data-mode="bare" aria-pressed="false">No ground</button>
 </div>
