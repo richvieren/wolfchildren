@@ -218,14 +218,27 @@ let body = ORDER.map(([sec, ids]) => {
 const missing = [...byId.keys()].filter((id) => !placed.has(id));
 if (missing.length) throw new Error(`not placed in ORDER: ${missing.join(', ')}`);
 
+// Their own furniture, downloaded on Richard's instruction, 2026-10-01.
+// instaxpolaroid-frame.png is an overlay: 439 by 665 with a transparent window
+// at inset L40 R38 T73 B132, measured off the alpha channel, which is the same
+// geometry as their layout numbers. squarecard.png has no window, so it backs a
+// photo rather than covering one. grain.png is not shipped: it is 9.7 MB.
+const FR = '/assets/img/frames';
+const photo = (n) => `<img class="ph-photo" src="/assets/compass/nature-${n}.jpg" alt="" loading="lazy">`;
+
 const frames = [
-  ['Matte', 'ph-matte', 'an even white border, their square card'],
-  ['Polaroid', 'ph-polaroid', 'sides 8%, top 16%, bottom 29% of the frame width'],
-  ['Matte and tape', 'ph-matte ph-tape', 'a torn strip across the top edge'],
-  ['Polaroid, lifted', 'ph-polaroid ph-shadow ph-tilt', 'their shadow value, plus a slight tilt'],
-].map(([name, cls, note], i) => `<article class="card" id="P0${i + 1}">
-  <div class="tag"><span class="id">P0${i + 1}</span><span class="form">${name}</span><span class="badge has">frame</span></div>
-  <figure class="ph ${cls}"><img src="/assets/compass/nature-${i + 1}.jpg" alt="" loading="lazy" width="1400" height="1050"></figure>
+  ['Matte', 'css', `<figure class="ph ph-matte">${photo(1)}</figure>`, 'CSS. An even white border.'],
+  ['Polaroid', 'css', `<figure class="ph ph-polaroid">${photo(2)}</figure>`, 'CSS. Their proportions, no asset.'],
+  ['Matte and tape', 'css', `<figure class="ph ph-matte ph-tape">${photo(3)}</figure>`, 'CSS. Drawn strip.'],
+  ['Polaroid, lifted', 'css', `<figure class="ph ph-polaroid ph-shadow ph-tilt">${photo(4)}</figure>`, 'CSS. Their shadow value, plus a tilt.'],
+  ['Instax frame', 'asset', `<figure class="ph ph-instax">${photo(1)}<img class="ph-over" src="${FR}/instaxpolaroid-frame.png" alt=""></figure>`, 'instaxpolaroid-frame.png over the photo.'],
+  ['Instax, lifted', 'asset', `<figure class="ph ph-instax ph-shadow ph-tilt">${photo(2)}<img class="ph-over" src="${FR}/instaxpolaroid-frame.png" alt=""></figure>`, 'Same, with shadow and tilt.'],
+  ['Instax and tape', 'asset', `<figure class="ph ph-instax ph-shadow">${photo(3)}<img class="ph-over" src="${FR}/instaxpolaroid-frame.png" alt=""><img class="ph-tape-img t1" src="${FR}/tape-1.png" alt=""></figure>`, 'tape-1.png across the top edge.'],
+  ['Square card', 'asset', `<figure class="ph ph-card">${photo(4)}<img class="ph-tape-img t4" src="${FR}/tape-4.png" alt=""></figure>`, 'squarecard.png backing, tape-4.png corner.'],
+  ['Torn paper', 'asset', `<figure class="ph ph-paper">${photo(1)}<img class="ph-tape-img t7" src="${FR}/tape-7.png" alt=""></figure>`, 'paper.png backing, tape-7.png corner.'],
+].map(([name, kind, markup, note], i) => `<article class="card" id="P${String(i + 1).padStart(2, '0')}">
+  <div class="tag"><span class="id">P${String(i + 1).padStart(2, '0')}</span><span class="form">${name}</span><span class="badge ${kind === 'asset' ? 'has' : 'txt'}">${kind === 'asset' ? 'their asset' : 'css only'}</span></div>
+  ${markup}
   <p class="why"><em class="built">BUILT</em>${note}</p></article>`).join('\n');
 
 body += `\n<h3 class="sec">Photographs</h3>\n${frames}`;
