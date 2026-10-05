@@ -13,29 +13,46 @@ export const ATF_CSS = `
 @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
 
+/* Re-grounded on the brand bible, 2026-10-05, Richard's call: the palette stands
+   and only the faces changed. Not one of the eleven values this section used
+   before was a bible colour. Mapped by role:
+     paper  #F8F5EC -> cream  #DFD7C3   the only page background
+     ink    #131613 -> green  #495543   all running text
+     rust   #8B4133 -> cta    #AC2E20   button and announce fill, 4.63:1 with cream
+     sienna #995A3D -> bark   #6B4A2F   the quiet accent, added to the bible for this
+     olive  #828951 -> green  #495543   the moon; the section's one orange is the CTA
+     line   sienna@28% -> tan #CDB494   tan is structure and never text
+     muted  ink@68%    -> green           green at any alpha that still reads as
+                                       muted fails small text on cream: .72 gives
+                                       3.14:1 and even .90 only reaches 4.47. The
+                                       bible's rule settles it, since only green
+                                       carries running text. The secondary tone is
+                                       gone and the hierarchy is size instead.
+     field  #FDFBF5    -> cream           the bible: fields are cream with a tan border */
 :root{
-  --paper:#F8F5EC; --ink:#131613; --rust:#8B4133; --sienna:#995A3D; --olive:#828951;
-  --line:rgba(153,90,61,.28); --muted:rgba(19,22,19,.68);
+  --cream:#DFD7C3; --green:#495543; --tan:#CDB494; --orange:#DA4635;
+  --cta:#AC2E20; --bark:#6B4A2F;
+  --line:var(--tan); --muted:var(--green);
 }
 *{box-sizing:border-box}
 html,body{overflow-x:clip}
-body{margin:0;background:var(--paper);color:var(--ink);
+body{margin:0;background:var(--cream);color:var(--green);
   font:400 15px/1.55 "Special Elite","Courier New",monospace;-webkit-font-smoothing:antialiased}
 .wrap{padding:0 20px}
 
 /* 1 announce */
-.announce{background:var(--rust);color:var(--paper);text-align:center;
+.announce{background:var(--cta);color:var(--cream);text-align:center;
   padding:6px 16px;font-size:12px;letter-spacing:.01em}
 
 /* 2 header */
 .hdr{height:0;position:relative;z-index:3}
-.mark{position:absolute;left:20px;top:10px;height:24px;width:124px;background:var(--ink);
+.mark{position:absolute;left:20px;top:10px;height:24px;width:124px;background:var(--green);
   -webkit-mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain;
           mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain}
 
 /* 3 moon + eyebrow */
 .badge{text-align:center;padding-top:8px}
-.moon{width:18px;height:18px;color:var(--olive);display:block;margin:0 auto -3px}
+.moon{width:18px;height:18px;color:var(--green);display:block;margin:0 auto -3px}
 .moon svg{display:block;width:100%;height:100%}
 .eyebrow{margin:0;font-size:12px;letter-spacing:.02em;color:var(--muted)}
 .stem{width:1px;height:16px;background:var(--line);margin:5px auto 0}
@@ -56,48 +73,48 @@ h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 .slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:4/3;position:relative}
 .slide img{display:block;width:100%;height:100%;object-fit:contain}
 .empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:18px;
-  border:1px dashed var(--line);color:var(--sienna);opacity:.75;font-size:11.5px;line-height:1.4}
+  border:1px dashed var(--line);color:var(--bark);opacity:.75;font-size:11.5px;line-height:1.4}
 .arrow{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;padding:0;
-  border:1px solid var(--line);background:rgba(248,245,236,.92);color:var(--sienna);border-radius:50%;
+  border:1px solid var(--line);background:rgba(223,215,195,.94);color:var(--bark);border-radius:50%;
   font:400 17px/28px "Special Elite",monospace;cursor:pointer;z-index:2}
 .arrow.prev{left:4px}.arrow.next{right:4px}
 .dots{position:absolute;left:0;right:0;bottom:2px;display:flex;justify-content:center;gap:7px}
 .dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer}
-.dot.on{background:var(--sienna)}
-.tag{position:absolute;left:0;top:0;background:rgba(248,245,236,.9);color:var(--sienna);
+.dot.on{background:var(--bark)}
+.tag{position:absolute;left:0;top:0;background:rgba(223,215,195,.94);color:var(--bark);
   font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;padding:5px 9px;border:1px solid var(--line)}
 
 /* 6 birth details */
 .form{margin-top:8px}
-.flabel{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--sienna);margin-bottom:6px}
+.flabel{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--bark);margin-bottom:6px}
 .row{display:flex;gap:6px}
-.field{flex:1;height:44px;border:1px solid var(--line);background:#FDFBF5;border-radius:3px;
+.field{flex:1;height:44px;border:1px solid var(--line);background:var(--cream);border-radius:3px;
   padding:0 12px;font:400 13.5px/44px "Special Elite",monospace;color:var(--muted)}
 .field + .field{flex:0 0 118px}
 .field.full{margin-top:6px;flex:1 1 auto}
 
 /* 7 CTA */
 .cta{display:block;margin-top:8px;width:100%;height:50px;border:0;border-radius:3px;
-  background:var(--rust);color:var(--paper);font:400 15px/50px "Special Elite",monospace;
+  background:var(--cta);color:var(--cream);font:400 15px/50px "Special Elite",monospace;
   letter-spacing:.06em;text-align:center;text-decoration:none}
 .under{margin-top:7px;text-align:center;font-size:11.5px;color:var(--muted)}
-.under a{color:var(--sienna)}
+.under a{color:var(--bark)}
 
 /* 8 reassurance */
 .fuds{margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-radius:4px;
   display:grid;grid-template-columns:1fr 1fr;gap:7px 12px}
 .fud{display:grid;grid-template-columns:12px 1fr;gap:6px;font-size:10.5px;line-height:1.28;color:var(--muted)}
-.fud b{color:var(--ink);font-weight:400}
-.tick{width:12px;height:12px;margin-top:1px;border:1px solid var(--sienna);border-radius:50%;position:relative}
+.fud b{color:var(--green);font-weight:400}
+.tick{width:12px;height:12px;margin-top:1px;border:1px solid var(--bark);border-radius:50%;position:relative}
 .tick:after{content:"";position:absolute;left:3.5px;top:1.5px;width:3px;height:6px;
-  border-right:1.5px solid var(--sienna);border-bottom:1.5px solid var(--sienna);transform:rotate(42deg)}
+  border-right:1.5px solid var(--bark);border-bottom:1.5px solid var(--bark);transform:rotate(42deg)}
 
 /* 9 sticky bar */
-.sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(248,245,236,.96);
+.sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(223,215,195,.96);
   border-top:1px solid var(--line);padding:9px 20px;display:flex;align-items:center;gap:12px;
   backdrop-filter:blur(8px)}
 .sticky .price{font-size:13px;color:var(--muted);white-space:nowrap}
-.sticky .price b{color:var(--ink);font-weight:400}
+.sticky .price b{color:var(--green);font-weight:400}
 .sticky .cta{margin:0;height:44px;line-height:44px;font-size:14px;flex:1}
 .spacer{height:74px}
 `;
