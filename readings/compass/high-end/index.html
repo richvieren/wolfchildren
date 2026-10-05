@@ -10,25 +10,31 @@
 @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
 @font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
+
+:root{
+  --cream:#DFD7C3; --green:#495543; --tan:#CDB494;
+  --orange:#DA4635; --cta:#AC2E20; --bark:#6B4A2F; --green-hover:#3A4435;
+}
 .atf-root @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
 .atf-root @font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
 .atf-root{
-  --paper:#F8F5EC; --ink:#131613; --rust:#8B4133; --sienna:#995A3D; --olive:#828951;
-  --line:rgba(153,90,61,.28); --muted:rgba(19,22,19,.68);
+  --cream:#DFD7C3; --green:#495543; --tan:#CDB494; --orange:#DA4635;
+  --cta:#AC2E20; --bark:#6B4A2F;
+  --line:var(--tan); --muted:var(--green);
 }
 .atf-root *{box-sizing:border-box}
 .atf-root,.atf-root{overflow-x:clip}
-.atf-root{margin:0;background:var(--paper);color:var(--ink);
+.atf-root{margin:0;background:var(--cream);color:var(--green);
   font:400 15px/1.55 "Special Elite","Courier New",monospace;-webkit-font-smoothing:antialiased}
 .atf-root .wrap{padding:0 20px}
-.atf-root .announce{background:var(--rust);color:var(--paper);text-align:center;
+.atf-root .announce{background:var(--cta);color:var(--cream);text-align:center;
   padding:6px 16px;font-size:12px;letter-spacing:.01em}
 .atf-root .hdr{height:0;position:relative;z-index:3}
-.atf-root .mark{position:absolute;left:20px;top:10px;height:24px;width:124px;background:var(--ink);
+.atf-root .mark{position:absolute;left:20px;top:10px;height:24px;width:124px;background:var(--green);
   -webkit-mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain;
           mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain}
 .atf-root .badge{text-align:center;padding-top:8px}
-.atf-root .moon{width:18px;height:18px;color:var(--olive);display:block;margin:0 auto -3px}
+.atf-root .moon{width:18px;height:18px;color:var(--green);display:block;margin:0 auto -3px}
 .atf-root .moon svg{display:block;width:100%;height:100%}
 .atf-root .eyebrow{margin:0;font-size:12px;letter-spacing:.02em;color:var(--muted)}
 .atf-root .stem{width:1px;height:16px;background:var(--line);margin:5px auto 0}
@@ -41,262 +47,176 @@
 .atf-root .slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:4/3;position:relative}
 .atf-root .slide img{display:block;width:100%;height:100%;object-fit:contain}
 .atf-root .empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:18px;
-  border:1px dashed var(--line);color:var(--sienna);opacity:.75;font-size:11.5px;line-height:1.4}
+  border:1px dashed var(--line);color:var(--bark);opacity:.75;font-size:11.5px;line-height:1.4}
 .atf-root .arrow{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;padding:0;
-  border:1px solid var(--line);background:rgba(248,245,236,.92);color:var(--sienna);border-radius:50%;
+  border:1px solid var(--line);background:rgba(223,215,195,.94);color:var(--bark);border-radius:50%;
   font:400 17px/28px "Special Elite",monospace;cursor:pointer;z-index:2}
 .atf-root .arrow.prev{left:4px}
 .atf-root .arrow.next{right:4px}
 .atf-root .dots{position:absolute;left:0;right:0;bottom:2px;display:flex;justify-content:center;gap:7px}
 .atf-root .dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer}
-.atf-root .dot.on{background:var(--sienna)}
-.atf-root .tag{position:absolute;left:0;top:0;background:rgba(248,245,236,.9);color:var(--sienna);
+.atf-root .dot.on{background:var(--bark)}
+.atf-root .tag{position:absolute;left:0;top:0;background:rgba(223,215,195,.94);color:var(--bark);
   font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;padding:5px 9px;border:1px solid var(--line)}
 .atf-root .form{margin-top:8px}
-.atf-root .flabel{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--sienna);margin-bottom:6px}
+.atf-root .flabel{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--bark);margin-bottom:6px}
 .atf-root .row{display:flex;gap:6px}
-.atf-root .field{flex:1;height:44px;border:1px solid var(--line);background:#FDFBF5;border-radius:3px;
+.atf-root .field{flex:1;height:44px;border:1px solid var(--line);background:var(--cream);border-radius:3px;
   padding:0 12px;font:400 13.5px/44px "Special Elite",monospace;color:var(--muted)}
 .atf-root .field + .field{flex:0 0 118px}
 .atf-root .field.full{margin-top:6px;flex:1 1 auto}
 .atf-root .cta{display:block;margin-top:8px;width:100%;height:50px;border:0;border-radius:3px;
-  background:var(--rust);color:var(--paper);font:400 15px/50px "Special Elite",monospace;
+  background:var(--cta);color:var(--cream);font:400 15px/50px "Special Elite",monospace;
   letter-spacing:.06em;text-align:center;text-decoration:none}
 .atf-root .under{margin-top:7px;text-align:center;font-size:11.5px;color:var(--muted)}
-.atf-root .under a{color:var(--sienna)}
+.atf-root .under a{color:var(--bark)}
 .atf-root .fuds{margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-radius:4px;
   display:grid;grid-template-columns:1fr 1fr;gap:7px 12px}
 .atf-root .fud{display:grid;grid-template-columns:12px 1fr;gap:6px;font-size:10.5px;line-height:1.28;color:var(--muted)}
-.atf-root .fud b{color:var(--ink);font-weight:400}
-.atf-root .tick{width:12px;height:12px;margin-top:1px;border:1px solid var(--sienna);border-radius:50%;position:relative}
+.atf-root .fud b{color:var(--green);font-weight:400}
+.atf-root .tick{width:12px;height:12px;margin-top:1px;border:1px solid var(--bark);border-radius:50%;position:relative}
 .atf-root .tick:after{content:"";position:absolute;left:3.5px;top:1.5px;width:3px;height:6px;
-  border-right:1.5px solid var(--sienna);border-bottom:1.5px solid var(--sienna);transform:rotate(42deg)}
-.atf-root .sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(248,245,236,.96);
+  border-right:1.5px solid var(--bark);border-bottom:1.5px solid var(--bark);transform:rotate(42deg)}
+.atf-root .sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(223,215,195,.96);
   border-top:1px solid var(--line);padding:9px 20px;display:flex;align-items:center;gap:12px;
   backdrop-filter:blur(8px)}
 .atf-root .sticky .price{font-size:13px;color:var(--muted);white-space:nowrap}
-.atf-root .sticky .price b{color:var(--ink);font-weight:400}
+.atf-root .sticky .price b{color:var(--green);font-weight:400}
 .atf-root .sticky .cta{margin:0;height:44px;line-height:44px;font-size:14px;flex:1}
 .atf-root .spacer{height:74px}
+.atf-root @media(min-width:900px){
+  .atf-desktop{max-width:1120px;margin-inline:auto;padding:0 32px;
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
+    column-gap:56px;align-content:start}
+.atf-root .atf-desktop>*{grid-column:1}
+.atf-root .atf-desktop>.announce,.atf-root .atf-desktop>.hdr{grid-column:1/-1}
+.atf-root .atf-desktop>.announce{width:100vw;margin-left:calc(50% - 50vw)}
+.atf-root .atf-desktop>.carousel{grid-column:2;grid-row:3/span 4;align-self:center;margin:0}
+.atf-root .atf-desktop>.wrap{padding:0}
+.atf-root .atf-desktop .badge{text-align:left;padding-top:28px}
+.atf-root .atf-desktop .moon,.atf-root .atf-desktop .stem{margin-left:0;margin-right:0}
+.atf-root h1{font-size:clamp(44px,4.4vw,64px);text-align:left}
+.atf-root .atf-desktop .sub{margin-left:0;text-align:left;max-width:44ch;font-size:15px;line-height:1.45}
+.atf-root .atf-desktop .form{margin-top:22px}
+.atf-root .atf-desktop .cta{height:54px;line-height:54px;font-size:16px}
+.atf-root .atf-desktop .fuds{grid-template-columns:1fr 1fr;gap:9px 18px;padding:14px 16px}
+.atf-root .atf-desktop .spacer,.atf-root .atf-desktop .sticky{display:none}
+.atf-root .mark{left:0;top:26px;height:30px;width:156px}
 .atf-root{display:block;width:100%;margin:0;position:relative}
 
-*{box-sizing:border-box}
-body{margin:0}
-.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 24px}
-.s{padding:88px 0}
-@media(min-width:900px){.s{padding:128px 0}}
-h1,h2,h3{margin:0}
-p{margin:0}
-/* Space after a heading is structure, not decoration: without it the lead butts against the
-   headline, which is the spacing fault Richard called amateur. Themes may override. */
-h1 + .lead,h2 + .lead{margin-top:24px}
-h2 + .lead + .links,h2 + .lead + .tablewrap{margin-top:32px}
-.eyebrow + h1,.eyebrow + h2{margin-top:0}
-a{color:inherit}
-.nav{position:sticky;top:0;z-index:50;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
-.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;
-  padding:17px 32px;transition:all 180ms cubic-bezier(.22,.61,.36,1)}
-.btn--nav{padding:11px 20px;font-size:12px}
-.act{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:24px}
-.band-grid{display:grid;gap:24px}
-@media(min-width:820px){.band-grid{grid-template-columns:repeat(3,1fr);gap:40px}}
-.badges{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px 40px}
-.links{margin-top:40px;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
-.stats{margin-top:56px;display:grid;gap:40px}
-@media(min-width:760px){.stats{grid-template-columns:repeat(3,1fr);gap:64px}}
-.stat i{display:block;font-style:normal}
-.reasons{margin-top:56px;display:grid}
-.reason{display:grid;grid-template-columns:auto 1fr;gap:24px;padding:36px 0}
-@media(min-width:900px){.reason{grid-template-columns:72px minmax(0,20ch) minmax(0,1fr);gap:40px;align-items:start}}
-.outcomes{margin-top:40px;display:grid;gap:16px}
-@media(min-width:820px){.outcomes{grid-template-columns:1fr 1fr;gap:16px 64px}}
-.offer{display:grid;gap:40px}
-@media(min-width:900px){.offer{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start}}
-.steps{display:grid;gap:16px}
-.tablewrap{margin-top:40px;overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:640px}
-th,td{text-align:left;padding:16px 8px;vertical-align:top}
-.faq{margin-top:40px}
-details summary{cursor:pointer;list-style:none;padding:22px 0;display:flex;justify-content:space-between;gap:24px}
-details summary::-webkit-details-marker{display:none}
-details summary::after{content:"+"}
-details[open] summary::after{content:"–"}
-details p{padding:0 0 22px;max-width:64ch}
-.close{text-align:center}
-.close h2,.close .lead{margin-left:auto;margin-right:auto}
-footer{padding:56px 0}
-.recognition{margin-top:24px;display:grid;gap:20px;max-width:62ch}
-.refusals{margin-top:56px;display:grid;gap:24px}
-@media(min-width:820px){.refusals{grid-template-columns:repeat(2,1fr);gap:32px 48px}}
-.refusal b{display:block}
-.refusal p{margin-top:8px}
-.shot{display:block;width:100%;height:auto}
-.hero-media{margin-top:48px;display:grid;gap:16px}
-@media(min-width:900px){.hero-media{grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:start}}
-.shot--detail{display:none}
-@media(min-width:900px){.shot--detail{display:block}}
-.bleed{margin:0}
-.bleed img{display:block;width:100%;height:auto;max-height:58vh;object-fit:cover}
-.sample-shot{margin:40px 0 0}
-.gallery-s{padding-top:0}
-.gallery{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
-@media(min-width:820px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}}
-.gallery img{aspect-ratio:4/5;object-fit:cover}
-.offer-shot{margin:0 0 40px;max-width:320px}
-@media(min-width:900px){.offer-shot{float:right;margin:0 0 24px 40px}}
-.which{font:400 12px/1.5 "IBM Plex Mono",monospace;background:#111;color:#fff;padding:8px 14px;letter-spacing:.04em}
-.which b{font-weight:700}.which span{opacity:.62}
+/* ── Wolf Children base ───────────────────────────────────────────────────
+   Built from the wolf-children-design skill. This replaces BASE and the old
+   per-theme CSS entirely for the five: Richard, 2026-10-05, "nothing from the
+   previous design survives unless it matches the ATF". Every value below is a
+   token from references/tokens.md. The five differ only in composition. */
 
-body{background:#EFE9DC;color:#2F3A2B;font:300 16px/1.75 "IBM Plex Mono",monospace;position:relative}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.03;
-  background-image:radial-gradient(#2F3A2B 1px,transparent 1px);background-size:3px 3px}
-.s{padding:104px 0}@media(min-width:900px){.s{padding:168px 0}}
-h1,h2{font-family:"Libre Baskerville",Georgia,serif;font-weight:400;letter-spacing:-.02em}
-h1{font-size:clamp(2.6rem,5.6vw,5rem);line-height:1.04;max-width:16ch}
-h2{font-size:clamp(1.8rem,3.4vw,3rem);line-height:1.12;max-width:20ch}
-h3{font:700 14px/1.35 "IBM Plex Mono",monospace;letter-spacing:.02em}
-.lead{font:300 17px/1.8 "IBM Plex Mono",monospace;max-width:58ch;color:#55604F}
-.eyebrow{font:400 10px/1 "IBM Plex Mono",monospace;letter-spacing:.28em;text-transform:uppercase;color:#8A9382;margin-bottom:28px}
-.small{font-size:13px;color:#8A9382}
-.announce{background:#2F3A2B;color:#EFE9DC;text-align:center;padding:12px;font-size:12px;letter-spacing:.04em}
-.nav{position:sticky;top:16px;margin:16px auto 0;max-width:1120px;height:60px;border-radius:999px;
-  background:rgba(239,233,220,.82);backdrop-filter:blur(14px);box-shadow:0 12px 40px rgba(47,58,43,.09);padding:0 28px}
-.nav .mark{font:400 16px "Libre Baskerville",serif}
-.btn{background:#2F3A2B;color:#EFE9DC;font:400 13px/1 "IBM Plex Mono",monospace;letter-spacing:.1em;
-  border-radius:999px;box-shadow:0 10px 30px rgba(47,58,43,.16)}
-.btn:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(47,58,43,.22)}
-.hero{padding-top:88px}
-.band{padding:48px 0;border-top:1px solid rgba(47,58,43,.12);border-bottom:1px solid rgba(47,58,43,.12)}
-.bullet{font-size:15px;color:#55604F}
-.sample{background:#2F3A2B;color:#EFE9DC}
-.sample h2{color:#EFE9DC}.sample .lead{color:#C3CBBC}
-.stat b{display:block;font:400 clamp(2.6rem,4.4vw,3.8rem)/1 "Libre Baskerville",serif;letter-spacing:-.02em}
-.stat i{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#8A9382;margin:12px 0 14px}
-.reason{padding:42px 0;border-bottom:1px solid rgba(47,58,43,.12)}
-.reason .n{font:400 12px "IBM Plex Mono",monospace;color:#8A9382;letter-spacing:.14em}
-.reason p{font-size:15px;color:#55604F;max-width:56ch}
-.outcomes p{padding:18px 0;border-bottom:1px solid rgba(47,58,43,.12);font-size:15px}
-.price{font:400 clamp(3rem,5vw,4.4rem)/1 "Libre Baskerville",serif;margin:18px 0}
-.includes{margin-top:28px}
-.includes p{padding:16px 0;border-bottom:1px solid rgba(47,58,43,.1);font-size:15px}
-.note-line{margin-top:26px;max-width:52ch}
-.step{background:#F6F2E8;border-radius:18px;padding:26px;box-shadow:0 18px 50px rgba(47,58,43,.07)}
-.step .sn{display:block;font:400 11px "IBM Plex Mono",monospace;letter-spacing:.24em;color:#8A9382;margin-bottom:10px}
-.step b{display:block;font:700 14px "IBM Plex Mono",monospace;margin-bottom:8px}
-.step p{font-size:14px;color:#55604F}
-.banner{background:#55604F;color:#EFE9DC}
-.banner h2{color:#EFE9DC;max-width:22ch}.bsub{color:#C3CBBC;margin:18px 0 36px;max-width:50ch}
-.banner .btn{background:#EFE9DC;color:#2F3A2B}
-table{font-size:14px}
-thead th{font:400 10px "IBM Plex Mono",monospace;letter-spacing:.24em;text-transform:uppercase;color:#8A9382}
-tbody th{font:300 13px "IBM Plex Mono",monospace;color:#8A9382;width:16%}
-th,td{border-bottom:1px solid rgba(47,58,43,.12)}
-td:nth-child(3){background:rgba(47,58,43,.05)}
-.faq{border-top:1px solid rgba(47,58,43,.12)}
-details{border-bottom:1px solid rgba(47,58,43,.12)}
-summary{font:400 17px "Libre Baskerville",serif}
-details p{font-size:15px;color:#55604F}
-footer{background:#2F3A2B;color:#8A9382;font-size:12px}
+*,*::before,*::after{box-sizing:border-box;font-synthesis:none;font-synthesis-weight:none}
+*{font-weight:400}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--cream);color:var(--green);
+  font:400 15px/1.55 "Special Elite","Courier New",monospace;-webkit-font-smoothing:antialiased}
 
-.ph{position:relative;display:block;margin:0;background:#F7F3E9;line-height:0;
-  box-shadow:0 1px 2px rgba(22,21,20,.18),0 12px 28px rgba(22,21,20,.14)}
-.ph img{display:block;width:100%;height:auto}
-.ph-matte{padding:3.5%}
+/* the old header and announce bar are removed from the markup, not hidden */
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
+.s{padding:64px 0}
+@media(min-width:900px){.s{padding:112px 0}.wrap{padding:0 32px}}
+
+/* ── type. Morning Memories on headings only, never under 24px ─────────── */
+h1,h2,h3{font-family:"Morning Memories",Georgia,serif;letter-spacing:-.02em;line-height:1.04;margin:0}
+h1{font-size:clamp(34px,8vw,64px)}
+h2{font-size:clamp(26px,5.2vw,40px)}
+h3{font-size:clamp(20px,3.4vw,26px);letter-spacing:-.01em}
+p{margin:0 0 14px;max-width:66ch}
+.lead{font-size:clamp(16px,4vw,19px);line-height:1.5;letter-spacing:-.01em;max-width:60ch}
+.small,.note-line,.bsub{font-size:12px;line-height:1.45}
+/* tertiary layer: uppercase, +.09em, bark. The only place bark appears in prose. */
+.eyebrow,.sn,.n,.badges span,.flabel{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--bark)}
+b,strong{text-transform:uppercase;letter-spacing:.09em}
+a{color:var(--green);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+.link,.links a{color:var(--bark)}
+
+/* ── the one orange: the button. Nothing else in its section may be orange ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;
+  padding:0 22px;border:0;border-radius:3px;background:var(--cta);color:var(--cream);
+  font:400 15px/1 "Special Elite","Courier New",monospace;letter-spacing:.06em;
+  text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background 120ms ease-out}
+.btn:hover{background:var(--green)}
+.act{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px}
+
+/* ── structure is a 1px tan line. No shadows anywhere. ─────────────────── */
+.band,.stat,.reason,.step,.refusal,.offer,.faq,.tablewrap,.includes{
+  border:1px solid var(--tan);border-radius:4px;padding:20px}
+.band-grid,.stats,.reasons,.steps,.refusals,.outcomes,.includes,.compare{
+  display:grid;gap:16px;margin-top:32px}
+.price{font-size:28px;letter-spacing:-.01em}
+.bullet{display:grid;grid-template-columns:12px 1fr;gap:8px;align-items:start;margin:0 0 10px}
+.bullet i{width:12px;height:12px;margin-top:4px;border:1px solid var(--bark);border-radius:999px;
+  position:relative;flex:none;font-style:normal}
+.bullet i:after{content:"";position:absolute;left:3.5px;top:1.5px;width:3px;height:6px;
+  border-right:1.5px solid var(--bark);border-bottom:1.5px solid var(--bark);transform:rotate(42deg)}
+
+/* the stem: the system's signature connector, 1px x 16px under an eyebrow */
+.eyebrow + .stem,.stem{width:1px;height:16px;background:var(--tan);margin:8px auto 0;display:block}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--tan);text-align:left;vertical-align:top}
+thead th{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--bark)}
+details{border-bottom:1px solid var(--tan);padding:14px 0}
+summary{cursor:pointer;list-style:none;font-size:15px}
+summary::-webkit-details-marker{display:none}
+
+/* ── the one inverted ground. Bark is 1.01:1 here and unavailable. ─────── */
+.banner,.close{background:var(--green);color:var(--cream);border-radius:4px;padding:32px 24px}
+.banner h2,.close h2,.banner a,.close a{color:var(--cream)}
+.banner .eyebrow,.close .eyebrow{color:var(--cream)}
+.banner .btn,.close .btn{background:var(--cream);color:var(--green)}
+.banner .btn:hover,.close .btn:hover{background:var(--tan)}
+
+/* ── photographs. The box fits the picture; the picture is never cropped. ── */
+.ph{position:relative;display:block;margin:0;background:var(--cream);line-height:0;
+  padding:3.5%;border:1px solid var(--tan)}
+.ph img{display:block;width:100%;height:auto;aspect-ratio:auto!important;max-height:none!important;
+  object-fit:contain!important;border-radius:0}
+.ph .tape{position:absolute;top:-13px;left:50%;width:38%;height:auto;z-index:2}
+.ph.tape-a .tape{transform:translateX(-50%) rotate(-2deg)}
+.ph.tape-b .tape{transform:translateX(-52%) rotate(2.4deg)}
+.ph.tape-c .tape{transform:translateX(-48%) rotate(-3.2deg)}
 .ph-tilt-a{transform:rotate(-1.1deg)}
 .ph-tilt-b{transform:rotate(.9deg)}
-.ph-tape{overflow:visible}
-.ph-tape>.tape{position:absolute;top:-14px;left:50%;width:38%;height:auto;z-index:2}
-.ph-tape.tape-a>.tape{transform:translateX(-50%) rotate(-2deg)}
-.ph-tape.tape-b>.tape{transform:translateX(-52%) rotate(2.4deg)}
-.ph-tape.tape-c>.tape{transform:translateX(-48%) rotate(-3.2deg)}
-.bleed .ph{box-shadow:none}
-.bleed .ph-matte{padding:2.2%}
-@media(min-width:900px){.ph-tape>.tape{width:26%;top:-18px}}
+figure{margin:0}
+.bleed{margin-top:32px}
+.hero-media,.gallery{display:grid;gap:24px;margin-top:32px}
+@media(min-width:900px){.ph .tape{width:24%;top:-18px}}
 
-/* Both faces ship one weight. Nothing may fake a second. */
-*,*::before,*::after{font-synthesis:none!important;font-synthesis-weight:none!important}
-*{font-weight:400!important}
-body{font-family:"Special Elite","Courier New",monospace;font-size:15px;line-height:1.66}
-h1,h2,h3,h4,.display{font-family:"Morning Memories",Georgia,serif!important;letter-spacing:-.015em;line-height:1.04}
-body,.which,.lead,.btn,.stat b,.reason .n,.price,.step .sn,.step b,
-thead th,tbody th,summary,.nav .mark{font-family:"Special Elite","Courier New",monospace!important}
-/* Emphasis without a bold cut: size, caps and tracking carry it. */
-.eyebrow,.kicker,.small,.which,.tag,.label{font-family:"Special Elite","Courier New",monospace;
-  text-transform:uppercase;letter-spacing:.16em;font-size:11px}
-b,strong{text-transform:uppercase;letter-spacing:.1em}
-.btn,.cta{font-family:"Special Elite","Courier New",monospace;text-transform:uppercase;letter-spacing:.13em}
-/* No crop and no stretch, anywhere. The shared base sets object-fit:cover on
-   .bleed img and .gallery img and an aspect-ratio on the gallery; both are
-   released here rather than edited, since they belong to all 26 variants. */
-.bleed img,.gallery img,.shot,.ph img{aspect-ratio:auto!important;height:auto!important;
-  max-height:none!important;object-fit:contain!important}
-.bleed{overflow:visible}
-.shot,.ph img{border-radius:0;box-shadow:none;filter:none}
-.ph{max-width:100%}
-/* The ATF is a mobile-native section. On a wide screen it is placed, not
-   stretched: centred at its design width on the page's own ground. Its internals
-   are untouched. */
-@media(min-width:900px){.atf-root{max-width:520px;margin-inline:auto}}
-/* A theme that overflows sideways guards it with body{overflow-x:hidden}, which
-   does not hold: the overflow escapes to html and the page scrolls anyway.
-   hyperframes measured 65px of real sideways scroll from its own perspective
-   planes, with or without anything added here. clip rather than hidden, so no
-   scroll container is created and sticky still works. */
-html,body{overflow-x:clip}
-
-/* mobile first */
-.s{padding:62px 0}
-.wrap{padding-left:20px;padding-right:20px}
-h1,.display{font-size:clamp(34px,9vw,70px)}
-h2{font-size:clamp(26px,6.4vw,48px)}
-.lead{font-size:clamp(16px,4.2vw,20px);line-height:1.5}
-@media(max-width:1023px){
-  .hero-media,.gallery,.compare,.bento{display:grid;grid-template-columns:1fr!important}
-  .ph-tape>.tape{width:42%}
-}
-/* Diffused, not dropped: the language asks for soft falloff rather than a hard
-   edge under the print. */
-.ph{box-shadow:0 2px 6px rgba(28,24,20,.07),0 24px 60px rgba(28,24,20,.16)}
-
-/* ── desktop: the editorial split, full height ───────────────────────────
-   Editorial Luxury on a wide screen means one idea per spread and real air
-   between them: the hero runs to the viewport, the photograph takes the larger
-   half, and the reading column stays narrow enough to be a column. */
-@media(min-width:1024px){
-  .s{padding:168px 0}
-  .wrap{max-width:1300px;padding-left:64px;padding-right:64px}
-  .lead{max-width:38ch}
-  .s p:not(.lead):not(.small):not(.eyebrow){max-width:60ch}
-
-  .hero{min-height:88vh;display:flex;align-items:center}
-  .hero .wrap{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
-    column-gap:96px;row-gap:24px;align-items:center}
+/* Editorial spreads. One idea per screen, the photograph taking the larger half
+   and changing sides as you go down. The most air of the five. */
+@media(min-width:900px){
+  .s{padding:152px 0}
+  .wrap{max-width:1260px}
+  .hero{min-height:84vh;display:flex;align-items:center}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);
+    column-gap:88px;align-items:center;width:100%}
   .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1}
-  .hero h1{font-size:clamp(58px,4.8vw,84px);line-height:1.02}
-  .hero .hero-media{grid-column:2;grid-row:1 / span 5;display:grid;
-    grid-template-columns:1.25fr .75fr;gap:30px;align-items:end}
-  .hero .hero-media>.shot--detail{transform:translateY(56px) rotate(1.2deg)}
-
-  /* the gallery as a measured spread, two large and two small */
-  .gallery{grid-template-columns:1.15fr .85fr .85fr 1.15fr;gap:40px;align-items:center}
-
-  /* one idea per spread: the picture takes the larger half, alternating sides */
-  .sample .wrap{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
-    column-gap:88px;align-items:center}
-  .sample .sample-shot{grid-column:2;grid-row:1 / span 6}
-  .offer-s .wrap{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);
-    column-gap:88px;align-items:center}
-  .offer-s .offer-shot{grid-column:1;grid-row:1 / span 8;max-width:none;margin:0}
-
+  .hero h1{font-size:clamp(52px,4.6vw,78px)}
+  .hero .lead{max-width:38ch}
+  .hero .hero-media{grid-column:2;grid-row:1/span 5;grid-template-columns:1.3fr .7fr;gap:28px;align-items:end}
+  .hero .hero-media>:last-child{transform:translateY(52px) rotate(1.2deg)}
+  .gallery{grid-template-columns:1.15fr .85fr .85fr 1.15fr;gap:36px;align-items:center}
+  .stats,.reasons,.outcomes,.refusals{grid-template-columns:repeat(3,1fr);gap:36px}
+  .steps{grid-template-columns:repeat(4,1fr);gap:36px}
+  .compare{grid-template-columns:1fr 1fr;gap:36px}
+  .sample .wrap{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);column-gap:80px;align-items:center}
+  .sample .sample-shot{grid-column:2;grid-row:1/span 8}
+  .offer-s .wrap{display:grid;grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);column-gap:80px;align-items:center}
+  .offer-s .offer-shot{grid-column:1;grid-row:1/span 8}
   .bleed .ph{max-width:1020px;margin-inline:auto}
-  .bleed{padding:0 64px}
-  .ph-tape>.tape{width:22%;top:-20px}
 }
 </style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=1622703732974632&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
-<div class="atf-root">
+<div class="atf-root atf-desktop">
 
 
 <p class="announce">Buy two and get one free.</p>
@@ -356,16 +276,14 @@ h2{font-size:clamp(26px,6.4vw,48px)}
 </div>
 <p class="which"><b>high-end-visual-design</b> <span>vibe archetype Editorial Luxury · layout archetype Editorial Split · serif display, film grain at 3%, floating nav, diffused shadows · Libre Baskerville stands in for PP Editorial New</span></p>
 
-<nav class="nav"><span class="mark">Wolf Children</span><a class="btn btn--nav" href="#offer">Get Compass</a></nav>
-
 <section class="s hero"><div class="wrap">
   <p class="eyebrow">Compass · one child · one page · $27</p>
   <h1>Stop Guessing What Your Child Needs Right Now.</h1>
   <p class="lead">A plain, warm, 24-section guide to your child’s natural temperament, without personality labels, developmental assessments, predictions, or parenting advice.</p>
   <div class="act"><a class="btn" href="#offer">Get Your Child’s Compass Reading, $27</a><p class="small">Birth date, time and place. Ready in minutes, in your private web portal.</p></div>
   <div class="hero-media">
-    <figure class="ph ph-matte ph-tape tape-a ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/hero.webp" width="1200" height="1600" alt="A child alone on the sand, a silhouette against the setting sun" loading="eager" fetchpriority="high" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure>
-    <figure class="ph ph-matte ph-tape tape-b ph-tilt-b shot shot--detail"><img class="ph-photo" src="/assets/img/compass2/hero-detail.webp" width="1200" height="1600" alt="The same evening, close: a child crouched in long grass" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure>
+    <figure class="ph tape-a ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/hero.webp" width="1200" height="1600" alt="A child alone on the sand, a silhouette against the setting sun" loading="eager" fetchpriority="high" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure>
+    <figure class="ph tape-b ph-tilt-b shot shot--detail"><img class="ph-photo" src="/assets/img/compass2/hero-detail.webp" width="1200" height="1600" alt="The same evening, close: a child crouched in long grass" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure>
   </div>
 </div></section>
 
@@ -373,7 +291,7 @@ h2{font-size:clamp(26px,6.4vw,48px)}
   <p class="bullet">What settles them: how to help them return to calm when overwhelmed.</p><p class="bullet">How they take things in: their natural sensory and learning pace.</p><p class="bullet">Energy and pressure: where their energy goes, and how they meet stress.</p>
 </div><div class="wrap"><div class="badges"><span class="small">Secure checkout by Stripe</span><span class="small">It needs their birth time</span><span class="small">Your child’s name, date and place never leave our own server</span></div></div></div>
 
-<figure class="bleed"><figure class="ph ph-matte ph-tape tape-c ph-tilt-a"><img class="ph-photo" src="/assets/img/compass2/band-dusk.webp" width="1600" height="1200" alt="A beach at dusk, the mountain behind, one child small in the frame" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
+<figure class="bleed"><figure class="ph tape-c ph-tilt-a"><img class="ph-photo" src="/assets/img/compass2/band-dusk.webp" width="1600" height="1200" alt="A beach at dusk, the mountain behind, one child small in the frame" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
 
 <section class="s recognition-s"><div class="wrap">
   <h2>Guessing Is Not The Same As Failing.</h2>
@@ -383,7 +301,7 @@ h2{font-size:clamp(26px,6.4vw,48px)}
 <section class="s sample"><div class="wrap">
   <h2>Read one before you buy one.</h2>
   <p class="lead">Two complete Compass pages, start to finish, for children who do not exist. One for a boy and one for a girl. Nothing is held back and nothing is blurred.</p>
-  <figure class="sample-shot"><figure class="ph ph-matte ph-tape tape-a ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/sample.webp" width="1600" height="1200" alt="A child building a sandcastle at the end of the day" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
+  <figure class="sample-shot"><figure class="ph tape-a ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/sample.webp" width="1600" height="1200" alt="A child building a sandcastle at the end of the day" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
   <div class="links"><a class="link" href="/readings/compass/sample/nora/">Read the one written for a girl</a><a class="link" href="/readings/compass/sample/finn/">Read the one written for a boy</a></div>
 </div></section>
 
@@ -400,10 +318,10 @@ h2{font-size:clamp(26px,6.4vw,48px)}
 
 <section class="s gallery-s"><div class="wrap">
   <div class="gallery">
-    <figure class="ph ph-matte ph-tape tape-b ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="A child standing on a rock in a forest, looking back" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure>
-    <figure class="ph ph-matte ph-tape tape-c ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence, absorbed in the animals on the other side" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure>
-    <figure class="ph ph-matte ph-tape tape-a ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/reason-3.webp" width="1200" height="1600" alt="A child running across grass towards the trees" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure>
-    <figure class="ph ph-matte ph-tape tape-b ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/reason-4.webp" width="1200" height="1600" alt="A child small on a path between tall pines" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure>
+    <figure class="ph tape-b ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="A child standing on a rock in a forest, looking back" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure>
+    <figure class="ph tape-c ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence, absorbed in the animals on the other side" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure>
+    <figure class="ph tape-a ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/reason-3.webp" width="1200" height="1600" alt="A child running across grass towards the trees" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure>
+    <figure class="ph tape-b ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/reason-4.webp" width="1200" height="1600" alt="A child small on a path between tall pines" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure>
   </div>
 </div></section>
 
@@ -418,7 +336,7 @@ h2{font-size:clamp(26px,6.4vw,48px)}
 </div></section>
 
 <section class="s offer-s" id="offer"><div class="wrap">
-  <figure class="offer-shot"><figure class="ph ph-matte ph-tape tape-c ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/offer.webp" width="1200" height="1600" alt="A child in a doorway at the end of the day, boots muddy" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
+  <figure class="offer-shot"><figure class="ph tape-c ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/offer.webp" width="1200" height="1600" alt="A child in a doorway at the end of the day, boots muddy" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
   <p class="eyebrow">The offer</p>
   <div class="offer">
     <div class="offer-main">
@@ -449,7 +367,7 @@ h2{font-size:clamp(26px,6.4vw,48px)}
   <h2>Six months of guessing, or twenty-seven dollars.</h2><p class="bsub">Read a whole one free first, then decide.</p><a class="btn" href="#offer">Get Compass</a>
 </div></section>
 
-<figure class="bleed"><figure class="ph ph-matte ph-tape tape-a ph-tilt-b"><img class="ph-photo" src="/assets/img/compass2/band-season.webp" width="1600" height="1200" alt="A forest path, a child small among the trees" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
+<figure class="bleed"><figure class="ph tape-a ph-tilt-b"><img class="ph-photo" src="/assets/img/compass2/band-season.webp" width="1600" height="1200" alt="A forest path, a child small among the trees" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
 
 <section class="s faq-s"><div class="wrap">
   <p class="eyebrow">Questions</p>
@@ -457,7 +375,7 @@ h2{font-size:clamp(26px,6.4vw,48px)}
   <div class="faq"><details><summary>What if I do not know my child’s exact birth time?</summary><p>Compass needs the exact birth time. The birth certificate usually has it, and the hospital will have it on file. Without the time we would be guessing, and guessing is what you came here to stop.</p></details><details><summary>Is this traditional purple-and-stars astrology?</summary><p>No. Wolf Children uses photography and plain language about child nature, outdoor living and temperament, rather than horoscopes or mystical jargon.</p></details><details><summary>How is the reading delivered?</summary><p>As a web page inside your private portal, minutes after the details are in.</p></details><details><summary>Is there an option for a longer reading?</summary><p>Yes. Inside your portal you can upgrade to North Star ($199), a written deep-dive reading of nine to fifteen pages.</p></details><details><summary>What if it does not sound like them?</summary><p>Say so, and it is looked at. A page that does not sound like your child is no use to anyone, and a person reads every reply.</p></details><details><summary>What happens to their details?</summary><p>Your child’s name, date of birth and place of birth are stored on our own server and never leave it. You can delete a child from the portal at any time.</p></details></div>
 </div></section>
 
-<figure class="bleed"><figure class="ph ph-matte ph-tape tape-b ph-tilt-a"><img class="ph-photo" src="/assets/img/compass2/close.webp" width="1600" height="1200" alt="A child at the water's edge at sunset, the beach empty" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
+<figure class="bleed"><figure class="ph tape-b ph-tilt-a"><img class="ph-photo" src="/assets/img/compass2/close.webp" width="1600" height="1200" alt="A child at the water's edge at sunset, the beach empty" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
 
 <section class="s close"><div class="wrap">
   <h2>The same night, one layer deeper.</h2><p class="lead">You already know this child. We read the same one from the night they arrived.</p><a class="btn" href="#offer">Get Compass</a>

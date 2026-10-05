@@ -1197,55 +1197,23 @@ footer{border-top:1px solid #1E1E1E;padding:64px 0;font-size:10.5px;letter-spaci
   'mengto-skeuomorphic': {
     v2: true,
     cssV2: `
-/* mobile first */
-.s{padding:56px 0}
-.wrap{padding-left:18px;padding-right:18px}
-h1,.display{font-size:clamp(32px,8.6vw,64px)}
-h2{font-size:clamp(25px,6.2vw,44px)}
-.lead{font-size:clamp(15px,4vw,19px);line-height:1.52}
-@media(max-width:1023px){
-  .hero-media,.gallery,.compare,.bento{display:grid;grid-template-columns:1fr!important}
-  .ph-tape>.tape{width:44%}
-}
-/* The photograph is a print laid on the shell, so it keeps a moulded lip and a
-   deeper falloff than the flat variants use. */
-.ph{box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 2px 3px rgba(0,0,0,.3),0 18px 34px rgba(0,0,0,.34)}
-
-/* ── desktop: the shell becomes a device, not a wider page ────────────────
-   The language is a light outer page framing a deep charcoal app shell. On a
-   wide screen the shell is a held panel with the page visible around it, and the
-   surfaces inside it are moulded: raised where you act, inset where you read. */
-@media(min-width:1024px){
-  .s{padding:112px 0}
-  .wrap{max-width:1180px;padding-left:52px;padding-right:52px}
-  .lead{max-width:46ch}
-  .s p:not(.lead):not(.small):not(.eyebrow){max-width:66ch}
-
-  /* hero: copy on a raised slab, the prints beside it on the shell */
-  .hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
-    column-gap:64px;row-gap:20px;align-items:center}
+/* Card-led. Every block is a bordered well on the cream, two up, generously
+   padded. The structure is the tan line doing all the work. */
+.band,.stat,.reason,.step,.refusal,.faq,.includes{padding:24px}
+@media(min-width:900px){
+  .s{padding:104px 0}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:56px;align-items:center}
   .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1}
-  .hero h1{font-size:clamp(54px,4.6vw,72px)}
-  .hero .hero-media{grid-column:2;grid-row:1 / span 5;display:grid;
-    grid-template-columns:1.1fr .9fr;align-items:end;gap:24px}
-  .hero .hero-media>.shot--detail{transform:translateY(34px) rotate(1.8deg)}
-
-  /* reasons in inset wells, two rows of two, so each reads as a pressed tile */
+  .hero .hero-media{grid-column:2;grid-row:1/span 5;grid-template-columns:1.15fr .85fr;gap:20px;align-items:end}
   .gallery{grid-template-columns:repeat(2,1fr);gap:40px 48px}
-  .gallery>*{padding:22px;border-radius:14px;
-    box-shadow:inset 0 2px 5px rgba(0,0,0,.42),inset 0 -1px 0 rgba(255,255,255,.07)}
-  .gallery>* .ph{box-shadow:0 2px 3px rgba(0,0,0,.34),0 14px 26px rgba(0,0,0,.3)}
-
-  /* sample and offer: the moulded split, action side raised */
-  .sample .wrap,.offer-s .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
-    column-gap:64px;align-items:center}
-  .sample .sample-shot{grid-column:1;grid-row:1 / span 6}
-  .offer-s .offer-shot{grid-column:1;grid-row:1 / span 8;max-width:none;margin:0}
-  .offer-s .offer{box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 20px 44px rgba(0,0,0,.42)}
-
+  .gallery>*{border:1px solid var(--tan);border-radius:4px;padding:20px}
+  .gallery>* .ph{border:0;padding:0}
+  .stats,.reasons,.outcomes,.refusals,.steps{grid-template-columns:repeat(2,1fr);gap:24px}
+  .compare{grid-template-columns:1fr 1fr;gap:24px}
+  .sample .wrap,.offer-s .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:56px;align-items:center}
+  .sample .sample-shot,.offer-s .offer-shot{grid-column:1;grid-row:1/span 8}
+  .offer{padding:32px}
   .bleed .ph{max-width:820px;margin-inline:auto}
-  .bleed{padding:0 52px}
-  .ph-tape>.tape{width:24%;top:-20px}
 }
 `,
     title: 'MengTo · high-contrast-skeuomorphic-clean',

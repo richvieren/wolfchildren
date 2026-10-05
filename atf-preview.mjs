@@ -30,7 +30,7 @@ const page = (cell, T) => `<!doctype html>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
 <style>${ATF_CSS}</style>
 </head>
-<body data-cell="${cell}">
+<body class="atf-desktop" data-cell="${cell}">
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
 ${atfMarkup(T)}
 ${ATF_JS}

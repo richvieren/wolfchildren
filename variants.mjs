@@ -216,6 +216,102 @@ export const PHOTO_CSS_V2 = `
 
 // Everything a v2 page needs regardless of its design language. Each theme's
 // `cssV2` is then only its own design, which is what differs between the five.
+
+// The palette, from projects/wolf-children/brand-bible.md §2. Fixed, not derived.
+export const TOKENS_WC = `
+:root{
+  --cream:#DFD7C3; --green:#495543; --tan:#CDB494;
+  --orange:#DA4635; --cta:#AC2E20; --bark:#6B4A2F; --green-hover:#3A4435;
+}
+`;
+
+export const WC_BASE = `
+/* ── Wolf Children base ───────────────────────────────────────────────────
+   Built from the wolf-children-design skill. This replaces BASE and the old
+   per-theme CSS entirely for the five: Richard, 2026-10-05, "nothing from the
+   previous design survives unless it matches the ATF". Every value below is a
+   token from references/tokens.md. The five differ only in composition. */
+
+*,*::before,*::after{box-sizing:border-box;font-synthesis:none;font-synthesis-weight:none}
+*{font-weight:400}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--cream);color:var(--green);
+  font:400 15px/1.55 "Special Elite","Courier New",monospace;-webkit-font-smoothing:antialiased}
+
+/* the old header and announce bar are removed from the markup, not hidden */
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
+.s{padding:64px 0}
+@media(min-width:900px){.s{padding:112px 0}.wrap{padding:0 32px}}
+
+/* ── type. Morning Memories on headings only, never under 24px ─────────── */
+h1,h2,h3{font-family:"Morning Memories",Georgia,serif;letter-spacing:-.02em;line-height:1.04;margin:0}
+h1{font-size:clamp(34px,8vw,64px)}
+h2{font-size:clamp(26px,5.2vw,40px)}
+h3{font-size:clamp(20px,3.4vw,26px);letter-spacing:-.01em}
+p{margin:0 0 14px;max-width:66ch}
+.lead{font-size:clamp(16px,4vw,19px);line-height:1.5;letter-spacing:-.01em;max-width:60ch}
+.small,.note-line,.bsub{font-size:12px;line-height:1.45}
+/* tertiary layer: uppercase, +.09em, bark. The only place bark appears in prose. */
+.eyebrow,.sn,.n,.badges span,.flabel{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--bark)}
+b,strong{text-transform:uppercase;letter-spacing:.09em}
+a{color:var(--green);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+.link,.links a{color:var(--bark)}
+
+/* ── the one orange: the button. Nothing else in its section may be orange ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;
+  padding:0 22px;border:0;border-radius:3px;background:var(--cta);color:var(--cream);
+  font:400 15px/1 "Special Elite","Courier New",monospace;letter-spacing:.06em;
+  text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background 120ms ease-out}
+.btn:hover{background:var(--green)}
+.act{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px}
+
+/* ── structure is a 1px tan line. No shadows anywhere. ─────────────────── */
+.band,.stat,.reason,.step,.refusal,.offer,.faq,.tablewrap,.includes{
+  border:1px solid var(--tan);border-radius:4px;padding:20px}
+.band-grid,.stats,.reasons,.steps,.refusals,.outcomes,.includes,.compare{
+  display:grid;gap:16px;margin-top:32px}
+.price{font-size:28px;letter-spacing:-.01em}
+.bullet{display:grid;grid-template-columns:12px 1fr;gap:8px;align-items:start;margin:0 0 10px}
+.bullet i{width:12px;height:12px;margin-top:4px;border:1px solid var(--bark);border-radius:999px;
+  position:relative;flex:none;font-style:normal}
+.bullet i:after{content:"";position:absolute;left:3.5px;top:1.5px;width:3px;height:6px;
+  border-right:1.5px solid var(--bark);border-bottom:1.5px solid var(--bark);transform:rotate(42deg)}
+
+/* the stem: the system's signature connector, 1px x 16px under an eyebrow */
+.eyebrow + .stem,.stem{width:1px;height:16px;background:var(--tan);margin:8px auto 0;display:block}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--tan);text-align:left;vertical-align:top}
+thead th{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--bark)}
+details{border-bottom:1px solid var(--tan);padding:14px 0}
+summary{cursor:pointer;list-style:none;font-size:15px}
+summary::-webkit-details-marker{display:none}
+
+/* ── the one inverted ground. Bark is 1.01:1 here and unavailable. ─────── */
+.banner,.close{background:var(--green);color:var(--cream);border-radius:4px;padding:32px 24px}
+.banner h2,.close h2,.banner a,.close a{color:var(--cream)}
+.banner .eyebrow,.close .eyebrow{color:var(--cream)}
+.banner .btn,.close .btn{background:var(--cream);color:var(--green)}
+.banner .btn:hover,.close .btn:hover{background:var(--tan)}
+
+/* ── photographs. The box fits the picture; the picture is never cropped. ── */
+.ph{position:relative;display:block;margin:0;background:var(--cream);line-height:0;
+  padding:3.5%;border:1px solid var(--tan)}
+.ph img{display:block;width:100%;height:auto;aspect-ratio:auto!important;max-height:none!important;
+  object-fit:contain!important;border-radius:0}
+.ph .tape{position:absolute;top:-13px;left:50%;width:38%;height:auto;z-index:2}
+.ph.tape-a .tape{transform:translateX(-50%) rotate(-2deg)}
+.ph.tape-b .tape{transform:translateX(-52%) rotate(2.4deg)}
+.ph.tape-c .tape{transform:translateX(-48%) rotate(-3.2deg)}
+.ph-tilt-a{transform:rotate(-1.1deg)}
+.ph-tilt-b{transform:rotate(.9deg)}
+figure{margin:0}
+.bleed{margin-top:32px}
+.hero-media,.gallery{display:grid;gap:24px;margin-top:32px}
+@media(min-width:900px){.ph .tape{width:24%;top:-18px}}
+`;
+
 export const V2_SHARED = `
 /* Both faces ship one weight. Nothing may fake a second. */
 *,*::before,*::after{font-synthesis:none!important;font-synthesis-weight:none!important}
@@ -384,53 +480,28 @@ footer{background:#495543;color:#CDB494;font-size:12.5px}
   'high-end': {
     v2: true,
     cssV2: `
-/* mobile first */
-.s{padding:62px 0}
-.wrap{padding-left:20px;padding-right:20px}
-h1,.display{font-size:clamp(34px,9vw,70px)}
-h2{font-size:clamp(26px,6.4vw,48px)}
-.lead{font-size:clamp(16px,4.2vw,20px);line-height:1.5}
-@media(max-width:1023px){
-  .hero-media,.gallery,.compare,.bento{display:grid;grid-template-columns:1fr!important}
-  .ph-tape>.tape{width:42%}
-}
-/* Diffused, not dropped: the language asks for soft falloff rather than a hard
-   edge under the print. */
-.ph{box-shadow:0 2px 6px rgba(28,24,20,.07),0 24px 60px rgba(28,24,20,.16)}
-
-/* ── desktop: the editorial split, full height ───────────────────────────
-   Editorial Luxury on a wide screen means one idea per spread and real air
-   between them: the hero runs to the viewport, the photograph takes the larger
-   half, and the reading column stays narrow enough to be a column. */
-@media(min-width:1024px){
-  .s{padding:168px 0}
-  .wrap{max-width:1300px;padding-left:64px;padding-right:64px}
-  .lead{max-width:38ch}
-  .s p:not(.lead):not(.small):not(.eyebrow){max-width:60ch}
-
-  .hero{min-height:88vh;display:flex;align-items:center}
-  .hero .wrap{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
-    column-gap:96px;row-gap:24px;align-items:center}
+/* Editorial spreads. One idea per screen, the photograph taking the larger half
+   and changing sides as you go down. The most air of the five. */
+@media(min-width:900px){
+  .s{padding:152px 0}
+  .wrap{max-width:1260px}
+  .hero{min-height:84vh;display:flex;align-items:center}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);
+    column-gap:88px;align-items:center;width:100%}
   .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1}
-  .hero h1{font-size:clamp(58px,4.8vw,84px);line-height:1.02}
-  .hero .hero-media{grid-column:2;grid-row:1 / span 5;display:grid;
-    grid-template-columns:1.25fr .75fr;gap:30px;align-items:end}
-  .hero .hero-media>.shot--detail{transform:translateY(56px) rotate(1.2deg)}
-
-  /* the gallery as a measured spread, two large and two small */
-  .gallery{grid-template-columns:1.15fr .85fr .85fr 1.15fr;gap:40px;align-items:center}
-
-  /* one idea per spread: the picture takes the larger half, alternating sides */
-  .sample .wrap{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
-    column-gap:88px;align-items:center}
-  .sample .sample-shot{grid-column:2;grid-row:1 / span 6}
-  .offer-s .wrap{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);
-    column-gap:88px;align-items:center}
-  .offer-s .offer-shot{grid-column:1;grid-row:1 / span 8;max-width:none;margin:0}
-
+  .hero h1{font-size:clamp(52px,4.6vw,78px)}
+  .hero .lead{max-width:38ch}
+  .hero .hero-media{grid-column:2;grid-row:1/span 5;grid-template-columns:1.3fr .7fr;gap:28px;align-items:end}
+  .hero .hero-media>:last-child{transform:translateY(52px) rotate(1.2deg)}
+  .gallery{grid-template-columns:1.15fr .85fr .85fr 1.15fr;gap:36px;align-items:center}
+  .stats,.reasons,.outcomes,.refusals{grid-template-columns:repeat(3,1fr);gap:36px}
+  .steps{grid-template-columns:repeat(4,1fr);gap:36px}
+  .compare{grid-template-columns:1fr 1fr;gap:36px}
+  .sample .wrap{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);column-gap:80px;align-items:center}
+  .sample .sample-shot{grid-column:2;grid-row:1/span 8}
+  .offer-s .wrap{display:grid;grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);column-gap:80px;align-items:center}
+  .offer-s .offer-shot{grid-column:1;grid-row:1/span 8}
   .bleed .ph{max-width:1020px;margin-inline:auto}
-  .bleed{padding:0 64px}
-  .ph-tape>.tape{width:22%;top:-20px}
 }
 `,
     title: 'high-end-visual-design',
@@ -496,52 +567,28 @@ footer{background:#2F3A2B;color:#8A9382;font-size:12px}
   minimalist: {
     v2: true,
     cssV2: `
-/* mobile first */
-.s{padding:56px 0}
-.wrap{padding-left:20px;padding-right:20px}
-h1,.display{font-size:clamp(30px,7.6vw,56px)}
-h2{font-size:clamp(23px,5.4vw,38px)}
-.lead{font-size:clamp(15px,3.9vw,19px);line-height:1.56}
-@media(max-width:1023px){
-  .hero-media,.gallery,.compare,.bento{display:grid;grid-template-columns:1fr!important}
-  .ph-tape>.tape{width:40%}
-}
-/* The language forbids shadow over .05, so the print is held by a hairline and
-   the faintest lift rather than the drop the other four use. */
-.ph{box-shadow:0 0 0 1px rgba(47,52,55,.07),0 1px 2px rgba(47,52,55,.04)}
+/* The strict reading. A twelve column field, nothing staggered, nothing tilted,
+   a hairline between every section. Whitespace is the decoration. */
 .ph-tilt-a,.ph-tilt-b{transform:none}
-
-/* ── desktop: a strict field, ruled by hairlines ─────────────────────────
-   No gradient, no pill, no shadow. On a wide screen the discipline is the
-   design: a twelve column field, everything aligned to it, and hairlines doing
-   the work that a border or a card would do elsewhere. */
-@media(min-width:1024px){
-  .s{padding:120px 0;border-top:1px solid rgba(47,52,55,.06)}
+@media(min-width:900px){
+  .s{padding:128px 0;border-top:1px solid var(--tan)}
   .s:first-of-type{border-top:0}
-  .wrap{max-width:1140px;padding-left:48px;padding-right:48px}
-  .lead{max-width:40ch}
-  .s p:not(.lead):not(.small):not(.eyebrow){max-width:62ch}
-
-  /* hero: editorial split on 5 and 6 of 12, with a column rule between */
-  .hero .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:32px;row-gap:16px;align-items:start}
-  .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1 / 6}
-  .hero h1{font-size:clamp(46px,3.9vw,62px);line-height:1.06}
-  .hero .hero-media{grid-column:7 / 13;grid-row:1 / span 5;display:grid;
-    grid-template-columns:1fr 1fr;gap:24px;align-items:start;
-    padding-left:32px;border-left:1px solid rgba(47,52,55,.08)}
-
-  /* four reasons on one baseline, nothing staggered: the restraint is the point */
-  .gallery{grid-template-columns:repeat(4,1fr);gap:32px;align-items:start}
-
-  .sample .wrap,.offer-s .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:32px;align-items:start}
-  .sample .sample-shot{grid-column:8 / 13;grid-row:1 / span 6}
-  .sample .wrap>*:not(.sample-shot){grid-column:1 / 7}
-  .offer-s .offer-shot{grid-column:1 / 5;grid-row:1 / span 8;max-width:none;margin:0}
-  .offer-s .wrap>*:not(.offer-shot){grid-column:6 / 13}
-
+  .hero .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:28px;align-items:start}
+  .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1/6}
+  .hero .hero-media{grid-column:7/13;grid-row:1/span 5;grid-template-columns:1fr 1fr;gap:22px;
+    padding-left:28px;border-left:1px solid var(--tan);align-items:start}
+  .gallery{grid-template-columns:repeat(4,1fr);gap:28px;align-items:start}
+  .stats,.reasons,.outcomes,.refusals{grid-template-columns:repeat(3,1fr);gap:28px}
+  .steps{grid-template-columns:repeat(4,1fr);gap:28px}
+  .compare{grid-template-columns:1fr 1fr;gap:28px}
+  .band,.stat,.reason,.step,.refusal,.faq,.includes{border:0;border-top:1px solid var(--tan);
+    border-radius:0;padding:18px 0 0}
+  .sample .wrap,.offer-s .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:28px;align-items:start}
+  .sample .sample-shot{grid-column:8/13;grid-row:1/span 8}
+  .sample .wrap>:not(.sample-shot){grid-column:1/7}
+  .offer-s .offer-shot{grid-column:1/5;grid-row:1/span 8}
+  .offer-s .wrap>:not(.offer-shot){grid-column:6/13}
   .bleed .ph{max-width:760px;margin-inline:auto}
-  .bleed{padding:0 48px}
-  .ph-tape>.tape{width:20%;top:-16px;opacity:.9}
 }
 `,
     title: 'minimalist-ui',
@@ -674,71 +721,22 @@ footer{background:#111;color:#B4B4B4;font:700 11px/1 "IBM Plex Mono",monospace;l
   'gpt-taste': {
     v2: true,
     cssV2: `
-/* ── mobile first ─────────────────────────────────────────────────────── */
-.s{padding:64px 0}
-.wrap{padding-left:20px;padding-right:20px}
-.hero-media,.gallery{gap:26px}
-h1,.display{font-size:clamp(34px,9.2vw,76px)}
-h2{font-size:clamp(27px,6.6vw,52px)}
-h3{font-size:clamp(20px,4.4vw,30px)}
-.lead{font-size:clamp(16px,4.2vw,21px);line-height:1.5}
-@media(max-width:1023px){
-  .hero-media,.gallery,.compare,.bento{display:grid;grid-template-columns:1fr!important}
-  .ph-tape>.tape{width:44%}
-}
-
-/* ── desktop: its own composition, not the phone widened ──────────────────
-   gpt-taste's language is a floating nav pill, an ultra-wide headline and very
-   large air. On a wide screen that becomes an editorial grid: the headline runs
-   across a 12-column field, the reading column is held to a measure, and the
-   photographs are placed against the grid rather than centred under the text. */
-@media(min-width:1024px){
-  .s{padding:150px 0}
-  .wrap{max-width:1320px;padding-left:56px;padding-right:56px}
-
-  /* text never runs the full 1320: a 1300px line is the tell of a scaled-up phone */
-  .lead{max-width:44ch}
-  .s p:not(.lead):not(.small):not(.eyebrow){max-width:68ch}
-
-  /* hero: copy left on a narrow column, photographs right and larger */
-  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
-    column-gap:88px;row-gap:22px;align-items:start}
+/* Dense editorial. The page runs close; air is spent on the photographs, not
+   between the lines. Reading column held hard at 60ch. */
+@media(min-width:900px){
+  .s{padding:100px 0}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);column-gap:64px;align-items:end}
   .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1}
-  .hero h1{font-size:clamp(64px,5.6vw,92px);margin-right:-.06em}
-  .hero .hero-media{grid-column:2;grid-row:1 / span 5;align-self:center;
-    display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:28px}
-  /* the detail sits lower and smaller, so the pair reads as a spread not a row */
-  .hero .hero-media>.shot--detail{transform:translateY(42px) rotate(1.4deg);width:86%;justify-self:end}
-
-  /* full-width bands: capped by width so nothing is cropped to shrink it */
-  /* These three were 21:9 bands. A 4:3 photograph cannot be a 21:9 band without
-     a crop, and a crop needs Richard's word, so they are capped by width: a
-     calmer block at the photograph's own ratio rather than a knife through it. */
+  .hero .hero-media{grid-column:2;grid-row:1/span 5;align-self:center;grid-template-columns:1fr 1fr;gap:20px}
+  .hero .hero-media>:last-child{transform:translateY(34px) rotate(1.4deg)}
+  .gallery{grid-template-columns:repeat(4,1fr);gap:24px}
+  .gallery>:nth-child(even){transform:translateY(30px)}
+  .stats,.reasons,.outcomes,.refusals{grid-template-columns:repeat(3,1fr)}
+  .steps{grid-template-columns:repeat(4,1fr)}
+  .compare{grid-template-columns:1fr 1fr;gap:24px}
+  .sample .wrap,.offer-s .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);column-gap:64px;align-items:center}
+  .sample .sample-shot,.offer-s .offer-shot{grid-column:2;grid-row:1/span 8}
   .bleed .ph{max-width:860px;margin-inline:auto}
-  .bleed{padding:0 56px}
-
-  /* four reasons across, staggered so the row is not a filmstrip */
-  .gallery{grid-template-columns:repeat(4,1fr);gap:34px;align-items:start}
-  .gallery>*:nth-child(even){transform:translateY(38px)}
-
-  /* the sample sits off-axis against the copy */
-  .sample .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);
-    column-gap:80px;align-items:center}
-  .sample .sample-shot{grid-column:2;grid-row:1 / span 6}
-
-  /* the offer: photograph left, the card and its proof right */
-  .offer-s .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
-    column-gap:72px;align-items:center}
-  .offer-s .offer-shot{grid-column:1;grid-row:1 / span 8;max-width:none;margin:0}
-  .offer-s .offer-shot .ph{transform:rotate(-1.6deg)}
-
-  /* the close band and its line, centred and held */
-  .close .wrap{max-width:960px}
-  .ph-tape>.tape{width:24%;top:-20px}
-}
-@media(min-width:1440px){
-  .wrap{max-width:1420px}
-  .hero h1{font-size:104px}
 }
 `,
     title: 'gpt-taste',
@@ -1008,55 +1006,31 @@ footer{background:#495543;color:#CDB494;font-size:13px}
   hyperframes: {
     v2: true,
     cssV2: `
-/* mobile first */
-.s{padding:60px 0}
-.wrap{padding-left:20px;padding-right:20px}
-h1,.display{font-size:clamp(33px,8.8vw,68px)}
-h2{font-size:clamp(26px,6.4vw,46px)}
-.lead{font-size:clamp(16px,4.2vw,20px);line-height:1.5}
-@media(max-width:1023px){
-  .hero-media,.gallery,.compare,.bento{display:grid;grid-template-columns:1fr!important}
-  .ph-tape>.tape{width:44%}
-}
-
-/* ── desktop: composition carries ────────────────────────────────────────
-   The house style is written for video frames, so the desktop is staged in
-   depth rather than stacked: four planes, each a little further back, and the
-   photograph overlaps the headline instead of sitting politely under it. */
-@media(min-width:1024px){
-  .s{padding:128px 0}
-  .wrap{max-width:1280px;padding-left:56px;padding-right:56px}
-  .lead{max-width:42ch}
-  .s p:not(.lead):not(.small):not(.eyebrow){max-width:64ch}
-
-  .hero .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:28px;row-gap:18px;align-items:center}
-  .hero .eyebrow{grid-column:1 / 7}
-  .hero h1{grid-column:1 / 8;font-size:clamp(60px,5.2vw,88px);position:relative;z-index:2}
-  .hero .lead,.hero .act{grid-column:1 / 6}
-  /* plane two: the prints come forward over the headline's right edge */
-  .hero .hero-media{grid-column:6 / 13;grid-row:1 / span 5;align-self:center;z-index:1;
-    display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:end}
-  .hero .hero-media>.shot{transform:translateY(-18px) rotate(-1.6deg)}
-  .hero .hero-media>.shot--detail{transform:translateY(54px) rotate(2.2deg) scale(.88)}
-
-  /* the gallery as a run of planes, each stepping back along the row */
-  .gallery{grid-template-columns:repeat(4,1fr);gap:30px;align-items:start}
-  .gallery>*:nth-child(1){transform:translateY(0) rotate(-1.2deg)}
-  .gallery>*:nth-child(2){transform:translateY(46px) rotate(.9deg) scale(.96)}
-  .gallery>*:nth-child(3){transform:translateY(16px) rotate(-.6deg) scale(.99)}
-  .gallery>*:nth-child(4){transform:translateY(62px) rotate(1.4deg) scale(.93)}
-
-  .sample .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:28px;align-items:center}
-  .sample .sample-shot{grid-column:7 / 13;grid-row:1 / span 6;transform:rotate(1.1deg)}
-  .sample .wrap>*:not(.sample-shot){grid-column:1 / 7}
-
-  .offer-s .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:28px;align-items:center}
-  .offer-s .offer-shot{grid-column:1 / 6;grid-row:1 / span 8;max-width:none;margin:0;transform:rotate(-2deg)}
-  .offer-s .wrap>*:not(.offer-shot){grid-column:6 / 13}
-
+/* Staged in depth. Photographs overlap the type and step back along a row, the
+   way frames sit on a contact sheet. The only variant that tilts on purpose. */
+@media(min-width:900px){
+  .s{padding:116px 0}
+  .hero .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:center}
+  .hero .eyebrow{grid-column:1/7}
+  .hero h1{grid-column:1/8;position:relative;z-index:2}
+  .hero .lead,.hero .act{grid-column:1/6}
+  .hero .hero-media{grid-column:6/13;grid-row:1/span 5;align-self:center;grid-template-columns:1fr 1fr;gap:22px;align-items:end;z-index:1}
+  .hero .hero-media>:first-child{transform:translateY(-16px) rotate(-1.6deg)}
+  .hero .hero-media>:last-child{transform:translateY(46px) rotate(2.2deg) scale(.9)}
+  .gallery{grid-template-columns:repeat(4,1fr);gap:22px;align-items:start}
+  .gallery>:nth-child(1){transform:rotate(-1.2deg)}
+  .gallery>:nth-child(2){transform:translateY(40px) rotate(.9deg) scale(.96)}
+  .gallery>:nth-child(3){transform:translateY(14px) rotate(-.6deg)}
+  .gallery>:nth-child(4){transform:translateY(54px) rotate(1.4deg) scale(.93)}
+  .stats,.reasons,.outcomes,.refusals{grid-template-columns:repeat(3,1fr)}
+  .steps{grid-template-columns:repeat(4,1fr)}
+  .compare{grid-template-columns:1fr 1fr;gap:24px}
+  .sample .wrap,.offer-s .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:center}
+  .sample .sample-shot{grid-column:7/13;grid-row:1/span 8;transform:rotate(1.1deg)}
+  .sample .wrap>:not(.sample-shot){grid-column:1/7}
+  .offer-s .offer-shot{grid-column:1/6;grid-row:1/span 8;transform:rotate(-2deg)}
+  .offer-s .wrap>:not(.offer-shot){grid-column:6/13}
   .bleed .ph{max-width:900px;margin-inline:auto;transform:rotate(-.7deg)}
-  .bleed{padding:0 56px}
-  .ph-tape>.tape{width:24%;top:-20px}
 }
 `,
     title: 'hyperframes-creative',
@@ -1130,7 +1104,10 @@ footer{background:#3F4A3A;color:#CDB494;font-size:13px}
  *  photograph swapped for its uncropped re-export and wrapped in the matte and
  *  tape. The skeleton itself is not restructured; he asked for a restyle. */
 export function bodyV2() {
-  let out = BODY.replace(/<p class="announce">[\s\S]*?<\/p>\s*/, '');
+  // The ATF is the header now. The old announce bar and the old nav are removed
+  // from the markup, not hidden: Richard, 2026-10-05, "The old header is gone."
+  let out = BODY.replace(/<p class="announce">[\s\S]*?<\/p>\s*/, '')
+                .replace(/<nav class="nav">[\s\S]*?<\/nav>\s*/, '');
   let n = 0;
   out = out.replace(/<img([^>]*?)src="\/assets\/img\/compass\/([a-z0-9-]+)\.jpg"([^>]*?)>/g, (m, a, slot, b) => {
     const ph = PHOTOS_V2[slot];
@@ -1141,7 +1118,7 @@ export function bodyV2() {
     const tilt = n % 2 ? 'ph-tilt-b' : 'ph-tilt-a';
     const tapeSrc = `/assets/img/frames/tape-${[1, 4, 7][n % 3]}.png`;
     n += 1;
-    return `<figure class="ph ph-matte ph-tape ${tape} ${tilt}${cls ? ' ' + cls[1] : ''}">`
+    return `<figure class="ph ${tape} ${tilt}${cls ? ' ' + cls[1] : ''}">`
       + `<img class="ph-photo" src="/assets/img/compass2/${slot}.webp" width="${ph.w}" height="${ph.h}" `
       + `alt="${ph.alt}" ${eager ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'} decoding="async">`
       + `<img class="tape" src="${tapeSrc}" alt="" aria-hidden="true" loading="lazy"></figure>`;
@@ -1159,11 +1136,11 @@ export function variantPage(t) {
 <meta name="robots" content="noindex, nofollow">
 <title>${t.title} | Compass</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
-<style>${FONTS_V2}${scopedAtfCss()}${BASE}${t.css}${PHOTO_CSS_V2}${V2_SHARED}${t.cssV2 || ''}</style>
+<style>${FONTS_V2}${TOKENS_WC}${scopedAtfCss()}${WC_BASE}${t.cssV2 || ''}</style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
-<div class="atf-root">${atfMarkup(resolveAtf('control'))}</div>
+<div class="atf-root atf-desktop">${atfMarkup(resolveAtf('control'))}</div>
 <p class="which"><b>${t.title}</b> <span>${t.note}</span></p>
 ${bodyV2()}
 ${ATF_JS}
