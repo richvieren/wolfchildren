@@ -213,6 +213,36 @@ export const PHOTO_CSS_V2 = `
 @media(min-width:900px){.ph-tape>.tape{width:26%;top:-18px}}
 `;
 
+
+// Everything a v2 page needs regardless of its design language. Each theme's
+// `cssV2` is then only its own design, which is what differs between the five.
+export const V2_SHARED = `
+/* Both faces ship one weight. Nothing may fake a second. */
+*,*::before,*::after{font-synthesis:none!important;font-synthesis-weight:none!important}
+*{font-weight:400!important}
+body{font-family:"Special Elite","Courier New",monospace;font-size:15px;line-height:1.66}
+h1,h2,h3,h4,.display{font-family:"Morning Memories",Georgia,serif!important;letter-spacing:-.015em;line-height:1.04}
+body,.which,.lead,.btn,.stat b,.reason .n,.price,.step .sn,.step b,
+thead th,tbody th,summary,.nav .mark{font-family:"Special Elite","Courier New",monospace!important}
+/* Emphasis without a bold cut: size, caps and tracking carry it. */
+.eyebrow,.kicker,.small,.which,.tag,.label{font-family:"Special Elite","Courier New",monospace;
+  text-transform:uppercase;letter-spacing:.16em;font-size:11px}
+b,strong{text-transform:uppercase;letter-spacing:.1em}
+.btn,.cta{font-family:"Special Elite","Courier New",monospace;text-transform:uppercase;letter-spacing:.13em}
+/* No crop and no stretch, anywhere. The shared base sets object-fit:cover on
+   .bleed img and .gallery img and an aspect-ratio on the gallery; both are
+   released here rather than edited, since they belong to all 26 variants. */
+.bleed img,.gallery img,.shot,.ph img{aspect-ratio:auto!important;height:auto!important;
+  max-height:none!important;object-fit:contain!important}
+.bleed{overflow:visible}
+.shot,.ph img{border-radius:0;box-shadow:none;filter:none}
+.ph{max-width:100%}
+/* The ATF is a mobile-native section. On a wide screen it is placed, not
+   stretched: centred at its design width on the page's own ground. Its internals
+   are untouched. */
+@media(min-width:900px){.atf-root{max-width:520px;margin-inline:auto}}
+`;
+
 export const BASE = `
 *{box-sizing:border-box}
 body{margin:0}
@@ -537,47 +567,69 @@ footer{background:#111;color:#B4B4B4;font:700 11px/1 "IBM Plex Mono",monospace;l
   'gpt-taste': {
     v2: true,
     cssV2: `
-/* Richard, 2026-10-05: both faces ship one weight. Nothing may fake a second. */
-*,*::before,*::after{font-synthesis:none!important;font-synthesis-weight:none!important}
-body{font-family:"Special Elite","Courier New",monospace;font-weight:400;font-size:15px;line-height:1.66}
-h1,h2,h3,h4,.display,.mark,.price,.stat-n,.btn,.eyebrow,.kicker,b,strong{font-weight:400!important}
-h1,h2,h3,h4,.display{font-family:"Morning Memories",Georgia,serif;letter-spacing:-.015em;line-height:1.04}
+/* ── mobile first ─────────────────────────────────────────────────────── */
+.s{padding:64px 0}
+.wrap{padding-left:20px;padding-right:20px}
+.hero-media,.gallery{gap:26px}
 h1,.display{font-size:clamp(34px,9.2vw,76px)}
 h2{font-size:clamp(27px,6.6vw,52px)}
 h3{font-size:clamp(20px,4.4vw,30px)}
-/* emphasis without a bold cut: size, caps and tracking carry it */
-.eyebrow,.kicker,.small,.which,.tag,.label{font-family:"Special Elite","Courier New",monospace;text-transform:uppercase;letter-spacing:.16em;font-size:11px}
-b,strong{text-transform:uppercase;letter-spacing:.1em}
 .lead{font-size:clamp(16px,4.2vw,21px);line-height:1.5}
-.btn,.cta{font-family:"Special Elite","Courier New",monospace;text-transform:uppercase;letter-spacing:.13em}
-.stat-n,.price{font-family:"Special Elite","Courier New",monospace;letter-spacing:-.01em}
-/* mobile first: the skeleton's desktop padding is far too tall on a phone */
-.s{padding:64px 0}
-@media(min-width:900px){.s{padding:160px 0}}
-.wrap{padding-left:20px;padding-right:20px}
-/* the frame carries the photograph now, so the old shot styling steps back */
-.shot,.ph img{border-radius:0;box-shadow:none;filter:none}
-.ph{max-width:100%}
-.hero-media,.gallery{gap:26px}
-@media(max-width:899px){
-  .hero-media,.gallery,.compare,.bento{grid-template-columns:1fr!important;display:grid}
+@media(max-width:1023px){
+  .hero-media,.gallery,.compare,.bento{display:grid;grid-template-columns:1fr!important}
   .ph-tape>.tape{width:44%}
 }
-/* The shared base and this theme still name the old stack in fourteen places.
-   Those faces are no longer loaded, so they would silently fall back; naming the
-   two real ones is clearer than relying on that. */
-body,.which,.lead,.btn,.stat b,.reason .n,.price,.step .sn,.step b,
-thead th,tbody th,summary,.nav .mark{font-family:"Special Elite","Courier New",monospace!important}
-h1,h2,h3,h4,.display{font-family:"Morning Memories",Georgia,serif!important}
-/* Neither face has a second weight, so every weight resolves to 400 anyway.
-   Saying so stops a browser inventing one. */
-*{font-weight:400!important}
-/* No crop, anywhere. .bleed img and .gallery img were object-fit:cover, which
-   fills a box by cutting whatever does not fit — the thing that took the legs
-   off. Photographs now paint at their own ratio and the box follows them. */
-.bleed img,.gallery img,.shot,.ph img{aspect-ratio:auto!important;height:auto!important;
-  max-height:none!important;object-fit:contain!important}
-.bleed{overflow:visible}
+
+/* ── desktop: its own composition, not the phone widened ──────────────────
+   gpt-taste's language is a floating nav pill, an ultra-wide headline and very
+   large air. On a wide screen that becomes an editorial grid: the headline runs
+   across a 12-column field, the reading column is held to a measure, and the
+   photographs are placed against the grid rather than centred under the text. */
+@media(min-width:1024px){
+  .s{padding:150px 0}
+  .wrap{max-width:1320px;padding-left:56px;padding-right:56px}
+
+  /* text never runs the full 1320: a 1300px line is the tell of a scaled-up phone */
+  .lead{max-width:44ch}
+  .s p:not(.lead):not(.small):not(.eyebrow){max-width:68ch}
+
+  /* hero: copy left on a narrow column, photographs right and larger */
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
+    column-gap:88px;row-gap:22px;align-items:start}
+  .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1}
+  .hero h1{font-size:clamp(64px,5.6vw,92px);margin-right:-.06em}
+  .hero .hero-media{grid-column:2;grid-row:1 / span 5;align-self:center;
+    display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:28px}
+  /* the detail sits lower and smaller, so the pair reads as a spread not a row */
+  .hero .hero-media>.shot--detail{transform:translateY(42px) rotate(1.4deg);width:86%;justify-self:end}
+
+  /* full-width bands: capped by width so nothing is cropped to shrink it */
+  .bleed .ph{max-width:1180px;margin-inline:auto}
+  .bleed{padding:0 56px}
+
+  /* four reasons across, staggered so the row is not a filmstrip */
+  .gallery{grid-template-columns:repeat(4,1fr);gap:34px;align-items:start}
+  .gallery>*:nth-child(even){transform:translateY(38px)}
+
+  /* the sample sits off-axis against the copy */
+  .sample .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);
+    column-gap:80px;align-items:center}
+  .sample .sample-shot{grid-column:2;grid-row:1 / span 6}
+
+  /* the offer: photograph left, the card and its proof right */
+  .offer-s .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+    column-gap:72px;align-items:center}
+  .offer-s .offer-shot{grid-column:1;grid-row:1 / span 8;max-width:none;margin:0}
+  .offer-s .offer-shot .ph{transform:rotate(-1.6deg)}
+
+  /* the close band and its line, centred and held */
+  .close .wrap{max-width:960px}
+  .ph-tape>.tape{width:24%;top:-20px}
+}
+@media(min-width:1440px){
+  .wrap{max-width:1420px}
+  .hero h1{font-size:104px}
+}
 `,
     title: 'gpt-taste',
     note: 'AIDA order overruled by the teardown order · applied: floating nav pill, ultra-wide H1 container, massive section padding, gapless bento, zero meta-labels so no eyebrows · Montserrat stands in for Cabinet Grotesk',
@@ -944,7 +996,7 @@ export function variantPage(t) {
 <meta name="robots" content="noindex, nofollow">
 <title>${t.title} | Compass</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
-<style>${FONTS_V2}${scopedAtfCss()}${BASE}${PHOTO_CSS_V2}${t.css}${t.cssV2 || ''}</style>
+<style>${FONTS_V2}${scopedAtfCss()}${BASE}${t.css}${PHOTO_CSS_V2}${V2_SHARED}${t.cssV2 || ''}</style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
