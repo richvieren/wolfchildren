@@ -1150,7 +1150,7 @@ export function variantPage(t) {
 <meta name="robots" content="noindex, nofollow">
 <title>${t.title} | Compass</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
-<style>${FONTS_V2}${TOKENS_WC}${scopedAtfCss()}${atfDesktopCss(".atf-root")}${WC_BASE}${t.cssV2 || ''}</style>
+<style>${FONTS_V2}${TOKENS_WC}${scopedAtfCss()}${WC_BASE}${atfDesktopCss(".atf-root")}${t.cssV2 || ''}</style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
