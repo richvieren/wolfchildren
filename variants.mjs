@@ -1096,7 +1096,7 @@ export function variantPage(t) {
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
-<div id="atf">${atfMarkup(resolveAtf('control'))}</div>
+<div id="atf">${t.atfV2 ? t.atfV2(atfMarkup(resolveAtf('control'))) : atfMarkup(resolveAtf('control'))}</div>
 ${bodyV2()}
 ${ATF_JS}
 </body>

@@ -18,6 +18,116 @@
 
 import { BASE, FONTS, auditShared, writeVariant } from './variants.mjs';
 
+// ─── mengto-skeuomorphic, desktop above the fold ──────────────────────────────
+//
+// Richard, 2026-10-05: a desktop composition for this one variant, modelled on
+// the Grüns hero. Layout, order and proportions are theirs; the colours, the two
+// faces and the photo frame are ours.
+//
+// Nothing here runs under 900px. The two elements that do not exist in the
+// section (the rating line and the reviews) are hidden by default and only
+// shown inside the desktop query, so the phone layout keeps the bytes it had.
+//
+// The reviews are invented. They are marked data-placeholder="review" and a test
+// fails if that attribute ever reaches readings/compass/index.html.
+
+const WC_REVIEWS = [
+  { q: 'I read it twice in one sitting. It described the bedtime battle we have been having for two years, and then told me what sits underneath it.',
+    by: 'Marieke D.' },
+  { q: 'I expected something vague. What came back was specific enough that I read parts of it out loud to my partner.',
+    by: 'Sanne V.' },
+  { q: 'The section on how my child handles change was uncomfortably accurate. We have changed how we do mornings because of it.',
+    by: 'Priya R.' },
+];
+
+const STARS = '<span class="wc-stars" aria-hidden="true">★★★★★</span>';
+
+const MENGTO_RATING = `
+<p class="wc-rating" data-placeholder="review">${STARS}<span class="wc-rated">4.8/5 Based on dozens of users</span></p>`;
+
+const MENGTO_TAPE =
+  '<img class="wc-tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" width="447" height="108">';
+
+const MENGTO_REVIEWS = `
+<section class="wc-reviews" data-placeholder="review">
+${WC_REVIEWS.map((r) => `  <figure class="wc-review" data-placeholder="review">${STARS}
+    <blockquote>${r.q}</blockquote>
+    <figcaption>${r.by}</figcaption>
+  </figure>`).join('\n')}
+</section>`;
+
+// Three insertions into the section's own markup. Each asserts its anchor count,
+// because a replace that matches nothing changes nothing and says nothing.
+function mengtoAtf(html) {
+  const put = (s, anchor, add, where) => {
+    const n = s.split(anchor).length - 1;
+    if (n !== 1) throw new Error(`mengtoAtf: anchor ${JSON.stringify(anchor)} matched ${n} times, expected 1`);
+    return where === 'after' ? s.replace(anchor, anchor + add) : s.replace(anchor, add + anchor);
+  };
+  let out = put(html, '</header>', MENGTO_RATING, 'after');
+  out = put(out, '<div class="carousel">', MENGTO_TAPE, 'after');
+  return out + MENGTO_REVIEWS;
+}
+
+const MENGTO_ATF_CSS = `
+/* The two elements the section does not have. Hidden everywhere, shown only in
+   the desktop query below, so nothing under 900px moves. */
+#atf .wc-rating,#atf .wc-reviews,#atf .wc-tape{display:none}
+
+@media(min-width:900px){
+  /* 2 — a thin cream header row, the logo at its left, nothing else in it. */
+  #atf>.hdr{background:var(--cream);border-bottom:1px solid var(--tan);
+    height:60px;display:flex;align-items:center;margin:0 0 28px;padding:0}
+  #atf .mark{position:static;left:auto;top:auto;height:27px;width:146px;margin:0}
+
+  /* 3 — two columns, text left and photograph right, both starting on one line.
+     The carousel spans the three left-hand rows and starts at their top. */
+  #atf{grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);column-gap:58px}
+  #atf>.wc-rating{grid-column:1}
+  #atf>.carousel{grid-column:2;grid-row:3/span 3;align-self:start;margin:0}
+  #atf>.wc-reviews{grid-column:1/-1}
+
+  /* 4 — the left column, top to bottom. */
+  #atf .wc-rating{display:flex;align-items:baseline;gap:9px;margin:0 0 15px}
+  #atf .wc-stars{color:var(--bark);font-size:13px;letter-spacing:.14em}
+  #atf .wc-rated{color:var(--green);font-size:12px}
+
+  /* moon and eyebrow on one line; the divider is a mobile device and goes. */
+  #atf .badge{display:flex;align-items:center;gap:9px;padding-top:0;text-align:left}
+  #atf .moon,#atf .eyebrow{margin:0}
+  #atf .stem{display:none}
+
+  /* sized so the section's own line break is the only break there is. */
+  #atf h1{font-size:clamp(32px,3vw,44px);text-align:left;margin-top:12px}
+
+  #atf .sub{margin-left:0;text-align:left;max-width:46ch;font-size:15px;line-height:1.5}
+  #atf .form{margin-top:20px}
+  #atf .cta{height:54px;line-height:54px;font-size:16px}
+  #atf .under{text-align:left}
+
+  /* the reassurance ticks as a check list rather than a bordered well. */
+  #atf .fuds{grid-template-columns:1fr;gap:8px;padding:0;border:0;background:none;margin-top:18px}
+  #atf .fud{font-size:13px}
+
+  /* 5 — the carousel in the frame the photographs on this page already wear:
+     a cream matte, a tan hairline, and one piece of tape. No crop and no cover;
+     the slides are 1400x1050 inside a 4:3 box, so contain fits exactly. */
+  #atf>.carousel{background:var(--cream);border:1px solid var(--tan);
+    padding:3.5%;overflow:visible}
+  #atf .wc-tape{display:block;position:absolute;top:-19px;left:50%;width:24%;
+    height:auto;z-index:3;transform:translateX(-50%) rotate(-2deg);border:0;padding:0}
+  #atf .slide img{object-fit:contain;width:100%;height:100%}
+
+  /* 6 — three reviews across the full width, under both columns. */
+  #atf>.wc-reviews{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:18px;margin-top:44px;padding-top:28px;border-top:1px solid var(--tan)}
+  #atf .wc-review{margin:0;padding:16px 18px;border:1px solid var(--tan);border-radius:4px}
+  #atf .wc-review .wc-stars{display:block;margin-bottom:9px}
+  #atf .wc-review blockquote{margin:0;color:var(--green);font-size:13.5px;line-height:1.55}
+  #atf .wc-review figcaption{margin-top:11px;color:var(--bark);font-size:10.5px;
+    letter-spacing:.09em;text-transform:uppercase}
+}`;
+
 export const THEMES = {
 
   // ── elaya / landing-page-design ────────────────────────────────────────────
@@ -1197,6 +1307,8 @@ footer{border-top:1px solid #1E1E1E;padding:64px 0;font-size:10.5px;letter-spaci
   'mengto-skeuomorphic': {
     v2: true,
     title: 'MengTo · high-contrast-skeuomorphic-clean',
+    atfV2: mengtoAtf,
+    cssV2: MENGTO_ATF_CSS,
     note: 'light outer page framing a deep charcoal app shell · moulded surfaces with vertical gradients, top-edge highlights, inset shadow stacks and soft outer falloff · touchable buttons with layered fill and bevel, hover by brightness not glow · one signal accent for status and focus',
     css: `
 
