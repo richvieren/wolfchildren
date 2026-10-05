@@ -197,7 +197,7 @@ export const PHOTOS_V2 = {
 // The almanac treatment: a white matte, a torn strip of tape, a soft drop.
 // Mobile first, so the frame is a percentage of the photo and scales with it.
 export const PHOTO_CSS_V2 = `
-.ph{position:relative;display:block;margin:0;background:#F7F3E9;line-height:0;
+.ph{position:relative;display:block;margin:0;background:var(--cream);line-height:0;
   box-shadow:0 1px 2px rgba(22,21,20,.18),0 12px 28px rgba(22,21,20,.14)}
 .ph img{display:block;width:100%;height:auto}
 .ph-matte{padding:3.5%}
@@ -311,19 +311,6 @@ figure{margin:0}
 .hero-media,.gallery{display:grid;gap:24px;margin-top:32px}
 @media(min-width:900px){.ph .tape{width:24%;top:-18px}}
 
-/* ── the ATF owns its own box ─────────────────────────────────────────────
-   WC_BASE styles bare elements for the page below the section. Those selectors
-   also reach inside it, and a bare p rule with max-width 66ch was clamping the full
-   bleed announce bar to 484px. The section's own rules are more specific than
-   these and keep winning; this only undoes what the page added. */
-.atf-root p{margin:revert;max-width:none}
-.atf-root h1,.atf-root h2,.atf-root h3{max-width:none}
-.atf-root .eyebrow{text-transform:none}
-.atf-root .stem{margin:5px auto 0}
-.atf-root b,.atf-root strong{text-transform:none;letter-spacing:inherit}
-.atf-root a{text-decoration:none}
-.atf-root .under a{text-decoration:underline}
-.atf-root figure{margin:0}
 `;
 
 export const V2_SHARED = `
@@ -357,6 +344,24 @@ b,strong{text-transform:uppercase;letter-spacing:.1em}
    planes, with or without anything added here. clip rather than hidden, so no
    scroll container is created and sticky still works. */
 html,body{overflow-x:clip}
+`;
+
+
+// The section is immune to whatever a theme does. Loaded after all of them.
+export const ATF_GUARD = `
+/* ── the ATF owns its own box ─────────────────────────────────────────────
+   WC_BASE styles bare elements for the page below the section. Those selectors
+   also reach inside it, and a bare p rule with max-width 66ch was clamping the full
+   bleed announce bar to 484px. The section's own rules are more specific than
+   these and keep winning; this only undoes what the page added. */
+.atf-root p{margin:revert;max-width:none}
+.atf-root h1,.atf-root h2,.atf-root h3{max-width:none}
+.atf-root .eyebrow{text-transform:none}
+.atf-root .stem{margin:5px auto 0}
+.atf-root b,.atf-root strong{text-transform:none;letter-spacing:inherit}
+.atf-root a{text-decoration:none}
+.atf-root .under a{text-decoration:underline}
+.atf-root figure{margin:0}
 `;
 
 export const BASE = `
@@ -734,86 +739,68 @@ footer{background:#111;color:#B4B4B4;font:700 11px/1 "IBM Plex Mono",monospace;l
   // is the only variant with no eyebrow anywhere.
   'gpt-taste': {
     v2: true,
-    cssV2: `
-/* Dense editorial. The page runs close; air is spent on the photographs, not
-   between the lines. Reading column held hard at 60ch. */
-@media(min-width:900px){
-  .s{padding:100px 0}
-  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);column-gap:64px;align-items:end}
-  .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1}
-  .hero .hero-media{grid-column:2;grid-row:1/span 5;align-self:center;grid-template-columns:1fr 1fr;gap:20px}
-  .hero .hero-media>:last-child{transform:translateY(34px) rotate(1.4deg)}
-  .gallery{grid-template-columns:repeat(4,1fr);gap:24px}
-  .gallery>:nth-child(even){transform:translateY(30px)}
-  .stats,.reasons,.outcomes,.refusals{grid-template-columns:repeat(3,1fr)}
-  .steps{grid-template-columns:repeat(4,1fr)}
-  .compare{grid-template-columns:1fr 1fr;gap:24px}
-  .sample .wrap,.offer-s .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);column-gap:64px;align-items:center}
-  .sample .sample-shot,.offer-s .offer-shot{grid-column:2;grid-row:1/span 8}
-  .bleed .ph{max-width:860px;margin-inline:auto}
-}
-`,
     title: 'gpt-taste',
     note: 'AIDA order overruled by the teardown order · applied: floating nav pill, ultra-wide H1 container, massive section padding, gapless bento, zero meta-labels so no eyebrows · Montserrat stands in for Cabinet Grotesk',
     css: `
-body{background:#11100E;color:#F2EFE9;font:300 16px/1.75 "IBM Plex Mono",monospace}
+
+body{background:#495543;color:#DFD7C3;font:400 16px/1.75 "Special Elite","Courier New",monospace}
 .wrap{max-width:1320px}
 .s{padding:128px 0}@media(min-width:900px){.s{padding:192px 0}}
-h1,h2,h3{font-family:"Montserrat",sans-serif;font-weight:900;letter-spacing:-.035em}
+h1,h2,h3{font-family:"Morning Memories",Georgia,serif;font-weight:400;letter-spacing:-.035em}
 h1{font-size:clamp(3rem,6.4vw,5.5rem);line-height:.96;max-width:none}
 h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1;max-width:26ch}
 h3{font-size:15px;line-height:1.3;letter-spacing:-.01em}
-.lead{font:300 18px/1.7 "IBM Plex Mono",monospace;max-width:64ch;color:#A8A29A}
+.lead{font:400 18px/1.7 "Special Elite","Courier New",monospace;max-width:64ch;color:rgba(223,215,195,.80)}
 .eyebrow{display:none}
-.small{font-size:13px;color:#7D776F}
-.announce{background:#F2EFE9;color:#11100E;text-align:center;padding:11px;font-size:12.5px}
+.small{font-size:13px;color:rgba(223,215,195,.64)}
+.announce{background:#DFD7C3;color:#495543;text-align:center;padding:11px;font-size:12.5px}
 .nav{position:sticky;top:20px;margin:20px auto 0;max-width:1240px;height:62px;border-radius:999px;
-  background:rgba(32,30,27,.72);backdrop-filter:blur(16px);border:1px solid rgba(242,239,233,.1);padding:0 26px}
-.nav .mark{font:900 14px "Montserrat",sans-serif;letter-spacing:-.01em}
-.btn{background:#F2EFE9;color:#11100E;font:700 13px/1 "IBM Plex Mono",monospace;letter-spacing:.04em;border-radius:999px}
-.btn:hover{background:#fff;transform:translateY(-2px)}
+  background:rgba(58,68,53,.74);backdrop-filter:blur(16px);border:1px solid rgba(205,180,148,.3);padding:0 26px}
+.nav .mark{font:400 14px "Morning Memories",Georgia,serif;letter-spacing:-.01em}
+.btn{background:#DFD7C3;color:#495543;font:400 13px/1 "Special Elite","Courier New",monospace;letter-spacing:.04em;border-radius:999px}
+.btn:hover{background:#DFD7C3;transform:translateY(-2px)}
 .hero{padding-top:120px}
-.band{padding:0;border-top:1px solid rgba(242,239,233,.1);border-bottom:1px solid rgba(242,239,233,.1)}
+.band{padding:0;border-top:1px solid rgba(205,180,148,.3);border-bottom:1px solid rgba(205,180,148,.3)}
 .band .wrap{padding-top:0;padding-bottom:0}
 .band-grid{gap:0}
-@media(min-width:820px){.bullet{border-left:1px solid rgba(242,239,233,.1);padding:34px 26px}
+@media(min-width:820px){.bullet{border-left:1px solid rgba(205,180,148,.3);padding:34px 26px}
 .bullet:first-child{border-left:0;padding-left:0}}
-.bullet{font-size:15px;padding:24px 0;color:#A8A29A}
+.bullet{font-size:15px;padding:24px 0;color:rgba(223,215,195,.80)}
 .badges{padding:0 0 30px}
-.sample{background:#1B1916}
-.stats{gap:0;border:1px solid rgba(242,239,233,.1)}
-.stat{padding:38px 30px;border-right:1px solid rgba(242,239,233,.1)}
+.sample{background:#3A4435}
+.stats{gap:0;border:1px solid rgba(205,180,148,.3)}
+.stat{padding:38px 30px;border-right:1px solid rgba(205,180,148,.3)}
 .stat:last-child{border-right:0}
-@media(max-width:759px){.stat{border-right:0;border-bottom:1px solid rgba(242,239,233,.1)}}
-.stat b{display:block;font:900 clamp(2.8rem,5vw,4.2rem)/1 "Montserrat",sans-serif;letter-spacing:-.04em}
-.stat i{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#7D776F;margin:10px 0 14px}
-.reason{padding:40px 0;border-top:1px solid rgba(242,239,233,.1)}
-.reason .n{font:900 13px "Montserrat",sans-serif;color:#C8A24B}
-.reason p{font-size:15px;color:#A8A29A;max-width:58ch}
-.outcomes{gap:0;border:1px solid rgba(242,239,233,.1)}
-.outcomes p{padding:26px;border-right:1px solid rgba(242,239,233,.1);border-bottom:1px solid rgba(242,239,233,.1);font-size:15px;color:#A8A29A}
+@media(max-width:759px){.stat{border-right:0;border-bottom:1px solid rgba(205,180,148,.3)}}
+.stat b{display:block;font:400 clamp(2.8rem,5vw,4.2rem)/1 "Morning Memories",Georgia,serif;letter-spacing:-.04em}
+.stat i{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(223,215,195,.64);margin:10px 0 14px}
+.reason{padding:40px 0;border-top:1px solid rgba(205,180,148,.3)}
+.reason .n{font:400 13px "Morning Memories",Georgia,serif;color:#DA4635}
+.reason p{font-size:15px;color:rgba(223,215,195,.80);max-width:58ch}
+.outcomes{gap:0;border:1px solid rgba(205,180,148,.3)}
+.outcomes p{padding:26px;border-right:1px solid rgba(205,180,148,.3);border-bottom:1px solid rgba(205,180,148,.3);font-size:15px;color:rgba(223,215,195,.80)}
 @media(min-width:820px){.outcomes p:nth-child(2n){border-right:0}}
-.price{font:900 clamp(3.4rem,5.6vw,4.8rem)/1 "Montserrat",sans-serif;letter-spacing:-.04em;margin:16px 0;color:#C8A24B}
+.price{font:400 clamp(3.4rem,5.6vw,4.8rem)/1 "Morning Memories",Georgia,serif;letter-spacing:-.04em;margin:16px 0;color:#DA4635}
 .includes{margin-top:26px}
-.includes p{padding:16px 0;border-bottom:1px solid rgba(242,239,233,.1);font-size:15px;color:#A8A29A}
+.includes p{padding:16px 0;border-bottom:1px solid rgba(205,180,148,.3);font-size:15px;color:rgba(223,215,195,.80)}
 .note-line{margin-top:26px;max-width:52ch}
-.step{background:#1B1916;border:1px solid rgba(242,239,233,.1);border-radius:16px;padding:26px}
-.step .sn{display:block;font:900 12px "Montserrat",sans-serif;color:#C8A24B;margin-bottom:10px}
-.step b{display:block;font:700 14px "IBM Plex Mono",monospace;margin-bottom:8px}
-.step p{font-size:14px;color:#A8A29A}
-.banner{background:#C8A24B;color:#11100E}
-.banner h2{color:#11100E;max-width:24ch}.bsub{color:#3A3121;margin:18px 0 36px;max-width:52ch}
-.banner .btn{background:#11100E;color:#F2EFE9}
+.step{background:#3A4435;border:1px solid rgba(205,180,148,.3);border-radius:16px;padding:26px}
+.step .sn{display:block;font:400 12px "Morning Memories",Georgia,serif;color:#DA4635;margin-bottom:10px}
+.step b{display:block;font:400 14px "Special Elite","Courier New",monospace;margin-bottom:8px}
+.step p{font-size:14px;color:rgba(223,215,195,.80)}
+.banner{background:#DFD7C3;color:#495543}
+.banner h2{color:#495543;max-width:24ch}.bsub{color:rgba(73,85,67,.86);margin:18px 0 36px;max-width:52ch}
+.banner .btn{background:#495543;color:#DFD7C3}
 table{font-size:14px}
-thead th{font:700 11px "IBM Plex Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:#7D776F;border-bottom:1px solid rgba(242,239,233,.2)}
-tbody th{font:300 13px "IBM Plex Mono",monospace;color:#7D776F;width:16%}
-th,td{border-bottom:1px solid rgba(242,239,233,.1)}
-td:nth-child(3){background:rgba(200,162,75,.08)}
-.faq{border-top:1px solid rgba(242,239,233,.1)}
-details{border-bottom:1px solid rgba(242,239,233,.1)}
-summary{font:700 15px "IBM Plex Mono",monospace}
-details p{font-size:15px;color:#A8A29A}
-footer{background:#0B0A09;color:#7D776F;font-size:13px}
+thead th{font:400 11px "Special Elite","Courier New",monospace;letter-spacing:.18em;text-transform:uppercase;color:rgba(223,215,195,.64);border-bottom:1px solid rgba(205,180,148,.5)}
+tbody th{font:400 13px "Special Elite","Courier New",monospace;color:rgba(223,215,195,.64);width:16%}
+th,td{border-bottom:1px solid rgba(205,180,148,.3)}
+td:nth-child(3){background:rgba(218,70,53,.10)}
+.faq{border-top:1px solid rgba(205,180,148,.3)}
+details{border-bottom:1px solid rgba(205,180,148,.3)}
+summary{font:400 15px "Special Elite","Courier New",monospace}
+details p{font-size:15px;color:rgba(223,215,195,.80)}
+footer{background:#3A4435;color:rgba(223,215,195,.64);font-size:13px}
 `,
   },
 
@@ -1162,7 +1149,7 @@ export function variantPage(t) {
 <meta name="robots" content="noindex, nofollow">
 <title>${t.title} | Compass</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
-<style>${FONTS_V2}${TOKENS_WC}${scopedAtfCss()}${WC_BASE}${atfDesktopCss(".atf-root")}${t.cssV2 || ''}</style>
+<style>${FONTS_V2}${TOKENS_WC}${BASE}${t.css}${PHOTO_CSS_V2}${V2_SHARED}${scopedAtfCss()}${atfDesktopCss(".atf-root")}${ATF_GUARD}${t.cssV2 || ''}</style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>

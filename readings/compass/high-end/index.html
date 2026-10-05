@@ -15,6 +15,170 @@
   --cream:#DFD7C3; --green:#495543; --tan:#CDB494;
   --orange:#DA4635; --cta:#AC2E20; --bark:#6B4A2F; --green-hover:#3A4435;
 }
+
+*{box-sizing:border-box}
+body{margin:0}
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 24px}
+.s{padding:88px 0}
+@media(min-width:900px){.s{padding:128px 0}}
+h1,h2,h3{margin:0}
+p{margin:0}
+/* Space after a heading is structure, not decoration: without it the lead butts against the
+   headline, which is the spacing fault Richard called amateur. Themes may override. */
+h1 + .lead,h2 + .lead{margin-top:24px}
+h2 + .lead + .links,h2 + .lead + .tablewrap{margin-top:32px}
+.eyebrow + h1,.eyebrow + h2{margin-top:0}
+a{color:inherit}
+.nav{position:sticky;top:0;z-index:50;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;
+  padding:17px 32px;transition:all 180ms cubic-bezier(.22,.61,.36,1)}
+.btn--nav{padding:11px 20px;font-size:12px}
+.act{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:24px}
+.band-grid{display:grid;gap:24px}
+@media(min-width:820px){.band-grid{grid-template-columns:repeat(3,1fr);gap:40px}}
+.badges{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px 40px}
+.links{margin-top:40px;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.stats{margin-top:56px;display:grid;gap:40px}
+@media(min-width:760px){.stats{grid-template-columns:repeat(3,1fr);gap:64px}}
+.stat i{display:block;font-style:normal}
+.reasons{margin-top:56px;display:grid}
+.reason{display:grid;grid-template-columns:auto 1fr;gap:24px;padding:36px 0}
+@media(min-width:900px){.reason{grid-template-columns:72px minmax(0,20ch) minmax(0,1fr);gap:40px;align-items:start}}
+.outcomes{margin-top:40px;display:grid;gap:16px}
+@media(min-width:820px){.outcomes{grid-template-columns:1fr 1fr;gap:16px 64px}}
+.offer{display:grid;gap:40px}
+@media(min-width:900px){.offer{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start}}
+.steps{display:grid;gap:16px}
+.tablewrap{margin-top:40px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{text-align:left;padding:16px 8px;vertical-align:top}
+.faq{margin-top:40px}
+details summary{cursor:pointer;list-style:none;padding:22px 0;display:flex;justify-content:space-between;gap:24px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+"}
+details[open] summary::after{content:"–"}
+details p{padding:0 0 22px;max-width:64ch}
+.close{text-align:center}
+.close h2,.close .lead{margin-left:auto;margin-right:auto}
+footer{padding:56px 0}
+.recognition{margin-top:24px;display:grid;gap:20px;max-width:62ch}
+.refusals{margin-top:56px;display:grid;gap:24px}
+@media(min-width:820px){.refusals{grid-template-columns:repeat(2,1fr);gap:32px 48px}}
+.refusal b{display:block}
+.refusal p{margin-top:8px}
+.shot{display:block;width:100%;height:auto}
+.hero-media{margin-top:48px;display:grid;gap:16px}
+@media(min-width:900px){.hero-media{grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:start}}
+.shot--detail{display:none}
+@media(min-width:900px){.shot--detail{display:block}}
+.bleed{margin:0}
+.bleed img{display:block;width:100%;height:auto;max-height:58vh;object-fit:cover}
+.sample-shot{margin:40px 0 0}
+.gallery-s{padding-top:0}
+.gallery{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:820px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}}
+.gallery img{aspect-ratio:4/5;object-fit:cover}
+.offer-shot{margin:0 0 40px;max-width:320px}
+@media(min-width:900px){.offer-shot{float:right;margin:0 0 24px 40px}}
+.which{font:400 12px/1.5 "IBM Plex Mono",monospace;background:#111;color:#fff;padding:8px 14px;letter-spacing:.04em}
+.which b{font-weight:700}.which span{opacity:.62}
+
+body{background:#EFE9DC;color:#2F3A2B;font:300 16px/1.75 "IBM Plex Mono",monospace;position:relative}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.03;
+  background-image:radial-gradient(#2F3A2B 1px,transparent 1px);background-size:3px 3px}
+.s{padding:104px 0}@media(min-width:900px){.s{padding:168px 0}}
+h1,h2{font-family:"Libre Baskerville",Georgia,serif;font-weight:400;letter-spacing:-.02em}
+h1{font-size:clamp(2.6rem,5.6vw,5rem);line-height:1.04;max-width:16ch}
+h2{font-size:clamp(1.8rem,3.4vw,3rem);line-height:1.12;max-width:20ch}
+h3{font:700 14px/1.35 "IBM Plex Mono",monospace;letter-spacing:.02em}
+.lead{font:300 17px/1.8 "IBM Plex Mono",monospace;max-width:58ch;color:#55604F}
+.eyebrow{font:400 10px/1 "IBM Plex Mono",monospace;letter-spacing:.28em;text-transform:uppercase;color:#8A9382;margin-bottom:28px}
+.small{font-size:13px;color:#8A9382}
+.announce{background:#2F3A2B;color:#EFE9DC;text-align:center;padding:12px;font-size:12px;letter-spacing:.04em}
+.nav{position:sticky;top:16px;margin:16px auto 0;max-width:1120px;height:60px;border-radius:999px;
+  background:rgba(239,233,220,.82);backdrop-filter:blur(14px);box-shadow:0 12px 40px rgba(47,58,43,.09);padding:0 28px}
+.nav .mark{font:400 16px "Libre Baskerville",serif}
+.btn{background:#2F3A2B;color:#EFE9DC;font:400 13px/1 "IBM Plex Mono",monospace;letter-spacing:.1em;
+  border-radius:999px;box-shadow:0 10px 30px rgba(47,58,43,.16)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(47,58,43,.22)}
+.hero{padding-top:88px}
+.band{padding:48px 0;border-top:1px solid rgba(47,58,43,.12);border-bottom:1px solid rgba(47,58,43,.12)}
+.bullet{font-size:15px;color:#55604F}
+.sample{background:#2F3A2B;color:#EFE9DC}
+.sample h2{color:#EFE9DC}.sample .lead{color:#C3CBBC}
+.stat b{display:block;font:400 clamp(2.6rem,4.4vw,3.8rem)/1 "Libre Baskerville",serif;letter-spacing:-.02em}
+.stat i{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#8A9382;margin:12px 0 14px}
+.reason{padding:42px 0;border-bottom:1px solid rgba(47,58,43,.12)}
+.reason .n{font:400 12px "IBM Plex Mono",monospace;color:#8A9382;letter-spacing:.14em}
+.reason p{font-size:15px;color:#55604F;max-width:56ch}
+.outcomes p{padding:18px 0;border-bottom:1px solid rgba(47,58,43,.12);font-size:15px}
+.price{font:400 clamp(3rem,5vw,4.4rem)/1 "Libre Baskerville",serif;margin:18px 0}
+.includes{margin-top:28px}
+.includes p{padding:16px 0;border-bottom:1px solid rgba(47,58,43,.1);font-size:15px}
+.note-line{margin-top:26px;max-width:52ch}
+.step{background:#F6F2E8;border-radius:18px;padding:26px;box-shadow:0 18px 50px rgba(47,58,43,.07)}
+.step .sn{display:block;font:400 11px "IBM Plex Mono",monospace;letter-spacing:.24em;color:#8A9382;margin-bottom:10px}
+.step b{display:block;font:700 14px "IBM Plex Mono",monospace;margin-bottom:8px}
+.step p{font-size:14px;color:#55604F}
+.banner{background:#55604F;color:#EFE9DC}
+.banner h2{color:#EFE9DC;max-width:22ch}.bsub{color:#C3CBBC;margin:18px 0 36px;max-width:50ch}
+.banner .btn{background:#EFE9DC;color:#2F3A2B}
+table{font-size:14px}
+thead th{font:400 10px "IBM Plex Mono",monospace;letter-spacing:.24em;text-transform:uppercase;color:#8A9382}
+tbody th{font:300 13px "IBM Plex Mono",monospace;color:#8A9382;width:16%}
+th,td{border-bottom:1px solid rgba(47,58,43,.12)}
+td:nth-child(3){background:rgba(47,58,43,.05)}
+.faq{border-top:1px solid rgba(47,58,43,.12)}
+details{border-bottom:1px solid rgba(47,58,43,.12)}
+summary{font:400 17px "Libre Baskerville",serif}
+details p{font-size:15px;color:#55604F}
+footer{background:#2F3A2B;color:#8A9382;font-size:12px}
+
+.ph{position:relative;display:block;margin:0;background:var(--cream);line-height:0;
+  box-shadow:0 1px 2px rgba(22,21,20,.18),0 12px 28px rgba(22,21,20,.14)}
+.ph img{display:block;width:100%;height:auto}
+.ph-matte{padding:3.5%}
+.ph-tilt-a{transform:rotate(-1.1deg)}
+.ph-tilt-b{transform:rotate(.9deg)}
+.ph-tape{overflow:visible}
+.ph-tape>.tape{position:absolute;top:-14px;left:50%;width:38%;height:auto;z-index:2}
+.ph-tape.tape-a>.tape{transform:translateX(-50%) rotate(-2deg)}
+.ph-tape.tape-b>.tape{transform:translateX(-52%) rotate(2.4deg)}
+.ph-tape.tape-c>.tape{transform:translateX(-48%) rotate(-3.2deg)}
+.bleed .ph{box-shadow:none}
+.bleed .ph-matte{padding:2.2%}
+@media(min-width:900px){.ph-tape>.tape{width:26%;top:-18px}}
+
+/* Both faces ship one weight. Nothing may fake a second. */
+*,*::before,*::after{font-synthesis:none!important;font-synthesis-weight:none!important}
+*{font-weight:400!important}
+body{font-family:"Special Elite","Courier New",monospace;font-size:15px;line-height:1.66}
+h1,h2,h3,h4,.display{font-family:"Morning Memories",Georgia,serif!important;letter-spacing:-.015em;line-height:1.04}
+body,.which,.lead,.btn,.stat b,.reason .n,.price,.step .sn,.step b,
+thead th,tbody th,summary,.nav .mark{font-family:"Special Elite","Courier New",monospace!important}
+/* Emphasis without a bold cut: size, caps and tracking carry it. */
+.eyebrow,.kicker,.small,.which,.tag,.label{font-family:"Special Elite","Courier New",monospace;
+  text-transform:uppercase;letter-spacing:.16em;font-size:11px}
+b,strong{text-transform:uppercase;letter-spacing:.1em}
+.btn,.cta{font-family:"Special Elite","Courier New",monospace;text-transform:uppercase;letter-spacing:.13em}
+/* No crop and no stretch, anywhere. The shared base sets object-fit:cover on
+   .bleed img and .gallery img and an aspect-ratio on the gallery; both are
+   released here rather than edited, since they belong to all 26 variants. */
+.bleed img,.gallery img,.shot,.ph img{aspect-ratio:auto!important;height:auto!important;
+  max-height:none!important;object-fit:contain!important}
+.bleed{overflow:visible}
+.shot,.ph img{border-radius:0;box-shadow:none;filter:none}
+.ph{max-width:100%}
+/* The ATF is a mobile-native section. On a wide screen it is placed, not
+   stretched: centred at its design width on the page's own ground. Its internals
+   are untouched. */
+@media(min-width:900px){.atf-root{max-width:520px;margin-inline:auto}}
+/* A theme that overflows sideways guards it with body{overflow-x:hidden}, which
+   does not hold: the overflow escapes to html and the page scrolls anyway.
+   hyperframes measured 65px of real sideways scroll from its own perspective
+   planes, with or without anything added here. clip rather than hidden, so no
+   scroll container is created and sticky still works. */
+html,body{overflow-x:clip}
 .atf-root @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
 .atf-root @font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
 .atf-root{
@@ -85,105 +249,6 @@
 .atf-root .sticky .cta{margin:0;height:44px;line-height:44px;font-size:14px;flex:1}
 .atf-root .spacer{height:74px}
 .atf-root{display:block;width:100%;margin:0;position:relative}
-
-/* ── Wolf Children base ───────────────────────────────────────────────────
-   Built from the wolf-children-design skill. This replaces BASE and the old
-   per-theme CSS entirely for the five: Richard, 2026-10-05, "nothing from the
-   previous design survives unless it matches the ATF". Every value below is a
-   token from references/tokens.md. The five differ only in composition. */
-
-*,*::before,*::after{box-sizing:border-box;font-synthesis:none;font-synthesis-weight:none}
-*{font-weight:400}
-html,body{overflow-x:clip}
-body{margin:0;background:var(--cream);color:var(--green);
-  font:400 15px/1.55 "Special Elite","Courier New",monospace;-webkit-font-smoothing:antialiased}
-
-/* the old header and announce bar are removed from the markup, not hidden */
-.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
-.s{padding:64px 0}
-@media(min-width:900px){.s{padding:112px 0}.wrap{padding:0 32px}}
-
-/* ── type. Morning Memories on headings only, never under 24px ─────────── */
-h1,h2,h3{font-family:"Morning Memories",Georgia,serif;letter-spacing:-.02em;line-height:1.04;margin:0}
-h1{font-size:clamp(34px,8vw,64px)}
-h2{font-size:clamp(26px,5.2vw,40px)}
-h3{font-size:clamp(20px,3.4vw,26px);letter-spacing:-.01em}
-p{margin:0 0 14px;max-width:66ch}
-.lead{font-size:clamp(16px,4vw,19px);line-height:1.5;letter-spacing:-.01em;max-width:60ch}
-.small,.note-line,.bsub{font-size:12px;line-height:1.45}
-/* tertiary layer: uppercase, +.09em, bark. The only place bark appears in prose. */
-.eyebrow,.sn,.n,.badges span,.flabel{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--bark)}
-b,strong{text-transform:uppercase;letter-spacing:.09em}
-a{color:var(--green);text-underline-offset:3px;text-decoration-thickness:1px}
-a:hover{text-decoration-thickness:2px}
-.link,.links a{color:var(--bark)}
-
-/* ── the one orange: the button. Nothing else in its section may be orange ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;
-  padding:0 22px;border:0;border-radius:3px;background:var(--cta);color:var(--cream);
-  font:400 15px/1 "Special Elite","Courier New",monospace;letter-spacing:.06em;
-  text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background 120ms ease-out}
-.btn:hover{background:var(--green)}
-.act{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px}
-
-/* ── structure is a 1px tan line. No shadows anywhere. ─────────────────── */
-.band,.stat,.reason,.step,.refusal,.offer,.faq,.tablewrap,.includes{
-  border:1px solid var(--tan);border-radius:4px;padding:20px}
-.band-grid,.stats,.reasons,.steps,.refusals,.outcomes,.includes,.compare{
-  display:grid;gap:16px;margin-top:32px}
-.price{font-size:28px;letter-spacing:-.01em}
-.bullet{display:grid;grid-template-columns:12px 1fr;gap:8px;align-items:start;margin:0 0 10px}
-.bullet i{width:12px;height:12px;margin-top:4px;border:1px solid var(--bark);border-radius:999px;
-  position:relative;flex:none;font-style:normal}
-.bullet i:after{content:"";position:absolute;left:3.5px;top:1.5px;width:3px;height:6px;
-  border-right:1.5px solid var(--bark);border-bottom:1.5px solid var(--bark);transform:rotate(42deg)}
-
-/* the stem: the system's signature connector, 1px x 16px under an eyebrow */
-.eyebrow + .stem,.stem{width:1px;height:16px;background:var(--tan);margin:8px auto 0;display:block}
-
-table{width:100%;border-collapse:collapse;font-size:13.5px}
-th,td{padding:10px 12px;border-bottom:1px solid var(--tan);text-align:left;vertical-align:top}
-thead th{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--bark)}
-details{border-bottom:1px solid var(--tan);padding:14px 0}
-summary{cursor:pointer;list-style:none;font-size:15px}
-summary::-webkit-details-marker{display:none}
-
-/* ── the one inverted ground. Bark is 1.01:1 here and unavailable. ─────── */
-.banner,.close{background:var(--green);color:var(--cream);border-radius:4px;padding:32px 24px}
-.banner h2,.close h2,.banner a,.close a{color:var(--cream)}
-.banner .eyebrow,.close .eyebrow{color:var(--cream)}
-.banner .btn,.close .btn{background:var(--cream);color:var(--green)}
-.banner .btn:hover,.close .btn:hover{background:var(--tan)}
-
-/* ── photographs. The box fits the picture; the picture is never cropped. ── */
-.ph{position:relative;display:block;margin:0;background:var(--cream);line-height:0;
-  padding:3.5%;border:1px solid var(--tan)}
-.ph img{display:block;width:100%;height:auto;aspect-ratio:auto!important;max-height:none!important;
-  object-fit:contain!important;border-radius:0}
-.ph .tape{position:absolute;top:-13px;left:50%;width:38%;height:auto;z-index:2}
-.ph.tape-a .tape{transform:translateX(-50%) rotate(-2deg)}
-.ph.tape-b .tape{transform:translateX(-52%) rotate(2.4deg)}
-.ph.tape-c .tape{transform:translateX(-48%) rotate(-3.2deg)}
-.ph-tilt-a{transform:rotate(-1.1deg)}
-.ph-tilt-b{transform:rotate(.9deg)}
-figure{margin:0}
-.bleed{margin-top:32px}
-.hero-media,.gallery{display:grid;gap:24px;margin-top:32px}
-@media(min-width:900px){.ph .tape{width:24%;top:-18px}}
-
-/* ── the ATF owns its own box ─────────────────────────────────────────────
-   WC_BASE styles bare elements for the page below the section. Those selectors
-   also reach inside it, and a bare p rule with max-width 66ch was clamping the full
-   bleed announce bar to 484px. The section's own rules are more specific than
-   these and keep winning; this only undoes what the page added. */
-.atf-root p{margin:revert;max-width:none}
-.atf-root h1,.atf-root h2,.atf-root h3{max-width:none}
-.atf-root .eyebrow{text-transform:none}
-.atf-root .stem{margin:5px auto 0}
-.atf-root b,.atf-root strong{text-transform:none;letter-spacing:inherit}
-.atf-root a{text-decoration:none}
-.atf-root .under a{text-decoration:underline}
-.atf-root figure{margin:0}
 @media(min-width:900px){
   .atf-root{max-width:1120px;margin-inline:auto;padding:0 32px;
     display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
@@ -203,6 +268,20 @@ figure{margin:0}
   .atf-root .spacer,.atf-root .sticky{display:none}
   .atf-root .mark{left:0;top:26px;height:30px;width:156px}
 }
+/* ── the ATF owns its own box ─────────────────────────────────────────────
+   WC_BASE styles bare elements for the page below the section. Those selectors
+   also reach inside it, and a bare p rule with max-width 66ch was clamping the full
+   bleed announce bar to 484px. The section's own rules are more specific than
+   these and keep winning; this only undoes what the page added. */
+.atf-root p{margin:revert;max-width:none}
+.atf-root h1,.atf-root h2,.atf-root h3{max-width:none}
+.atf-root .eyebrow{text-transform:none}
+.atf-root .stem{margin:5px auto 0}
+.atf-root b,.atf-root strong{text-transform:none;letter-spacing:inherit}
+.atf-root a{text-decoration:none}
+.atf-root .under a{text-decoration:underline}
+.atf-root figure{margin:0}
+
 /* Editorial spreads. One idea per screen, the photograph taking the larger half
    and changing sides as you go down. The most air of the five. */
 @media(min-width:900px){
