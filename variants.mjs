@@ -376,6 +376,57 @@ footer{background:#495543;color:#CDB494;font-size:12.5px}
   // Banned by it and avoided here: 1px grey borders, harsh shadows, edge-to-edge
   // sticky navs glued to the top, linear easing.
   'high-end': {
+    v2: true,
+    cssV2: `
+/* mobile first */
+.s{padding:62px 0}
+.wrap{padding-left:20px;padding-right:20px}
+h1,.display{font-size:clamp(34px,9vw,70px)}
+h2{font-size:clamp(26px,6.4vw,48px)}
+.lead{font-size:clamp(16px,4.2vw,20px);line-height:1.5}
+@media(max-width:1023px){
+  .hero-media,.gallery,.compare,.bento{display:grid;grid-template-columns:1fr!important}
+  .ph-tape>.tape{width:42%}
+}
+/* Diffused, not dropped: the language asks for soft falloff rather than a hard
+   edge under the print. */
+.ph{box-shadow:0 2px 6px rgba(28,24,20,.07),0 24px 60px rgba(28,24,20,.16)}
+
+/* ── desktop: the editorial split, full height ───────────────────────────
+   Editorial Luxury on a wide screen means one idea per spread and real air
+   between them: the hero runs to the viewport, the photograph takes the larger
+   half, and the reading column stays narrow enough to be a column. */
+@media(min-width:1024px){
+  .s{padding:168px 0}
+  .wrap{max-width:1300px;padding-left:64px;padding-right:64px}
+  .lead{max-width:38ch}
+  .s p:not(.lead):not(.small):not(.eyebrow){max-width:60ch}
+
+  .hero{min-height:88vh;display:flex;align-items:center}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
+    column-gap:96px;row-gap:24px;align-items:center}
+  .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1}
+  .hero h1{font-size:clamp(58px,4.8vw,84px);line-height:1.02}
+  .hero .hero-media{grid-column:2;grid-row:1 / span 5;display:grid;
+    grid-template-columns:1.25fr .75fr;gap:30px;align-items:end}
+  .hero .hero-media>.shot--detail{transform:translateY(56px) rotate(1.2deg)}
+
+  /* the gallery as a measured spread, two large and two small */
+  .gallery{grid-template-columns:1.15fr .85fr .85fr 1.15fr;gap:40px;align-items:center}
+
+  /* one idea per spread: the picture takes the larger half, alternating sides */
+  .sample .wrap{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+    column-gap:88px;align-items:center}
+  .sample .sample-shot{grid-column:2;grid-row:1 / span 6}
+  .offer-s .wrap{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);
+    column-gap:88px;align-items:center}
+  .offer-s .offer-shot{grid-column:1;grid-row:1 / span 8;max-width:none;margin:0}
+
+  .bleed .ph{max-width:1020px;margin-inline:auto}
+  .bleed{padding:0 64px}
+  .ph-tape>.tape{width:22%;top:-20px}
+}
+`,
     title: 'high-end-visual-design',
     note: 'vibe archetype Editorial Luxury · layout archetype Editorial Split · serif display, film grain at 3%, floating nav, diffused shadows · Libre Baskerville stands in for PP Editorial New',
     css: `
@@ -437,6 +488,56 @@ footer{background:#2F3A2B;color:#8A9382;font-size:12px}
   // pill containers, shadows effectively absent, extreme typographic contrast,
   // one muted pastel accent, tabular numerals.
   minimalist: {
+    v2: true,
+    cssV2: `
+/* mobile first */
+.s{padding:56px 0}
+.wrap{padding-left:20px;padding-right:20px}
+h1,.display{font-size:clamp(30px,7.6vw,56px)}
+h2{font-size:clamp(23px,5.4vw,38px)}
+.lead{font-size:clamp(15px,3.9vw,19px);line-height:1.56}
+@media(max-width:1023px){
+  .hero-media,.gallery,.compare,.bento{display:grid;grid-template-columns:1fr!important}
+  .ph-tape>.tape{width:40%}
+}
+/* The language forbids shadow over .05, so the print is held by a hairline and
+   the faintest lift rather than the drop the other four use. */
+.ph{box-shadow:0 0 0 1px rgba(47,52,55,.07),0 1px 2px rgba(47,52,55,.04)}
+.ph-tilt-a,.ph-tilt-b{transform:none}
+
+/* ── desktop: a strict field, ruled by hairlines ─────────────────────────
+   No gradient, no pill, no shadow. On a wide screen the discipline is the
+   design: a twelve column field, everything aligned to it, and hairlines doing
+   the work that a border or a card would do elsewhere. */
+@media(min-width:1024px){
+  .s{padding:120px 0;border-top:1px solid rgba(47,52,55,.06)}
+  .s:first-of-type{border-top:0}
+  .wrap{max-width:1140px;padding-left:48px;padding-right:48px}
+  .lead{max-width:40ch}
+  .s p:not(.lead):not(.small):not(.eyebrow){max-width:62ch}
+
+  /* hero: editorial split on 5 and 6 of 12, with a column rule between */
+  .hero .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:32px;row-gap:16px;align-items:start}
+  .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1 / 6}
+  .hero h1{font-size:clamp(46px,3.9vw,62px);line-height:1.06}
+  .hero .hero-media{grid-column:7 / 13;grid-row:1 / span 5;display:grid;
+    grid-template-columns:1fr 1fr;gap:24px;align-items:start;
+    padding-left:32px;border-left:1px solid rgba(47,52,55,.08)}
+
+  /* four reasons on one baseline, nothing staggered: the restraint is the point */
+  .gallery{grid-template-columns:repeat(4,1fr);gap:32px;align-items:start}
+
+  .sample .wrap,.offer-s .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:32px;align-items:start}
+  .sample .sample-shot{grid-column:8 / 13;grid-row:1 / span 6}
+  .sample .wrap>*:not(.sample-shot){grid-column:1 / 7}
+  .offer-s .offer-shot{grid-column:1 / 5;grid-row:1 / span 8;max-width:none;margin:0}
+  .offer-s .wrap>*:not(.offer-shot){grid-column:6 / 13}
+
+  .bleed .ph{max-width:760px;margin-inline:auto}
+  .bleed{padding:0 48px}
+  .ph-tape>.tape{width:20%;top:-16px;opacity:.9}
+}
+`,
     title: 'minimalist-ui',
     note: 'warm bone canvas, white surfaces, hairlines at 6% · no gradients, no pills, no shadow over .05 · one muted accent · tabular numerals · Libre Baskerville stands in for Lyon Text',
     css: `
@@ -899,6 +1000,59 @@ footer{background:#495543;color:#CDB494;font-size:13px}
   // toward it rather than dead grey, a background layer of persistent
   // decoratives, and weight led to one side instead of centred.
   hyperframes: {
+    v2: true,
+    cssV2: `
+/* mobile first */
+.s{padding:60px 0}
+.wrap{padding-left:20px;padding-right:20px}
+h1,.display{font-size:clamp(33px,8.8vw,68px)}
+h2{font-size:clamp(26px,6.4vw,46px)}
+.lead{font-size:clamp(16px,4.2vw,20px);line-height:1.5}
+@media(max-width:1023px){
+  .hero-media,.gallery,.compare,.bento{display:grid;grid-template-columns:1fr!important}
+  .ph-tape>.tape{width:44%}
+}
+
+/* ── desktop: composition carries ────────────────────────────────────────
+   The house style is written for video frames, so the desktop is staged in
+   depth rather than stacked: four planes, each a little further back, and the
+   photograph overlaps the headline instead of sitting politely under it. */
+@media(min-width:1024px){
+  .s{padding:128px 0}
+  .wrap{max-width:1280px;padding-left:56px;padding-right:56px}
+  .lead{max-width:42ch}
+  .s p:not(.lead):not(.small):not(.eyebrow){max-width:64ch}
+
+  .hero .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:28px;row-gap:18px;align-items:center}
+  .hero .eyebrow{grid-column:1 / 7}
+  .hero h1{grid-column:1 / 8;font-size:clamp(60px,5.2vw,88px);position:relative;z-index:2}
+  .hero .lead,.hero .act{grid-column:1 / 6}
+  /* plane two: the prints come forward over the headline's right edge */
+  .hero .hero-media{grid-column:6 / 13;grid-row:1 / span 5;align-self:center;z-index:1;
+    display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:end}
+  .hero .hero-media>.shot{transform:translateY(-18px) rotate(-1.6deg)}
+  .hero .hero-media>.shot--detail{transform:translateY(54px) rotate(2.2deg) scale(.88)}
+
+  /* the gallery as a run of planes, each stepping back along the row */
+  .gallery{grid-template-columns:repeat(4,1fr);gap:30px;align-items:start}
+  .gallery>*:nth-child(1){transform:translateY(0) rotate(-1.2deg)}
+  .gallery>*:nth-child(2){transform:translateY(46px) rotate(.9deg) scale(.96)}
+  .gallery>*:nth-child(3){transform:translateY(16px) rotate(-.6deg) scale(.99)}
+  .gallery>*:nth-child(4){transform:translateY(62px) rotate(1.4deg) scale(.93)}
+
+  .sample .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:28px;align-items:center}
+  .sample .sample-shot{grid-column:7 / 13;grid-row:1 / span 6;transform:rotate(1.1deg)}
+  .sample .wrap>*:not(.sample-shot){grid-column:1 / 7}
+
+  .offer-s .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:28px;align-items:center}
+  .offer-s .offer-shot{grid-column:1 / 6;grid-row:1 / span 8;max-width:none;margin:0;transform:rotate(-2deg)}
+  .offer-s .wrap>*:not(.offer-shot){grid-column:6 / 13}
+
+  .bleed .ph{max-width:900px;margin-inline:auto;transform:rotate(-.7deg)}
+  .bleed{padding:0 56px}
+  .ph-tape>.tape{width:24%;top:-20px}
+}
+`,
     title: 'hyperframes-creative',
     note: 'house style adapted: it is written for video frames, so composition carries and its motion rules do not · light palette for a child subject, one accent, neutrals tinted toward it, four persistent decoratives, weight led off-centre',
     css: `
