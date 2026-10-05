@@ -575,7 +575,8 @@ h1,h2,h3,h4,.display{font-family:"Morning Memories",Georgia,serif!important}
 /* No crop, anywhere. .bleed img and .gallery img were object-fit:cover, which
    fills a box by cutting whatever does not fit — the thing that took the legs
    off. Photographs now paint at their own ratio and the box follows them. */
-.bleed img,.gallery img,.shot,.ph img{object-fit:fill!important;max-height:none!important;height:auto!important}
+.bleed img,.gallery img,.shot,.ph img{aspect-ratio:auto!important;height:auto!important;
+  max-height:none!important;object-fit:contain!important}
 .bleed{overflow:visible}
 `,
     title: 'gpt-taste',
