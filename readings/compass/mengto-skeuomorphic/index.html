@@ -266,6 +266,12 @@ b,strong{text-transform:uppercase;letter-spacing:.1em}
    stretched: centred at its design width on the page's own ground. Its internals
    are untouched. */
 @media(min-width:900px){.atf-root{max-width:520px;margin-inline:auto}}
+/* A theme that overflows sideways guards it with body{overflow-x:hidden}, which
+   does not hold: the overflow escapes to html and the page scrolls anyway.
+   hyperframes measured 65px of real sideways scroll from its own perspective
+   planes, with or without anything added here. clip rather than hidden, so no
+   scroll container is created and sticky still works. */
+html,body{overflow-x:clip}
 
 /* mobile first */
 .s{padding:56px 0}
