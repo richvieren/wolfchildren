@@ -263,7 +263,7 @@ export function atfDesktopCss(root = 'body') {
   ${R}>.announce{width:100vw;margin-left:calc(50% - 50vw)}
   ${R}>.carousel{grid-column:2;grid-row:3/span 4;align-self:center;margin:0}
   ${R}>.wrap{padding:0}
-  ${R} .badge{text-align:left;padding-top:28px}
+  ${R} .badge{text-align:left;padding-top:76px}   /* clears the mark: top 26 + height 30 */
   ${R} .moon,${R} .stem{margin-left:0;margin-right:0}
   ${R} h1{font-size:clamp(44px,4.4vw,64px);text-align:left}
   ${R} .sub{margin-left:0;text-align:left;max-width:44ch;font-size:15px;line-height:1.45}
