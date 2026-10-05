@@ -29,6 +29,8 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { audit, report } from './src/lib/slop.mjs';
 import { C } from './src/lib/compass-copy.mjs';
+import { ATF_CSS, atfMarkup, ATF_JS } from './src/lib/atf-section.mjs';
+import { resolve as resolveAtf } from './src/lib/atf-copy.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 export const PIXEL = createHash('md5').update(readFileSync(join(ROOT, 'assets/js/pixel.js'))).digest('hex').slice(0, 8);
@@ -159,6 +161,58 @@ export const BODY = `
 `;
 
 // Structure every theme inherits. Themes override freely.
+
+// ── The five taken forward (Richard, 2026-10-05) ───────────────────────────
+// Opt-in only. A theme with `v2: true` gets the ATF on top, the two landing
+// fonts and the framed photographs; every other variant is untouched, because
+// he named five and the rule is to touch only what he named.
+
+// Morning Memories for headings, Special Elite for everything else. Both ship a
+// single weight, so there is no bold to reach for: emphasis is size, caps and
+// letter-spacing, and `font-synthesis:none` stops a browser faking one.
+export const FONTS_V2 = `
+@font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
+`;
+
+// Every photograph re-exported from Richard's originals at its native ratio.
+// The old set was cropped to 4:5, 2:3, 3:5, 3:2 and 21:9 against originals that
+// are only ever 0.75 or 1.333, which is how a crop took a child's legs off.
+// Nothing here is cropped and no rule uses object-fit:cover.
+export const PHOTOS_V2 = {
+  'hero': { w: 1200, h: 1600, alt: "A child alone on the sand, a silhouette against the setting sun" },
+  'hero-detail': { w: 1200, h: 1600, alt: "The same evening, close: a child crouched in long grass" },
+  'band-dusk': { w: 1600, h: 1200, alt: "A beach at dusk, the mountain behind, one child small in the frame" },
+  'sample': { w: 1600, h: 1200, alt: "A child building a sandcastle at the end of the day" },
+  'reason-1': { w: 1200, h: 1600, alt: "A child standing on a rock in a forest, looking back" },
+  'reason-2': { w: 1200, h: 1600, alt: "A child at a fence, absorbed in the animals on the other side" },
+  'reason-3': { w: 1200, h: 1600, alt: "A child running across grass towards the trees" },
+  'reason-4': { w: 1200, h: 1600, alt: "A child small on a path between tall pines" },
+  'offer': { w: 1200, h: 1600, alt: "A child in a doorway at the end of the day, boots muddy" },
+  'band-season': { w: 1600, h: 1200, alt: "A forest path, a child small among the trees" },
+  'close': { w: 1600, h: 1200, alt: "A child at the water's edge at sunset, the beach empty" }
+};
+
+// The almanac treatment: a white matte, a torn strip of tape, a soft drop.
+// Mobile first, so the frame is a percentage of the photo and scales with it.
+export const PHOTO_CSS_V2 = `
+.ph{position:relative;display:block;margin:0;background:#F7F3E9;line-height:0;
+  box-shadow:0 1px 2px rgba(22,21,20,.18),0 12px 28px rgba(22,21,20,.14)}
+.ph img{display:block;width:100%;height:auto}
+.ph-matte{padding:3.5%}
+.ph-tilt-a{transform:rotate(-1.1deg)}
+.ph-tilt-b{transform:rotate(.9deg)}
+.ph-tape{overflow:visible}
+.ph-tape>.tape{position:absolute;top:-14px;left:50%;width:38%;height:auto;z-index:2}
+.ph-tape.tape-a>.tape{transform:translateX(-50%) rotate(-2deg)}
+.ph-tape.tape-b>.tape{transform:translateX(-52%) rotate(2.4deg)}
+.ph-tape.tape-c>.tape{transform:translateX(-48%) rotate(-3.2deg)}
+.bleed .ph{box-shadow:none}
+.bleed .ph-matte{padding:2.2%}
+@media(min-width:900px){.ph-tape>.tape{width:26%;top:-18px}}
+`;
+
 export const BASE = `
 *{box-sizing:border-box}
 body{margin:0}
@@ -481,6 +535,49 @@ footer{background:#111;color:#B4B4B4;font:700 11px/1 "IBM Plex Mono",monospace;l
   // padding, gapless bento, and its ban on cheap meta-labels, which means this
   // is the only variant with no eyebrow anywhere.
   'gpt-taste': {
+    v2: true,
+    cssV2: `
+/* Richard, 2026-10-05: both faces ship one weight. Nothing may fake a second. */
+*,*::before,*::after{font-synthesis:none!important;font-synthesis-weight:none!important}
+body{font-family:"Special Elite","Courier New",monospace;font-weight:400;font-size:15px;line-height:1.66}
+h1,h2,h3,h4,.display,.mark,.price,.stat-n,.btn,.eyebrow,.kicker,b,strong{font-weight:400!important}
+h1,h2,h3,h4,.display{font-family:"Morning Memories",Georgia,serif;letter-spacing:-.015em;line-height:1.04}
+h1,.display{font-size:clamp(34px,9.2vw,76px)}
+h2{font-size:clamp(27px,6.6vw,52px)}
+h3{font-size:clamp(20px,4.4vw,30px)}
+/* emphasis without a bold cut: size, caps and tracking carry it */
+.eyebrow,.kicker,.small,.which,.tag,.label{font-family:"Special Elite","Courier New",monospace;text-transform:uppercase;letter-spacing:.16em;font-size:11px}
+b,strong{text-transform:uppercase;letter-spacing:.1em}
+.lead{font-size:clamp(16px,4.2vw,21px);line-height:1.5}
+.btn,.cta{font-family:"Special Elite","Courier New",monospace;text-transform:uppercase;letter-spacing:.13em}
+.stat-n,.price{font-family:"Special Elite","Courier New",monospace;letter-spacing:-.01em}
+/* mobile first: the skeleton's desktop padding is far too tall on a phone */
+.s{padding:64px 0}
+@media(min-width:900px){.s{padding:160px 0}}
+.wrap{padding-left:20px;padding-right:20px}
+/* the frame carries the photograph now, so the old shot styling steps back */
+.shot,.ph img{border-radius:0;box-shadow:none;filter:none}
+.ph{max-width:100%}
+.hero-media,.gallery{gap:26px}
+@media(max-width:899px){
+  .hero-media,.gallery,.compare,.bento{grid-template-columns:1fr!important;display:grid}
+  .ph-tape>.tape{width:44%}
+}
+/* The shared base and this theme still name the old stack in fourteen places.
+   Those faces are no longer loaded, so they would silently fall back; naming the
+   two real ones is clearer than relying on that. */
+body,.which,.lead,.btn,.stat b,.reason .n,.price,.step .sn,.step b,
+thead th,tbody th,summary,.nav .mark{font-family:"Special Elite","Courier New",monospace!important}
+h1,h2,h3,h4,.display{font-family:"Morning Memories",Georgia,serif!important}
+/* Neither face has a second weight, so every weight resolves to 400 anyway.
+   Saying so stops a browser inventing one. */
+*{font-weight:400!important}
+/* No crop, anywhere. .bleed img and .gallery img were object-fit:cover, which
+   fills a box by cutting whatever does not fit — the thing that took the legs
+   off. Photographs now paint at their own ratio and the box follows them. */
+.bleed img,.gallery img,.shot,.ph img{object-fit:fill!important;max-height:none!important;height:auto!important}
+.bleed{overflow:visible}
+`,
     title: 'gpt-taste',
     note: 'AIDA order overruled by the teardown order · applied: floating nav pill, ultra-wide H1 container, massive section padding, gapless bento, zero meta-labels so no eyebrows · Montserrat stands in for Cabinet Grotesk',
     css: `
@@ -812,7 +909,51 @@ footer{background:#3F4A3A;color:#CDB494;font-size:13px}
 };
 
 /** The whole page for one theme. Identical copy and module order in every variant. */
+
+/** The shared skeleton, turned into the v2 page: no announcement bar, every
+ *  photograph swapped for its uncropped re-export and wrapped in the matte and
+ *  tape. The skeleton itself is not restructured; he asked for a restyle. */
+export function bodyV2() {
+  let out = BODY.replace(/<p class="announce">[\s\S]*?<\/p>\s*/, '');
+  let n = 0;
+  out = out.replace(/<img([^>]*?)src="\/assets\/img\/compass\/([a-z0-9-]+)\.jpg"([^>]*?)>/g, (m, a, slot, b) => {
+    const ph = PHOTOS_V2[slot];
+    if (!ph) throw new Error(`no v2 photo for slot ${slot}`);
+    const cls = (a + b).match(/class="([^"]*)"/);
+    const eager = /loading="eager"/.test(a + b);
+    const tape = ['tape-a', 'tape-b', 'tape-c'][n % 3];
+    const tilt = n % 2 ? 'ph-tilt-b' : 'ph-tilt-a';
+    const tapeSrc = `/assets/img/frames/tape-${[1, 4, 7][n % 3]}.png`;
+    n += 1;
+    return `<figure class="ph ph-matte ph-tape ${tape} ${tilt}${cls ? ' ' + cls[1] : ''}">`
+      + `<img class="ph-photo" src="/assets/img/compass2/${slot}.webp" width="${ph.w}" height="${ph.h}" `
+      + `alt="${ph.alt}" ${eager ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'} decoding="async">`
+      + `<img class="tape" src="${tapeSrc}" alt="" aria-hidden="true" loading="lazy"></figure>`;
+  });
+  if (n !== Object.keys(PHOTOS_V2).length) throw new Error(`v2 body wrapped ${n} photos, expected ${Object.keys(PHOTOS_V2).length}`);
+  return out;
+}
+
 export function variantPage(t) {
+  if (t.v2) return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>${t.title} | Compass</title>
+<script src="/assets/js/pixel.js?v=${PIXEL}"></script>
+<style>${FONTS_V2}${ATF_CSS}${BASE}${PHOTO_CSS_V2}${t.css}${t.cssV2 || ''}</style>
+</head>
+<body>
+<noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
+${atfMarkup(resolveAtf('control'))}
+<p class="which"><b>${t.title}</b> <span>${t.note}</span></p>
+${bodyV2()}
+${ATF_JS}
+</body>
+</html>
+`;
   return `<!doctype html>
 <html lang="en">
 <head>

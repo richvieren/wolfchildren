@@ -1,12 +1,15 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Compass · above the fold · control</title>
-<script src="/assets/js/pixel.js?v=d54ec4f6"></script>
-<style>
+// atf-section.mjs — the above-the-fold block: its CSS, its markup and its script.
+//
+// It lives in its own module because atf-preview.mjs imports PIXEL and DATASET
+// from variants.mjs, so variants.mjs importing the section back from there would
+// be a cycle. One source either way: the preview page and the five variants
+// render the same bytes. 2026-10-05.
+
+// The above-the-fold section, exported so a variant embeds the real thing rather
+// than a copy of it. Richard, 2026-10-05: "Put the new ATF section at the top,
+// exactly as it is. Don't rebuild it, don't adjust it." One source, so it cannot
+// drift between the preview and the five pages.
+export const ATF_CSS = `
 @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
 
@@ -97,69 +100,64 @@ h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 .sticky .price b{color:var(--ink);font-weight:400}
 .sticky .cta{margin:0;height:44px;line-height:44px;font-size:14px;flex:1}
 .spacer{height:74px}
-</style>
-</head>
-<body data-cell="control">
-<noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=1622703732974632&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
+`;
+
+export const atfMarkup = (T) => `
 
 
-
-<p class="announce">Buy two and get one free.</p>
+<p class="announce">${T.announce}</p>
 
 <header class="hdr"><span class="mark"></span></header>
 
 <div class="wrap">
   <div class="badge">
     <span class="moon"><svg viewBox="0 0 48 48"><mask id="c"><rect width="48" height="48" fill="#000"/><circle cx="24" cy="24" r="15" fill="#fff"/><circle cx="33" cy="20" r="14" fill="#000"/></mask><rect width="48" height="48" fill="currentColor" mask="url(#c)"/></svg></span>
-    <p class="eyebrow">For the parent who goes deeper</p>
+    <p class="eyebrow">${T.eyebrow}</p>
     <div class="stem"></div>
   </div>
 
-  <h1>Discover your child's<br>astrology cheat sheet</h1>
-  <p class="sub">The Compass helps you understand and empower your child based on their unique astrology chart.</p>
+  <h1>${T.headline}</h1>
+  <p class="sub">${T.sub}</p>
 </div>
 
 <div class="carousel">
   <div class="slides" id="slides">
-    <div class="slide"><img src="/assets/img/atf/slide-0.webp" width="1400" height="1050" alt="A child on a beach at sunset, with the zodiac wheel drawn across the sky" ></div>
-    <div class="slide"><img src="/assets/img/atf/slide-1.webp" width="1400" height="1050" alt="Four cards from the reading, floating above a child walking on a beach" loading="lazy"></div>
-    <div class="slide"><img src="/assets/img/atf/slide-2.webp" width="1400" height="1050" alt="Two cards from the reading, beside a child standing at the shoreline" loading="lazy"></div>
-    <div class="slide"><span class="empty">What you get: the reading on a phone</span></div>
+    ${T.slides.map((s, i) => s.src
+      ? `<div class="slide"><img src="${s.src}" width="${s.w}" height="${s.h}" alt="${s.alt}" ${i ? 'loading="lazy"' : ''}></div>`
+      : `<div class="slide"><span class="empty">${s.brief}</span></div>`).join('\n    ')}
   </div>
-  <button class="arrow prev" type="button" aria-label="Previous">&#8249;</button>
+  ${T.slides.length > 1 ? `<button class="arrow prev" type="button" aria-label="Previous">&#8249;</button>
   <button class="arrow next" type="button" aria-label="Next">&#8250;</button>
-  <div class="dots"><button class="dot on" type="button" aria-label="Slide 1"></button><button class="dot" type="button" aria-label="Slide 2"></button><button class="dot" type="button" aria-label="Slide 3"></button><button class="dot" type="button" aria-label="Slide 4"></button></div>
+  <div class="dots">${T.slides.map((_, i) => `<button class="dot${i ? '' : ' on'}" type="button" aria-label="Slide ${i + 1}"></button>`).join('')}</div>` : ''}
 </div>
 
 <div class="wrap">
   <div class="form">
-    <p class="flabel">Start with their birth details</p>
+    <p class="flabel">${T.formLabel}</p>
     <div class="row">
-      <span class="field">Date of birth</span>
-      <span class="field">Time</span>
+      <span class="field">${T.fieldDate}</span>
+      <span class="field">${T.fieldTime}</span>
     </div>
-    <span class="field full" style="display:block">Place of birth</span>
+    <span class="field full" style="display:block">${T.fieldPlace}</span>
   </div>
 
-  <a class="cta" href="#">Get their Compass · $27</a>
-  <p class="under">Or <a href="/readings/compass/sample/nora/">read a whole one free</a> before you decide.</p>
+  <a class="cta" href="#">${T.cta}</a>
+  <p class="under">${T.under}</p>
 
   <div class="fuds">
-    <p class="fud"><span class="tick"></span><span><b>One payment</b> of $27. No subscription, nothing recurring.</span></p>
-    <p class="fud"><span class="tick"></span><span><b>Ready in minutes</b> delivered straight to your private portal.</span></p>
-    <p class="fud"><span class="tick"></span><span><b>Yours to keep</b> come back to it as they grow.</span></p>
-    <p class="fud"><span class="tick"></span><span><b>Stays on our server</b> their details are never shared or sold.</span></p>
+    ${T.fuds.map(([h, t]) => `<p class="fud"><span class="tick"></span><span><b>${h}</b> ${t}</span></p>`).join('\n    ')}
   </div>
 </div>
 
 <div class="spacer"></div>
 <div class="sticky">
-  <span class="price">Compass<br><b>$27</b></span>
-  <a class="cta" href="#">Get their Compass</a>
+  <span class="price">${T.stickyName}<br><b>${T.stickyPrice}</b></span>
+  <a class="cta" href="#">${T.stickyCta}</a>
 </div>
 
+`;
 
-
+export const ATF_JS = `
 <script>
 (function(){
   var sc=document.getElementById('slides'); if(!sc) return;
@@ -176,6 +174,5 @@ h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
   },{passive:true});
 })();
 </script>
+`;
 
-</body>
-</html>

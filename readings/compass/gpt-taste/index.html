@@ -7,13 +7,100 @@
 <title>gpt-taste | Compass</title>
 <script src="/assets/js/pixel.js?v=d54ec4f6"></script>
 <style>
-@font-face{font-family:"Montserrat";src:url("/assets/fonts/montserrat-900.woff2") format("woff2");font-weight:900;font-display:swap}
-@font-face{font-family:"Libre Baskerville";src:url("/assets/fonts/libre-baskerville-400.woff2") format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"Libre Baskerville";src:url("/assets/fonts/libre-baskerville-400-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
-@font-face{font-family:"Libre Baskerville";src:url("/assets/fonts/libre-baskerville-700.woff2") format("woff2");font-weight:700;font-display:swap}
-@font-face{font-family:"IBM Plex Mono";src:url("/assets/fonts/ibm-plex-mono-300.woff2") format("woff2");font-weight:300;font-display:swap}
-@font-face{font-family:"IBM Plex Mono";src:url("/assets/fonts/ibm-plex-mono-400.woff2") format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"IBM Plex Mono";src:url("/assets/fonts/ibm-plex-mono-700.woff2") format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
+
+@font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
+
+:root{
+  --paper:#F8F5EC; --ink:#131613; --rust:#8B4133; --sienna:#995A3D; --olive:#828951;
+  --line:rgba(153,90,61,.28); --muted:rgba(19,22,19,.68);
+}
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 15px/1.55 "Special Elite","Courier New",monospace;-webkit-font-smoothing:antialiased}
+.wrap{padding:0 20px}
+
+/* 1 announce */
+.announce{background:var(--rust);color:var(--paper);text-align:center;
+  padding:6px 16px;font-size:12px;letter-spacing:.01em}
+
+/* 2 header */
+.hdr{height:0;position:relative;z-index:3}
+.mark{position:absolute;left:20px;top:10px;height:24px;width:124px;background:var(--ink);
+  -webkit-mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain;
+          mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain}
+
+/* 3 moon + eyebrow */
+.badge{text-align:center;padding-top:8px}
+.moon{width:18px;height:18px;color:var(--olive);display:block;margin:0 auto -3px}
+.moon svg{display:block;width:100%;height:100%}
+.eyebrow{margin:0;font-size:12px;letter-spacing:.02em;color:var(--muted)}
+.stem{width:1px;height:16px;background:var(--line);margin:5px auto 0}
+
+/* 4 headline + sub */
+h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
+  font-size:36px;line-height:.98;letter-spacing:-.02em;text-align:center;text-wrap:balance}
+.sub{margin:7px auto 0;max-width:48ch;text-align:center;font-size:13.5px;line-height:1.36;letter-spacing:-.01em;color:var(--muted)}
+
+/* 5 carousel. The slide was a fixed 240px tall with a fluid width, so its ratio
+   drifted from 1.33 on a 375px phone to 1.56 on a 430px one and no single image
+   ratio could fit it. It is pinned now, so one delivered ratio fits every phone.
+   4:3, because that is what Richard's own composites are and cropping his files
+   to fit a box of mine is the wrong way round. */
+.carousel{margin:8px 20px 0;position:relative}
+.slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.slides::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:4/3;position:relative}
+.slide img{display:block;width:100%;height:100%;object-fit:contain}
+.empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:18px;
+  border:1px dashed var(--line);color:var(--sienna);opacity:.75;font-size:11.5px;line-height:1.4}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;padding:0;
+  border:1px solid var(--line);background:rgba(248,245,236,.92);color:var(--sienna);border-radius:50%;
+  font:400 17px/28px "Special Elite",monospace;cursor:pointer;z-index:2}
+.arrow.prev{left:4px}.arrow.next{right:4px}
+.dots{position:absolute;left:0;right:0;bottom:2px;display:flex;justify-content:center;gap:7px}
+.dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer}
+.dot.on{background:var(--sienna)}
+.tag{position:absolute;left:0;top:0;background:rgba(248,245,236,.9);color:var(--sienna);
+  font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;padding:5px 9px;border:1px solid var(--line)}
+
+/* 6 birth details */
+.form{margin-top:8px}
+.flabel{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--sienna);margin-bottom:6px}
+.row{display:flex;gap:6px}
+.field{flex:1;height:44px;border:1px solid var(--line);background:#FDFBF5;border-radius:3px;
+  padding:0 12px;font:400 13.5px/44px "Special Elite",monospace;color:var(--muted)}
+.field + .field{flex:0 0 118px}
+.field.full{margin-top:6px;flex:1 1 auto}
+
+/* 7 CTA */
+.cta{display:block;margin-top:8px;width:100%;height:50px;border:0;border-radius:3px;
+  background:var(--rust);color:var(--paper);font:400 15px/50px "Special Elite",monospace;
+  letter-spacing:.06em;text-align:center;text-decoration:none}
+.under{margin-top:7px;text-align:center;font-size:11.5px;color:var(--muted)}
+.under a{color:var(--sienna)}
+
+/* 8 reassurance */
+.fuds{margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-radius:4px;
+  display:grid;grid-template-columns:1fr 1fr;gap:7px 12px}
+.fud{display:grid;grid-template-columns:12px 1fr;gap:6px;font-size:10.5px;line-height:1.28;color:var(--muted)}
+.fud b{color:var(--ink);font-weight:400}
+.tick{width:12px;height:12px;margin-top:1px;border:1px solid var(--sienna);border-radius:50%;position:relative}
+.tick:after{content:"";position:absolute;left:3.5px;top:1.5px;width:3px;height:6px;
+  border-right:1.5px solid var(--sienna);border-bottom:1.5px solid var(--sienna);transform:rotate(42deg)}
+
+/* 9 sticky bar */
+.sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(248,245,236,.96);
+  border-top:1px solid var(--line);padding:9px 20px;display:flex;align-items:center;gap:12px;
+  backdrop-filter:blur(8px)}
+.sticky .price{font-size:13px;color:var(--muted);white-space:nowrap}
+.sticky .price b{color:var(--ink);font-weight:400}
+.sticky .cta{margin:0;height:44px;line-height:44px;font-size:14px;flex:1}
+.spacer{height:74px}
 
 *{box-sizing:border-box}
 body{margin:0}
@@ -82,6 +169,21 @@ footer{padding:56px 0}
 .which{font:400 12px/1.5 "IBM Plex Mono",monospace;background:#111;color:#fff;padding:8px 14px;letter-spacing:.04em}
 .which b{font-weight:700}.which span{opacity:.62}
 
+.ph{position:relative;display:block;margin:0;background:#F7F3E9;line-height:0;
+  box-shadow:0 1px 2px rgba(22,21,20,.18),0 12px 28px rgba(22,21,20,.14)}
+.ph img{display:block;width:100%;height:auto}
+.ph-matte{padding:3.5%}
+.ph-tilt-a{transform:rotate(-1.1deg)}
+.ph-tilt-b{transform:rotate(.9deg)}
+.ph-tape{overflow:visible}
+.ph-tape>.tape{position:absolute;top:-14px;left:50%;width:38%;height:auto;z-index:2}
+.ph-tape.tape-a>.tape{transform:translateX(-50%) rotate(-2deg)}
+.ph-tape.tape-b>.tape{transform:translateX(-52%) rotate(2.4deg)}
+.ph-tape.tape-c>.tape{transform:translateX(-48%) rotate(-3.2deg)}
+.bleed .ph{box-shadow:none}
+.bleed .ph-matte{padding:2.2%}
+@media(min-width:900px){.ph-tape>.tape{width:26%;top:-18px}}
+
 body{background:#11100E;color:#F2EFE9;font:300 16px/1.75 "IBM Plex Mono",monospace}
 .wrap{max-width:1320px}
 .s{padding:128px 0}@media(min-width:900px){.s{padding:192px 0}}
@@ -140,13 +242,111 @@ details{border-bottom:1px solid rgba(242,239,233,.1)}
 summary{font:700 15px "IBM Plex Mono",monospace}
 details p{font-size:15px;color:#A8A29A}
 footer{background:#0B0A09;color:#7D776F;font-size:13px}
+
+/* Richard, 2026-10-05: both faces ship one weight. Nothing may fake a second. */
+*,*::before,*::after{font-synthesis:none!important;font-synthesis-weight:none!important}
+body{font-family:"Special Elite","Courier New",monospace;font-weight:400;font-size:15px;line-height:1.66}
+h1,h2,h3,h4,.display,.mark,.price,.stat-n,.btn,.eyebrow,.kicker,b,strong{font-weight:400!important}
+h1,h2,h3,h4,.display{font-family:"Morning Memories",Georgia,serif;letter-spacing:-.015em;line-height:1.04}
+h1,.display{font-size:clamp(34px,9.2vw,76px)}
+h2{font-size:clamp(27px,6.6vw,52px)}
+h3{font-size:clamp(20px,4.4vw,30px)}
+/* emphasis without a bold cut: size, caps and tracking carry it */
+.eyebrow,.kicker,.small,.which,.tag,.label{font-family:"Special Elite","Courier New",monospace;text-transform:uppercase;letter-spacing:.16em;font-size:11px}
+b,strong{text-transform:uppercase;letter-spacing:.1em}
+.lead{font-size:clamp(16px,4.2vw,21px);line-height:1.5}
+.btn,.cta{font-family:"Special Elite","Courier New",monospace;text-transform:uppercase;letter-spacing:.13em}
+.stat-n,.price{font-family:"Special Elite","Courier New",monospace;letter-spacing:-.01em}
+/* mobile first: the skeleton's desktop padding is far too tall on a phone */
+.s{padding:64px 0}
+@media(min-width:900px){.s{padding:160px 0}}
+.wrap{padding-left:20px;padding-right:20px}
+/* the frame carries the photograph now, so the old shot styling steps back */
+.shot,.ph img{border-radius:0;box-shadow:none;filter:none}
+.ph{max-width:100%}
+.hero-media,.gallery{gap:26px}
+@media(max-width:899px){
+  .hero-media,.gallery,.compare,.bento{grid-template-columns:1fr!important;display:grid}
+  .ph-tape>.tape{width:44%}
+}
+/* The shared base and this theme still name the old stack in fourteen places.
+   Those faces are no longer loaded, so they would silently fall back; naming the
+   two real ones is clearer than relying on that. */
+body,.which,.lead,.btn,.stat b,.reason .n,.price,.step .sn,.step b,
+thead th,tbody th,summary,.nav .mark{font-family:"Special Elite","Courier New",monospace!important}
+h1,h2,h3,h4,.display{font-family:"Morning Memories",Georgia,serif!important}
+/* Neither face has a second weight, so every weight resolves to 400 anyway.
+   Saying so stops a browser inventing one. */
+*{font-weight:400!important}
+/* No crop, anywhere. .bleed img and .gallery img were object-fit:cover, which
+   fills a box by cutting whatever does not fit — the thing that took the legs
+   off. Photographs now paint at their own ratio and the box follows them. */
+.bleed img,.gallery img,.shot,.ph img{object-fit:fill!important;max-height:none!important;height:auto!important}
+.bleed{overflow:visible}
 </style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=1622703732974632&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
+
+
+
+<p class="announce">Buy two and get one free.</p>
+
+<header class="hdr"><span class="mark"></span></header>
+
+<div class="wrap">
+  <div class="badge">
+    <span class="moon"><svg viewBox="0 0 48 48"><mask id="c"><rect width="48" height="48" fill="#000"/><circle cx="24" cy="24" r="15" fill="#fff"/><circle cx="33" cy="20" r="14" fill="#000"/></mask><rect width="48" height="48" fill="currentColor" mask="url(#c)"/></svg></span>
+    <p class="eyebrow">For the parent who goes deeper</p>
+    <div class="stem"></div>
+  </div>
+
+  <h1>Discover your child's<br>astrology cheat sheet</h1>
+  <p class="sub">The Compass helps you understand and empower your child based on their unique astrology chart.</p>
+</div>
+
+<div class="carousel">
+  <div class="slides" id="slides">
+    <div class="slide"><img src="/assets/img/atf/slide-0.webp" width="1400" height="1050" alt="A child on a beach at sunset, with the zodiac wheel drawn across the sky" ></div>
+    <div class="slide"><img src="/assets/img/atf/slide-1.webp" width="1400" height="1050" alt="Four cards from the reading, floating above a child walking on a beach" loading="lazy"></div>
+    <div class="slide"><img src="/assets/img/atf/slide-2.webp" width="1400" height="1050" alt="Two cards from the reading, beside a child standing at the shoreline" loading="lazy"></div>
+    <div class="slide"><span class="empty">What you get: the reading on a phone</span></div>
+  </div>
+  <button class="arrow prev" type="button" aria-label="Previous">&#8249;</button>
+  <button class="arrow next" type="button" aria-label="Next">&#8250;</button>
+  <div class="dots"><button class="dot on" type="button" aria-label="Slide 1"></button><button class="dot" type="button" aria-label="Slide 2"></button><button class="dot" type="button" aria-label="Slide 3"></button><button class="dot" type="button" aria-label="Slide 4"></button></div>
+</div>
+
+<div class="wrap">
+  <div class="form">
+    <p class="flabel">Start with their birth details</p>
+    <div class="row">
+      <span class="field">Date of birth</span>
+      <span class="field">Time</span>
+    </div>
+    <span class="field full" style="display:block">Place of birth</span>
+  </div>
+
+  <a class="cta" href="#">Get their Compass · $27</a>
+  <p class="under">Or <a href="/readings/compass/sample/nora/">read a whole one free</a> before you decide.</p>
+
+  <div class="fuds">
+    <p class="fud"><span class="tick"></span><span><b>One payment</b> of $27. No subscription, nothing recurring.</span></p>
+    <p class="fud"><span class="tick"></span><span><b>Ready in minutes</b> delivered straight to your private portal.</span></p>
+    <p class="fud"><span class="tick"></span><span><b>Yours to keep</b> come back to it as they grow.</span></p>
+    <p class="fud"><span class="tick"></span><span><b>Stays on our server</b> their details are never shared or sold.</span></p>
+  </div>
+</div>
+
+<div class="spacer"></div>
+<div class="sticky">
+  <span class="price">Compass<br><b>$27</b></span>
+  <a class="cta" href="#">Get their Compass</a>
+</div>
+
+
 <p class="which"><b>gpt-taste</b> <span>AIDA order overruled by the teardown order · applied: floating nav pill, ultra-wide H1 container, massive section padding, gapless bento, zero meta-labels so no eyebrows · Montserrat stands in for Cabinet Grotesk</span></p>
 
-<p class="announce">A whole Compass is free to read before you buy one.</p>
 <nav class="nav"><span class="mark">Wolf Children</span><a class="btn btn--nav" href="#offer">Get Compass</a></nav>
 
 <section class="s hero"><div class="wrap">
@@ -155,8 +355,8 @@ footer{background:#0B0A09;color:#7D776F;font-size:13px}
   <p class="lead">A plain, warm, 24-section guide to your child’s natural temperament, without personality labels, developmental assessments, predictions, or parenting advice.</p>
   <div class="act"><a class="btn" href="#offer">Get Your Child’s Compass Reading, $27</a><p class="small">Birth date, time and place. Ready in minutes, in your private web portal.</p></div>
   <div class="hero-media">
-    <img class="shot" src="/assets/img/compass/hero.jpg" width="1400" height="1750" alt="A child on a beach at sunset, small against the water" loading="eager">
-    <img class="shot shot--detail" src="/assets/img/compass/hero-detail.jpg" width="1200" height="1800" alt="The same evening, close: a child crouched in long grass" loading="lazy">
+    <figure class="ph ph-matte ph-tape tape-a ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/hero.webp" width="1200" height="1600" alt="A child alone on the sand, a silhouette against the setting sun" loading="eager" fetchpriority="high" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure>
+    <figure class="ph ph-matte ph-tape tape-b ph-tilt-b shot shot--detail"><img class="ph-photo" src="/assets/img/compass2/hero-detail.webp" width="1200" height="1600" alt="The same evening, close: a child crouched in long grass" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure>
   </div>
 </div></section>
 
@@ -164,7 +364,7 @@ footer{background:#0B0A09;color:#7D776F;font-size:13px}
   <p class="bullet">What settles them: how to help them return to calm when overwhelmed.</p><p class="bullet">How they take things in: their natural sensory and learning pace.</p><p class="bullet">Energy and pressure: where their energy goes, and how they meet stress.</p>
 </div><div class="wrap"><div class="badges"><span class="small">Secure checkout by Stripe</span><span class="small">It needs their birth time</span><span class="small">Your child’s name, date and place never leave our own server</span></div></div></div>
 
-<figure class="bleed"><img src="/assets/img/compass/band-dusk.jpg" width="2048" height="878" alt="A beach at dusk, mountains behind, one child small in the frame" loading="lazy"></figure>
+<figure class="bleed"><figure class="ph ph-matte ph-tape tape-c ph-tilt-a"><img class="ph-photo" src="/assets/img/compass2/band-dusk.webp" width="1600" height="1200" alt="A beach at dusk, the mountain behind, one child small in the frame" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
 
 <section class="s recognition-s"><div class="wrap">
   <h2>Guessing Is Not The Same As Failing.</h2>
@@ -174,7 +374,7 @@ footer{background:#0B0A09;color:#7D776F;font-size:13px}
 <section class="s sample"><div class="wrap">
   <h2>Read one before you buy one.</h2>
   <p class="lead">Two complete Compass pages, start to finish, for children who do not exist. One for a boy and one for a girl. Nothing is held back and nothing is blurred.</p>
-  <figure class="sample-shot"><img class="shot" src="/assets/img/compass/sample.jpg" width="2048" height="1365" alt="A child building a sandcastle at the end of the day" loading="lazy"></figure>
+  <figure class="sample-shot"><figure class="ph ph-matte ph-tape tape-a ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/sample.webp" width="1600" height="1200" alt="A child building a sandcastle at the end of the day" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
   <div class="links"><a class="link" href="/readings/compass/sample/nora/">Read the one written for a girl</a><a class="link" href="/readings/compass/sample/finn/">Read the one written for a boy</a></div>
 </div></section>
 
@@ -191,10 +391,10 @@ footer{background:#0B0A09;color:#7D776F;font-size:13px}
 
 <section class="s gallery-s"><div class="wrap">
   <div class="gallery">
-    <img class="shot" src="/assets/img/compass/reason-1.jpg" width="1200" height="1500" alt="A child standing on a rock in a forest, looking back" loading="lazy">
-    <img class="shot" src="/assets/img/compass/reason-2.jpg" width="1200" height="1500" alt="A child at a fence, absorbed in an animal on the other side" loading="lazy">
-    <img class="shot" src="/assets/img/compass/reason-3.jpg" width="1200" height="1500" alt="A child running down a grass slope" loading="lazy">
-    <img class="shot" src="/assets/img/compass/reason-4.jpg" width="1200" height="1500" alt="A child small on a path between tall pines" loading="lazy">
+    <figure class="ph ph-matte ph-tape tape-b ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="A child standing on a rock in a forest, looking back" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure>
+    <figure class="ph ph-matte ph-tape tape-c ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence, absorbed in the animals on the other side" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure>
+    <figure class="ph ph-matte ph-tape tape-a ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/reason-3.webp" width="1200" height="1600" alt="A child running across grass towards the trees" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure>
+    <figure class="ph ph-matte ph-tape tape-b ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/reason-4.webp" width="1200" height="1600" alt="A child small on a path between tall pines" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure>
   </div>
 </div></section>
 
@@ -209,7 +409,7 @@ footer{background:#0B0A09;color:#7D776F;font-size:13px}
 </div></section>
 
 <section class="s offer-s" id="offer"><div class="wrap">
-  <figure class="offer-shot"><img class="shot" src="/assets/img/compass/offer.jpg" width="1229" height="2048" alt="A child in a doorway at the end of the day" loading="lazy"></figure>
+  <figure class="offer-shot"><figure class="ph ph-matte ph-tape tape-c ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/offer.webp" width="1200" height="1600" alt="A child in a doorway at the end of the day, boots muddy" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
   <p class="eyebrow">The offer</p>
   <div class="offer">
     <div class="offer-main">
@@ -240,7 +440,7 @@ footer{background:#0B0A09;color:#7D776F;font-size:13px}
   <h2>Six months of guessing, or twenty-seven dollars.</h2><p class="bsub">Read a whole one free first, then decide.</p><a class="btn" href="#offer">Get Compass</a>
 </div></section>
 
-<figure class="bleed"><img src="/assets/img/compass/band-season.jpg" width="2048" height="878" alt="A forest path, a child small among the trees" loading="lazy"></figure>
+<figure class="bleed"><figure class="ph ph-matte ph-tape tape-a ph-tilt-b"><img class="ph-photo" src="/assets/img/compass2/band-season.webp" width="1600" height="1200" alt="A forest path, a child small among the trees" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
 
 <section class="s faq-s"><div class="wrap">
   <p class="eyebrow">Questions</p>
@@ -248,13 +448,31 @@ footer{background:#0B0A09;color:#7D776F;font-size:13px}
   <div class="faq"><details><summary>What if I do not know my child’s exact birth time?</summary><p>Compass needs the exact birth time. The birth certificate usually has it, and the hospital will have it on file. Without the time we would be guessing, and guessing is what you came here to stop.</p></details><details><summary>Is this traditional purple-and-stars astrology?</summary><p>No. Wolf Children uses photography and plain language about child nature, outdoor living and temperament, rather than horoscopes or mystical jargon.</p></details><details><summary>How is the reading delivered?</summary><p>As a web page inside your private portal, minutes after the details are in.</p></details><details><summary>Is there an option for a longer reading?</summary><p>Yes. Inside your portal you can upgrade to North Star ($199), a written deep-dive reading of nine to fifteen pages.</p></details><details><summary>What if it does not sound like them?</summary><p>Say so, and it is looked at. A page that does not sound like your child is no use to anyone, and a person reads every reply.</p></details><details><summary>What happens to their details?</summary><p>Your child’s name, date of birth and place of birth are stored on our own server and never leave it. You can delete a child from the portal at any time.</p></details></div>
 </div></section>
 
-<figure class="bleed"><img src="/assets/img/compass/close.jpg" width="2048" height="1365" alt="A child walking back along the beach at dusk" loading="lazy"></figure>
+<figure class="bleed"><figure class="ph ph-matte ph-tape tape-b ph-tilt-a"><img class="ph-photo" src="/assets/img/compass2/close.webp" width="1600" height="1200" alt="A child at the water's edge at sunset, the beach empty" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
 
 <section class="s close"><div class="wrap">
   <h2>The same night, one layer deeper.</h2><p class="lead">You already know this child. We read the same one from the night they arrived.</p><a class="btn" href="#offer">Get Compass</a>
 </div></section>
 
 <footer><div class="wrap">Wolf Children · hello@wolfchildren.co</div></footer>
+
+
+<script>
+(function(){
+  var sc=document.getElementById('slides'); if(!sc) return;
+  var dots=[].slice.call(document.querySelectorAll('.dot'));
+  if(!dots.length) return;
+  var at=function(){ return Math.round(sc.scrollLeft/sc.clientWidth); };
+  var go=function(i){ i=Math.max(0,Math.min(dots.length-1,i)); sc.scrollTo({left:sc.clientWidth*i,behavior:'smooth'}); };
+  dots.forEach(function(d,i){ d.addEventListener('click',function(){ go(i); }); });
+  var p=document.querySelector('.arrow.prev'), n=document.querySelector('.arrow.next');
+  if(p) p.addEventListener('click',function(){ go(at()-1); });
+  if(n) n.addEventListener('click',function(){ go(at()+1); });
+  sc.addEventListener('scroll',function(){
+    var i=at(); dots.forEach(function(d,j){ d.classList.toggle('on', j===i); });
+  },{passive:true});
+})();
+</script>
 
 </body>
 </html>
