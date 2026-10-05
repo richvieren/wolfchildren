@@ -1122,6 +1122,18 @@ export function bodyV2() {
   // from the markup, not hidden: Richard, 2026-10-05, "The old header is gone."
   let out = BODY.replace(/<p class="announce">[\s\S]*?<\/p>\s*/, '')
                 .replace(/<nav class="nav">[\s\S]*?<\/nav>\s*/, '');
+  // Richard, 2026-10-05, after reading Anthropic's frontend-design guidance:
+  // "Kill the middle-dot meta strings and the eyebrow-above-every-heading.
+  // Those aren't in the bible, they're AI tells, and they go."
+  //
+  // Both live in the same four elements. "Compass · one child · one page · $27"
+  // is the meta string and an eyebrow at once; the other three are bare labels
+  // over a heading that already says the same thing. Removed here rather than in
+  // src/lib/compass-copy.mjs, so the other 21 variants and the readings keep the
+  // approved copy untouched and this is one line to undo.
+  const dropped = [...out.matchAll(/<p class="eyebrow">([^<]*)<\/p>/g)].map((m) => m[1]);
+  out = out.replace(/<p class="eyebrow">[^<]*<\/p>\s*/g, '');
+  if (dropped.length !== 4) throw new Error(`expected 4 eyebrows to drop, found ${dropped.length}`);
   let n = 0;
   out = out.replace(/<img([^>]*?)src="\/assets\/img\/compass\/([a-z0-9-]+)\.jpg"([^>]*?)>/g, (m, a, slot, b) => {
     const ph = PHOTOS_V2[slot];
