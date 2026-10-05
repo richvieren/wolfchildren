@@ -283,7 +283,10 @@ h3{font-size:clamp(20px,4.4vw,30px)}
   .hero .hero-media>.shot--detail{transform:translateY(42px) rotate(1.4deg);width:86%;justify-self:end}
 
   /* full-width bands: capped by width so nothing is cropped to shrink it */
-  .bleed .ph{max-width:1180px;margin-inline:auto}
+  /* These three were 21:9 bands. A 4:3 photograph cannot be a 21:9 band without
+     a crop, and a crop needs Richard's word, so they are capped by width: a
+     calmer block at the photograph's own ratio rather than a knife through it. */
+  .bleed .ph{max-width:860px;margin-inline:auto}
   .bleed{padding:0 56px}
 
   /* four reasons across, staggered so the row is not a filmstrip */
