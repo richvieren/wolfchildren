@@ -29,7 +29,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { audit, report } from './src/lib/slop.mjs';
 import { C } from './src/lib/compass-copy.mjs';
-import { scopedAtfCss, atfMarkup, ATF_JS } from './src/lib/atf-section.mjs';
+import { scopedAtfCss, atfMarkup, ATF_JS, atfDesktopCss } from './src/lib/atf-section.mjs';
 import { resolve as resolveAtf } from './src/lib/atf-copy.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
@@ -1136,7 +1136,7 @@ export function variantPage(t) {
 <meta name="robots" content="noindex, nofollow">
 <title>${t.title} | Compass</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
-<style>${FONTS_V2}${TOKENS_WC}${scopedAtfCss()}${WC_BASE}${t.cssV2 || ''}</style>
+<style>${FONTS_V2}${TOKENS_WC}${scopedAtfCss()}${atfDesktopCss(".atf-root")}${WC_BASE}${t.cssV2 || ''}</style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>

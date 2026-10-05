@@ -118,31 +118,6 @@ h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 .sticky .cta{margin:0;height:44px;line-height:44px;font-size:14px;flex:1}
 .spacer{height:74px}
 
-/* ── desktop ──────────────────────────────────────────────────────────────
-   Richard, 2026-10-05: "The ATF renders narrow in a desktop browser, as if it
-   never got a desktop layout." It hadn't. Mobile below 900px is untouched, byte
-   for byte. Above it the section becomes a two-column hero: the copy and the
-   intake on the left, the carousel on the right, and the sticky bar retires
-   because the call to action is already in view. */
-@media(min-width:900px){
-  .atf-desktop{max-width:1120px;margin-inline:auto;padding:0 32px;
-    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
-    column-gap:56px;align-content:start}
-  .atf-desktop>*{grid-column:1}
-  .atf-desktop>.announce,.atf-desktop>.hdr{grid-column:1/-1}
-  .atf-desktop>.announce{width:100vw;margin-left:calc(50% - 50vw)}
-  .atf-desktop>.carousel{grid-column:2;grid-row:3/span 4;align-self:center;margin:0}
-  .atf-desktop>.wrap{padding:0}
-  .atf-desktop .badge{text-align:left;padding-top:28px}
-  .atf-desktop .moon,.atf-desktop .stem{margin-left:0;margin-right:0}
-  h1{font-size:clamp(44px,4.4vw,64px);text-align:left}
-  .atf-desktop .sub{margin-left:0;text-align:left;max-width:44ch;font-size:15px;line-height:1.45}
-  .atf-desktop .form{margin-top:22px}
-  .atf-desktop .cta{height:54px;line-height:54px;font-size:16px}
-  .atf-desktop .fuds{grid-template-columns:1fr 1fr;gap:9px 18px;padding:14px 16px}
-  .atf-desktop .spacer,.atf-desktop .sticky{display:none}
-  .mark{left:0;top:26px;height:30px;width:156px}
-}
 `;
 
 export const atfMarkup = (T) => `
@@ -233,11 +208,16 @@ export const ATF_JS = `
 export function scopedAtfCss(root = '.atf-root') {
   const out = [];
   const re = /@font-face\s*\{[^}]*\}|@keyframes[^{]*\{(?:[^{}]*\{[^}]*\}\s*)*\}|@media[^{]*\{(?:[^{}]*\{[^}]*\}\s*)*\}|[^{}]+\{[^}]*\}/g;
+  // `body` and `:root` ARE the wrapper once embedded, so they map onto it rather
+   // than becoming a descendant of it. Getting this wrong is silent: the rule
+   // compiles, matches nothing, and the section renders unstyled at that width.
   const scopeSel = (sel) => sel.split(',').map((s) => {
     const t = s.trim();
     if (!t) return t;
-    if (t === ':root' || t === 'html' || t === 'body' || t === 'html,body') return root;
-    if (t.startsWith('body ')) return `${root} ${t.slice(5)}`;
+    if (t === ':root' || t === 'html' || t === 'body') return root;
+    if (/^(?:html|body)\s*[>+~]/.test(t)) return root + t.replace(/^(?:html|body)\s*/, '');
+    if (/^(?:html|body)[.:#\[]/.test(t)) return root + t.replace(/^(?:html|body)/, '');
+    if (/^(?:html|body)\s/.test(t)) return `${root} ${t.replace(/^(?:html|body)\s+/, '')}`;
     return `${root} ${t}`;
   }).join(',');
 
@@ -258,4 +238,39 @@ export function scopedAtfCss(root = '.atf-root') {
   }
   // The wrapper has to behave like the page body the section was written for.
   return `${out.join('\n')}\n${root}{display:block;width:100%;margin:0;position:relative}\n`;
+}
+
+/** The section's desktop layout, written already scoped.
+ *
+ *  Richard, 2026-10-05: "The ATF renders narrow in a desktop browser, as if it
+ *  never got a desktop layout." It hadn't. Below 900px nothing here applies and
+ *  the mobile section is untouched, byte for byte.
+ *
+ *  This is a function rather than part of ATF_CSS because scopedAtfCss() parses
+ *  CSS with a regex, and a regex that has to balance braces is a regex that will
+ *  quietly fail to match one day — which is exactly what it did: the media block
+ *  fell through, compiled, matched nothing, and the section rendered unstyled at
+ *  desktop width with no error anywhere.
+ */
+export function atfDesktopCss(root = 'body') {
+  const R = root;
+  return `@media(min-width:900px){
+  ${R}{max-width:1120px;margin-inline:auto;padding:0 32px;
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
+    column-gap:56px;align-content:start}
+  ${R}>*{grid-column:1}
+  ${R}>.announce,${R}>.hdr{grid-column:1/-1}
+  ${R}>.announce{width:100vw;margin-left:calc(50% - 50vw)}
+  ${R}>.carousel{grid-column:2;grid-row:3/span 4;align-self:center;margin:0}
+  ${R}>.wrap{padding:0}
+  ${R} .badge{text-align:left;padding-top:28px}
+  ${R} .moon,${R} .stem{margin-left:0;margin-right:0}
+  ${R} h1{font-size:clamp(44px,4.4vw,64px);text-align:left}
+  ${R} .sub{margin-left:0;text-align:left;max-width:44ch;font-size:15px;line-height:1.45}
+  ${R} .form{margin-top:22px}
+  ${R} .cta{height:54px;line-height:54px;font-size:16px}
+  ${R} .fuds{grid-template-columns:1fr 1fr;gap:9px 18px;padding:14px 16px}
+  ${R} .spacer,${R} .sticky{display:none}
+  ${R} .mark{left:0;top:26px;height:30px;width:156px}
+}`;
 }

@@ -15,7 +15,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CELLS, resolve, testable } from './src/lib/atf-copy.mjs';
 import { PIXEL, DATASET } from './variants.mjs';
-import { ATF_CSS, atfMarkup, ATF_JS } from './src/lib/atf-section.mjs';
+import { ATF_CSS, atfMarkup, ATF_JS, atfDesktopCss } from './src/lib/atf-section.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 
@@ -28,7 +28,7 @@ const page = (cell, T) => `<!doctype html>
 <meta name="robots" content="noindex, nofollow">
 <title>Compass · above the fold · ${cell}</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
-<style>${ATF_CSS}</style>
+<style>${ATF_CSS}${atfDesktopCss("body")}</style>
 </head>
 <body class="atf-desktop" data-cell="${cell}">
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
