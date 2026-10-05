@@ -182,113 +182,119 @@ b,strong{text-transform:uppercase;letter-spacing:.1em}
    planes, with or without anything added here. clip rather than hidden, so no
    scroll container is created and sticky still works. */
 html,body{overflow-x:clip}
-.atf-root @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
-.atf-root @font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
-.atf-root{
+
+#atf,#atf *{color:inherit;text-transform:none;letter-spacing:normal;font-style:normal;
+  line-height:inherit;margin:0;font-weight:400;
+  background-image:none;box-shadow:none;text-shadow:none;transform:none;filter:none}
+#atf{color:var(--green)}
+#atf img{border:0;padding:0;border-radius:0;max-width:none;filter:none}
+#atf @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
+#atf @font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
+#atf{
   --cream:#DFD7C3; --green:#495543; --tan:#CDB494; --orange:#DA4635;
   --cta:#AC2E20; --bark:#6B4A2F;
   --line:var(--tan); --muted:var(--green);
 }
-.atf-root *{box-sizing:border-box}
-.atf-root,.atf-root{overflow-x:clip}
-.atf-root{margin:0;background:var(--cream);color:var(--green);
+#atf *{box-sizing:border-box}
+#atf,#atf{overflow-x:clip}
+#atf{margin:0;background:var(--cream);color:var(--green);
   font:400 15px/1.55 "Special Elite","Courier New",monospace;-webkit-font-smoothing:antialiased}
-.atf-root .wrap{padding:0 20px}
-.atf-root .announce{background:var(--cta);color:var(--cream);text-align:center;
+#atf .wrap{padding:0 20px}
+#atf .announce{background:var(--cta);color:var(--cream);text-align:center;
   padding:6px 16px;font-size:12px;letter-spacing:.01em}
-.atf-root .hdr{height:0;position:relative;z-index:3}
-.atf-root .mark{position:absolute;left:20px;top:10px;height:24px;width:124px;background:var(--green);
+#atf .hdr{height:0;position:relative;z-index:3}
+#atf .mark{position:absolute;left:20px;top:10px;height:24px;width:124px;background:var(--green);
   -webkit-mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain;
           mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain}
-.atf-root .badge{text-align:center;padding-top:8px}
-.atf-root .moon{width:18px;height:18px;color:var(--green);display:block;margin:0 auto -3px}
-.atf-root .moon svg{display:block;width:100%;height:100%}
-.atf-root .eyebrow{margin:0;font-size:12px;letter-spacing:.02em;color:var(--muted)}
-.atf-root .stem{width:1px;height:16px;background:var(--line);margin:5px auto 0}
-.atf-root h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
+#atf .badge{text-align:center;padding-top:8px}
+#atf .moon{width:18px;height:18px;color:var(--green);display:block;margin:0 auto -3px}
+#atf .moon svg{display:block;width:100%;height:100%}
+#atf .eyebrow{margin:0;font-size:12px;letter-spacing:.02em;color:var(--muted)}
+#atf .stem{width:1px;height:16px;background:var(--line);margin:5px auto 0}
+#atf h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
   font-size:36px;line-height:.98;letter-spacing:-.02em;text-align:center;text-wrap:balance}
-.atf-root .sub{margin:7px auto 0;max-width:48ch;text-align:center;font-size:13.5px;line-height:1.36;letter-spacing:-.01em;color:var(--muted)}
-.atf-root .carousel{margin:8px 20px 0;position:relative}
-.atf-root .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
-.atf-root .slides::-webkit-scrollbar{display:none}
-.atf-root .slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:4/3;position:relative}
-.atf-root .slide img{display:block;width:100%;height:100%;object-fit:contain}
-.atf-root .empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:18px;
+#atf .sub{margin:7px auto 0;max-width:48ch;text-align:center;font-size:13.5px;line-height:1.36;letter-spacing:-.01em;color:var(--muted)}
+#atf .carousel{margin:8px 20px 0;position:relative}
+#atf .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+#atf .slides::-webkit-scrollbar{display:none}
+#atf .slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:4/3;position:relative}
+#atf .slide img{display:block;width:100%;height:100%;object-fit:contain}
+#atf .empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:18px;
   border:1px dashed var(--line);color:var(--bark);opacity:.75;font-size:11.5px;line-height:1.4}
-.atf-root .arrow{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;padding:0;
+#atf .arrow{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;padding:0;
   border:1px solid var(--line);background:rgba(223,215,195,.94);color:var(--bark);border-radius:50%;
   font:400 17px/28px "Special Elite",monospace;cursor:pointer;z-index:2}
-.atf-root .arrow.prev{left:4px}
-.atf-root .arrow.next{right:4px}
-.atf-root .dots{position:absolute;left:0;right:0;bottom:2px;display:flex;justify-content:center;gap:7px}
-.atf-root .dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer}
-.atf-root .dot.on{background:var(--bark)}
-.atf-root .tag{position:absolute;left:0;top:0;background:rgba(223,215,195,.94);color:var(--bark);
+#atf .arrow.prev{left:4px}
+#atf .arrow.next{right:4px}
+#atf .dots{position:absolute;left:0;right:0;bottom:2px;display:flex;justify-content:center;gap:7px}
+#atf .dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer}
+#atf .dot.on{background:var(--bark)}
+#atf .tag{position:absolute;left:0;top:0;background:rgba(223,215,195,.94);color:var(--bark);
   font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;padding:5px 9px;border:1px solid var(--line)}
-.atf-root .form{margin-top:8px}
-.atf-root .flabel{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--bark);margin-bottom:6px}
-.atf-root .row{display:flex;gap:6px}
-.atf-root .field{flex:1;height:44px;border:1px solid var(--line);background:var(--cream);border-radius:3px;
+#atf .form{margin-top:8px}
+#atf .flabel{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--bark);margin-bottom:6px}
+#atf .row{display:flex;gap:6px}
+#atf .field{flex:1;height:44px;border:1px solid var(--line);background:var(--cream);border-radius:3px;
   padding:0 12px;font:400 13.5px/44px "Special Elite",monospace;color:var(--muted)}
-.atf-root .field + .field{flex:0 0 118px}
-.atf-root .field.full{margin-top:6px;flex:1 1 auto}
-.atf-root .cta{display:block;margin-top:8px;width:100%;height:50px;border:0;border-radius:3px;
+#atf .field + .field{flex:0 0 118px}
+#atf .field.full{margin-top:6px;flex:1 1 auto}
+#atf .cta{display:block;margin-top:8px;width:100%;height:50px;border:0;border-radius:3px;
   background:var(--cta);color:var(--cream);font:400 15px/50px "Special Elite",monospace;
   letter-spacing:.06em;text-align:center;text-decoration:none}
-.atf-root .under{margin-top:7px;text-align:center;font-size:11.5px;color:var(--muted)}
-.atf-root .under a{color:var(--bark)}
-.atf-root .fuds{margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-radius:4px;
+#atf .under{margin-top:7px;text-align:center;font-size:11.5px;color:var(--muted)}
+#atf .under a{color:var(--bark)}
+#atf .fuds{margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-radius:4px;
   display:grid;grid-template-columns:1fr 1fr;gap:7px 12px}
-.atf-root .fud{display:grid;grid-template-columns:12px 1fr;gap:6px;font-size:10.5px;line-height:1.28;color:var(--muted)}
-.atf-root .fud b{color:var(--green);font-weight:400}
-.atf-root .tick{width:12px;height:12px;margin-top:1px;border:1px solid var(--bark);border-radius:50%;position:relative}
-.atf-root .tick:after{content:"";position:absolute;left:3.5px;top:1.5px;width:3px;height:6px;
+#atf .fud{display:grid;grid-template-columns:12px 1fr;gap:6px;font-size:10.5px;line-height:1.28;color:var(--muted)}
+#atf .fud b{color:var(--green);font-weight:400}
+#atf .tick{width:12px;height:12px;margin-top:1px;border:1px solid var(--bark);border-radius:50%;position:relative}
+#atf .tick:after{content:"";position:absolute;left:3.5px;top:1.5px;width:3px;height:6px;
   border-right:1.5px solid var(--bark);border-bottom:1.5px solid var(--bark);transform:rotate(42deg)}
-.atf-root .sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(223,215,195,.96);
+#atf .sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(223,215,195,.96);
   border-top:1px solid var(--line);padding:9px 20px;display:flex;align-items:center;gap:12px;
   backdrop-filter:blur(8px)}
-.atf-root .sticky .price{font-size:13px;color:var(--muted);white-space:nowrap}
-.atf-root .sticky .price b{color:var(--green);font-weight:400}
-.atf-root .sticky .cta{margin:0;height:44px;line-height:44px;font-size:14px;flex:1}
-.atf-root .spacer{height:74px}
-.atf-root{display:block;width:100%;margin:0;position:relative}
-@media(min-width:900px){
-  .atf-root{max-width:1120px;margin-inline:auto;padding:0 32px;
-    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
-    column-gap:56px;align-content:start}
-  .atf-root>*{grid-column:1}
-  .atf-root>.announce,.atf-root>.hdr{grid-column:1/-1}
-  .atf-root>.announce{width:100vw;margin-left:calc(50% - 50vw)}
-  .atf-root>.carousel{grid-column:2;grid-row:3/span 4;align-self:center;margin:0}
-  .atf-root>.wrap{padding:0}
-  .atf-root .badge{text-align:left;padding-top:76px}   /* clears the mark: top 26 + height 30 */
-  .atf-root .moon,.atf-root .stem{margin-left:0;margin-right:0}
-  .atf-root h1{font-size:clamp(44px,4.4vw,64px);text-align:left}
-  .atf-root .sub{margin-left:0;text-align:left;max-width:44ch;font-size:15px;line-height:1.45}
-  .atf-root .form{margin-top:22px}
-  .atf-root .cta{height:54px;line-height:54px;font-size:16px}
-  .atf-root .fuds{grid-template-columns:1fr 1fr;gap:9px 18px;padding:14px 16px}
-  .atf-root .spacer,.atf-root .sticky{display:none}
-  .atf-root .mark{left:0;top:26px;height:30px;width:156px}
-}
+#atf .sticky .price{font-size:13px;color:var(--muted);white-space:nowrap}
+#atf .sticky .price b{color:var(--green);font-weight:400}
+#atf .sticky .cta{margin:0;height:44px;line-height:44px;font-size:14px;flex:1}
+#atf .spacer{height:74px}
+#atf{display:block;width:100%;margin:0;position:relative}
+
 /* ── the ATF owns its own box ─────────────────────────────────────────────
    WC_BASE styles bare elements for the page below the section. Those selectors
    also reach inside it, and a bare p rule with max-width 66ch was clamping the full
    bleed announce bar to 484px. The section's own rules are more specific than
    these and keep winning; this only undoes what the page added. */
-.atf-root p{margin:revert;max-width:none}
-.atf-root h1,.atf-root h2,.atf-root h3{max-width:none}
-.atf-root .eyebrow{text-transform:none}
-.atf-root .stem{margin:5px auto 0}
-.atf-root b,.atf-root strong{text-transform:none;letter-spacing:inherit}
-.atf-root a{text-decoration:none}
-.atf-root .under a{text-decoration:underline}
-.atf-root figure{margin:0}
-</style>
+#atf p{margin:revert;max-width:none}
+#atf h1,#atf h2,#atf h3{max-width:none}
+#atf .eyebrow{text-transform:none}
+#atf .stem{margin:5px auto 0}
+#atf b,#atf strong{text-transform:none;letter-spacing:inherit}
+#atf a{text-decoration:none}
+#atf .under a{text-decoration:underline}
+#atf figure{margin:0}
+@media(min-width:900px){
+  #atf{max-width:1120px;margin-inline:auto;padding:0 32px;
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
+    column-gap:56px;align-content:start}
+  #atf>*{grid-column:1}
+  #atf>.announce,#atf>.hdr{grid-column:1/-1}
+  #atf>.announce{width:100vw;margin-left:calc(50% - 50vw)}
+  #atf>.carousel{grid-column:2;grid-row:3/span 4;align-self:center;margin:0}
+  #atf>.wrap{padding:0}
+  #atf .badge{text-align:left;padding-top:76px}   /* clears the mark: top 26 + height 30 */
+  #atf .moon,#atf .stem{margin-left:0;margin-right:0}
+  #atf h1{font-size:clamp(44px,4.4vw,64px);text-align:left}
+  #atf .sub{margin-left:0;text-align:left;max-width:44ch;font-size:15px;line-height:1.45}
+  #atf .form{margin-top:22px}
+  #atf .cta{height:54px;line-height:54px;font-size:16px}
+  #atf .fuds{grid-template-columns:1fr 1fr;gap:9px 18px;padding:14px 16px}
+  #atf .spacer,#atf .sticky{display:none}
+  #atf .mark{left:0;top:26px;height:30px;width:156px}
+}</style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=1622703732974632&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
-<div class="atf-root atf-desktop">
+<div id="atf">
 
 
 <p class="announce">Buy two and get one free.</p>
@@ -346,7 +352,6 @@ html,body{overflow-x:clip}
 </div>
 
 </div>
-<p class="which"><b>minimalist-ui</b> <span>warm bone canvas, white surfaces, hairlines at 6% · no gradients, no pills, no shadow over .05 · one muted accent · tabular numerals · Libre Baskerville stands in for Lyon Text</span></p>
 
 <section class="s hero"><div class="wrap">
   <h1>Stop Guessing What Your Child Needs Right Now.</h1>

@@ -355,20 +355,31 @@ html,body{overflow-x:clip}
 
 
 // The section is immune to whatever a theme does. Loaded after all of them.
+// A theme styling a bare element beats the section's inheritance: the section's
+// h1 sets no colour of its own, so mengto's h1 rule coloured it. This hands every
+// element inside the section back to the section before its own rules load.
+export const ATF_RESET = `
+#atf,#atf *{color:inherit;text-transform:none;letter-spacing:normal;font-style:normal;
+  line-height:inherit;margin:0;font-weight:400;
+  background-image:none;box-shadow:none;text-shadow:none;transform:none;filter:none}
+#atf{color:var(--green)}
+#atf img{border:0;padding:0;border-radius:0;max-width:none;filter:none}
+`;
+
 export const ATF_GUARD = `
 /* ── the ATF owns its own box ─────────────────────────────────────────────
    WC_BASE styles bare elements for the page below the section. Those selectors
    also reach inside it, and a bare p rule with max-width 66ch was clamping the full
    bleed announce bar to 484px. The section's own rules are more specific than
    these and keep winning; this only undoes what the page added. */
-.atf-root p{margin:revert;max-width:none}
-.atf-root h1,.atf-root h2,.atf-root h3{max-width:none}
-.atf-root .eyebrow{text-transform:none}
-.atf-root .stem{margin:5px auto 0}
-.atf-root b,.atf-root strong{text-transform:none;letter-spacing:inherit}
-.atf-root a{text-decoration:none}
-.atf-root .under a{text-decoration:underline}
-.atf-root figure{margin:0}
+#atf p{margin:revert;max-width:none}
+#atf h1,#atf h2,#atf h3{max-width:none}
+#atf .eyebrow{text-transform:none}
+#atf .stem{margin:5px auto 0}
+#atf b,#atf strong{text-transform:none;letter-spacing:inherit}
+#atf a{text-decoration:none}
+#atf .under a{text-decoration:underline}
+#atf figure{margin:0}
 `;
 
 export const BASE = `
@@ -1081,12 +1092,11 @@ export function variantPage(t) {
 <meta name="robots" content="noindex, nofollow">
 <title>${t.title} | Compass</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
-<style>${FONTS_V2}${TOKENS_WC}${BASE}${t.css}${PHOTO_CSS_V2}${V2_SHARED}${scopedAtfCss()}${atfDesktopCss(".atf-root")}${ATF_GUARD}${t.cssV2 || ''}</style>
+<style>${FONTS_V2}${TOKENS_WC}${BASE}${t.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${scopedAtfCss("#atf")}${ATF_GUARD}${atfDesktopCss("#atf")}${t.cssV2 || ''}</style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
-<div class="atf-root atf-desktop">${atfMarkup(resolveAtf('control'))}</div>
-<p class="which"><b>${t.title}</b> <span>${t.note}</span></p>
+<div id="atf">${atfMarkup(resolveAtf('control'))}</div>
 ${bodyV2()}
 ${ATF_JS}
 </body>
