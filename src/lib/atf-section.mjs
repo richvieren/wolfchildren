@@ -176,3 +176,43 @@ export const ATF_JS = `
 </script>
 `;
 
+
+/** The section's CSS, confined to one wrapper.
+ *
+ *  Embedded in a variant, the ATF styled `body` and `:root`, so the host page's
+ *  own body rule won the cascade and the section rendered on the variant's dark
+ *  ground instead of its paper. It also shared bare `h1`, `.cta` and `.field`
+ *  with the page underneath. Scoping solves both directions at once: the section
+ *  keeps its own ground and type, and it cannot reach anything outside itself.
+ *
+ *  @font-face and keyframes are left alone; everything else is prefixed.
+ */
+export function scopedAtfCss(root = '.atf-root') {
+  const out = [];
+  const re = /@font-face\s*\{[^}]*\}|@keyframes[^{]*\{(?:[^{}]*\{[^}]*\}\s*)*\}|@media[^{]*\{(?:[^{}]*\{[^}]*\}\s*)*\}|[^{}]+\{[^}]*\}/g;
+  const scopeSel = (sel) => sel.split(',').map((s) => {
+    const t = s.trim();
+    if (!t) return t;
+    if (t === ':root' || t === 'html' || t === 'body' || t === 'html,body') return root;
+    if (t.startsWith('body ')) return `${root} ${t.slice(5)}`;
+    return `${root} ${t}`;
+  }).join(',');
+
+  // Comments sit in selector position and would be scoped as if they were one,
+  // so they go first. They are documentation for the source, not for the page.
+  const src = ATF_CSS.replace(/\/\*[\s\S]*?\*\//g, '');
+  for (const m of src.match(re) || []) {
+    if (m.startsWith('@font-face') || m.startsWith('@keyframes')) { out.push(m); continue; }
+    if (m.startsWith('@media')) {
+      const head = m.slice(0, m.indexOf('{') + 1);
+      const inner = m.slice(m.indexOf('{') + 1, m.lastIndexOf('}'));
+      const rules = (inner.match(/[^{}]+\{[^}]*\}/g) || [])
+        .map((r) => `${scopeSel(r.slice(0, r.indexOf('{')))}{${r.slice(r.indexOf('{') + 1)}`);
+      out.push(`${head}${rules.join('')}}`);
+      continue;
+    }
+    out.push(`${scopeSel(m.slice(0, m.indexOf('{')))}{${m.slice(m.indexOf('{') + 1)}`);
+  }
+  // The wrapper has to behave like the page body the section was written for.
+  return `${out.join('\n')}\n${root}{display:block;width:100%;margin:0;position:relative}\n`;
+}

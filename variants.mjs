@@ -29,7 +29,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { audit, report } from './src/lib/slop.mjs';
 import { C } from './src/lib/compass-copy.mjs';
-import { ATF_CSS, atfMarkup, ATF_JS } from './src/lib/atf-section.mjs';
+import { scopedAtfCss, atfMarkup, ATF_JS } from './src/lib/atf-section.mjs';
 import { resolve as resolveAtf } from './src/lib/atf-copy.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
@@ -944,11 +944,11 @@ export function variantPage(t) {
 <meta name="robots" content="noindex, nofollow">
 <title>${t.title} | Compass</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
-<style>${FONTS_V2}${ATF_CSS}${BASE}${PHOTO_CSS_V2}${t.css}${t.cssV2 || ''}</style>
+<style>${FONTS_V2}${scopedAtfCss()}${BASE}${PHOTO_CSS_V2}${t.css}${t.cssV2 || ''}</style>
 </head>
 <body>
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
-${atfMarkup(resolveAtf('control'))}
+<div class="atf-root">${atfMarkup(resolveAtf('control'))}</div>
 <p class="which"><b>${t.title}</b> <span>${t.note}</span></p>
 ${bodyV2()}
 ${ATF_JS}
