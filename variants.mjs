@@ -315,6 +315,9 @@ figure{margin:0}
 
 export const V2_SHARED = `
 /* Both faces ship one weight. Nothing may fake a second. */
+/* .which lives in BASE, which all 26 variants share, so it is overridden here
+   rather than edited there. */
+.which{font-family:"Special Elite","Courier New",monospace!important;background:var(--green)!important;color:var(--cream)!important}
 *,*::before,*::after{font-synthesis:none!important;font-synthesis-weight:none!important}
 *{font-weight:400!important}
 body{font-family:"Special Elite","Courier New",monospace;font-size:15px;line-height:1.66}
@@ -498,84 +501,60 @@ footer{background:#495543;color:#CDB494;font-size:12.5px}
   // sticky navs glued to the top, linear easing.
   'high-end': {
     v2: true,
-    cssV2: `
-/* Editorial spreads. One idea per screen, the photograph taking the larger half
-   and changing sides as you go down. The most air of the five. */
-@media(min-width:900px){
-  .s{padding:152px 0}
-  .wrap{max-width:1260px}
-  .hero{min-height:84vh;display:flex;align-items:center}
-  .hero .wrap{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);
-    column-gap:88px;align-items:center;width:100%}
-  .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1}
-  .hero h1{font-size:clamp(52px,4.6vw,78px)}
-  .hero .lead{max-width:38ch}
-  .hero .hero-media{grid-column:2;grid-row:1/span 5;grid-template-columns:1.3fr .7fr;gap:28px;align-items:end}
-  .hero .hero-media>:last-child{transform:translateY(52px) rotate(1.2deg)}
-  .gallery{grid-template-columns:1.15fr .85fr .85fr 1.15fr;gap:36px;align-items:center}
-  .stats,.reasons,.outcomes,.refusals{grid-template-columns:repeat(3,1fr);gap:36px}
-  .steps{grid-template-columns:repeat(4,1fr);gap:36px}
-  .compare{grid-template-columns:1fr 1fr;gap:36px}
-  .sample .wrap{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);column-gap:80px;align-items:center}
-  .sample .sample-shot{grid-column:2;grid-row:1/span 8}
-  .offer-s .wrap{display:grid;grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);column-gap:80px;align-items:center}
-  .offer-s .offer-shot{grid-column:1;grid-row:1/span 8}
-  .bleed .ph{max-width:1020px;margin-inline:auto}
-}
-`,
     title: 'high-end-visual-design',
     note: 'vibe archetype Editorial Luxury · layout archetype Editorial Split · serif display, film grain at 3%, floating nav, diffused shadows · Libre Baskerville stands in for PP Editorial New',
     css: `
-body{background:#EFE9DC;color:#2F3A2B;font:300 16px/1.75 "IBM Plex Mono",monospace;position:relative}
+
+body{background:#DFD7C3;color:#495543;font:400 16px/1.75 "Special Elite",monospace;position:relative}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.03;
-  background-image:radial-gradient(#2F3A2B 1px,transparent 1px);background-size:3px 3px}
+  background-image:radial-gradient(#495543 1px,transparent 1px);background-size:3px 3px}
 .s{padding:104px 0}@media(min-width:900px){.s{padding:168px 0}}
-h1,h2{font-family:"Libre Baskerville",Georgia,serif;font-weight:400;letter-spacing:-.02em}
+h1,h2{font-family:"Morning Memories",Georgia,serif;font-weight:400;letter-spacing:-.02em}
 h1{font-size:clamp(2.6rem,5.6vw,5rem);line-height:1.04;max-width:16ch}
 h2{font-size:clamp(1.8rem,3.4vw,3rem);line-height:1.12;max-width:20ch}
-h3{font:700 14px/1.35 "IBM Plex Mono",monospace;letter-spacing:.02em}
-.lead{font:300 17px/1.8 "IBM Plex Mono",monospace;max-width:58ch;color:#55604F}
-.eyebrow{font:400 10px/1 "IBM Plex Mono",monospace;letter-spacing:.28em;text-transform:uppercase;color:#8A9382;margin-bottom:28px}
-.small{font-size:13px;color:#8A9382}
-.announce{background:#2F3A2B;color:#EFE9DC;text-align:center;padding:12px;font-size:12px;letter-spacing:.04em}
+h3{font:400 14px/1.35 "Special Elite",monospace;letter-spacing:.02em}
+.lead{font:400 17px/1.8 "Special Elite",monospace;max-width:58ch;color:#495543}
+.eyebrow{font:400 10px/1 "Special Elite",monospace;letter-spacing:.28em;text-transform:uppercase;color:#6B4A2F;margin-bottom:28px}
+.small{font-size:13px;color:#6B4A2F}
+.announce{background:#495543;color:#DFD7C3;text-align:center;padding:12px;font-size:12px;letter-spacing:.04em}
 .nav{position:sticky;top:16px;margin:16px auto 0;max-width:1120px;height:60px;border-radius:999px;
-  background:rgba(239,233,220,.82);backdrop-filter:blur(14px);box-shadow:0 12px 40px rgba(47,58,43,.09);padding:0 28px}
-.nav .mark{font:400 16px "Libre Baskerville",serif}
-.btn{background:#2F3A2B;color:#EFE9DC;font:400 13px/1 "IBM Plex Mono",monospace;letter-spacing:.1em;
-  border-radius:999px;box-shadow:0 10px 30px rgba(47,58,43,.16)}
-.btn:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(47,58,43,.22)}
+  background:rgba(223,215,195,.82);backdrop-filter:blur(14px);box-shadow:0 12px 40px rgba(73,85,67,.09);padding:0 28px}
+.nav .mark{font:400 16px "Morning Memories",serif}
+.btn{background:#495543;color:#DFD7C3;font:400 13px/1 "Special Elite",monospace;letter-spacing:.1em;
+  border-radius:999px;box-shadow:0 10px 30px rgba(73,85,67,.16)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(73,85,67,.22)}
 .hero{padding-top:88px}
-.band{padding:48px 0;border-top:1px solid rgba(47,58,43,.12);border-bottom:1px solid rgba(47,58,43,.12)}
-.bullet{font-size:15px;color:#55604F}
-.sample{background:#2F3A2B;color:#EFE9DC}
-.sample h2{color:#EFE9DC}.sample .lead{color:#C3CBBC}
-.stat b{display:block;font:400 clamp(2.6rem,4.4vw,3.8rem)/1 "Libre Baskerville",serif;letter-spacing:-.02em}
-.stat i{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#8A9382;margin:12px 0 14px}
-.reason{padding:42px 0;border-bottom:1px solid rgba(47,58,43,.12)}
-.reason .n{font:400 12px "IBM Plex Mono",monospace;color:#8A9382;letter-spacing:.14em}
-.reason p{font-size:15px;color:#55604F;max-width:56ch}
-.outcomes p{padding:18px 0;border-bottom:1px solid rgba(47,58,43,.12);font-size:15px}
-.price{font:400 clamp(3rem,5vw,4.4rem)/1 "Libre Baskerville",serif;margin:18px 0}
+.band{padding:48px 0;border-top:1px solid rgba(73,85,67,.12);border-bottom:1px solid rgba(73,85,67,.12)}
+.bullet{font-size:15px;color:#495543}
+.sample{background:#495543;color:#DFD7C3}
+.sample h2{color:#DFD7C3}.sample .lead{color:#CDB494}
+.stat b{display:block;font:400 clamp(2.6rem,4.4vw,3.8rem)/1 "Morning Memories",serif;letter-spacing:-.02em}
+.stat i{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#6B4A2F;margin:12px 0 14px}
+.reason{padding:42px 0;border-bottom:1px solid rgba(73,85,67,.12)}
+.reason .n{font:400 12px "Special Elite",monospace;color:#6B4A2F;letter-spacing:.14em}
+.reason p{font-size:15px;color:#495543;max-width:56ch}
+.outcomes p{padding:18px 0;border-bottom:1px solid rgba(73,85,67,.12);font-size:15px}
+.price{font:400 clamp(3rem,5vw,4.4rem)/1 "Morning Memories",serif;margin:18px 0}
 .includes{margin-top:28px}
-.includes p{padding:16px 0;border-bottom:1px solid rgba(47,58,43,.1);font-size:15px}
+.includes p{padding:16px 0;border-bottom:1px solid rgba(73,85,67,.1);font-size:15px}
 .note-line{margin-top:26px;max-width:52ch}
-.step{background:#F6F2E8;border-radius:18px;padding:26px;box-shadow:0 18px 50px rgba(47,58,43,.07)}
-.step .sn{display:block;font:400 11px "IBM Plex Mono",monospace;letter-spacing:.24em;color:#8A9382;margin-bottom:10px}
-.step b{display:block;font:700 14px "IBM Plex Mono",monospace;margin-bottom:8px}
-.step p{font-size:14px;color:#55604F}
-.banner{background:#55604F;color:#EFE9DC}
-.banner h2{color:#EFE9DC;max-width:22ch}.bsub{color:#C3CBBC;margin:18px 0 36px;max-width:50ch}
-.banner .btn{background:#EFE9DC;color:#2F3A2B}
+.step{background:#DFD7C3;border-radius:18px;padding:26px;box-shadow:0 18px 50px rgba(73,85,67,.07)}
+.step .sn{display:block;font:400 11px "Special Elite",monospace;letter-spacing:.24em;color:#6B4A2F;margin-bottom:10px}
+.step b{display:block;font:400 14px "Special Elite",monospace;margin-bottom:8px}
+.step p{font-size:14px;color:#495543}
+.banner{background:#3A4435;color:#DFD7C3}
+.banner h2{color:#DFD7C3;max-width:22ch}.bsub{color:#CDB494;margin:18px 0 36px;max-width:50ch}
+.banner .btn{background:#DFD7C3;color:#495543}
 table{font-size:14px}
-thead th{font:400 10px "IBM Plex Mono",monospace;letter-spacing:.24em;text-transform:uppercase;color:#8A9382}
-tbody th{font:300 13px "IBM Plex Mono",monospace;color:#8A9382;width:16%}
-th,td{border-bottom:1px solid rgba(47,58,43,.12)}
-td:nth-child(3){background:rgba(47,58,43,.05)}
-.faq{border-top:1px solid rgba(47,58,43,.12)}
-details{border-bottom:1px solid rgba(47,58,43,.12)}
-summary{font:400 17px "Libre Baskerville",serif}
-details p{font-size:15px;color:#55604F}
-footer{background:#2F3A2B;color:#8A9382;font-size:12px}
+thead th{font:400 10px "Special Elite",monospace;letter-spacing:.24em;text-transform:uppercase;color:#6B4A2F}
+tbody th{font:400 13px "Special Elite",monospace;color:#6B4A2F;width:16%}
+th,td{border-bottom:1px solid rgba(73,85,67,.12)}
+td:nth-child(3){background:rgba(73,85,67,.05)}
+.faq{border-top:1px solid rgba(73,85,67,.12)}
+details{border-bottom:1px solid rgba(73,85,67,.12)}
+summary{font:400 17px "Morning Memories",serif}
+details p{font-size:15px;color:#495543}
+footer{background:#495543;color:#6B4A2F;font-size:12px}
 `,
   },
 
@@ -585,80 +564,56 @@ footer{background:#2F3A2B;color:#8A9382;font-size:12px}
   // one muted pastel accent, tabular numerals.
   minimalist: {
     v2: true,
-    cssV2: `
-/* The strict reading. A twelve column field, nothing staggered, nothing tilted,
-   a hairline between every section. Whitespace is the decoration. */
-.ph-tilt-a,.ph-tilt-b{transform:none}
-@media(min-width:900px){
-  .s{padding:128px 0;border-top:1px solid var(--tan)}
-  .s:first-of-type{border-top:0}
-  .hero .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:28px;align-items:start}
-  .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1/6}
-  .hero .hero-media{grid-column:7/13;grid-row:1/span 5;grid-template-columns:1fr 1fr;gap:22px;
-    padding-left:28px;border-left:1px solid var(--tan);align-items:start}
-  .gallery{grid-template-columns:repeat(4,1fr);gap:28px;align-items:start}
-  .stats,.reasons,.outcomes,.refusals{grid-template-columns:repeat(3,1fr);gap:28px}
-  .steps{grid-template-columns:repeat(4,1fr);gap:28px}
-  .compare{grid-template-columns:1fr 1fr;gap:28px}
-  .band,.stat,.reason,.step,.refusal,.faq,.includes{border:0;border-top:1px solid var(--tan);
-    border-radius:0;padding:18px 0 0}
-  .sample .wrap,.offer-s .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:28px;align-items:start}
-  .sample .sample-shot{grid-column:8/13;grid-row:1/span 8}
-  .sample .wrap>:not(.sample-shot){grid-column:1/7}
-  .offer-s .offer-shot{grid-column:1/5;grid-row:1/span 8}
-  .offer-s .wrap>:not(.offer-shot){grid-column:6/13}
-  .bleed .ph{max-width:760px;margin-inline:auto}
-}
-`,
     title: 'minimalist-ui',
     note: 'warm bone canvas, white surfaces, hairlines at 6% · no gradients, no pills, no shadow over .05 · one muted accent · tabular numerals · Libre Baskerville stands in for Lyon Text',
     css: `
-body{background:#F7F6F3;color:#2F3437;font:400 15px/1.7 "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+
+body{background:#DFD7C3;color:#495543;font:400 15px/1.7 "Special Elite",monospace;font-variant-numeric:tabular-nums}
 .s{padding:80px 0}@media(min-width:900px){.s{padding:120px 0}}
-h1,h2{font-family:"Libre Baskerville",serif;font-weight:400;letter-spacing:-.03em}
+h1,h2{font-family:"Morning Memories",serif;font-weight:400;letter-spacing:-.03em}
 h1{font-size:clamp(2.2rem,4.4vw,3.6rem);line-height:1.1;max-width:20ch}
 h2{font-size:clamp(1.5rem,2.6vw,2.15rem);line-height:1.15;max-width:24ch}
-h3{font:500 14px/1.4 "IBM Plex Mono",monospace}
-.lead{font:400 15px/1.75 "IBM Plex Mono",monospace;max-width:62ch;color:#787774}
-.eyebrow{font:400 11px/1 "IBM Plex Mono",monospace;letter-spacing:.1em;color:#9B9A97;margin-bottom:18px;text-transform:none}
-.small{font-size:12.5px;color:#9B9A97}
-.announce{background:#FFFFFF;color:#787774;text-align:center;padding:11px;font-size:12.5px;border-bottom:1px solid rgba(0,0,0,.06)}
-.nav{background:rgba(247,246,243,.9);backdrop-filter:blur(6px);border-bottom:1px solid rgba(0,0,0,.06)}
-.nav .mark{font:500 14px "IBM Plex Mono",monospace}
-.btn{background:#2F3437;color:#F7F6F3;font:500 13px/1 "IBM Plex Mono",monospace;border-radius:4px}
-.btn:hover{background:#111111}
+h3{font:400 14px/1.4 "Special Elite",monospace}
+.lead{font:400 15px/1.75 "Special Elite",monospace;max-width:62ch;color:#6B4A2F}
+.eyebrow{font:400 11px/1 "Special Elite",monospace;letter-spacing:.1em;color:#6B4A2F;margin-bottom:18px;text-transform:none}
+.small{font-size:12.5px;color:#6B4A2F}
+.announce{background:#DFD7C3;color:#6B4A2F;text-align:center;padding:11px;font-size:12.5px;border-bottom:1px solid rgba(205,180,148,.7)}
+.nav{background:rgba(223,215,195,.9);backdrop-filter:blur(6px);border-bottom:1px solid rgba(205,180,148,.7)}
+.nav .mark{font:400 14px "Special Elite",monospace}
+.btn{background:#495543;color:#DFD7C3;font:400 13px/1 "Special Elite",monospace;border-radius:4px}
+.btn:hover{background:#495543}
 .hero{padding-top:72px}
-.band{padding:36px 0;background:#FFFFFF;border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06)}
-.bullet{font-size:14px;color:#787774}
-.sample{background:#FFFFFF;border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06)}
-.stat{background:#FFFFFF;border:1px solid rgba(0,0,0,.06);border-radius:6px;padding:24px}
-.stat b{display:block;font:400 2.4rem/1 "Libre Baskerville",serif;color:#2F3437}
-.stat i{font-size:11px;letter-spacing:.08em;color:#9B9A97;margin:8px 0 12px}
-.reason{padding:26px 0;border-bottom:1px solid rgba(0,0,0,.06)}
-.reason .n{font:400 12px "IBM Plex Mono",monospace;color:#C3B5A0}
-.reason p{font-size:14px;color:#787774;max-width:58ch}
-.outcomes p{padding:14px 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:14px;color:#787774}
-.price{font:400 3rem/1 "Libre Baskerville",serif;margin:12px 0;color:#2F3437}
+.band{padding:36px 0;background:#DFD7C3;border-top:1px solid rgba(205,180,148,.7);border-bottom:1px solid rgba(205,180,148,.7)}
+.bullet{font-size:14px;color:#6B4A2F}
+.sample{background:#DFD7C3;border-top:1px solid rgba(205,180,148,.7);border-bottom:1px solid rgba(205,180,148,.7)}
+.stat{background:#DFD7C3;border:1px solid rgba(205,180,148,.7);border-radius:6px;padding:24px}
+.stat b{display:block;font:400 2.4rem/1 "Morning Memories",serif;color:#495543}
+.stat i{font-size:11px;letter-spacing:.08em;color:#6B4A2F;margin:8px 0 12px}
+.reason{padding:26px 0;border-bottom:1px solid rgba(205,180,148,.7)}
+.reason .n{font:400 12px "Special Elite",monospace;color:#CDB494}
+.reason p{font-size:14px;color:#6B4A2F;max-width:58ch}
+.outcomes p{padding:14px 0;border-bottom:1px solid rgba(205,180,148,.7);font-size:14px;color:#6B4A2F}
+.price{font:400 3rem/1 "Morning Memories",serif;margin:12px 0;color:#495543}
 .includes{margin-top:22px}
-.includes p{padding:13px 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:14px;color:#787774}
+.includes p{padding:13px 0;border-bottom:1px solid rgba(205,180,148,.7);font-size:14px;color:#6B4A2F}
 .note-line{margin-top:22px;max-width:52ch}
-.step{background:#FFFFFF;border:1px solid rgba(0,0,0,.06);border-radius:6px;padding:22px}
-.step .sn{display:block;font-size:11px;color:#C3B5A0;margin-bottom:8px}
-.step b{display:block;font:500 13px "IBM Plex Mono",monospace;margin-bottom:6px}
-.step p{font-size:13.5px;color:#787774}
-.banner{background:#FFFFFF;border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06)}
-.banner h2{color:#2F3437;max-width:24ch}
-.bsub{color:#9B9A97;margin:14px 0 30px;max-width:52ch;font-size:14px}
+.step{background:#DFD7C3;border:1px solid rgba(205,180,148,.7);border-radius:6px;padding:22px}
+.step .sn{display:block;font-size:11px;color:#CDB494;margin-bottom:8px}
+.step b{display:block;font:400 13px "Special Elite",monospace;margin-bottom:6px}
+.step p{font-size:13.5px;color:#6B4A2F}
+.banner{background:#DFD7C3;border-top:1px solid rgba(205,180,148,.7);border-bottom:1px solid rgba(205,180,148,.7)}
+.banner h2{color:#495543;max-width:24ch}
+.bsub{color:#6B4A2F;margin:14px 0 30px;max-width:52ch;font-size:14px}
 table{font-size:13.5px}
-thead th{font:500 11px "IBM Plex Mono",monospace;letter-spacing:.08em;color:#9B9A97}
-tbody th{font:400 12.5px "IBM Plex Mono",monospace;color:#9B9A97;width:16%}
-th,td{border-bottom:1px solid rgba(0,0,0,.06)}
-td:nth-child(3){background:#FFFFFF}
-.faq{border-top:1px solid rgba(0,0,0,.06)}
-details{border-bottom:1px solid rgba(0,0,0,.06)}
-summary{font:500 14px "IBM Plex Mono",monospace}
-details p{font-size:14px;color:#787774}
-footer{background:#FFFFFF;color:#9B9A97;font-size:12.5px;border-top:1px solid rgba(0,0,0,.06)}
+thead th{font:400 11px "Special Elite",monospace;letter-spacing:.08em;color:#6B4A2F}
+tbody th{font:400 12.5px "Special Elite",monospace;color:#6B4A2F;width:16%}
+th,td{border-bottom:1px solid rgba(205,180,148,.7)}
+td:nth-child(3){background:#DFD7C3}
+.faq{border-top:1px solid rgba(205,180,148,.7)}
+details{border-bottom:1px solid rgba(205,180,148,.7)}
+summary{font:400 14px "Special Elite",monospace}
+details p{font-size:14px;color:#6B4A2F}
+footer{background:#DFD7C3;color:#6B4A2F;font-size:12.5px;border-top:1px solid rgba(205,180,148,.7)}
 `,
   },
 
@@ -743,21 +698,21 @@ footer{background:#111;color:#B4B4B4;font:700 11px/1 "IBM Plex Mono",monospace;l
     note: 'AIDA order overruled by the teardown order · applied: floating nav pill, ultra-wide H1 container, massive section padding, gapless bento, zero meta-labels so no eyebrows · Montserrat stands in for Cabinet Grotesk',
     css: `
 
-body{background:#495543;color:#DFD7C3;font:400 16px/1.75 "Special Elite","Courier New",monospace}
+body{background:#495543;color:#DFD7C3;font:400 16px/1.75 "Special Elite",monospace}
 .wrap{max-width:1320px}
 .s{padding:128px 0}@media(min-width:900px){.s{padding:192px 0}}
-h1,h2,h3{font-family:"Morning Memories",Georgia,serif;font-weight:400;letter-spacing:-.035em}
+h1,h2,h3{font-family:"Morning Memories",sans-serif;font-weight:400;letter-spacing:-.035em}
 h1{font-size:clamp(3rem,6.4vw,5.5rem);line-height:.96;max-width:none}
 h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1;max-width:26ch}
 h3{font-size:15px;line-height:1.3;letter-spacing:-.01em}
-.lead{font:400 18px/1.7 "Special Elite","Courier New",monospace;max-width:64ch;color:rgba(223,215,195,.80)}
+.lead{font:400 18px/1.7 "Special Elite",monospace;max-width:64ch;color:rgba(223,215,195,.80)}
 .eyebrow{display:none}
 .small{font-size:13px;color:rgba(223,215,195,.64)}
 .announce{background:#DFD7C3;color:#495543;text-align:center;padding:11px;font-size:12.5px}
 .nav{position:sticky;top:20px;margin:20px auto 0;max-width:1240px;height:62px;border-radius:999px;
   background:rgba(58,68,53,.74);backdrop-filter:blur(16px);border:1px solid rgba(205,180,148,.3);padding:0 26px}
-.nav .mark{font:400 14px "Morning Memories",Georgia,serif;letter-spacing:-.01em}
-.btn{background:#DFD7C3;color:#495543;font:400 13px/1 "Special Elite","Courier New",monospace;letter-spacing:.04em;border-radius:999px}
+.nav .mark{font:400 14px "Morning Memories",sans-serif;letter-spacing:-.01em}
+.btn{background:#DFD7C3;color:#495543;font:400 13px/1 "Special Elite",monospace;letter-spacing:.04em;border-radius:999px}
 .btn:hover{background:#DFD7C3;transform:translateY(-2px)}
 .hero{padding-top:120px}
 .band{padding:0;border-top:1px solid rgba(205,180,148,.3);border-bottom:1px solid rgba(205,180,148,.3)}
@@ -772,33 +727,33 @@ h3{font-size:15px;line-height:1.3;letter-spacing:-.01em}
 .stat{padding:38px 30px;border-right:1px solid rgba(205,180,148,.3)}
 .stat:last-child{border-right:0}
 @media(max-width:759px){.stat{border-right:0;border-bottom:1px solid rgba(205,180,148,.3)}}
-.stat b{display:block;font:400 clamp(2.8rem,5vw,4.2rem)/1 "Morning Memories",Georgia,serif;letter-spacing:-.04em}
+.stat b{display:block;font:400 clamp(2.8rem,5vw,4.2rem)/1 "Morning Memories",sans-serif;letter-spacing:-.04em}
 .stat i{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(223,215,195,.64);margin:10px 0 14px}
 .reason{padding:40px 0;border-top:1px solid rgba(205,180,148,.3)}
-.reason .n{font:400 13px "Morning Memories",Georgia,serif;color:#DA4635}
+.reason .n{font:400 13px "Morning Memories",sans-serif;color:#DA4635}
 .reason p{font-size:15px;color:rgba(223,215,195,.80);max-width:58ch}
 .outcomes{gap:0;border:1px solid rgba(205,180,148,.3)}
 .outcomes p{padding:26px;border-right:1px solid rgba(205,180,148,.3);border-bottom:1px solid rgba(205,180,148,.3);font-size:15px;color:rgba(223,215,195,.80)}
 @media(min-width:820px){.outcomes p:nth-child(2n){border-right:0}}
-.price{font:400 clamp(3.4rem,5.6vw,4.8rem)/1 "Morning Memories",Georgia,serif;letter-spacing:-.04em;margin:16px 0;color:#DA4635}
+.price{font:400 clamp(3.4rem,5.6vw,4.8rem)/1 "Morning Memories",sans-serif;letter-spacing:-.04em;margin:16px 0;color:#DA4635}
 .includes{margin-top:26px}
 .includes p{padding:16px 0;border-bottom:1px solid rgba(205,180,148,.3);font-size:15px;color:rgba(223,215,195,.80)}
 .note-line{margin-top:26px;max-width:52ch}
 .step{background:#3A4435;border:1px solid rgba(205,180,148,.3);border-radius:16px;padding:26px}
-.step .sn{display:block;font:400 12px "Morning Memories",Georgia,serif;color:#DA4635;margin-bottom:10px}
-.step b{display:block;font:400 14px "Special Elite","Courier New",monospace;margin-bottom:8px}
+.step .sn{display:block;font:400 12px "Morning Memories",sans-serif;color:#DA4635;margin-bottom:10px}
+.step b{display:block;font:400 14px "Special Elite",monospace;margin-bottom:8px}
 .step p{font-size:14px;color:rgba(223,215,195,.80)}
 .banner{background:#DFD7C3;color:#495543}
 .banner h2{color:#495543;max-width:24ch}.bsub{color:rgba(73,85,67,.86);margin:18px 0 36px;max-width:52ch}
 .banner .btn{background:#495543;color:#DFD7C3}
 table{font-size:14px}
-thead th{font:400 11px "Special Elite","Courier New",monospace;letter-spacing:.18em;text-transform:uppercase;color:rgba(223,215,195,.64);border-bottom:1px solid rgba(205,180,148,.5)}
-tbody th{font:400 13px "Special Elite","Courier New",monospace;color:rgba(223,215,195,.64);width:16%}
+thead th{font:400 11px "Special Elite",monospace;letter-spacing:.18em;text-transform:uppercase;color:rgba(223,215,195,.64);border-bottom:1px solid rgba(205,180,148,.5)}
+tbody th{font:400 13px "Special Elite",monospace;color:rgba(223,215,195,.64);width:16%}
 th,td{border-bottom:1px solid rgba(205,180,148,.3)}
 td:nth-child(3){background:rgba(218,70,53,.10)}
 .faq{border-top:1px solid rgba(205,180,148,.3)}
 details{border-bottom:1px solid rgba(205,180,148,.3)}
-summary{font:400 15px "Special Elite","Courier New",monospace}
+summary{font:400 15px "Special Elite",monospace}
 details p{font-size:15px;color:rgba(223,215,195,.80)}
 footer{background:#3A4435;color:rgba(223,215,195,.64);font-size:13px}
 `,
@@ -1006,55 +961,28 @@ footer{background:#495543;color:#CDB494;font-size:13px}
   // decoratives, and weight led to one side instead of centred.
   hyperframes: {
     v2: true,
-    cssV2: `
-/* Staged in depth. Photographs overlap the type and step back along a row, the
-   way frames sit on a contact sheet. The only variant that tilts on purpose. */
-@media(min-width:900px){
-  .s{padding:116px 0}
-  .hero .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:center}
-  .hero .eyebrow{grid-column:1/7}
-  .hero h1{grid-column:1/8;position:relative;z-index:2}
-  .hero .lead,.hero .act{grid-column:1/6}
-  .hero .hero-media{grid-column:6/13;grid-row:1/span 5;align-self:center;grid-template-columns:1fr 1fr;gap:22px;align-items:end;z-index:1}
-  .hero .hero-media>:first-child{transform:translateY(-16px) rotate(-1.6deg)}
-  .hero .hero-media>:last-child{transform:translateY(46px) rotate(2.2deg) scale(.9)}
-  .gallery{grid-template-columns:repeat(4,1fr);gap:22px;align-items:start}
-  .gallery>:nth-child(1){transform:rotate(-1.2deg)}
-  .gallery>:nth-child(2){transform:translateY(40px) rotate(.9deg) scale(.96)}
-  .gallery>:nth-child(3){transform:translateY(14px) rotate(-.6deg)}
-  .gallery>:nth-child(4){transform:translateY(54px) rotate(1.4deg) scale(.93)}
-  .stats,.reasons,.outcomes,.refusals{grid-template-columns:repeat(3,1fr)}
-  .steps{grid-template-columns:repeat(4,1fr)}
-  .compare{grid-template-columns:1fr 1fr;gap:24px}
-  .sample .wrap,.offer-s .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:center}
-  .sample .sample-shot{grid-column:7/13;grid-row:1/span 8;transform:rotate(1.1deg)}
-  .sample .wrap>:not(.sample-shot){grid-column:1/7}
-  .offer-s .offer-shot{grid-column:1/6;grid-row:1/span 8;transform:rotate(-2deg)}
-  .offer-s .wrap>:not(.offer-shot){grid-column:6/13}
-  .bleed .ph{max-width:900px;margin-inline:auto;transform:rotate(-.7deg)}
-}
-`,
     title: 'hyperframes-creative',
     note: 'house style adapted: it is written for video frames, so composition carries and its motion rules do not · light palette for a child subject, one accent, neutrals tinted toward it, four persistent decoratives, weight led off-centre',
     css: `
-body{background:#E4DCC8;color:#3F4A3A;font:400 16px/1.68 "IBM Plex Mono",monospace;overflow-x:hidden}
+
+body{background:#DFD7C3;color:#495543;font:400 16px/1.68 "Special Elite",monospace;overflow-x:hidden}
 .s{padding:84px 0;position:relative}@media(min-width:900px){.s{padding:120px 0}}
-h1,h2,h3{font-family:"Montserrat",sans-serif;font-weight:900;letter-spacing:-.02em}
+h1,h2,h3{font-family:"Morning Memories",sans-serif;font-weight:400;letter-spacing:-.02em}
 h1{font-size:clamp(2.5rem,5.2vw,4.4rem);line-height:1;max-width:16ch}
 h2{font-size:clamp(1.8rem,3.4vw,2.8rem);line-height:1.04;max-width:20ch}
 h3{font-size:15px;line-height:1.35}
-.lead{font:400 18px/1.6 "Libre Baskerville",serif;letter-spacing:-.01em;max-width:56ch;color:#4A5545}
-.eyebrow{display:inline-block;font:700 11px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;
-  text-transform:uppercase;color:#F3EDE0;background:#DA4635;padding:7px 12px;margin-bottom:22px}
-.small{font-size:14px;color:#6A745F}
-.announce{background:#DA4635;color:#F3EDE0;text-align:center;padding:10px;
-  font:700 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
-.nav{background:#E4DCC8;border-bottom:1px solid rgba(63,74,58,.18)}
-.nav .mark{font:900 15px "Montserrat",sans-serif}
-.btn{background:#3F4A3A;color:#E4DCC8;font:700 14px/1 "IBM Plex Mono",monospace;letter-spacing:.04em;border-radius:0}
-.btn:hover{background:#2C3429}
+.lead{font:400 18px/1.6 "Morning Memories",serif;letter-spacing:-.01em;max-width:56ch;color:#495543}
+.eyebrow{display:inline-block;font:400 11px/1 "Special Elite",monospace;letter-spacing:.12em;
+  text-transform:uppercase;color:#DFD7C3;background:#DA4635;padding:7px 12px;margin-bottom:22px}
+.small{font-size:14px;color:#6B4A2F}
+.announce{background:#DA4635;color:#DFD7C3;text-align:center;padding:10px;
+  font:400 11.5px/1 "Special Elite",monospace;letter-spacing:.1em;text-transform:uppercase}
+.nav{background:#DFD7C3;border-bottom:1px solid rgba(73,85,67,.18)}
+.nav .mark{font:400 15px "Morning Memories",sans-serif}
+.btn{background:#495543;color:#DFD7C3;font:400 14px/1 "Special Elite",monospace;letter-spacing:.04em;border-radius:0}
+.btn:hover{background:#3A4435}
 .hero{min-height:84vh;display:flex;align-items:center;padding-top:40px}
-.hero:before{content:"SKY";position:absolute;right:-4vw;top:6vh;font:900 26vw/.8 "Montserrat",sans-serif;
+.hero:before{content:"SKY";position:absolute;right:-4vw;top:6vh;font:400 26vw/.8 "Morning Memories",sans-serif;
   color:#495543;opacity:.05;pointer-events:none}
 .hero:after{content:"";position:absolute;left:-12vw;top:-8vh;width:66vw;height:66vw;border-radius:50%;
   background:radial-gradient(circle,rgba(218,70,53,.13) 0%,rgba(218,70,53,0) 62%);pointer-events:none}
@@ -1066,35 +994,35 @@ h3{font-size:15px;line-height:1.35}
 .band{padding:36px 0;background:#DFD7C3;border-top:1px solid #CDB494;border-bottom:1px solid #CDB494}
 .bullet{font-size:15px}
 .sample{background:#DFD7C3;border-bottom:1px solid #CDB494}
-.stat b{display:block;font:900 clamp(2.8rem,4.6vw,3.8rem)/1 "Montserrat",sans-serif;letter-spacing:-.03em;color:#DA4635}
-.stat i{font:700 11px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:#6A745F;margin:10px 0 12px}
+.stat b{display:block;font:400 clamp(2.8rem,4.6vw,3.8rem)/1 "Morning Memories",sans-serif;letter-spacing:-.03em;color:#DA4635}
+.stat i{font:400 11px/1 "Special Elite",monospace;letter-spacing:.12em;text-transform:uppercase;color:#6B4A2F;margin:10px 0 12px}
 .reason{padding:32px 0;border-top:1px solid #CDB494;position:relative;z-index:2}
 .reason:last-child{border-bottom:1px solid #CDB494}
-.reason .n{font:900 30px/.9 "Montserrat",sans-serif;color:rgba(218,70,53,.34)}
-.reason p{font-size:15px;color:#4A5545;max-width:56ch}
-.outcomes p{padding:15px 0;border-bottom:1px solid #CDB494;font-size:15px;color:#4A5545}
-.price{font:900 clamp(3rem,4.8vw,4rem)/1 "Montserrat",sans-serif;letter-spacing:-.03em;margin:14px 0;color:#DA4635}
+.reason .n{font:400 30px/.9 "Morning Memories",sans-serif;color:rgba(218,70,53,.34)}
+.reason p{font-size:15px;color:#495543;max-width:56ch}
+.outcomes p{padding:15px 0;border-bottom:1px solid #CDB494;font-size:15px;color:#495543}
+.price{font:400 clamp(3rem,4.8vw,4rem)/1 "Morning Memories",sans-serif;letter-spacing:-.03em;margin:14px 0;color:#DA4635}
 .includes{margin-top:22px;background:#DFD7C3;border:1px solid #CDB494;padding:20px}
 .includes p{padding:12px 0;border-bottom:1px solid rgba(205,180,148,.8);font-size:15px}
 .includes p:last-child{border-bottom:0;padding-bottom:0}
 .note-line{margin-top:22px;max-width:52ch}
 .step{background:#DFD7C3;border:1px solid #CDB494;padding:22px}
-.step .sn{display:block;font:900 20px/1 "Montserrat",sans-serif;color:rgba(218,70,53,.4);margin-bottom:6px}
-.step b{display:block;font:700 13px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-.step p{font-size:14px;color:#4A5545}
-.banner{background:#3F4A3A;color:#E4DCC8}
-.banner h2{color:#E4DCC8;max-width:22ch}.bsub{color:#CDB494;margin:16px 0 32px;max-width:52ch}
-.banner .btn{background:#DA4635;color:#F3EDE0}
+.step .sn{display:block;font:400 20px/1 "Morning Memories",sans-serif;color:rgba(218,70,53,.4);margin-bottom:6px}
+.step b{display:block;font:400 13px "Special Elite",monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.step p{font-size:14px;color:#495543}
+.banner{background:#495543;color:#DFD7C3}
+.banner h2{color:#DFD7C3;max-width:22ch}.bsub{color:#DFD7C3;margin:16px 0 32px;max-width:52ch}
+.banner .btn{background:#DA4635;color:#DFD7C3}
 table{font-size:14px}
-thead th{font:700 11px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:#6A745F;border-bottom:2px solid #3F4A3A}
-tbody th{font:400 13px "IBM Plex Mono",monospace;color:#6A745F;width:16%}
+thead th{font:400 11px "Special Elite",monospace;letter-spacing:.1em;text-transform:uppercase;color:#6B4A2F;border-bottom:2px solid #495543}
+tbody th{font:400 13px "Special Elite",monospace;color:#6B4A2F;width:16%}
 th,td{border-bottom:1px solid #CDB494}
 td:nth-child(3){background:#DFD7C3}
 .faq{border-top:1px solid #CDB494}
 details{border-bottom:1px solid #CDB494}
-summary{font:700 15px "IBM Plex Mono",monospace}
-details p{font-size:15px;color:#4A5545}
-footer{background:#3F4A3A;color:#CDB494;font-size:13px}
+summary{font:400 15px "Special Elite",monospace}
+details p{font-size:15px;color:#495543}
+footer{background:#495543;color:#DFD7C3;font-size:13px}
 `,
   },
 };

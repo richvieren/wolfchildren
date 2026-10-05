@@ -1196,107 +1196,88 @@ footer{border-top:1px solid #1E1E1E;padding:64px 0;font-size:10.5px;letter-spaci
   // about. Kept clean and controlled, never ornamental.
   'mengto-skeuomorphic': {
     v2: true,
-    cssV2: `
-/* Card-led. Every block is a bordered well on the cream, two up, generously
-   padded. The structure is the tan line doing all the work. */
-.band,.stat,.reason,.step,.refusal,.faq,.includes{padding:24px}
-@media(min-width:900px){
-  .s{padding:104px 0}
-  .hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:56px;align-items:center}
-  .hero .eyebrow,.hero h1,.hero .lead,.hero .act{grid-column:1}
-  .hero .hero-media{grid-column:2;grid-row:1/span 5;grid-template-columns:1.15fr .85fr;gap:20px;align-items:end}
-  .gallery{grid-template-columns:repeat(2,1fr);gap:40px 48px}
-  .gallery>*{border:1px solid var(--tan);border-radius:4px;padding:20px}
-  .gallery>* .ph{border:0;padding:0}
-  .stats,.reasons,.outcomes,.refusals,.steps{grid-template-columns:repeat(2,1fr);gap:24px}
-  .compare{grid-template-columns:1fr 1fr;gap:24px}
-  .sample .wrap,.offer-s .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:56px;align-items:center}
-  .sample .sample-shot,.offer-s .offer-shot{grid-column:1;grid-row:1/span 8}
-  .offer{padding:32px}
-  .bleed .ph{max-width:820px;margin-inline:auto}
-}
-`,
     title: 'MengTo · high-contrast-skeuomorphic-clean',
     note: 'light outer page framing a deep charcoal app shell · moulded surfaces with vertical gradients, top-edge highlights, inset shadow stacks and soft outer falloff · touchable buttons with layered fill and bevel, hover by brightness not glow · one signal accent for status and focus',
     css: `
+
 html,body{overflow-x:clip}
-body{background:#DEDCD6;color:#B9B6AF;font:400 15px/1.7 "IBM Plex Mono",monospace;padding:16px 0}
-.announce{background:#DEDCD6;color:#77746D;text-align:center;padding:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+body{background:#DFD7C3;color:rgba(223,215,195,.82);font:400 15px/1.7 "Special Elite",monospace;padding:16px 0}
+.announce{background:#DFD7C3;color:rgba(223,215,195,.62);text-align:center;padding:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase}
 /* The app shell: one dominant rounded container inside the light field. */
-.nav{margin:0 16px;background:linear-gradient(180deg,#2C2B28 0%,#1E1D1B 100%);border-radius:20px 20px 0 0;
-  border:1px solid #3A3936;border-bottom:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.09);padding:0 24px}
-.nav .mark{font:900 14px "Montserrat",sans-serif;color:#F2F0EA}
-.s,.band{margin:0 16px;background:linear-gradient(180deg,#232220 0%,#1A1917 100%);
-  border-left:1px solid #3A3936;border-right:1px solid #3A3936}
+.nav{margin:0 16px;background:linear-gradient(180deg,#3F4A39 0%,#3A4435 100%);border-radius:20px 20px 0 0;
+  border:1px solid #495543;border-bottom:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.09);padding:0 24px}
+.nav .mark{font:400 14px "Morning Memories",sans-serif;color:#DFD7C3}
+.s,.band{margin:0 16px;background:linear-gradient(180deg,#333D2F 0%,#333D2F 100%);
+  border-left:1px solid #495543;border-right:1px solid #495543}
 .s{padding:84px 0}@media(min-width:900px){.s{padding:108px 0}}
 .wrap{max-width:1040px}
-footer{margin:0 16px;background:linear-gradient(180deg,#1E1D1B 0%,#171614 100%);border-radius:0 0 20px 20px;
-  border:1px solid #3A3936;box-shadow:0 26px 54px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.06);
-  padding:52px 0;font-size:12.5px;color:#77746D;letter-spacing:.1em}
-h1,h2,h3{font-family:"Montserrat",sans-serif;font-weight:900;letter-spacing:-.035em;color:#F7F5EF}
+footer{margin:0 16px;background:linear-gradient(180deg,#3A4435 0%,#2F382B 100%);border-radius:0 0 20px 20px;
+  border:1px solid #495543;box-shadow:0 26px 54px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.06);
+  padding:52px 0;font-size:12.5px;color:rgba(223,215,195,.62);letter-spacing:.1em}
+h1,h2,h3{font-family:"Morning Memories",sans-serif;font-weight:400;letter-spacing:-.035em;color:#DFD7C3}
 h1{font-size:clamp(2.2rem,4.8vw,3.8rem);line-height:1.02;max-width:17ch}
 h2{font-size:clamp(1.55rem,2.8vw,2.3rem);line-height:1.08;max-width:20ch}
-h3{font-size:14.5px;line-height:1.4;color:#EDEAE3}
-.lead{font-size:17px;line-height:1.72;max-width:56ch;color:#B9B6AF}
-.eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#C98A3C;margin-bottom:18px}
-.small{font-size:12.5px;color:#77746D}
-.btn{background:linear-gradient(180deg,#C98A3C 0%,#A96F2B 100%);color:#1A1917;
-  font:900 13.5px/1 "Montserrat",sans-serif;border-radius:11px;padding:16px 28px;white-space:nowrap;
-  border:1px solid #D9A05C;box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 4px 12px rgba(0,0,0,.38)}
+h3{font-size:14.5px;line-height:1.4;color:#DFD7C3}
+.lead{font-size:17px;line-height:1.72;max-width:56ch;color:rgba(223,215,195,.82)}
+.eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#AC2E20;margin-bottom:18px}
+.small{font-size:12.5px;color:rgba(223,215,195,.62)}
+.btn{background:linear-gradient(180deg,#AC2E20 0%,#8F2419 100%);color:#DFD7C3;
+  font:400 13.5px/1 "Morning Memories",sans-serif;border-radius:11px;padding:16px 28px;white-space:nowrap;
+  border:1px solid #C4452F;box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 4px 12px rgba(0,0,0,.38)}
 .btn:hover{filter:brightness(1.12)}
 .btn--nav{padding:10px 17px;font-size:12px;border-radius:9px}
 .act{margin-top:40px;gap:22px}
 .band{padding:40px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.055),inset 0 -1px 0 rgba(0,0,0,.4)}
-.bullet{font-size:14px;color:#B9B6AF}
+.bullet{font-size:14px;color:rgba(223,215,195,.82)}
 .badges{margin-top:28px;gap:10px 36px}
 .recognition{gap:20px;max-width:56ch}.recognition p{font-size:17px;line-height:1.72}
 .links{gap:14px}
-.link{font:900 14px "Montserrat",sans-serif;color:#C98A3C}
+.link{font:400 14px "Morning Memories",sans-serif;color:#AC2E20}
 /* Nested object-like modules: one-pixel wrapper, top highlight, inset stack. */
 .stats{margin-top:48px}
 .stat,.reason,.refusal,.step,.includes,.tablewrap,details{
-  background:linear-gradient(180deg,#2A2926 0%,#201F1D 100%);border:1px solid #3A3936;border-radius:14px;
+  background:linear-gradient(180deg,#3A4435 0%,#2F382B 100%);border:1px solid #495543;border-radius:14px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.075),inset 0 -12px 22px rgba(0,0,0,.24),0 5px 16px rgba(0,0,0,.3)}
 .stat{padding:24px}
-.stat b{display:block;font:900 clamp(2.2rem,3.6vw,2.9rem)/1 "Montserrat",sans-serif;letter-spacing:-.04em;color:#F7F5EF}
-.stat i{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#C98A3C;margin:10px 0 10px}
+.stat b{display:block;font:400 clamp(2.2rem,3.6vw,2.9rem)/1 "Morning Memories",sans-serif;letter-spacing:-.04em;color:#DFD7C3}
+.stat i{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#AC2E20;margin:10px 0 10px}
 .reasons{margin-top:48px;gap:14px}
 .reason{padding:24px}
 @media(min-width:900px){.reason{grid-template-columns:36px minmax(0,20ch) minmax(0,1fr);gap:24px}}
 /* Status lights. */
 .reason .n{display:grid;place-items:center;width:26px;height:26px;border-radius:999px;
-  background:radial-gradient(circle at 40% 32%,#E3A75C 0%,#A96F2B 70%);color:#1A1917;
-  font:900 11px/1 "Montserrat",sans-serif;box-shadow:0 0 9px rgba(201,138,60,.5),inset 0 1px 0 rgba(255,255,255,.4)}
-.reason p{font-size:14px;line-height:1.72;color:#B9B6AF}
+  background:radial-gradient(circle at 40% 32%,#C4452F 0%,#8F2419 70%);color:#DFD7C3;
+  font:400 11px/1 "Morning Memories",sans-serif;box-shadow:0 0 9px rgba(201,138,60,.5),inset 0 1px 0 rgba(255,255,255,.4)}
+.reason p{font-size:14px;line-height:1.72;color:rgba(223,215,195,.82)}
 .refusals{margin-top:46px;gap:14px}
 .refusal{padding:22px}
-.refusal b{font:900 12px/1 "Montserrat",sans-serif;letter-spacing:.06em;color:#C98A3C}
-.refusal p{margin-top:10px;font-size:14px;line-height:1.72;color:#B9B6AF}
-.outcomes p{font-size:14px;line-height:1.72;color:#B9B6AF;padding:12px 0;border-bottom:1px solid #2E2D2A}
+.refusal b{font:400 12px/1 "Morning Memories",sans-serif;letter-spacing:.06em;color:#AC2E20}
+.refusal p{margin-top:10px;font-size:14px;line-height:1.72;color:rgba(223,215,195,.82)}
+.outcomes p{font-size:14px;line-height:1.72;color:rgba(223,215,195,.82);padding:12px 0;border-bottom:1px solid #3F4A39}
 .offer{gap:48px}
-.price{font:900 clamp(2.7rem,4.2vw,3.5rem)/1 "Montserrat",sans-serif;letter-spacing:-.04em;margin:12px 0;color:#C98A3C}
+.price{font:400 clamp(2.7rem,4.2vw,3.5rem)/1 "Morning Memories",sans-serif;letter-spacing:-.04em;margin:12px 0;color:#AC2E20}
 .includes{margin-top:24px;padding:6px 22px}
-.includes p{padding:15px 0;border-bottom:1px solid #2E2D2A;font-size:14px}
+.includes p{padding:15px 0;border-bottom:1px solid #3F4A39;font-size:14px}
 .includes p:last-child{border-bottom:0}
 .note-line{margin-top:22px;max-width:50ch}
 .step{padding:22px}
 .step .sn{display:grid;place-items:center;width:25px;height:25px;border-radius:7px;
-  background:linear-gradient(180deg,#3A3936 0%,#2A2926 100%);border:1px solid #474642;
-  color:#C98A3C;font:900 11.5px/1 "Montserrat",sans-serif;margin-bottom:10px;
+  background:linear-gradient(180deg,#495543 0%,#3A4435 100%);border:1px solid #495543;
+  color:#AC2E20;font:400 11.5px/1 "Morning Memories",sans-serif;margin-bottom:10px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
-.step b{display:block;font:900 13.5px "Montserrat",sans-serif;margin-bottom:6px;color:#EDEAE3}
-.step p{font-size:13px;line-height:1.68;color:#B9B6AF}
-.banner{background:linear-gradient(180deg,#171614 0%,#111010 100%)}
+.step b{display:block;font:400 13.5px "Morning Memories",sans-serif;margin-bottom:6px;color:#DFD7C3}
+.step p{font-size:13px;line-height:1.68;color:rgba(223,215,195,.82)}
+.banner{background:linear-gradient(180deg,#2F382B 0%,#262E23 100%)}
 .banner h2{max-width:24ch}
-.bsub{color:#8B8880;margin:16px 0 30px;max-width:50ch}
+.bsub{color:rgba(223,215,195,.70);margin:16px 0 30px;max-width:50ch}
 table{font-size:13.5px;min-width:640px}
-thead th{font:900 11px "Montserrat",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#C98A3C;padding:18px 16px;border-bottom:1px solid #3A3936}
-tbody th{color:#77746D;width:16%;padding:15px 16px}
-td{padding:15px 16px;border-bottom:1px solid #2E2D2A}
+thead th{font:400 11px "Morning Memories",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#AC2E20;padding:18px 16px;border-bottom:1px solid #495543}
+tbody th{color:rgba(223,215,195,.62);width:16%;padding:15px 16px}
+td{padding:15px 16px;border-bottom:1px solid #3F4A39}
 .faq{margin-top:40px}
 details{margin-bottom:12px;padding:0 22px}
-summary{font:900 14.5px "Montserrat",sans-serif;color:#EDEAE3;padding:20px 0}
-details p{font-size:14px;line-height:1.72;color:#B9B6AF}
+summary{font:400 14.5px "Morning Memories",sans-serif;color:#DFD7C3;padding:20px 0}
+details p{font-size:14px;line-height:1.72;color:rgba(223,215,195,.82)}
 .close{text-align:center}
 `,
   },
