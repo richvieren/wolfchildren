@@ -194,7 +194,10 @@ figure{margin:0}
    also reach inside it, and a bare p rule with max-width 66ch was clamping the full
    bleed announce bar to 484px. The section's own rules are more specific than
    these and keep winning; this only undoes what the page added. */
-.atf-root p,.atf-root h1,.atf-root h2,.atf-root h3{max-width:none}
+.atf-root p{margin:revert;max-width:none}
+.atf-root h1,.atf-root h2,.atf-root h3{max-width:none}
+.atf-root .eyebrow{text-transform:none}
+.atf-root .stem{margin:5px auto 0}
 .atf-root b,.atf-root strong{text-transform:none;letter-spacing:inherit}
 .atf-root a{text-decoration:none}
 .atf-root .under a{text-decoration:underline}
