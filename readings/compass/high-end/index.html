@@ -135,20 +135,23 @@ summary{font:400 17px "Morning Memories",serif}
 details p{font-size:15px;color:#495543}
 footer{background:#495543;color:#6B4A2F;font-size:12px}
 
+/* The photo treatment, matched to the markup bodyV2 actually emits:
+   figure class="ph tape-a ph-tilt-a". It previously targeted .ph-matte and
+   .ph-tape, classes removed in an earlier pass, so no matte rendered and the
+   tape fell back to .ph img{width:100%} and painted full width as if it were
+   the photograph. */
 .ph{position:relative;display:block;margin:0;background:var(--cream);line-height:0;
-  box-shadow:0 1px 2px rgba(22,21,20,.18),0 12px 28px rgba(22,21,20,.14)}
-.ph img{display:block;width:100%;height:auto}
-.ph-matte{padding:3.5%}
+  padding:3.5%;border:1px solid var(--tan);overflow:visible}
+.ph img.ph-photo{display:block;width:100%;height:auto;aspect-ratio:auto!important;
+  max-height:none!important;object-fit:contain!important;border-radius:0}
+.ph > img.tape{position:absolute;top:-13px;left:50%;width:38%;height:auto;z-index:2;border:0;padding:0}
+.ph.tape-a > img.tape{transform:translateX(-50%) rotate(-2deg)}
+.ph.tape-b > img.tape{transform:translateX(-52%) rotate(2.4deg)}
+.ph.tape-c > img.tape{transform:translateX(-48%) rotate(-3.2deg)}
 .ph-tilt-a{transform:rotate(-1.1deg)}
 .ph-tilt-b{transform:rotate(.9deg)}
-.ph-tape{overflow:visible}
-.ph-tape>.tape{position:absolute;top:-14px;left:50%;width:38%;height:auto;z-index:2}
-.ph-tape.tape-a>.tape{transform:translateX(-50%) rotate(-2deg)}
-.ph-tape.tape-b>.tape{transform:translateX(-52%) rotate(2.4deg)}
-.ph-tape.tape-c>.tape{transform:translateX(-48%) rotate(-3.2deg)}
-.bleed .ph{box-shadow:none}
-.bleed .ph-matte{padding:2.2%}
-@media(min-width:900px){.ph-tape>.tape{width:26%;top:-18px}}
+figure{margin:0}
+@media(min-width:900px){.ph > img.tape{width:24%;top:-18px}}
 
 /* Both faces ship one weight. Nothing may fake a second. */
 /* .which lives in BASE, which all 26 variants share, so it is overridden here
