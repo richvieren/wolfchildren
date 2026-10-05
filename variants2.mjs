@@ -1201,7 +1201,7 @@ footer{border-top:1px solid #1E1E1E;padding:64px 0;font-size:10.5px;letter-spaci
     css: `
 
 html,body{overflow-x:clip}
-body{background:#DFD7C3;color:rgba(223,215,195,.82);font:400 15px/1.7 "Special Elite",monospace;padding:16px 0}
+body{background:#DFD7C3;color:rgba(223,215,195,.82);font:400 15px/1.7 "Special Elite",monospace;padding:0 0 16px}
 .announce{background:#DFD7C3;color:rgba(223,215,195,.62);text-align:center;padding:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase}
 /* The app shell: one dominant rounded container inside the light field. */
 .nav{margin:0 16px;background:linear-gradient(180deg,#3F4A39 0%,#3A4435 100%);border-radius:20px 20px 0 0;
