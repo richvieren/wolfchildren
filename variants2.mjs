@@ -115,6 +115,13 @@ function mengtoAtf(html) {
   const slides = (out.match(/<div class="slide">/g) || []).length;
   if (dots !== slides) throw new Error(`mengtoAtf: ${dots} dots for ${slides} slides`);
 
+  // 5 — "Or read a whole one free before you decide." goes, at every width.
+  // Removed here, not in src/lib/atf-copy.mjs, so the other variants and the
+  // page we sell from keep the approved copy.
+  const under = out.match(/\s*<p class="under">[\s\S]*?<\/p>/g) || [];
+  if (under.length !== 1) throw new Error(`mengtoAtf: expected 1 .under line, found ${under.length}`);
+  out = out.replace(under[0], '');
+
   const stage = out.match(STAGE);
   if (!stage) throw new Error('mengtoAtf: the carousel stage was not found');
   out = out.replace(STAGE, `<div class="wc-stage">${stage[0]}</div>${mengtoThumbs(stage[0])}`);
@@ -126,6 +133,67 @@ const MENGTO_ATF_CSS = `
 /* The two elements the section does not have. Hidden everywhere, shown only in
    the desktop query below, so nothing under 900px moves. */
 #atf .wc-rating,#atf .wc-reviews,#atf .wc-tape,#atf .wc-thumbs{display:none}
+
+/* ── 1. The announce bar is flush to the top of the window, at every width ──
+   Every box above it, with its value:
+     html            no rule here and no UA margin              0
+     body            BASE sets margin:0; this theme's padding
+                     is 0 0 16px, bottom only                   0
+     #atf            margin:0 (scopedAtfCss) and margin:0
+                     again on the wrapper rule                  0
+     #atf::before    none exists; the only ::before rule on
+                     the page sets font-synthesis               0
+     .announce       padding 6px 16px, inside the bar           0 above
+     .announce       ATF_GUARD's #atf p{margin:revert}. The bar
+                     is a <p>, revert restores the UA
+                     margin-block of 1em, and the bar is 12px   12px above
+   On a phone #atf is a block with no border and no padding, so that 12px
+   collapses through it and shows as the cream gap above the bar. On desktop
+   #atf is a grid, so it shows as 12px of #atf's own cream. This is the only
+   source, and it goes. Flush, not sticky: no position is set here. */
+#atf>.announce{margin:0}
+
+/* ── 2. The tick list ───────────────────────────────────────────────────────
+   Every property that puts vertical space between two items, with its value:
+     .fuds   margin        12px 0 0        above the list, not between items
+     .fuds   padding       10px 12px (0 above 900px)   around, not between
+     .fuds   border        1px (0 above 900px)         around, not between
+     .fuds   display:grid  gap 7px 12px; 5px above 900px        7px / 5px
+     .fud    display:grid  gap 6px, column gap to the tick      0 vertical
+     .fud    line-height   1.28 on 10.5px = 13.44px;
+                           on 13px above 900px = 16.64px        the line box
+     .fud    margin        ATF_GUARD's #atf p{margin:revert}
+                           restores the UA 1em: 10.5px, and
+                           13px above 900px, above AND below    26px above 900px
+     .tick   margin-top    1px, inside the row                  0
+     ::before/::after      .tick:after is the tick mark,
+                           position:absolute                    0
+   Baseline to baseline above 900px that is 16.64 + 13 + 5 + 13 = 47.6px, and
+   the grid does not collapse margins. The 8px to 5px change moved 5px of that
+   47.6px, which is why nothing visible happened. The reverted UA margin is the
+   source and it goes; the gap then is the whole distance between items.
+   The headline-to-subline step is .sub's own margin-top of 7px, which beats
+   #atf p because a class is more specific, so the 5px gap sits under it. */
+#atf .fud{margin:0}
+
+/* ── 3. Green where red was ─────────────────────────────────────────────────
+   The announce bar, the buy button and the sticky bar's button. Both buttons
+   carry class .cta, so one rule covers them. --cta #AC2E20 is no longer used
+   inside the section. Cream on green is 5.50:1. */
+#atf .announce{background:var(--green);color:var(--cream)}
+#atf .cta{background:var(--green);color:var(--cream)}
+
+/* ── 4. The buy button: a pill with a hard offset shadow in the darker green.
+   #3A4435 is the bible's hover green. The brand bible allows no shadow heavier
+   than 0 1px 2px and the design skill says zero shadows; this is Richard's
+   instruction and it overrules both. Only the buy button in .wrap: the sticky
+   bar's button keeps the shape it had, with the new colour. Full width here;
+   two thirds of the column above 900px. */
+#atf .wrap .cta{border-radius:999px;box-shadow:0 4px 0 #3A4435}
+
+/* ── 6. The birth-detail fields read as inputs at every width. The bible has
+   fields as cream with a tan border; white is Richard's instruction. */
+#atf .field{background:#FFFFFF}
 
 @media(min-width:900px){
   /* 1 — the announce bar reaches both edges of the window. It already carried
@@ -166,6 +234,7 @@ const MENGTO_ATF_CSS = `
   #atf .sub{margin-left:0;text-align:left;max-width:46ch;font-size:15px;line-height:1.5}
   #atf .form{margin-top:20px}
   #atf .cta{height:54px;line-height:54px;font-size:16px;border-radius:999px}
+  #atf .wrap .cta{width:66%}
   #atf .under{text-align:left}
 
   /* the reassurance ticks as a check list rather than a bordered well. */
