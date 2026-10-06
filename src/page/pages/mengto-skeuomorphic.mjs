@@ -9,10 +9,21 @@ export default {
   atfMarkupFrom: 'mengto-skeuomorphic',   // the ATF's markup transform, variants2.mjs
   atf: { cell: 'control' },               // a cell in src/lib/atf-copy.mjs
   modules: [
+    // 2026-10-06: recognition sits directly after the ATF; support-band and
+    // photo-dusk are out of this page's order. Both modules stay in the system.
+    { id: 'recognition',
+      copy: 'A',
+      settings: {
+        // One line to swap the photograph. Three candidates are named in
+        // src/page/README.md; all three are portrait, 1200x1600.
+        photo: {
+          src: '/assets/img/compass2/reason-2.webp',
+          w: 1200,
+          h: 1600,
+          alt: 'A child at a fence, absorbed in the animals on the other side',
+        },
+      } },
     { id: 'hero', copy: 'A' },
-    { id: 'support-band', copy: 'A' },
-    { id: 'photo-dusk', copy: 'A' },
-    { id: 'recognition', copy: 'A' },
     { id: 'sample', copy: 'A' },
     { id: 'stats', copy: 'A' },
     { id: 'reasons', copy: 'A' },

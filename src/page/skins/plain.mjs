@@ -20,6 +20,9 @@ export const tokens = `
   --s-shadow-band:none; --s-shadow-chip:none; --s-shadow-chip-flat:none;
   --s-paper:var(--b-cream); --s-field-bg:var(--b-cream); --s-star:var(--b-bark);
   --s-space-section:72px; --s-space-section-wide:96px; --s-pad-card:20px;
+  --s-type-display:clamp(32px,3vw,44px); --s-type-display-lh:.98; --s-type-display-ls:-.02em;
+  --s-type-body:15px; --s-type-body-lh:1.5; --s-type-body-ls:-.01em;
+  --s-space-block:24px; --s-space-para:18px;
 `;
 
 export { css, atfCss };

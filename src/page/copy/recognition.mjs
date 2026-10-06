@@ -1,8 +1,17 @@
-// Copy for the recognition module, by variant. A is the approved copy, read from the one
-// approved source (src/lib/compass-copy.mjs) rather than copied out of it, so a
-// word is never changed in two places. A B variant is a second key below.
+// Copy for the recognition module, by variant.
+//
+// A is Richard's, written 2026-10-06 and pasted verbatim into this file. Nothing
+// is reworded, shortened or re-punctuated on the way through.
+// B is the copy this module carried before, from the approved source.
 import { C } from '../../lib/compass-copy.mjs';
 
 export const variants = {
-  A: { recognition: C.recognition },
+  A: {
+    h2: "You've read your own chart a hundred times. Never theirs.",
+    body: [
+      'You know why you need a quiet hour after a crowded day. You know which part of you picks the fight and which part makes up after. You learned it from your own chart, line by line.',
+      'Your child has one too. Same sky, a different night. It says what settles them after a hard day, why bedtime goes the way it goes, and why the two of you clash over the same small thing.',
+    ],
+  },
+  B: { h2: C.recognition.h2, body: C.recognition.body },
 };

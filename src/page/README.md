@@ -99,6 +99,20 @@ Colours come from the ground's tokens and never from a literal in a module:
 Bark is light-only: it is 1.01:1 on the shell green. Every module must render on
 both grounds, so a new rule that needs a colour reaches for a token.
 
+## The recognition module's photograph
+
+It is a setting in the page config, so swapping it is one line. Three portrait
+candidates, all 1200x1600:
+
+| file | what it shows |
+|---|---|
+| `assets/img/compass2/reason-2.webp` | a child at a fence, absorbed in the animals on the other side (in use) |
+| `assets/img/compass2/reason-3.webp` | a child running across grass towards the trees |
+| `assets/img/compass2/reason-4.webp` | a child small on a path between tall pines |
+
+All three already appear in the reasons module further down the page. The repo
+holds no portrait photograph of a child outdoors that is unused.
+
 ## Rules
 
 - **Ids are permanent.** A retired module keeps its file and simply stops being
