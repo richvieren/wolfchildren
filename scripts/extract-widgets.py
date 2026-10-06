@@ -24,6 +24,11 @@ import io, re, hashlib, datetime, sys
 
 SRC = "readings/compass/sample/nora/index.html"
 OUT = "src/lib/compass-widgets.mjs"
+# 2026-10-06: a second sample (Finn) is published, and a page that shows the
+# product wants both children. The source and the destination are arguments now;
+# the defaults are what they always were.
+if len(sys.argv) > 2:
+    SRC, OUT = sys.argv[1], sys.argv[2]
 
 # Every block the sample renders, in document order.
 # (id, css selector, nth match, human label, which part of the reading)

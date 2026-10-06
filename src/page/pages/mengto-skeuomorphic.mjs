@@ -29,6 +29,7 @@ export default {
           { src: '/assets/img/compass2/reason-1.webp', w: 1200, h: 1600, alt: 'A child standing on a rock in a forest, looking back' },
         ],
       } },
+    { id: 'whats-inside', copy: 'A' },
     { id: 'hero', copy: 'A' },
     { id: 'sample', copy: 'A' },
     { id: 'stats', copy: 'A' },

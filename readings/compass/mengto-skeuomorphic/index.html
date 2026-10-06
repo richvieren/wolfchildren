@@ -750,6 +750,155 @@ html,body{overflow-x:clip}
   .rec{grid-template-columns:40% 45%;justify-content:space-between;
     align-items:start;gap:0}
 }
+@font-face{font-family:"Wheel Glyphs";src:url("/assets/fonts/wheel-glyphs.woff2")}
+.wc-live{--cream:#DFD7C3;--green:#495543;--tan:#CDB494;--orange:#DA4635;--cta:#AC2E20;--tan-soft:rgba(205,180,148,.45)}
+.wc-live body{margin:0;color:var(--green);font-family:"IBM Plex Mono";font-size:14px;line-height:1.6}
+.wc-live h1{font-family:Montserrat;font-weight:900;font-size:40px;line-height:1;margin:6px 0 10px;letter-spacing:-.01em}
+.wc-live .overline, .wc-live .wlabel, .wc-live .letter-label, .wc-live .sh-label, .wc-live .biz-label, .wc-live .badge-label, .wc-live .cusp-label, .wc-live .stellium-label, .wc-live .pill-label, .wc-live .bar-name, .wc-live .pole, .wc-live .hemi-title, .wc-live .sub-head, .wc-live .product-lock{font-family:Montserrat;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.wc-live .hero{text-align:center;padding:12px 0 6px}
+.wc-live .big3-line{font-size:14px}
+.wc-live .disclaimer{font-size:12px;line-height:1.5;margin:0 0 18px;color:var(--green)}
+.wc-live .card{background:var(--cream);border:1px solid var(--tan);border-radius:4px;padding:24px}
+.wc-live .big3-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:28px}
+.wc-live .big3{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:16px 8px}
+.wc-live .big3-circle{width:60px;height:60px;border-radius:50%;border:1px solid var(--tan);display:flex;align-items:center;justify-content:center;position:relative}
+.wc-live .big3-circle:after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid var(--tan-soft)}
+.wc-live .big3-circle.fire{background:rgba(218,70,53,.10)}
+.wc-live .big3-circle.earth{background:rgba(73,85,67,.12)}
+.wc-live .big3-circle.air{background:rgba(205,180,148,.28)}
+.wc-live .big3-circle.water{background:rgba(73,85,67,.06)}
+.wc-live .big3-word{font-family:Montserrat;font-weight:900;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.wc-live .big3-sign{font-family:Montserrat;font-weight:900;font-size:15px;line-height:1.1}
+.wc-live .big3-sub{font-size:11px;line-height:1.35}
+.wc-live .pill-wrap{display:flex;justify-content:center;margin-top:14px}
+.wc-live .pill{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--tan);border-radius:999px;padding:10px 22px}
+.wc-live .pill.small{margin-top:18px;padding:8px 18px}
+.wc-live .pill-label{white-space:nowrap}
+.wc-live .pill-div{width:1px;height:14px;background:var(--tan)}
+.wc-live .pill-text{font-size:13px}
+.wc-live .letter{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:40px 0}
+.wc-live .letter-rule{width:32px;height:1px;background:var(--tan)}
+.wc-live .letter-text{margin:0;max-width:620px;font-family:"Libre Baskerville";font-size:17px;line-height:1.55;letter-spacing:-.01em}
+.wc-live .letter-text.italic{font-style:italic;font-size:18px}
+.wc-live .section{padding:28px 0 0}
+.wc-live .section.tight{padding-top:20px}
+.wc-live .sh{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.wc-live .sh-line{flex:1;height:1px;background:var(--tan)}
+.wc-live .sh-num{font-family:Montserrat;font-weight:900;font-size:12px}
+.wc-live .grid2{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px}
+.wc-live .grid3{display:grid;grid-template-columns:1fr;gap:14px}
+.wc-live .grid2.texts{gap:18px;margin:8px 0 18px}
+.wc-live .wlabel{margin-bottom:22px}
+.wc-live .wcontext{font-family:"Libre Baskerville";font-size:14px;line-height:1.55;margin-top:16px}
+.wc-live .bar-rows{display:flex;flex-direction:column;gap:14px}
+.wc-live .bar{display:flex;flex-direction:column;gap:8px}
+.wc-live .bar-head{display:flex;justify-content:space-between;align-items:baseline}
+.wc-live .bar-count{font-family:Montserrat;font-weight:900;font-size:16px}
+.wc-live .bar-track{height:3px;background:var(--tan-soft);border-radius:1px;overflow:hidden}
+.wc-live .bar-fill{height:100%;background:var(--green)}
+.wc-live .bar-footer{margin-top:18px;padding-top:14px;border-top:1px solid var(--tan);font-size:13px}
+.wc-live .bar-footer span{font-weight:700;text-transform:capitalize}
+.wc-live .spec-rows{display:flex;flex-direction:column;gap:22px}
+.wc-live .spec{display:flex;flex-direction:column;gap:10px}
+.wc-live .spec-poles{display:flex;justify-content:space-between}
+.wc-live .pole{opacity:.45}
+.wc-live .pole.on{opacity:1}
+.wc-live .spec-track{position:relative;height:14px}
+.wc-live .spec-line{position:absolute;left:0;right:0;top:6.5px;height:1px;background:var(--tan)}
+.wc-live .spec-tick{position:absolute;left:50%;top:3.5px;width:1px;height:7px;background:var(--tan)}
+.wc-live .spec-dot{position:absolute;top:2px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--green)}
+.wc-live .spec-context{font-family:"Libre Baskerville";font-size:13.5px;line-height:1.5}
+.wc-live .hemi-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px}
+.wc-live .hemi-cell{border:1px solid var(--tan-soft);border-radius:4px;padding:16px 14px;display:flex;flex-direction:column;gap:4px;opacity:.55}
+.wc-live .hemi-cell.on{opacity:1;background:rgba(205,180,148,.28);border-color:var(--tan)}
+.wc-live .hemi-title{font-size:11px}
+.wc-live .hemi-sub{font-size:12px}
+.wc-live .moon-wrap{display:flex;justify-content:center;padding:4px 0 12px}
+.wc-live .moon{width:124px;height:124px}
+.wc-live .moon-sky{fill:#3A4435}
+.wc-live .moon-dark{fill:#5D6A56}
+.wc-live .moon-lit{fill:#F0E7D2}
+.wc-live .moon-pit{fill:#C9BCA0;opacity:.34}
+.wc-live .moon-ring{fill:none;stroke:#2F382B;stroke-width:1.2}
+.wc-live .moon-line{font-size:12px;line-height:1.5;color:var(--green)}
+.wc-live .hemi-footer{font-family:"Libre Baskerville";font-size:14px;line-height:1.55;margin-top:16px}
+.wc-live .vis{display:flex;flex-direction:column;align-items:center}
+.wc-live .vis .wlabel{align-self:flex-start;margin-bottom:10px}
+.wc-live .gauge-num{font-family:Montserrat;font-weight:900;font-size:44px}
+.wc-live .gauge-sub{font-family:Montserrat;font-weight:900;font-size:9px;letter-spacing:.2em}
+.wc-live .biz{border-left:2px solid var(--tan);padding-left:18px}
+.wc-live .biz-label{margin-bottom:8px}
+.wc-live .biz-body{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.6}
+.wc-live .divider{height:1px;background:var(--tan);margin:20px 0}
+.wc-live .badge{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:30px 28px 32px}
+.wc-live .badge-halo{width:64px;height:64px;border-radius:50%;border:1px solid var(--tan);display:flex;align-items:center;justify-content:center;position:relative}
+.wc-live .badge-halo:after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid var(--tan-soft)}
+.wc-live .badge-halo.fire{background:rgba(218,70,53,.10)}
+.wc-live .badge-halo.earth{background:rgba(73,85,67,.12)}
+.wc-live .badge-halo.air{background:rgba(205,180,148,.28)}
+.wc-live .badge-halo.water{background:rgba(73,85,67,.06)}
+.wc-live .badge-type{font-family:Montserrat;font-weight:900;font-size:19px;line-height:1.1}
+.wc-live .badge-desc{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.55;max-width:360px}
+.wc-live .badge-rule{width:32px;height:1px;background:var(--tan)}
+.wc-live .badge-placement{font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.wc-live .badge-basis{margin:0;font-family:"Libre Baskerville";font-size:13.5px;line-height:1.55;max-width:360px;text-align:left}
+.wc-live .sub{margin-top:8px}
+.wc-live .sub-head{margin-bottom:16px}
+.wc-live .cusp-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:12px}
+.wc-live .cusp-num{font-family:Montserrat;font-weight:900;font-size:26px;line-height:1;min-width:30px}
+.wc-live .cusp-sign{font-size:12px;margin-top:4px}
+.wc-live .cusp-text{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.55}
+.wc-live .retro-rows{display:flex;flex-direction:column;gap:18px}
+.wc-live .retro{display:flex;gap:16px;align-items:flex-start}
+.wc-live .retro-circle{width:40px;height:40px;border-radius:50%;border:1px solid var(--tan);display:flex;align-items:center;justify-content:center;font-family:Montserrat;font-weight:900;font-size:16px;flex:none}
+.wc-live .retro-name{font-weight:700}
+.wc-live .retro-place{font-size:12px;margin:2px 0 8px}
+.wc-live .retro-meaning{font-family:"Libre Baskerville";font-size:14px;line-height:1.55}
+.wc-live .retro-none{font-size:13px}
+.wc-live .stellium{background:var(--green);color:var(--cream);border-radius:4px;padding:24px;margin-bottom:14px}
+.wc-live .stellium-name{font-family:Montserrat;font-weight:900;font-size:22px;line-height:1.1;margin:6px 0 12px}
+.wc-live .stellium-desc{margin:0 0 18px;font-family:"Libre Baskerville";font-size:14px;line-height:1.55;max-width:560px}
+.wc-live .spills{display:flex;flex-wrap:wrap;gap:8px}
+.wc-live .spill{border:1px solid rgba(223,215,195,.5);border-radius:999px;padding:6px 12px;font-size:12px}
+.wc-live .product{display:flex;flex-direction:column;gap:10px}
+.wc-live .product-name{font-family:Montserrat;font-weight:900;font-size:22px;line-height:1.1}
+.wc-live .product-desc{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.55}
+.wc-live .product-price{font-family:Montserrat;font-weight:900;font-size:28px}
+.wc-live .product.locked{opacity:.7}
+.wc-live .product-lock{font-size:11px}
+.wc-live .cta{display:block;text-align:center;background:var(--cta);color:var(--cream);font-weight:700;font-size:15px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:14px;border-radius:4px;margin-top:6px}
+.wc-live .fine{font-size:13px;text-align:center;margin:8px 0 28px}
+.wc-live .wheel-wrap{margin:0px auto 0;width:398px}
+.wc-live .wheel{display:block;width:100%;height:398px}
+.wc-live .photo{width:100%;border:1px solid var(--tan);border-radius:4px;overflow:hidden}
+.wc-live .photo.wide{height:299px;margin:28px 0 8px}
+.wc-live .photo img{display:block;width:100%;height:100%;object-fit:cover}
+.wc-live .photo.placeholder{background:var(--tan-soft);display:flex;align-items:center;justify-content:center}
+.wc-live .photo.placeholder span{font-family:Montserrat;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.wc-live .pending{color:var(--orange)}
+.wi-head{text-align:center}
+.wi-head h2{font-family:var(--b-display);font-weight:400;color:var(--g-text);
+  font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
+  letter-spacing:var(--s-type-display-ls);max-width:none;margin:0 auto}
+.wi-sub{font-family:var(--b-body);color:var(--g-text);font-size:var(--s-type-body);
+  line-height:var(--s-type-body-lh);letter-spacing:var(--s-type-body-ls);
+  margin:var(--s-space-para) auto 0;max-width:46ch}
+.wi-grid{display:grid;grid-template-columns:1fr;gap:var(--s-space-block);
+  align-items:stretch;margin-top:var(--s-space-section)}
+.wi-tile{background:var(--b-paper);border-radius:var(--s-radius-card);
+  padding:var(--s-pad-card);display:flex;flex-direction:column;gap:12px}
+.wi-who{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;
+  color:var(--b-bark)}
+.wi-tile .wc-live{flex:1}
+.wi-tile .wc-live .card{background:none;border:0;padding:0}
+.wi-links{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+  gap:12px;margin-top:var(--s-space-section);font-family:var(--b-body);
+  font-size:var(--s-type-body);color:var(--g-text)}
+.wi-links a{color:var(--g-text);text-underline-offset:4px}
+@media(min-width:900px){
+  .wi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
 </style>
 </head>
 <body data-variant="mengto-skeuomorphic">
@@ -895,7 +1044,26 @@ html,body{overflow-x:clip}
 })();
 </script>
 
-<section class="s hero wc-ground-light"><div class="wrap">
+<section class="s whats-inside-s wc-ground-light"><div class="wrap">
+  <div class="wi-head">
+    <h2>Everything in it is about them.</h2>
+    <p class="wi-sub">Read from their whole chart, written in plain words.</p>
+  </div>
+  <div class="wi-grid">
+    <div class="wi-tile"><p class="wi-who">Nora</p><div class="wc-live"><div class="card"><div class="wlabel">The moon that night</div><div class="moon-wrap"><svg aria-label="The moon that night" class="moon" role="img" viewBox="0 0 120 120"><circle class="moon-sky" cx="60" cy="60" r="55"></circle><circle class="moon-dark" cx="60" cy="60" r="46"></circle><path class="moon-lit" d="M 60,14 A 46,46 0 0,0 60,106 Z"></path><path class="moon-lit" d="M 60,14 A 42.25,46 0 0,1 60,106 Z"></path><circle class="moon-pit" cx="46" cy="44" r="9"></circle><circle class="moon-pit" cx="74" cy="52" r="6"></circle><circle class="moon-pit" cx="56" cy="74" r="7"></circle><circle class="moon-pit" cx="38" cy="66" r="4"></circle><circle class="moon-pit" cx="68" cy="34" r="3.5"></circle><circle class="moon-pit" cx="80" cy="70" r="4.5"></circle><circle class="moon-ring" cx="60" cy="60" r="46"></circle></svg></div><div class="moon-line">Nora was born two days after a full moon, with the light going back down.</div><div class="bar-footer">waning gibbous</div></div></div></div>
+    <div class="wi-tile"><p class="wi-who">Finn</p><div class="wc-live"><div class="card"><div class="wlabel">Elements</div><div class="bar-rows"><div class="bar"><div class="bar-head"><span class="bar-name">fire</span><span class="bar-count">35%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">earth</span><span class="bar-count">35%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">air</span><span class="bar-count">25%</span></div><div class="bar-track"><div class="bar-fill" style="width:71%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">water</span><span class="bar-count">5%</span></div><div class="bar-track"><div class="bar-fill" style="width:14%"></div></div></div></div><div class="bar-footer">Most of: <span>fire</span></div><div class="wcontext">Finn meets the day head on and spends energy without much accounting for it. Fire is his fullest element and water his scarcest. Feeling registers as action, so what another child might sit with quietly comes out of him as movement or heat. Naming the softer undercurrent in himself, or noticing it in someone else, is the part that stays out of reach longest.</div></div></div></div>
+    <div class="wi-tile"><p class="wi-who">Nora</p><div class="wc-live"><div class="card "><div class="wlabel">What&#x27;s wired to what</div><div class="bar-rows"><div class="bar"><div class="bar-head"><span class="bar-name">Who she is</span><span class="bar-count">3</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">How she feels</span><span class="bar-count">1</span></div><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">How she thinks and talks</span><span class="bar-count">3</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">What she loves</span><span class="bar-count">0</span></div><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">How she pushes</span><span class="bar-count">1</span></div><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div></div></div><div class="bar-footer">Wired to nothing else: what she loves</div><div class="wcontext">What she loves is not wired to anything else in Nora&#x27;s chart. It works on its own, so it shows up the same way every time. The longer a bar, the more other parts of Nora are wired into that one, and the more it changes depending on what else is going on.</div></div></div></div>
+    <div class="wi-tile"><p class="wi-who">Finn</p><div class="wc-live"><div class="card "><div class="wlabel">Quick and slow</div><div class="spec-rows"><div class="spec"><div class="spec-poles"><span class="pole on">Quick</span><span class="pole">Slow</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:26%"></div></div><div class="spec-context">how he feels</div></div><div class="spec"><div class="spec-poles"><span class="pole on">Quick</span><span class="pole">Slow</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:15%"></div></div><div class="spec-context">how he thinks and talks</div></div><div class="spec"><div class="spec-poles"><span class="pole on">Quick</span><span class="pole">Slow</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:2%"></div></div><div class="spec-context">what he loves</div></div><div class="spec"><div class="spec-poles"><span class="pole on">Quick</span><span class="pole">Slow</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:10%"></div></div><div class="spec-context">how he pushes</div></div></div><div class="bar-footer">how fast each part of Finn moves</div></div></div></section><section class="letter"><div class="letter-label">At a glance</div><div class="letter-rule"></div><p class="letter-text">Finn lives at the front edge of his own energy, wanting a thing and going after it in the same breath. Fire gives the heat and cardinal gives the push, so the day arrives in bursts of starting rather than long even stretches. Interest runs hot while it lasts, and once a plan exists in his head, waiting for it feels like being held still.</p></section><div class="photo wide" style="aspect-ratio:4 / 3"><img src="/assets/compass/nature-2.jpg" alt=""></div><section class="letter"><div class="letter-label">What settles him</div><div class="letter-rule"></div><p class="letter-text">Warmth directed straight at him is what brings Finn back after a day that has taken too much. The Moon in Leo needs the upset to be seen and taken seriously by someone who matters. Being laughed at while raw, or having the feeling treated as a small thing, turns a passing low into a long one. Attention given generously ends it sooner than any reasoning will.</p></section><section class="section"><div class="sh"><span class="sh-label">Holding on and being seen</span><span class="sh-line"></span><span class="sh-num">02</span></div><div class="grid2"></div></div>
+    <div class="wi-tile"><p class="wi-who">Nora</p><div class="wc-live"><div class="card"><div class="wlabel">Three lines</div><div class="spec-rows"><div class="spec"><div class="spec-poles"><span class="pole on">Dreamer</span><span class="pole">Doer</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:40%"></div></div><div class="spec-context">Ideas arrive in Nora long before any hand moves toward them, and they arrive fully formed enough to be interesting on their own. She can spend a long stretch inside something imagined without needing it to become real, so the gap between wanting a thing and starting it stays wide, and the wanting itself is the part that holds her attention.</div></div><div class="spec"><div class="spec-poles"><span class="pole on">Starter</span><span class="pole">Finisher</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:48%"></div></div><div class="spec-context">Some things Nora carries all the way to the end and others she leaves standing once the interesting part is done. The deciding factor sits in how much the thing holds her, so her follow-through looks inconsistent until you see what she is choosing between.</div></div><div class="spec"><div class="spec-poles"><span class="pole on">Settled</span><span class="pole">Adaptable</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:44%"></div></div><div class="spec-context">Nora holds on to certain fixed points and lets a good deal else move around them without much trouble. She takes most changes in stride, though a few particular things matter more than their size suggests, and those are where she digs in.</div></div></div></div></div></div>
+    <div class="wi-tile"><p class="wi-who">Finn</p><div class="wc-live"><div class="card"><div class="wlabel">Where the energy goes</div><div class="hemi-grid"><div class="hemi-cell"><div class="hemi-title">Out in the world</div><div class="hemi-sub">on his own</div></div><div class="hemi-cell on"><div class="hemi-title">Out in the world</div><div class="hemi-sub">with others</div></div><div class="hemi-cell"><div class="hemi-title">At home</div><div class="hemi-sub">on his own</div></div><div class="hemi-cell"><div class="hemi-title">At home</div><div class="hemi-sub">with others</div></div></div><div class="hemi-footer">Much of what Finn does is aimed at the wider world and shaped by who else is in it. The upper west quarter of the chart carries most of the weight, so his energy travels outward rather than inward, and it travels alongside other people rather than ahead of them. Things gain their point for him when they are shared, answered, or taken up by someone.</div></div></div></div>
+    <div class="wi-tile"><p class="wi-who">Nora</p><div class="wc-live"><div class="card vis"><div class="wlabel">Being seen</div><svg height="140" viewBox="0 0 240 140" width="240"><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#CDB494" stroke-linecap="round" stroke-width="10"></path><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#495543" stroke-dasharray="283" stroke-dashoffset="62.3" stroke-linecap="round" stroke-width="10"></path><text fill="#495543" font-family="Montserrat" font-size="44" font-weight="900" text-anchor="middle" x="120" y="108">78%</text><text fill="#495543" font-family="Montserrat" font-size="9" font-weight="900" letter-spacing="2" text-anchor="middle" x="120" y="132">IN THE OPEN</text></svg><div class="pill small"><span class="pill-text">Midheaven in Aquarius</span></div></div></div></div>
+    <div class="wi-tile"><p class="wi-who">Finn</p><div class="wc-live"><div class="card badge"><div class="badge-label">In a group</div><div class="badge-halo earth"><span class="big3-word">earth</span></div><div class="badge-type">The steady one</div><p class="badge-desc">Finn holds steady in a group while the noise sorts itself out around him, and other children drift toward him once the game needs someone to hold the shape of it. With the Sun in an earth sign, his weight in a room comes from staying put and finishing what he started. He takes a while to warm to new company, then works alongside them easily.</p><div class="badge-rule"></div><div class="badge-placement">Sun in Capricorn · Mars in Sagittarius</div><p class="badge-basis">Pushing for something, Finn argues the whole shape of it out loud, often widening the question rather than narrowing it. Mars in Sagittarius moves by conviction, so wanting a thing and believing it is fair arrive together and sound the same. He pursues hard while the case still feels alive, then drifts once the matter is agreed and the next question has already caught him.</p></div></div></div>
+    <div class="wi-tile"><p class="wi-who">Nora</p><div class="wc-live"><div class="card badge"><div class="badge-label">How she explains herself</div><div class="badge-halo earth"><span class="big3-word">earth</span></div><div class="badge-type">Shows you instead</div><p class="badge-desc">Asked how something works, Nora lays it out in order and leaves nothing important unsaid. Mercury in an earth sign shows in the steadiness of her explaining, the pause before answering, the preference for the useful word over the impressive one. She would rather be accurate than quick, and she dislikes being hurried through the part that matters.</p><div class="badge-rule"></div><div class="badge-placement">Mercury in Capricorn · eighth house</div><p class="badge-basis">Words come out of Nora after she has already decided they are worth saying, which makes speech slower and firmer than it looks from outside. Mercury in Capricorn tends toward short, weighted sentences with little decoration. She dislikes being caught in a statement she cannot stand behind, so silence often stands in for a half-formed answer, and certainty arrives late but arrives solid.</p></div></div></div>
+  </div>
+  <p class="wi-links"><a href="/readings/compass/sample/nora/">Read all of Nora's</a><span aria-hidden="true">&middot;</span><a href="/readings/compass/sample/finn/">Read all of Finn's</a></p>
+</div></section>
+
+<section class="s hero wc-ground-dark"><div class="wrap">
   <h1>Stop Guessing What Your Child Needs Right Now.</h1>
   <p class="lead">A plain, warm, 24-section guide to your child’s natural temperament, without personality labels, developmental assessments, predictions, or parenting advice.</p>
   <div class="act"><a class="btn" href="#offer">Get Your Child’s Compass Reading, $27</a><p class="small">Birth date, time and place. Ready in minutes, in your private web portal.</p></div>
@@ -905,24 +1073,24 @@ html,body{overflow-x:clip}
   </div>
 </div></section>
 
-<section class="s sample wc-ground-dark"><div class="wrap">
+<section class="s sample wc-ground-light"><div class="wrap">
   <h2>Read one before you buy one.</h2>
   <p class="lead">Two complete Compass pages, start to finish, for children who do not exist. One for a boy and one for a girl. Nothing is held back and nothing is blurred.</p>
   <figure class="sample-shot"><figure class="ph tape-a ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/sample.webp" width="1600" height="1200" alt="A child building a sandcastle at the end of the day" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
   <div class="links"><a class="link" href="/readings/compass/sample/nora/">Read the one written for a girl</a><a class="link" href="/readings/compass/sample/finn/">Read the one written for a boy</a></div>
 </div></section>
 
-<section class="s stats-s wc-ground-light"><div class="wrap">
+<section class="s stats-s wc-ground-dark"><div class="wrap">
   <h2>What one page holds.</h2>
   <div class="stats"><div class="stat"><b>24</b><i>sections</i><p class="small">Every one about your child, in the order you scroll.</p></div><div class="stat"><b>3</b><i>facts in</i><p class="small">The date, the time and the place, and nothing else is asked of you.</p></div><div class="stat"><b>$27</b><i>once</i><p class="small">No subscription, and no second page to buy before this one makes sense.</p></div></div>
 </div></section>
 
-<section class="s reasons-s wc-ground-dark"><div class="wrap">
+<section class="s reasons-s wc-ground-light"><div class="wrap">
   <h2>One Page. 24 Clear Insights Into Your Child’s World.</h2>
   <div class="reasons"><div class="reason"><span class="n">01</span><h3>What Settles Them</h3><p>Learn what restores their calm when emotions run high.</p></div><div class="reason"><span class="n">02</span><h3>How They Take Things In</h3><p>See how their mind processes information and environments.</p></div><div class="reason"><span class="n">03</span><h3>Where Their Energy Goes</h3><p>What naturally drives them, against what drains them.</p></div><div class="reason"><span class="n">04</span><h3>Under Pressure</h3><p>Understand their default reaction to stress and expectations.</p></div><div class="reason"><span class="n">05</span><h3>The Chart Wheel</h3><p>A visual breakdown of their exact astronomical placements.</p></div><div class="reason"><span class="n">06</span><h3>The Closing Question</h3><p>A reflective question written for you, the parent.</p></div></div>
 </div></section>
 
-<section class="s gallery-s wc-ground-light"><div class="wrap">
+<section class="s gallery-s wc-ground-dark"><div class="wrap">
   <div class="gallery">
     <figure class="ph tape-b ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="A child standing on a rock in a forest, looking back" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure>
     <figure class="ph tape-c ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence, absorbed in the animals on the other side" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure>
@@ -931,17 +1099,17 @@ html,body{overflow-x:clip}
   </div>
 </div></section>
 
-<section class="s refusal-s wc-ground-dark"><div class="wrap">
+<section class="s refusal-s wc-ground-light"><div class="wrap">
   <h2>What Compass Will Never Do To Your Child.</h2>
   <div class="refusals"><div class="refusal"><b>NO Labels or Scores</b><p>No percentiles, no types, and no words your child has to carry.</p></div><div class="refusal"><b>NO Predictions</b><p>Nothing about hard years, future careers, or who they will become.</p></div><div class="refusal"><b>NO Medical Diagnoses</b><p>No developmental assessments or clinical judgments.</p></div><div class="refusal"><b>NO Parenting Plans</b><p>No forced routines, rules, or homework for you.</p></div></div>
 </div></section>
 
-<section class="s outcomes-s wc-ground-light"><div class="wrap">
+<section class="s outcomes-s wc-ground-dark"><div class="wrap">
   <h2>The guessing stops being the whole job.</h2>
   <div class="outcomes"><p>A name for the thing that keeps happening, which is most of the relief</p><p>A reason to stop trying the approach that has never once worked</p><p>Something to hand the other adult in the house, so you are arguing about less</p><p>One page you will read again in a year and find true</p></div>
 </div></section>
 
-<section class="s offer-s wc-ground-dark" id="offer"><div class="wrap">
+<section class="s offer-s wc-ground-light" id="offer"><div class="wrap">
   <figure class="offer-shot"><figure class="ph tape-c ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/offer.webp" width="1200" height="1600" alt="A child in a doorway at the end of the day, boots muddy" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
   <div class="offer">
     <div class="offer-main">
@@ -956,11 +1124,11 @@ html,body{overflow-x:clip}
   </div>
 </div></section>
 
-<section class="s banner wc-ground-light"><div class="wrap">
+<section class="s banner wc-ground-dark"><div class="wrap">
   <h2>You have read five of them. The page has twenty-four.</h2><p class="bsub">All of it about your child, in plain words.</p><a class="btn" href="#offer">Get Compass</a>
 </div></section>
 
-<section class="s compare-s wc-ground-dark"><div class="wrap">
+<section class="s compare-s wc-ground-light"><div class="wrap">
   <h2>Next to a horoscope, and next to the full reading.</h2>
   <div class="tablewrap"><table>
     <thead><tr><th></th><th>A horoscope app</th><th>Compass</th><th>North Star</th></tr></thead>
@@ -968,24 +1136,24 @@ html,body{overflow-x:clip}
   </table></div>
 </div></section>
 
-<section class="s banner banner--two wc-ground-light"><div class="wrap">
+<section class="s banner banner--two wc-ground-dark"><div class="wrap">
   <h2>Six months of guessing, or twenty-seven dollars.</h2><p class="bsub">Read a whole one free first, then decide.</p><a class="btn" href="#offer">Get Compass</a>
 </div></section>
 
 <figure class="bleed"><figure class="ph tape-a ph-tilt-b"><img class="ph-photo" src="/assets/img/compass2/band-season.webp" width="1600" height="1200" alt="A forest path, a child small among the trees" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
 
-<section class="s faq-s wc-ground-dark"><div class="wrap">
+<section class="s faq-s wc-ground-light"><div class="wrap">
   <h2>Before you decide.</h2>
   <div class="faq"><details><summary>What if I do not know my child’s exact birth time?</summary><p>Compass needs the exact birth time. The birth certificate usually has it, and the hospital will have it on file. Without the time we would be guessing, and guessing is what you came here to stop.</p></details><details><summary>Is this traditional purple-and-stars astrology?</summary><p>No. Wolf Children uses photography and plain language about child nature, outdoor living and temperament, rather than horoscopes or mystical jargon.</p></details><details><summary>How is the reading delivered?</summary><p>As a web page inside your private portal, minutes after the details are in.</p></details><details><summary>Is there an option for a longer reading?</summary><p>Yes. Inside your portal you can upgrade to North Star ($199), a written deep-dive reading of nine to fifteen pages.</p></details><details><summary>What if it does not sound like them?</summary><p>Say so, and it is looked at. A page that does not sound like your child is no use to anyone, and a person reads every reply.</p></details><details><summary>What happens to their details?</summary><p>Your child’s name, date of birth and place of birth are stored on our own server and never leave it. You can delete a child from the portal at any time.</p></details></div>
 </div></section>
 
 <figure class="bleed"><figure class="ph tape-b ph-tilt-a"><img class="ph-photo" src="/assets/img/compass2/close.webp" width="1600" height="1200" alt="A child at the water's edge at sunset, the beach empty" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
 
-<section class="s close wc-ground-light"><div class="wrap">
+<section class="s close wc-ground-dark"><div class="wrap">
   <h2>The same night, one layer deeper.</h2><p class="lead">You already know this child. We read the same one from the night they arrived.</p><a class="btn" href="#offer">Get Compass</a>
 </div></section>
 
-<footer class="wc-ground-dark"><div class="wrap">Wolf Children · hello@wolfchildren.co</div></footer>
+<footer class="wc-ground-light"><div class="wrap">Wolf Children · hello@wolfchildren.co</div></footer>
 
 
 <script>
