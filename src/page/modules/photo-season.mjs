@@ -8,6 +8,9 @@ export const id = 'photo-season';
 // module puts its rules here, scoped to its own class.
 export const css = '';
 
+// A photograph is neutral: it takes no ground and the alternation skips it.
+export const ground = 'neutral';
+
 export function markup(copy, settings = {}) {
   void settings;
   return `<figure class="bleed"><figure class="ph tape-a ph-tilt-b"><img class="ph-photo" src="/assets/img/compass2/band-season.webp" width="1600" height="1200" alt="A forest path, a child small among the trees" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>`;

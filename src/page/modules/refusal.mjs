@@ -9,8 +9,8 @@ export const id = 'refusal';
 export const css = '';
 
 export function markup(copy, settings = {}) {
-  void settings;
-  return `<section class="s refusal-s"><div class="wrap">
+  const g = settings.ground ? ` wc-ground-${settings.ground}` : '';
+  return `<section class="s refusal-s${g}"><div class="wrap">
   <h2>${copy.refusal.h2}</h2>
   <div class="refusals">${copy.refusal.items.map(([t, d]) => `<div class="refusal"><b>${t}</b><p>${d}</p></div>`).join('')}</div>
 </div></section>`;

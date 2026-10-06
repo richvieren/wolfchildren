@@ -35,12 +35,32 @@ export async function render(config) {
   const skin = THEMES[config.skin];
   if (!skin) throw new Error(`no such skin: ${config.skin}`);
 
-  const body = config.modules.map((m) => {
+  // Grounds alternate by position, starting dark because the ATF above is light.
+  // A photograph is neutral: it takes no ground and does not flip the alternation.
+  // A config may override a module with ground: 'light' | 'dark'; two non-neutral
+  // modules that end up sharing a ground side by side are named in a warning.
+  let next = 'dark';
+  let lastId = null;
+  let lastGround = null;
+  const grounds = config.modules.map((m) => {
     const mod = mods[m.id];
     if (!mod) throw new Error(`${config.id}: no module with id ${m.id}`);
+    if (mod.ground === 'neutral') return null;
+    const ground = m.ground ?? next;
+    if (ground !== 'light' && ground !== 'dark') throw new Error(`${config.id}: ${m.id} wants ground ${ground}`);
+    if (ground === lastGround) {
+      console.warn(`${config.id}: ${lastId} and ${m.id} are both on the ${ground} ground, side by side`);
+    }
+    next = ground === 'dark' ? 'light' : 'dark';
+    lastId = m.id; lastGround = ground;
+    return ground;
+  });
+
+  const body = config.modules.map((m, i) => {
+    const mod = mods[m.id];
     const copy = mod.copy[m.copy ?? 'A'];
     if (!copy) throw new Error(`${config.id}: module ${m.id} has no copy variant ${m.copy}`);
-    return mod.markup(copy, m.settings ?? {});
+    return mod.markup(copy, { ...(m.settings ?? {}), ground: grounds[i] });
   }).join('\n\n');
 
   const moduleCss = config.modules.map((m) => mods[m.id].css).filter(Boolean).join('');

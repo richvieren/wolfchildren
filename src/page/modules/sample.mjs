@@ -9,8 +9,8 @@ export const id = 'sample';
 export const css = '';
 
 export function markup(copy, settings = {}) {
-  void settings;
-  return `<section class="s sample"><div class="wrap">
+  const g = settings.ground ? ` wc-ground-${settings.ground}` : '';
+  return `<section class="s sample${g}"><div class="wrap">
   <h2>${copy.sample.h2}</h2>
   <p class="lead">${copy.sample.body}</p>
   <figure class="sample-shot"><figure class="ph tape-a ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/sample.webp" width="1600" height="1200" alt="A child building a sandcastle at the end of the day" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>

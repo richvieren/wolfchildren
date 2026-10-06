@@ -36,6 +36,38 @@ git status --porcelain                # only the files you meant to touch
 `mengto-ab-demo.mjs` is a worked example: it imports the live config, swaps two
 modules and points the ATF at another cell.
 
+## Grounds
+
+Grounds alternate **by position, assigned by the renderer**, so reordering
+modules re-alternates them. The ATF is light, so the first module is dark, the
+next light, and so on. A photograph is **neutral**: it declares
+`export const ground = 'neutral'`, takes no ground, and does not flip the
+alternation.
+
+A config may override one module:
+
+```js
+{ id: 'sample', copy: 'A', ground: 'light' }
+```
+
+If an override leaves two non-neutral modules side by side on the same ground,
+the build prints a warning naming both. It does not stop the build.
+
+Colours come from the ground's tokens and never from a literal in a module:
+
+| token | light | dark |
+|---|---|---|
+| `--g-bg` | `#DFD7C3` cream | `#333D2F` shell green |
+| `--g-surface` (card fill) | `#F8F5EC` | `#3A4435` |
+| `--g-text` | `#495543` green | `#DFD7C3` cream |
+| `--g-quiet` | `#6B4A2F` bark | `rgba(223,215,195,.62)` |
+| `--g-accent` | `#AC2E20` ember | `#AC2E20` ember |
+| `--g-rule` | `#CDB494` tan | `#495543` |
+| `--g-shade` (shadow) | `rgba(73,85,67,.14)` | `rgba(0,0,0,.3)` |
+
+Bark is light-only: it is 1.01:1 on the shell green. Every module must render on
+both grounds, so a new rule that needs a colour reaches for a token.
+
 ## Rules
 
 - **Ids are permanent.** A retired module keeps its file and simply stops being

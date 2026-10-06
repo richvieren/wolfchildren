@@ -9,8 +9,8 @@ export const id = 'compare';
 export const css = '';
 
 export function markup(copy, settings = {}) {
-  void settings;
-  return `<section class="s compare-s"><div class="wrap">
+  const g = settings.ground ? ` wc-ground-${settings.ground}` : '';
+  return `<section class="s compare-s${g}"><div class="wrap">
   <h2>${copy.compare.h2}</h2>
   <div class="tablewrap"><table>
     <thead><tr><th></th>${copy.compare.cols.map((c) => `<th>${c}</th>`).join('')}</tr></thead>

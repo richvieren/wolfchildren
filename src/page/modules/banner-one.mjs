@@ -9,8 +9,8 @@ export const id = 'banner-one';
 export const css = '';
 
 export function markup(copy, settings = {}) {
-  void settings;
-  return `<section class="s banner"><div class="wrap">
+  const g = settings.ground ? ` wc-ground-${settings.ground}` : '';
+  return `<section class="s banner${g}"><div class="wrap">
   <h2>${copy.banner1[0]}</h2><p class="bsub">${copy.banner1[1]}</p><a class="btn" href="#offer">Get Compass</a>
 </div></section>`;
 }

@@ -1628,6 +1628,30 @@ footer{border-top:1px solid #1E1E1E;padding:64px 0;font-size:10.5px;letter-spaci
     cssV2: MENGTO_ATF_CSS,
     note: 'light outer page framing a deep charcoal app shell · moulded surfaces with vertical gradients, top-edge highlights, inset shadow stacks and soft outer falloff · touchable buttons with layered fill and bevel, hover by brightness not glow · one signal accent for status and focus',
     css: `
+/* ── Ground tokens ─────────────────────────────────────────────────────────
+   A module paints itself from these and never from a literal. The renderer
+   gives each module a ground class; the class sets the tokens. Dark is the
+   default, on :root, so a module without a class renders as the shell always
+   did. Bark lives only on light: it is 1.01:1 on the shell green. */
+:root{
+  --g-bg:#333D2F; --g-surface:#3A4435; --g-text:#DFD7C3;
+  --g-quiet:rgba(223,215,195,.62); --g-accent:#AC2E20; --g-rule:#495543;
+  --g-shade:rgba(0,0,0,.3);
+}
+.wc-ground-dark{
+  --g-bg:#333D2F; --g-surface:#3A4435; --g-text:#DFD7C3;
+  --g-quiet:rgba(223,215,195,.62); --g-accent:#AC2E20; --g-rule:#495543;
+  --g-shade:rgba(0,0,0,.3);
+}
+.wc-ground-light{
+  --g-bg:#DFD7C3; --g-surface:#F8F5EC; --g-text:#495543;
+  --g-quiet:#6B4A2F; --g-accent:#AC2E20; --g-rule:#CDB494;
+  --g-shade:rgba(73,85,67,.14);
+}
+/* every element inside a module inherits its ground's text colour, so a rule
+   that sets no colour of its own cannot end up cream on cream. */
+.wc-ground-light,.wc-ground-dark{color:var(--g-text)}
+
 
 html,body{overflow-x:clip}
 body{background:#DFD7C3;color:rgba(223,215,195,.82);font:400 15px/1.7 "Special Elite",monospace;padding:0 0 16px}
@@ -1636,20 +1660,20 @@ body{background:#DFD7C3;color:rgba(223,215,195,.82);font:400 15px/1.7 "Special E
 .nav{margin:0 16px;background:linear-gradient(180deg,#3F4A39 0%,#3A4435 100%);border-radius:20px 20px 0 0;
   border:1px solid #495543;border-bottom:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.09);padding:0 24px}
 .nav .mark{font:400 14px "Morning Memories",sans-serif;color:#DFD7C3}
-.s,.band{margin:0 16px;background:linear-gradient(180deg,#333D2F 0%,#333D2F 100%);
-  border-left:1px solid #495543;border-right:1px solid #495543}
+.s,.band{margin:0 16px;background:var(--g-bg);color:var(--g-text);
+  border-left:1px solid var(--g-rule);border-right:1px solid var(--g-rule)}
 .s{padding:84px 0}@media(min-width:900px){.s{padding:108px 0}}
 .wrap{max-width:1040px}
-footer{margin:0 16px;background:linear-gradient(180deg,#3A4435 0%,#2F382B 100%);border-radius:0 0 20px 20px;
-  border:1px solid #495543;box-shadow:0 26px 54px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.06);
-  padding:52px 0;font-size:12.5px;color:rgba(223,215,195,.62);letter-spacing:.1em}
-h1,h2,h3{font-family:"Morning Memories",sans-serif;font-weight:400;letter-spacing:-.035em;color:#DFD7C3}
+footer{margin:0 16px;background:var(--g-bg);border-radius:0 0 20px 20px;
+  border:1px solid var(--g-rule);box-shadow:0 26px 54px var(--g-shade),inset 0 1px 0 rgba(255,255,255,.06);
+  padding:52px 0;font-size:12.5px;color:var(--g-quiet);letter-spacing:.1em}
+h1,h2,h3{font-family:"Morning Memories",sans-serif;font-weight:400;letter-spacing:-.035em;color:var(--g-text)}
 h1{font-size:clamp(2.2rem,4.8vw,3.8rem);line-height:1.02;max-width:17ch}
 h2{font-size:clamp(1.55rem,2.8vw,2.3rem);line-height:1.08;max-width:20ch}
-h3{font-size:14.5px;line-height:1.4;color:#DFD7C3}
-.lead{font-size:17px;line-height:1.72;max-width:56ch;color:rgba(223,215,195,.82)}
-.eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#AC2E20;margin-bottom:18px}
-.small{font-size:12.5px;color:rgba(223,215,195,.62)}
+h3{font-size:14.5px;line-height:1.4;color:var(--g-text)}
+.lead{font-size:17px;line-height:1.72;max-width:56ch;color:var(--g-text)}
+.eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--g-accent);margin-bottom:18px}
+.small{font-size:12.5px;color:var(--g-quiet)}
 .btn{background:linear-gradient(180deg,#AC2E20 0%,#8F2419 100%);color:#DFD7C3;
   font:400 13.5px/1 "Morning Memories",sans-serif;border-radius:11px;padding:16px 28px;white-space:nowrap;
   border:1px solid #C4452F;box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 4px 12px rgba(0,0,0,.38)}
@@ -1657,19 +1681,19 @@ h3{font-size:14.5px;line-height:1.4;color:#DFD7C3}
 .btn--nav{padding:10px 17px;font-size:12px;border-radius:9px}
 .act{margin-top:40px;gap:22px}
 .band{padding:40px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.055),inset 0 -1px 0 rgba(0,0,0,.4)}
-.bullet{font-size:14px;color:rgba(223,215,195,.82)}
+.bullet{font-size:14px;color:var(--g-text)}
 .badges{margin-top:28px;gap:10px 36px}
 .recognition{gap:20px;max-width:56ch}.recognition p{font-size:17px;line-height:1.72}
 .links{gap:14px}
-.link{font:400 14px "Morning Memories",sans-serif;color:#AC2E20}
+.link{font:400 14px "Morning Memories",sans-serif;color:var(--g-accent)}
 /* Nested object-like modules: one-pixel wrapper, top highlight, inset stack. */
 .stats{margin-top:48px}
 .stat,.reason,.refusal,.step,.includes,.tablewrap,details{
-  background:linear-gradient(180deg,#3A4435 0%,#2F382B 100%);border:1px solid #495543;border-radius:14px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.075),inset 0 -12px 22px rgba(0,0,0,.24),0 5px 16px rgba(0,0,0,.3)}
+  background:var(--g-surface);border:1px solid var(--g-rule);border-radius:14px;
+  box-shadow:0 5px 16px var(--g-shade)}
 .stat{padding:24px}
-.stat b{display:block;font:400 clamp(2.2rem,3.6vw,2.9rem)/1 "Morning Memories",sans-serif;letter-spacing:-.04em;color:#DFD7C3}
-.stat i{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#AC2E20;margin:10px 0 10px}
+.stat b{display:block;font:400 clamp(2.2rem,3.6vw,2.9rem)/1 "Morning Memories",sans-serif;letter-spacing:-.04em;color:var(--g-text)}
+.stat i{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--g-accent);margin:10px 0 10px}
 .reasons{margin-top:48px;gap:14px}
 .reason{padding:24px}
 @media(min-width:900px){.reason{grid-template-columns:36px minmax(0,20ch) minmax(0,1fr);gap:24px}}
@@ -1677,36 +1701,36 @@ h3{font-size:14.5px;line-height:1.4;color:#DFD7C3}
 .reason .n{display:grid;place-items:center;width:26px;height:26px;border-radius:999px;
   background:radial-gradient(circle at 40% 32%,#C4452F 0%,#8F2419 70%);color:#DFD7C3;
   font:400 11px/1 "Morning Memories",sans-serif;box-shadow:0 0 9px rgba(201,138,60,.5),inset 0 1px 0 rgba(255,255,255,.4)}
-.reason p{font-size:14px;line-height:1.72;color:rgba(223,215,195,.82)}
+.reason p{font-size:14px;line-height:1.72;color:var(--g-text)}
 .refusals{margin-top:46px;gap:14px}
 .refusal{padding:22px}
-.refusal b{font:400 12px/1 "Morning Memories",sans-serif;letter-spacing:.06em;color:#AC2E20}
-.refusal p{margin-top:10px;font-size:14px;line-height:1.72;color:rgba(223,215,195,.82)}
-.outcomes p{font-size:14px;line-height:1.72;color:rgba(223,215,195,.82);padding:12px 0;border-bottom:1px solid #3F4A39}
+.refusal b{font:400 12px/1 "Morning Memories",sans-serif;letter-spacing:.06em;color:var(--g-accent)}
+.refusal p{margin-top:10px;font-size:14px;line-height:1.72;color:var(--g-text)}
+.outcomes p{font-size:14px;line-height:1.72;color:var(--g-text);padding:12px 0;border-bottom:1px solid var(--g-rule)}
 .offer{gap:48px}
-.price{font:400 clamp(2.7rem,4.2vw,3.5rem)/1 "Morning Memories",sans-serif;letter-spacing:-.04em;margin:12px 0;color:#AC2E20}
+.price{font:400 clamp(2.7rem,4.2vw,3.5rem)/1 "Morning Memories",sans-serif;letter-spacing:-.04em;margin:12px 0;color:var(--g-accent)}
 .includes{margin-top:24px;padding:6px 22px}
-.includes p{padding:15px 0;border-bottom:1px solid #3F4A39;font-size:14px}
+.includes p{padding:15px 0;border-bottom:1px solid var(--g-rule);font-size:14px}
 .includes p:last-child{border-bottom:0}
 .note-line{margin-top:22px;max-width:50ch}
 .step{padding:22px}
 .step .sn{display:grid;place-items:center;width:25px;height:25px;border-radius:7px;
-  background:linear-gradient(180deg,#495543 0%,#3A4435 100%);border:1px solid #495543;
-  color:#AC2E20;font:400 11.5px/1 "Morning Memories",sans-serif;margin-bottom:10px;
+  background:var(--g-bg);border:1px solid var(--g-rule);
+  color:var(--g-accent);font:400 11.5px/1 "Morning Memories",sans-serif;margin-bottom:10px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
-.step b{display:block;font:400 13.5px "Morning Memories",sans-serif;margin-bottom:6px;color:#DFD7C3}
-.step p{font-size:13px;line-height:1.68;color:rgba(223,215,195,.82)}
-.banner{background:linear-gradient(180deg,#2F382B 0%,#262E23 100%)}
+.step b{display:block;font:400 13.5px "Morning Memories",sans-serif;margin-bottom:6px;color:var(--g-text)}
+.step p{font-size:13px;line-height:1.68;color:var(--g-text)}
+.banner{background:var(--g-bg)}
 .banner h2{max-width:24ch}
-.bsub{color:rgba(223,215,195,.70);margin:16px 0 30px;max-width:50ch}
+.bsub{color:var(--g-text);margin:16px 0 30px;max-width:50ch}
 table{font-size:13.5px;min-width:640px}
-thead th{font:400 11px "Morning Memories",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#AC2E20;padding:18px 16px;border-bottom:1px solid #495543}
-tbody th{color:rgba(223,215,195,.62);width:16%;padding:15px 16px}
-td{padding:15px 16px;border-bottom:1px solid #3F4A39}
+thead th{font:400 11px "Morning Memories",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--g-accent);padding:18px 16px;border-bottom:1px solid var(--g-rule)}
+tbody th{color:var(--g-quiet);width:16%;padding:15px 16px}
+td{padding:15px 16px;border-bottom:1px solid var(--g-rule)}
 .faq{margin-top:40px}
 details{margin-bottom:12px;padding:0 22px}
-summary{font:400 14.5px "Morning Memories",sans-serif;color:#DFD7C3;padding:20px 0}
-details p{font-size:14px;line-height:1.72;color:rgba(223,215,195,.82)}
+summary{font:400 14.5px "Morning Memories",sans-serif;color:var(--g-text);padding:20px 0}
+details p{font-size:14px;line-height:1.72;color:var(--g-text)}
 .close{text-align:center}
 `,
   },

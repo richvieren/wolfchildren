@@ -9,8 +9,8 @@ export const id = 'gallery';
 export const css = '';
 
 export function markup(copy, settings = {}) {
-  void settings;
-  return `<section class="s gallery-s"><div class="wrap">
+  const g = settings.ground ? ` wc-ground-${settings.ground}` : '';
+  return `<section class="s gallery-s${g}"><div class="wrap">
   <div class="gallery">
     <figure class="ph tape-b ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="A child standing on a rock in a forest, looking back" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-4.png" alt="" aria-hidden="true" loading="lazy"></figure>
     <figure class="ph tape-c ph-tilt-b shot"><img class="ph-photo" src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence, absorbed in the animals on the other side" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure>
