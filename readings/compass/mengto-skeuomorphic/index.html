@@ -471,7 +471,9 @@ html,body{overflow-x:clip}
      down and to the right. The label centres on both axes: text-align:center
      from the section, and line-height 50px inside 54px with 2px borders. */
   #atf .wrap .cta{width:66%;border:2px solid #3A4435;border-radius:6px;
-    line-height:50px;box-shadow:5px 5px 0 #3A4435}
+    line-height:50px;box-shadow:5px 5px 0 #3A4435;
+    /* 1 — the gap under the last field: .cta{margin-top:8px} x 1.5. */
+    margin-top:12px}
   #atf .under{text-align:left}
 
   /* the reassurance ticks as a check list rather than a bordered well. */
@@ -507,10 +509,18 @@ html,body{overflow-x:clip}
   #atf .slide img{object-fit:contain;width:100%;height:100%}
 
   /* 6 — three reviews across the full width, under both columns. */
-  /* 3 — the tan rule above the testimonials goes with it. */
+  /* 3 — the tan rule above the testimonials goes with it.
+     2 — and the step down to them halves: it was margin-top 44px plus
+     padding-top 28px, 72px in all; it is 22px plus 14px, 36px. */
   #atf>.wc-reviews{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:18px;margin-top:44px;padding-top:28px;border-top:0}
-  #atf .wc-review{margin:0;padding:16px 18px;border:1px solid var(--tan);border-radius:4px}
+    gap:18px;margin-top:22px;padding-top:14px;border-top:0}
+  /* 3 — the cards take the stat cards' radius and hairline from further down
+     the page (.stat: border-radius 14px, border 1px solid #495543), on white,
+     with the stat cards' outer shadow geometry tinted to the palette's green
+     instead of black, because these sit on cream and not on the dark shell. */
+  #atf .wc-review{margin:0;padding:16px 18px;background:#FFFFFF;
+    border:1px solid #495543;border-radius:14px;
+    box-shadow:0 5px 16px rgba(73,85,67,.18)}
   #atf .wc-review .wc-stars{display:block;margin-bottom:9px}
   #atf .wc-review blockquote{margin:0;color:var(--green);font-size:13.5px;line-height:1.55}
   #atf .wc-review figcaption{margin-top:11px;color:var(--bark);font-size:10.5px;
