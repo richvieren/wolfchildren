@@ -1813,5 +1813,11 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   const list = only ? { [only]: THEMES[only] } : THEMES;
   if (only && !THEMES[only]) { console.error(`no such theme: ${only}`); process.exit(1); }
   auditShared();
-  for (const [slug, t] of Object.entries(list)) console.log(`wrote ${writeVariant(slug, t)}`);
+  for (const [slug, t] of Object.entries(list)) {
+    // mengto-skeuomorphic is assembled from modules now (src/page/) and built by
+    // build-mengto.mjs. Writing it from here would put the pre-refactor bytes
+    // back and lose the variant id, so this file keeps only its skin.
+    if (slug === 'mengto-skeuomorphic') { console.log('skipped mengto-skeuomorphic: build it with node build-mengto.mjs'); continue; }
+    console.log(`wrote ${writeVariant(slug, t)}`);
+  }
 }

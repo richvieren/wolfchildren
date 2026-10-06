@@ -1,0 +1,72 @@
+// render.mjs — assembles one page from its config. The config is the page:
+// an ordered list of module ids with the copy variant each one uses, the ATF's
+// A/B cell, and the skin. Nothing here knows what a module contains.
+//
+// Richard, 2026-10-06: "pages can be assembled and A/B-tested from parts."
+import { readdirSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {
+  FONTS_V2, TOKENS_WC, BASE, PHOTO_CSS_V2, V2_SHARED, ATF_RESET, ATF_GUARD, PIXEL, DATASET,
+} from '../../variants.mjs';
+import { THEMES } from '../../variants2.mjs';
+import { atfMarkup, ATF_JS, scopedAtfCss, atfDesktopCss } from '../lib/atf-section.mjs';
+import { resolve as resolveAtf } from '../lib/atf-copy.mjs';
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+
+/** Every module on disk, by id. An id is permanent: a retired module keeps its
+ *  file and simply stops being named in any config. */
+export async function loadModules() {
+  const out = {};
+  for (const f of readdirSync(join(HERE, 'modules')).sort()) {
+    if (!f.endsWith('.mjs')) continue;
+    const m = await import(join(HERE, 'modules', f));
+    const copy = await import(join(HERE, 'copy', f));
+    if (out[m.id]) throw new Error(`duplicate module id: ${m.id}`);
+    out[m.id] = { ...m, copy: copy.variants };
+  }
+  return out;
+}
+
+/** The page, as a string. */
+export async function render(config) {
+  const mods = await loadModules();
+  const skin = THEMES[config.skin];
+  if (!skin) throw new Error(`no such skin: ${config.skin}`);
+
+  const body = config.modules.map((m) => {
+    const mod = mods[m.id];
+    if (!mod) throw new Error(`${config.id}: no module with id ${m.id}`);
+    const copy = mod.copy[m.copy ?? 'A'];
+    if (!copy) throw new Error(`${config.id}: module ${m.id} has no copy variant ${m.copy}`);
+    return mod.markup(copy, m.settings ?? {});
+  }).join('\n\n');
+
+  const moduleCss = config.modules.map((m) => mods[m.id].css).filter(Boolean).join('');
+  const atf = resolveAtf(config.atf?.cell ?? 'control');
+  const section = skin.atfV2 ? skin.atfV2(atfMarkup(atf)) : atfMarkup(atf);
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="wc-variant" content="${config.id}">
+<title>${skin.title} | Compass</title>
+<script src="/assets/js/pixel.js?v=${PIXEL}"></script>
+<script>window.WC_VARIANT=${JSON.stringify(config.id)};fbq('trackCustom','VariantView',{variant:window.WC_VARIANT});</script>
+<style>${FONTS_V2}${TOKENS_WC}${BASE}${skin.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${scopedAtfCss('#atf')}${ATF_GUARD}${atfDesktopCss('#atf')}${skin.cssV2 || ''}${moduleCss}</style>
+</head>
+<body data-variant="${config.id}">
+<noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
+<div id="atf">${section}</div>
+
+${body}
+
+${ATF_JS}
+</body>
+</html>
+`;
+}

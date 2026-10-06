@@ -19,7 +19,11 @@ export const SLOTS = {
   announce:   ['Buy two and get one free.'],
   eyebrow:    ['For the parent who goes deeper'],
   // <br> marks the line break. Richard's preview breaks after "child's".
-  headline:   [`Discover your child's<br>astrology cheat sheet`],
+  // [1] is not new copy. It is the sub line below, reused verbatim as a headline
+  // for the A/B demo, because every slot in here still has exactly one variant
+  // and nothing may be written for Richard (see the RULE above).
+  headline:   [`Discover your child's<br>astrology cheat sheet`,
+               'The Compass helps you understand and empower your child based on their unique astrology chart.'],
   sub:        ['The Compass helps you understand and empower your child based on their unique astrology chart.'],
   formLabel:  ['Start with their birth details'],
   fieldDate:  ['Date of birth'],
@@ -70,6 +74,8 @@ export const OFFERS = [
 /** Named test cells. `control` takes index 0 everywhere. */
 export const CELLS = {
   control: {},
+  // The A/B demo page: the headline takes variant 1.
+  'ab-demo': { headline: 1 },
   // Example of the shape, commented until Richard writes the variant copy:
   // 'h2': { headline: 1 },
   // 'h2-sub2': { headline: 1, sub: 1 },

@@ -61,6 +61,9 @@ const generatedPages = ['readings/compass/sample/nora/index.html',
                         'readings/compass/mengto-product-proof/index.html',
                         'readings/compass/mengto-wireframe/index.html',
                         'readings/compass/mengto-skeuomorphic/index.html',
+                        // 2026-10-06: page variants assembled from modules
+                        // (src/page/, built by build-mengto.mjs).
+                        'readings/compass/mengto-ab-demo/index.html',
                         'readings/compass/mengto-dark-blue/index.html',
                         // 2026-09-27: the reasons block with the real product in it
                         // (preview-widgets.mjs). Preview only, noindex, unlinked.
