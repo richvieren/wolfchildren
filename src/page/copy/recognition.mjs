@@ -8,6 +8,8 @@ import { C } from '../../lib/compass-copy.mjs';
 export const variants = {
   A: {
     eyebrow: 'Your chart, then theirs',
+    // the word the drawn ring sits around; the headline itself is untouched
+    hook: 'theirs',
     cta: 'Read theirs',
     h2: "You've read your own chart a hundred times. Never theirs.",
     body: [

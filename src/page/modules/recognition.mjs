@@ -9,12 +9,17 @@ export const id = 'recognition';
 export const css = `
 /* the paper: the squared sheet the homepage uses, blended over the ground so a
    dark module stays dark and a light one reads as paper. One token turns it off. */
-.recognition-s{background-image:var(--s-texture);background-size:cover;
+/* full bleed. The cream strips either side came from the skin's app-shell rule
+   .s,.band{margin:0 16px;border-left:var(--s-border);border-right:var(--s-border)},
+   which frames every section inside the light field. This module leaves the
+   frame at every width. */
+.recognition-s{margin-left:0;margin-right:0;border-left:0;border-right:0;
+  background-image:var(--s-texture);background-size:cover;
   background-position:center;background-blend-mode:var(--s-texture-blend)}
 .rec{display:grid;gap:var(--s-space-block)}
 
 /* the text column */
-.rec-eyebrow{font-family:var(--b-body);color:var(--g-quiet);
+.rec-eyebrow{font-family:var(--b-body);color:var(--g-text);
   font-size:var(--s-type-eyebrow);letter-spacing:var(--s-type-eyebrow-ls);
   text-transform:uppercase;line-height:1.4}
 .rec-rule{display:block;width:44px;height:1px;background:var(--b-tan);
@@ -44,9 +49,13 @@ export const css = `
   border:0;border-radius:var(--s-radius-photo)}
 .rec-small{position:absolute;right:-4%;bottom:0;width:45%;margin:0;
   transform:rotate(var(--s-tilt-b))}
-.rec-small-backing{position:absolute;inset:0;transform:translate(10px,10px);
+.rec-small-backing{display:block;position:absolute;inset:0;transform:translate(10px,10px);
   background:var(--b-cta);border-radius:var(--s-radius-photo)}
-.rec-slides{position:relative;aspect-ratio:3/4}
+/* display:block, because a span is an inline box: aspect-ratio and the
+   absolutely positioned slides inside it had no height, so the small
+   photograph, its backing card and the squiggle beside them rendered as
+   nothing. That was the bug, 2026-10-06. */
+.rec-slides{display:block;position:relative;aspect-ratio:3/4}
 .rec-slides img{position:absolute;inset:0;width:100%;height:100%;
   object-fit:contain;border:0;border-radius:var(--s-radius-photo);
   opacity:0;transition:opacity 900ms ease}
@@ -54,6 +63,13 @@ export const css = `
 .rec-mark{position:absolute;color:var(--b-tan);pointer-events:none}
 .rec-mark svg{display:block;width:100%;height:auto}
 .rec-mark-star{width:34px;right:-6%;top:-5%}
+/* the hook: a drawn ring around one word. inline-block keeps it attached to the
+   word when the line wraps, and the em sizing makes it scale with the headline.
+   Morning Memories carries no ornament of its own (GSUB: liga only, GPOS: kern,
+   330 glyphs, no swsh/ornm/salt and no ornament files), so it is drawn here. */
+.rec-hook{position:relative;display:inline-block;color:var(--b-orange)}
+.rec-hook svg{position:absolute;left:-.18em;top:-.12em;width:calc(100% + .36em);
+  height:calc(100% + .3em);overflow:visible;pointer-events:none}
 .rec-mark-squiggle{width:72px;right:38%;bottom:12%}
 @media(prefers-reduced-motion:reduce){
   .rec-slides img{transition:none}
@@ -67,6 +83,18 @@ export const css = `
 const STAR = '<span class="rec-mark rec-mark-star" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>';
 const SQUIGGLE = '<span class="rec-mark rec-mark-squiggle" aria-hidden="true"><svg viewBox="0 0 90 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 18c9-14 17 6 26-6s17 14 26 2 13 2 13 2"/></svg></span>';
 
+const RING = '<svg viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="3.4"'
+  + ' stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true">'
+  + '<path d="M44 9c-22 3-38 12-40 24-3 15 18 29 56 33 39 4 92 1 130-9 24-6 33-17 28-26'
+  + 'C212 20 186 11 150 7 116 3 76 4 44 9"/></svg>';
+
+/** Wraps one word of the headline in the drawn ring. The copy itself is never
+ *  edited: the word to mark is a field beside it. */
+function hook(text, word) {
+  if (!word || !text.includes(word)) return text;
+  return text.replace(word, `<span class="rec-hook">${word}${RING}</span>`);
+}
+
 export function markup(copy, settings = {}) {
   const g = settings.className ? ` ${settings.className}` : '';
   const big = settings.photo;
@@ -75,7 +103,7 @@ export function markup(copy, settings = {}) {
   <div class="rec">
     <div class="rec-text">
       <p class="rec-eyebrow">${copy.eyebrow}</p><span class="rec-rule"></span>
-      <h2>${copy.h2}</h2>
+      <h2>${hook(copy.h2, copy.hook)}</h2>
       <p class="rec-lead">${copy.body[0]}</p>
       <p class="rec-body">${copy.body[1]}</p>
       <a class="rec-cta" href="#atf" data-rec-cta>${copy.cta}</a>
