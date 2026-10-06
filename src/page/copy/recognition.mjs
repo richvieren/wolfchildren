@@ -7,11 +7,13 @@ import { C } from '../../lib/compass-copy.mjs';
 
 export const variants = {
   A: {
+    eyebrow: 'Your chart, then theirs',
+    cta: 'Read theirs',
     h2: "You've read your own chart a hundred times. Never theirs.",
     body: [
       'You know why you need a quiet hour after a crowded day. You know which part of you picks the fight and which part makes up after. You learned it from your own chart, line by line.',
       'Your child has one too. Same sky, a different night. It says what settles them after a hard day, why bedtime goes the way it goes, and why the two of you clash over the same small thing.',
     ],
   },
-  B: { h2: C.recognition.h2, body: C.recognition.body },
+  B: { eyebrow: 'Your chart, then theirs', cta: 'Read theirs', h2: C.recognition.h2, body: C.recognition.body },
 };

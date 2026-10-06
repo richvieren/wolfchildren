@@ -28,6 +28,10 @@ export const tokens = `
   --s-type-display:clamp(32px,3vw,44px); --s-type-display-lh:.98; --s-type-display-ls:-.02em;
   --s-type-body:15px; --s-type-body-lh:1.5; --s-type-body-ls:-.01em;
   --s-space-block:24px; --s-space-para:18px;
+  --s-radius-photo:24px; --s-tilt-a:-2deg; --s-tilt-b:2.5deg;
+  --s-type-lead:19.5px; --s-type-lead-lh:1.45;
+  --s-type-eyebrow:10.5px; --s-type-eyebrow-ls:.22em;
+  --s-texture:url("/assets/img/bg.avif"); --s-texture-blend:soft-light;
 `;
 
 export const css = `

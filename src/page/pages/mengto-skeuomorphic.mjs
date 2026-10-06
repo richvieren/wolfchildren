@@ -22,6 +22,12 @@ export default {
           h: 1600,
           alt: 'A child at a fence, absorbed in the animals on the other side',
         },
+        // the small photograph crossfades through these three, 3.5s apart
+        slideshow: [
+          { src: '/assets/img/compass2/reason-3.webp', w: 1200, h: 1600, alt: 'A child running across grass towards the trees' },
+          { src: '/assets/img/compass2/reason-4.webp', w: 1200, h: 1600, alt: 'A child small on a path between tall pines' },
+          { src: '/assets/img/compass2/reason-1.webp', w: 1200, h: 1600, alt: 'A child standing on a rock in a forest, looking back' },
+        ],
       } },
     { id: 'hero', copy: 'A' },
     { id: 'sample', copy: 'A' },

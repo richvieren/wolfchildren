@@ -141,6 +141,10 @@ footer{padding:56px 0}
   --s-type-display:clamp(32px,3vw,44px); --s-type-display-lh:.98; --s-type-display-ls:-.02em;
   --s-type-body:15px; --s-type-body-lh:1.5; --s-type-body-ls:-.01em;
   --s-space-block:24px; --s-space-para:18px;
+  --s-radius-photo:24px; --s-tilt-a:-2deg; --s-tilt-b:2.5deg;
+  --s-type-lead:19.5px; --s-type-lead-lh:1.45;
+  --s-type-eyebrow:10.5px; --s-type-eyebrow-ls:.22em;
+  --s-texture:url("/assets/img/bg.avif"); --s-texture-blend:soft-light;
 }
 
 
@@ -670,17 +674,57 @@ html,body{overflow-x:clip}
   #atf .wc-review .wc-stars{display:inline-block;margin:0;color:var(--s-star);
     font-size:19px;letter-spacing:.14em}
 }
+/* the paper: the squared sheet the homepage uses, blended over the ground so a
+   dark module stays dark and a light one reads as paper. One token turns it off. */
+.recognition-s{background-image:var(--s-texture);background-size:cover;
+  background-position:center;background-blend-mode:var(--s-texture-blend)}
 .rec{display:grid;gap:var(--s-space-block)}
+
+/* the text column */
+.rec-eyebrow{font-family:var(--b-body);color:var(--g-quiet);
+  font-size:var(--s-type-eyebrow);letter-spacing:var(--s-type-eyebrow-ls);
+  text-transform:uppercase;line-height:1.4}
+.rec-rule{display:block;width:44px;height:1px;background:var(--b-tan);
+  margin:10px 0 var(--s-space-block)}
 .rec h2{font-family:var(--b-display);font-weight:400;color:var(--g-text);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);max-width:none}
-.rec-copy{margin-top:var(--s-space-block)}
-.rec-copy p{font-family:var(--b-body);color:var(--g-text);
+.rec-lead{font-family:var(--b-body);color:var(--g-text);
+  font-size:var(--s-type-lead);line-height:var(--s-type-lead-lh);
+  letter-spacing:var(--s-type-body-ls);max-width:46ch;margin-top:var(--s-space-block)}
+.rec-body{font-family:var(--b-body);color:var(--g-text);
   font-size:var(--s-type-body);line-height:var(--s-type-body-lh);
-  letter-spacing:var(--s-type-body-ls);max-width:60ch}
-.rec-copy p + p{margin-top:var(--s-space-para)}
-.rec-photo{margin:0}
-.rec-photo img{display:block;width:100%;height:auto;object-fit:contain;border:0}
+  letter-spacing:var(--s-type-body-ls);max-width:60ch;margin-top:var(--s-space-para)}
+.rec-cta{display:inline-block;margin-top:var(--s-space-block);
+  font-family:var(--b-body);font-size:var(--s-type-body);letter-spacing:.06em;
+  text-transform:uppercase;text-decoration:none;cursor:pointer;
+  padding:0 26px;height:54px;line-height:50px;
+  background:var(--b-green);color:var(--b-cream);
+  border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
+  box-shadow:var(--s-shadow-hard)}
+
+/* the photo cluster: one large photograph, one small one overlapping its lower
+   outer corner on a backing card, and two drawn marks. */
+.rec-cluster{position:relative;padding:0 0 18% 0}
+.rec-large{margin:0;transform:rotate(var(--s-tilt-a))}
+.rec-large img{display:block;width:100%;height:auto;object-fit:contain;
+  border:0;border-radius:var(--s-radius-photo)}
+.rec-small{position:absolute;right:-4%;bottom:0;width:45%;margin:0;
+  transform:rotate(var(--s-tilt-b))}
+.rec-small-backing{position:absolute;inset:0;transform:translate(10px,10px);
+  background:var(--b-cta);border-radius:var(--s-radius-photo)}
+.rec-slides{position:relative;aspect-ratio:3/4}
+.rec-slides img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;border:0;border-radius:var(--s-radius-photo);
+  opacity:0;transition:opacity 900ms ease}
+.rec-slides img.on{opacity:1}
+.rec-mark{position:absolute;color:var(--b-tan);pointer-events:none}
+.rec-mark svg{display:block;width:100%;height:auto}
+.rec-mark-star{width:34px;right:-6%;top:-5%}
+.rec-mark-squiggle{width:72px;right:38%;bottom:12%}
+@media(prefers-reduced-motion:reduce){
+  .rec-slides img{transition:none}
+}
 @media(min-width:900px){
   .rec{grid-template-columns:40% 45%;justify-content:space-between;
     align-items:start;gap:0}
@@ -786,12 +830,49 @@ html,body{overflow-x:clip}
 <section class="s recognition-s wc-ground-dark"><div class="wrap">
   <div class="rec">
     <div class="rec-text">
+      <p class="rec-eyebrow">Your chart, then theirs</p><span class="rec-rule"></span>
       <h2>You've read your own chart a hundred times. Never theirs.</h2>
-      <div class="rec-copy"><p>You know why you need a quiet hour after a crowded day. You know which part of you picks the fight and which part makes up after. You learned it from your own chart, line by line.</p><p>Your child has one too. Same sky, a different night. It says what settles them after a hard day, why bedtime goes the way it goes, and why the two of you clash over the same small thing.</p></div>
+      <p class="rec-lead">You know why you need a quiet hour after a crowded day. You know which part of you picks the fight and which part makes up after. You learned it from your own chart, line by line.</p>
+      <p class="rec-body">Your child has one too. Same sky, a different night. It says what settles them after a hard day, why bedtime goes the way it goes, and why the two of you clash over the same small thing.</p>
+      <a class="rec-cta" href="#atf" data-rec-cta>Read theirs</a>
     </div>
-    <figure class="rec-photo"><img src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence, absorbed in the animals on the other side" loading="lazy" decoding="async"></figure>
+    <div class="rec-cluster">
+      <figure class="rec-large"><img src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence, absorbed in the animals on the other side" loading="lazy" decoding="async"></figure>
+      <span class="rec-mark rec-mark-star" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
+      <figure class="rec-small"><span class="rec-small-backing" aria-hidden="true"></span>
+        <span class="rec-slides"><img class="on" src="/assets/img/compass2/reason-3.webp" width="1200" height="1600" alt="A child running across grass towards the trees" loading="lazy" decoding="async"><img class="" src="/assets/img/compass2/reason-4.webp" width="1200" height="1600" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="" src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+      </figure>
+      <span class="rec-mark rec-mark-squiggle" aria-hidden="true"><svg viewBox="0 0 90 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 18c9-14 17 6 26-6s17 14 26 2 13 2 13 2"/></svg></span>
+    </div>
   </div>
 </div></section>
+<script>
+(function(){
+  // the button: back to the birth form, and the first field takes focus. The
+  // fields are spans in the section's own markup, so focus needs a tabindex,
+  // set here at runtime rather than by changing the ATF.
+  var b=document.querySelector('[data-rec-cta]');
+  if(b) b.addEventListener('click',function(e){
+    var form=document.querySelector('#atf .form'); if(!form) return;
+    e.preventDefault();
+    form.scrollIntoView({behavior:'smooth',block:'center'});
+    var f=form.querySelector('.field'); if(!f) return;
+    if(!f.hasAttribute('tabindex')) f.setAttribute('tabindex','-1');
+    setTimeout(function(){ f.focus({preventScroll:true}); },600);
+  });
+  // the small photograph crossfades; it stands still when the reader asks for
+  // less motion.
+  var imgs=[].slice.call(document.querySelectorAll('.rec-slides img'));
+  if(imgs.length<2) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var i=0;
+  setInterval(function(){
+    imgs[i].classList.remove('on');
+    i=(i+1)%imgs.length;
+    imgs[i].classList.add('on');
+  },3500);
+})();
+</script>
 
 <section class="s hero wc-ground-light"><div class="wrap">
   <h1>Stop Guessing What Your Child Needs Right Now.</h1>
