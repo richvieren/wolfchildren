@@ -419,7 +419,7 @@ html,body{overflow-x:clip}
      container stays 1120px and the carousel 513.5px; at 1728px the container is
      1380px and the carousel 647.3px, where it was 1120px and 513.5px. */
   #atf{width:max(1120px,80%);max-width:1380px;
-    grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);column-gap:58px;
+    grid-template-columns:minmax(0,var(--w1)) minmax(0,var(--w2));column-gap:58px;
     /* The left column spread because of #atf>.carousel{grid-row:3/span 3}: a
        grid item taller than the rows it spans has its extra height shared
        equally between those rows, and rows 3, 4 and 5 are the rating, the
@@ -431,8 +431,18 @@ html,body{overflow-x:clip}
        block, form block, reviews; the spacer and the sticky bar are
        display:none here and make no row. */
     grid-template-rows:auto auto min-content min-content 1fr auto}
-  #atf>.wc-rating{grid-column:1}
-  #atf>.carousel{grid-column:2;grid-row:3/span 3;align-self:start;margin:0}
+  #atf>.wc-rating{grid-column:var(--text)}
+  #atf>.carousel{grid-column:var(--photo);grid-row:3/span 3;align-self:start;margin:0}
+  #atf>:not(.carousel,.announce,.hdr,.wc-reviews){grid-column:var(--text)}
+
+  /* ── 1. THE COLUMN SWAP ────────────────────────────────────────────────
+     This is the line. --photo and --text are the two grid columns and --w1
+     and --w2 the two track widths, so one declaration decides which side the
+     framed carousel is on. Put the photograph back on the right with:
+       #atf{--photo:2;--text:1;--w1:1fr;--w2:1.06fr}
+     Nothing else moves: every element keeps its own rules, both columns still
+     start on row 3, and grid-template-rows still packs the text column up. */
+  #atf{--photo:1;--text:2;--w1:1.06fr;--w2:1fr}
   #atf>.wc-reviews{grid-column:1/-1}
 
   /* 4 — the left column, top to bottom. */
@@ -524,7 +534,7 @@ html,body{overflow-x:clip}
      instead of black, because these sit on cream and not on the dark shell. */
   /* 1 — the buy button's treatment on the cards: white, a 20px radius, a 2px
      #3A4435 outline and the same hard offset shadow down and to the right. */
-  #atf .wc-review{margin:0;padding:22px 20px;background:#FFFFFF;text-align:center;
+  #atf .wc-review{margin:0;padding:22px 20px;background:#F8F5EC;text-align:center;
     border:2px solid #3A4435;border-radius:20px;
     box-shadow:5px 5px 0 #3A4435}
   #atf .wc-review blockquote{margin:0;color:var(--green);font-size:13.5px;line-height:1.55}
