@@ -421,8 +421,9 @@ html,body{overflow-x:clip}
 
   /* ── 3. the buy button, as it is above 900px, full width. 46px of line-height
      inside 50px with 2px borders centres the label on both axes. */
+  /* 1 — and more air around it: 8px above the button becomes 20px. */
   #atf .wrap .cta{border:2px solid #3A4435;border-radius:6px;line-height:46px;
-    box-shadow:5px 5px 0 #3A4435}
+    box-shadow:5px 5px 0 #3A4435;margin-top:20px}
 
   /* ── 4. the slim pinned header, shown by the observer when the buy button
      has left the screen. The announce bar is not part of it. */
@@ -439,8 +440,10 @@ html,body{overflow-x:clip}
 
   /* ── 4. the tick list as it is above 900px: one column, no box, 10px between
      items, and 20px between the button and the list. */
-  #atf .fuds{grid-template-columns:1fr;gap:10px;padding:0;border:0;background:none;
-    margin-top:20px}
+  /* 2 — the ticks in a soft panel, and 24px under the button. One column and
+     10px between items stand. */
+  #atf .fuds{grid-template-columns:1fr;gap:10px;border:0;background:#F8F5EC;
+    border-radius:12px;padding:16px 18px;margin-top:24px}
 
   /* ── 5. the ATF ends on cream, 40px clear of the module below it, which
      starts hard against the tick list today. */
