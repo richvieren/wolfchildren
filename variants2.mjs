@@ -99,8 +99,15 @@ const MENGTO_THUMB_JS = `
 (function(){
   var bar=document.querySelector('.wc-topbar'), btn=document.querySelector('.wrap .cta');
   if(!bar||!btn||!('IntersectionObserver' in window)) return;
-  new IntersectionObserver(function(e){ bar.classList.toggle('on', !e[0].isIntersecting); },
-    {threshold:0}).observe(btn);
+  // Off screen is not enough: with the photograph first the button starts below
+  // the fold, which is also not intersecting. The header belongs to the state
+  // where the button has gone past the TOP of the viewport, so the test is its
+  // bottom edge above 0. The observer fires once on observe, so a page opened
+  // already scrolled gets the right state too.
+  new IntersectionObserver(function(e){
+    var r=e[0];
+    bar.classList.toggle('on', !r.isIntersecting && r.boundingClientRect.bottom < 0);
+  },{threshold:0}).observe(btn);
 })();
 </script>`;
 
