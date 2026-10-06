@@ -3,14 +3,45 @@
 The live page at `/readings/compass/mengto-skeuomorphic/` is a **config**, not a
 template. Everything else is a part it names.
 
+## The five layers
+
+| layer | what it owns | where |
+|---|---|---|
+| **brand** | the project's palette and faces | `brands/<id>.mjs` |
+| **skin** | the look: radii, shadows, borders, button and card shape, photo frame, spacing scale | `skins/<id>.mjs` |
+| **ground** | light or dark, as role tokens | `grounds.mjs` |
+| **module** | structure and markup | `modules/<id>.mjs` |
+| **copy** | the words, by variant | `copy/<id>.mjs` |
+
+A page config names a brand and a skin; the renderer assigns grounds; modules
+and copy are chosen per page. Module and ATF CSS may use **only** brand (`--b-`),
+skin (`--s-`) and ground (`--g-`) tokens. No hard-coded radius, shadow, border or
+colour belongs in a module.
+
 ```
 src/page/
-  pages/<id>.mjs      one page: ordered module ids, a copy variant each, the ATF cell
+  pages/<id>.mjs      one page: brand, skin, ordered module ids, a copy variant each, the ATF cell
+  brands/<id>.mjs     the palette and the faces
+  skins/<id>.mjs      the look, as tokens plus the rules that read them
+  grounds.mjs         the light and dark token sets
   modules/<id>.mjs    one module: its markup, its own CSS, its permanent id
   copy/<id>.mjs       that module's copy, by variant (A, B, …)
   render.mjs          assembles a config into HTML
 build-mengto.mjs      builds every config in pages/, and nothing else
 ```
+
+## Make a new skin
+
+1. Copy `skins/mengto.mjs` to `skins/<name>.mjs`, or import its `css` and
+   `atfCss` and export your own `tokens` — that is all `skins/plain.mjs` does.
+2. Set every token mengto sets. A missing token leaves that declaration empty.
+3. Name it in a page config: `skin: '<name>'`.
+4. One module can wear another skin: `{ id: 'offer', copy: 'A', skin: 'plain' }`.
+   The renderer emits that skin's tokens as `.wc-skin-<name>` and puts the class
+   on that module only.
+
+`mengto-ab-demo` is a worked example: the same modules and the same brand, on
+the plain skin.
 
 ## Make a new variant
 

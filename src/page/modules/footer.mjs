@@ -9,6 +9,6 @@ export const id = 'footer';
 export const css = '';
 
 export function markup(copy, settings = {}) {
-  const g = settings.ground ? ` wc-ground-${settings.ground}` : '';
+  const g = settings.className ? ` ${settings.className}` : '';
   return `<footer class="${g.trim()}"><div class="wrap">Wolf Children · hello@wolfchildren.co</div></footer>`;
 }

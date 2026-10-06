@@ -9,7 +9,7 @@ export const id = 'support-band';
 export const css = '';
 
 export function markup(copy, settings = {}) {
-  const g = settings.ground ? ` wc-ground-${settings.ground}` : '';
+  const g = settings.className ? ` ${settings.className}` : '';
   return `<div class="band${g}"><div class="wrap band-grid">
   ${copy.support.bullets.map((b) => `<p class="bullet">${b}</p>`).join('')}
 </div><div class="wrap"><div class="badges">${copy.support.badges.map((b) => `<span class="small">${b}</span>`).join('')}</div></div></div>`;

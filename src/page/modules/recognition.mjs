@@ -9,7 +9,7 @@ export const id = 'recognition';
 export const css = '';
 
 export function markup(copy, settings = {}) {
-  const g = settings.ground ? ` wc-ground-${settings.ground}` : '';
+  const g = settings.className ? ` ${settings.className}` : '';
   return `<section class="s recognition-s${g}"><div class="wrap">
   <h2>${copy.recognition.h2}</h2>
   <div class="recognition">${copy.recognition.body.map((t) => `<p>${t}</p>`).join('')}</div>

@@ -9,7 +9,7 @@ export const id = 'offer';
 export const css = '';
 
 export function markup(copy, settings = {}) {
-  const g = settings.ground ? ` wc-ground-${settings.ground}` : '';
+  const g = settings.className ? ` ${settings.className}` : '';
   return `<section class="s offer-s${g}" id="offer"><div class="wrap">
   <figure class="offer-shot"><figure class="ph tape-c ph-tilt-a shot"><img class="ph-photo" src="/assets/img/compass2/offer.webp" width="1200" height="1600" alt="A child in a doorway at the end of the day, boots muddy" loading="lazy" decoding="async"><img class="tape" src="/assets/img/frames/tape-7.png" alt="" aria-hidden="true" loading="lazy"></figure></figure>
   <div class="offer">

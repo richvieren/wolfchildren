@@ -10,6 +10,7 @@ import {
   FONTS_V2, TOKENS_WC, BASE, PHOTO_CSS_V2, V2_SHARED, ATF_RESET, ATF_GUARD, PIXEL, DATASET,
 } from '../../variants.mjs';
 import { THEMES } from '../../variants2.mjs';
+import * as grounds from './grounds.mjs';
 import { atfMarkup, ATF_JS, scopedAtfCss, atfDesktopCss } from '../lib/atf-section.mjs';
 import { resolve as resolveAtf } from '../lib/atf-copy.mjs';
 
@@ -30,10 +31,21 @@ export async function loadModules() {
 }
 
 /** The page, as a string. */
+/** The five layers, loaded by name: brand, skin, ground, module, copy. */
+async function layers(config) {
+  const brand = await import(`./brands/${config.brand}.mjs`);
+  const names = new Set([config.skin, ...config.modules.map((m) => m.skin).filter(Boolean)]);
+  const skins = {};
+  for (const n of names) skins[n] = await import(`./skins/${n}.mjs`);
+  return { brand, skins };
+}
+
 export async function render(config) {
   const mods = await loadModules();
-  const skin = THEMES[config.skin];
+  const { brand, skins } = await layers(config);
+  const skin = skins[config.skin];
   if (!skin) throw new Error(`no such skin: ${config.skin}`);
+  const theme = THEMES[config.atfMarkupFrom];   // the ATF's markup transform only
 
   // Grounds alternate by position, starting dark because the ATF above is light.
   // A photograph is neutral: it takes no ground and does not flip the alternation.
@@ -42,7 +54,7 @@ export async function render(config) {
   let next = 'dark';
   let lastId = null;
   let lastGround = null;
-  const grounds = config.modules.map((m) => {
+  const groundOf = config.modules.map((m) => {
     const mod = mods[m.id];
     if (!mod) throw new Error(`${config.id}: no module with id ${m.id}`);
     if (mod.ground === 'neutral') return null;
@@ -60,12 +72,20 @@ export async function render(config) {
     const mod = mods[m.id];
     const copy = mod.copy[m.copy ?? 'A'];
     if (!copy) throw new Error(`${config.id}: module ${m.id} has no copy variant ${m.copy}`);
-    return mod.markup(copy, { ...(m.settings ?? {}), ground: grounds[i] });
+    const cls = [groundOf[i] ? `wc-ground-${groundOf[i]}` : '', m.skin ? `wc-skin-${m.skin}` : '']
+      .filter(Boolean).join(' ');
+    return mod.markup(copy, { ...(m.settings ?? {}), ground: groundOf[i], className: cls });
   }).join('\n\n');
 
   const moduleCss = config.modules.map((m) => mods[m.id].css).filter(Boolean).join('');
   const atf = resolveAtf(config.atf?.cell ?? 'control');
-  const section = skin.atfV2 ? skin.atfV2(atfMarkup(atf)) : atfMarkup(atf);
+  const section = theme.atfV2 ? theme.atfV2(atfMarkup(atf)) : atfMarkup(atf);
+
+  // The skin layer: the page's skin on :root, and one class per other skin a
+  // module asks for, so a module can wear a different look in the same page.
+  const skinCss = `:root{${skin.tokens}}`
+    + Object.values(skins).filter((s2) => s2.id !== skin.id)
+        .map((s2) => `.wc-skin-${s2.id}{${s2.tokens}}`).join('');
 
   return `<!doctype html>
 <html lang="en">
@@ -74,10 +94,10 @@ export async function render(config) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <meta name="wc-variant" content="${config.id}">
-<title>${skin.title} | Compass</title>
+<title>${config.title} | Compass</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
 <script>window.WC_VARIANT=${JSON.stringify(config.id)};fbq('trackCustom','VariantView',{variant:window.WC_VARIANT});</script>
-<style>${FONTS_V2}${TOKENS_WC}${BASE}${skin.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${scopedAtfCss('#atf')}${ATF_GUARD}${atfDesktopCss('#atf')}${skin.cssV2 || ''}${moduleCss}</style>
+<style>${FONTS_V2}${TOKENS_WC}${BASE}${brand.css}${grounds.css}${skinCss}${skin.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${scopedAtfCss('#atf')}${ATF_GUARD}${atfDesktopCss('#atf')}${skin.atfCss}${moduleCss}</style>
 </head>
 <body data-variant="${config.id}">
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>

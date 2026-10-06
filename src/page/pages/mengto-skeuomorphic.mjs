@@ -3,7 +3,10 @@
 export default {
   id: 'mengto-skeuomorphic',
   url: 'readings/compass/mengto-skeuomorphic',
-  skin: 'mengto-skeuomorphic',            // the CSS skin, in variants2.mjs
+  title: 'MengTo · high-contrast-skeuomorphic-clean',
+  brand: 'wolf-children',                 // src/page/brands/
+  skin: 'mengto',                         // src/page/skins/
+  atfMarkupFrom: 'mengto-skeuomorphic',   // the ATF's markup transform, variants2.mjs
   atf: { cell: 'control' },               // a cell in src/lib/atf-copy.mjs
   modules: [
     { id: 'hero', copy: 'A' },

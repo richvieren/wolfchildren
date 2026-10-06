@@ -9,7 +9,7 @@ export const id = 'hero';
 export const css = '';
 
 export function markup(copy, settings = {}) {
-  const g = settings.ground ? ` wc-ground-${settings.ground}` : '';
+  const g = settings.className ? ` ${settings.className}` : '';
   return `<section class="s hero${g}"><div class="wrap">
   <h1>${copy.hero.h1}</h1>
   <p class="lead">${copy.hero.sub}</p>

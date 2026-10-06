@@ -9,7 +9,7 @@ export const id = 'close';
 export const css = '';
 
 export function markup(copy, settings = {}) {
-  const g = settings.ground ? ` wc-ground-${settings.ground}` : '';
+  const g = settings.className ? ` ${settings.className}` : '';
   return `<section class="s close${g}"><div class="wrap">
   <h2>${copy.close[0]}</h2><p class="lead">${copy.close[1]}</p><a class="btn" href="#offer">${copy.close[2]}</a>
 </div></section>`;

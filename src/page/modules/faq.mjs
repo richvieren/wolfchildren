@@ -9,7 +9,7 @@ export const id = 'faq';
 export const css = '';
 
 export function markup(copy, settings = {}) {
-  const g = settings.ground ? ` wc-ground-${settings.ground}` : '';
+  const g = settings.className ? ` ${settings.className}` : '';
   return `<section class="s faq-s${g}"><div class="wrap">
   <h2>${copy.faq.h2}</h2>
   <div class="faq">${copy.faq.items.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
