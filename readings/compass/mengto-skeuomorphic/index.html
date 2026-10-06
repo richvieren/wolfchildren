@@ -405,7 +405,12 @@ html,body{overflow-x:clip}
   /* 2 — the logo centred in the row. 3 — the tan rule under it goes. */
   #atf>.hdr{background:var(--cream);border-bottom:0;
     height:60px;display:flex;align-items:center;justify-content:center;margin:0 0 28px;padding:0}
-  #atf .mark{position:static;left:auto;top:auto;height:27px;width:146px;margin:0}
+  /* The mask is 1200x522 with no transparent padding, so at mask-size:contain
+     inside a 146x27 box it paints 62x27 and mask-position:left center parks it
+     against the left edge: the ink's centre sat 42px left of the element's
+     centre, which is centred. The box stays 146px; the ink is centred in it. */
+  #atf .mark{position:static;left:auto;top:auto;height:27px;width:146px;margin:0;
+    -webkit-mask-position:center;mask-position:center}
 
   /* 3 — two columns, text left and photograph right, both starting on one line.
      The carousel spans the three left-hand rows and starts at their top. */
@@ -414,7 +419,18 @@ html,body{overflow-x:clip}
      container stays 1120px and the carousel 513.5px; at 1728px the container is
      1380px and the carousel 647.3px, where it was 1120px and 513.5px. */
   #atf{width:max(1120px,80%);max-width:1380px;
-    grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);column-gap:58px}
+    grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);column-gap:58px;
+    /* The left column spread because of #atf>.carousel{grid-row:3/span 3}: a
+       grid item taller than the rows it spans has its extra height shared
+       equally between those rows, and rows 3, 4 and 5 are the rating, the
+       headline block and the form block. align-content:start does not stop it;
+       it places rows, it does not size them. Naming the rows fixes where the
+       slack goes: rows 3 and 4 are min-content, row 5 takes the rest, so the
+       column packs to the top and whatever the carousel's height is lands
+       under the form. The six rows are announce, header, rating, headline
+       block, form block, reviews; the spacer and the sticky bar are
+       display:none here and make no row. */
+    grid-template-rows:auto auto min-content min-content 1fr auto}
   #atf>.wc-rating{grid-column:1}
   #atf>.carousel{grid-column:2;grid-row:3/span 3;align-self:start;margin:0}
   #atf>.wc-reviews{grid-column:1/-1}
@@ -466,17 +482,11 @@ html,body{overflow-x:clip}
   /* 5 — the carousel in the frame the photographs on this page already wear:
      a cream matte, a tan hairline, and one piece of tape. No crop and no cover;
      the slides are 1400x1050 inside a 4:3 box, so contain fits exactly. */
-  /* 8 — assets/img/frames/instaxpolaroid-frame.png, 439x665, is a photo-border
-     frame: white paper with a transparent window of 359x458 at (41,74) and the
-     wide band below it. It replaces the CSS matte. border-image, not a
-     background, because the window is portrait (0.784) and the photographs are
-     4:3 landscape: as a background the frame would have to stretch or the
-     photograph would have to letterbox. The slices are the frame's own borders
-     (74 39 133 41) and only the flat white edges between the corners stretch.
-     The interior keeps #F8F5EC, so the dots and the strip sit on paper. */
-  #atf>.carousel{background:#F8F5EC;padding:0;overflow:visible;
-    border-style:solid;border-color:transparent;border-width:100px 53px 181px 56px;
-    border-image:url("/assets/img/frames/instaxpolaroid-frame.png") 74 39 133 41 stretch}
+  /* 5 — the carousel in the frame the photographs on this page already wear:
+     a cream matte, a tan hairline, and one piece of tape. No crop and no cover;
+     the slides are 1400x1050 inside a 4:3 box, so contain fits exactly. */
+  #atf>.carousel{background:#F8F5EC;border:1px solid var(--tan);
+    padding:3.5%;overflow:visible}
   #atf .wc-stage{position:relative}
   /* the dots leave the photograph and sit in the flow, above the strip, so the
      strip cannot be covered by them. */
