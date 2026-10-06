@@ -150,8 +150,11 @@ const MENGTO_ATF_CSS = `
    On a phone #atf is a block with no border and no padding, so that 12px
    collapses through it and shows as the cream gap above the bar. On desktop
    #atf is a grid, so it shows as 12px of #atf's own cream. This is the only
-   source, and it goes. Flush, not sticky: no position is set here. */
-#atf>.announce{margin:0}
+   source, and it goes. Only the block margins: margin:0 also wiped the
+   margin-left:calc(50% - 50vw) that atfDesktopCss sets for the full-bleed, so
+   the bar started at the text column and ran off the right edge. Flush, not
+   sticky: no position is set here. */
+#atf>.announce{margin-block:0}
 
 /* ── 2. The tick list ───────────────────────────────────────────────────────
    Every property that puts vertical space between two items, with its value:
@@ -205,13 +208,19 @@ const MENGTO_ATF_CSS = `
   #atf{overflow-x:visible}
 
   /* 2 — a thin cream header row, the logo at its left, nothing else in it. */
-  #atf>.hdr{background:var(--cream);border-bottom:1px solid var(--tan);
-    height:60px;display:flex;align-items:center;margin:0 0 28px;padding:0}
+  /* 2 — the logo centred in the row. 3 — the tan rule under it goes. */
+  #atf>.hdr{background:var(--cream);border-bottom:0;
+    height:60px;display:flex;align-items:center;justify-content:center;margin:0 0 28px;padding:0}
   #atf .mark{position:static;left:auto;top:auto;height:27px;width:146px;margin:0}
 
   /* 3 — two columns, text left and photograph right, both starting on one line.
      The carousel spans the three left-hand rows and starts at their top. */
-  #atf{grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);column-gap:58px}
+  /* 7 — a wider container, so the carousel grows with it. 80% of the window,
+     never narrower than the 1120px it had, capped at 1380px. At 1280px the
+     container stays 1120px and the carousel 513.5px; at 1728px the container is
+     1380px and the carousel 647.3px, where it was 1120px and 513.5px. */
+  #atf{width:max(1120px,80%);max-width:1380px;
+    grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);column-gap:58px}
   #atf>.wc-rating{grid-column:1}
   #atf>.carousel{grid-column:2;grid-row:3/span 3;align-self:start;margin:0}
   #atf>.wc-reviews{grid-column:1/-1}
@@ -219,13 +228,27 @@ const MENGTO_ATF_CSS = `
   /* 4 — the left column, top to bottom. */
   #atf .wc-rating{display:flex;align-items:baseline;gap:9px;margin:0 0 15px}
   #atf .wc-stars{color:var(--bark);font-size:13px;letter-spacing:.14em}
-  /* the rating row only: the review cards below keep the 13px stars they had. */
-  #atf .wc-rating .wc-stars{font-size:15px}
+  /* 4 — the rating row only: bigger, and a muted warm yellow. #9C7A2B is a
+     bronze-mustard, 2.80:1 on cream; the stars are aria-hidden decoration, and
+     the 4.8/5 beside them carries the meaning in green at 5.50:1. The review
+     cards below keep the 13px bark stars they had. */
+  #atf .wc-rating .wc-stars{font-size:19px;color:#9C7A2B}
   #atf .wc-rated{color:var(--green);font-size:15px}
 
   /* moon and eyebrow on one line; the divider is a mobile device and goes. */
   #atf .badge{display:flex;align-items:center;gap:9px;padding-top:0;text-align:left}
   #atf .moon,#atf .eyebrow{margin:0}
+  /* 5 — the moon on the line. Two things put it low, both measured from the
+     source, and both under 1.5px together:
+       .moon{margin:0 auto -3px} — a -3px bottom margin from the phone layout.
+         The rule above already zeroes it here, so it is not the live cause.
+       the mask itself — circle(24,24,r15) minus circle(33,20,r14). The bite is
+         taken 4 units above centre, so the crescent's area centroid sits at
+         y 26.59 of 48, which is 0.97px below the middle of an 18px box.
+       the text — the eyebrow's ink centre sits 0.47px above the middle of its
+         18.6px line box (Special Elite, 12px, ascent 1440 descent -608 of 2048).
+     align-items:center lines up the boxes, so the ink misses by the sum. */
+  #atf .badge .moon{position:relative;top:-1.4px}
   #atf .stem{display:none}
 
   /* sized so the section's own line break is the only break there is. */
@@ -234,7 +257,11 @@ const MENGTO_ATF_CSS = `
   #atf .sub{margin-left:0;text-align:left;max-width:46ch;font-size:15px;line-height:1.5}
   #atf .form{margin-top:20px}
   #atf .cta{height:54px;line-height:54px;font-size:16px;border-radius:999px}
-  #atf .wrap .cta{width:66%}
+  /* 6 — a rectangle with a 6px radius, a dark green outline and a hard shadow
+     down and to the right. The label centres on both axes: text-align:center
+     from the section, and line-height 50px inside 54px with 2px borders. */
+  #atf .wrap .cta{width:66%;border:2px solid #3A4435;border-radius:6px;
+    line-height:50px;box-shadow:5px 5px 0 #3A4435}
   #atf .under{text-align:left}
 
   /* the reassurance ticks as a check list rather than a bordered well. */
@@ -245,8 +272,17 @@ const MENGTO_ATF_CSS = `
   /* 5 — the carousel in the frame the photographs on this page already wear:
      a cream matte, a tan hairline, and one piece of tape. No crop and no cover;
      the slides are 1400x1050 inside a 4:3 box, so contain fits exactly. */
-  #atf>.carousel{background:#F8F5EC;border:1px solid var(--tan);
-    padding:3.5%;overflow:visible}
+  /* 8 — assets/img/frames/instaxpolaroid-frame.png, 439x665, is a photo-border
+     frame: white paper with a transparent window of 359x458 at (41,74) and the
+     wide band below it. It replaces the CSS matte. border-image, not a
+     background, because the window is portrait (0.784) and the photographs are
+     4:3 landscape: as a background the frame would have to stretch or the
+     photograph would have to letterbox. The slices are the frame's own borders
+     (74 39 133 41) and only the flat white edges between the corners stretch.
+     The interior keeps #F8F5EC, so the dots and the strip sit on paper. */
+  #atf>.carousel{background:#F8F5EC;padding:0;overflow:visible;
+    border-style:solid;border-color:transparent;border-width:100px 53px 181px 56px;
+    border-image:url("/assets/img/frames/instaxpolaroid-frame.png") 74 39 133 41 stretch}
   #atf .wc-stage{position:relative}
   /* the dots leave the photograph and sit in the flow, above the strip, so the
      strip cannot be covered by them. */
@@ -267,8 +303,9 @@ const MENGTO_ATF_CSS = `
   #atf .slide img{object-fit:contain;width:100%;height:100%}
 
   /* 6 — three reviews across the full width, under both columns. */
+  /* 3 — the tan rule above the testimonials goes with it. */
   #atf>.wc-reviews{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:18px;margin-top:44px;padding-top:28px;border-top:1px solid var(--tan)}
+    gap:18px;margin-top:44px;padding-top:28px;border-top:0}
   #atf .wc-review{margin:0;padding:16px 18px;border:1px solid var(--tan);border-radius:4px}
   #atf .wc-review .wc-stars{display:block;margin-bottom:9px}
   #atf .wc-review blockquote{margin:0;color:var(--green);font-size:13.5px;line-height:1.55}
