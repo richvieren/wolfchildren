@@ -281,6 +281,10 @@ const MENGTO_ATF_CSS = `
   /* ── 5. the ATF ends on cream, 40px clear of the module below it, which
      starts hard against the tick list today. */
   #atf{padding-bottom:40px}
+
+  /* the fields take the tick panel's ground. The tan border stands, so they
+     still read as inputs. Above 900px they stay white. */
+  #atf .field{background:#F8F5EC}
 }
 
 @media(min-width:900px){
