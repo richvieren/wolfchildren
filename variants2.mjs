@@ -58,6 +58,43 @@ ${WC_REVIEWS.map((r) => `  <figure class="wc-review" data-placeholder="review">$
 
 // Three insertions into the section's own markup. Each asserts its anchor count,
 // because a replace that matches nothing changes nothing and says nothing.
+// The fourth slide is a shot brief, not a photograph: `{ src: null, brief: ... }`
+// in src/lib/atf-copy.mjs. It renders a dashed empty box, and the dots are one
+// per slide, so three photographs carried four dots. It is hidden in the desktop
+// query, not removed, because the phone layout must not change: the brief is
+// still a slide there. The assertion below is what the CSS rule depends on.
+
+// The stage: the photograph plus the arrows and the dots that point at it. The
+// frame now also holds the thumbnail strip, and arrows positioned against the
+// frame would centre on frame+strip rather than on the photograph. Styled only
+// above 900px, so the phone keeps the geometry it had.
+const STAGE = /<div class="slides"[\s\S]*?<div class="dots">[\s\S]*?<\/div>/;
+
+/** One preview per photograph, from the slides already rendered. Same files, so
+ *  the browser serves them from cache; CSS does the sizing. */
+function mengtoThumbs(stage) {
+  const shots = [...stage.matchAll(/<img src="([^"]+)"[^>]*alt="([^"]*)"/g)];
+  if (!shots.length) throw new Error('mengtoAtf: no photographs to build thumbnails from');
+  return `\n  <div class="wc-thumbs">${shots.map(([, src, alt], i) =>
+    `<button class="wc-thumb${i ? '' : ' on'}" type="button" aria-current="${i ? 'false' : 'true'}"`
+    + ` aria-label="Show photograph ${i + 1}"><img src="${src}" alt="${alt}" width="1400" height="1050" loading="lazy"></button>`,
+  ).join('')}</div>`;
+}
+
+const MENGTO_THUMB_JS = `
+<script>
+(function(){
+  var sc=document.getElementById('slides'); if(!sc) return;
+  var th=[].slice.call(document.querySelectorAll('.wc-thumb')); if(!th.length) return;
+  var at=function(){ return Math.round(sc.scrollLeft/sc.clientWidth); };
+  th.forEach(function(b,i){ b.addEventListener('click',function(){
+    sc.scrollTo({left:sc.clientWidth*i,behavior:'smooth'}); }); });
+  var mark=function(){ var i=at(); th.forEach(function(b,j){
+    b.classList.toggle('on', j===i); b.setAttribute('aria-current', j===i?'true':'false'); }); };
+  sc.addEventListener('scroll',mark,{passive:true}); mark();
+})();
+</script>`;
+
 function mengtoAtf(html) {
   const put = (s, anchor, add, where) => {
     const n = s.split(anchor).length - 1;
@@ -66,15 +103,39 @@ function mengtoAtf(html) {
   };
   let out = put(html, '</header>', MENGTO_RATING, 'after');
   out = put(out, '<div class="carousel">', MENGTO_TAPE, 'after');
-  return out + MENGTO_REVIEWS;
+
+  // The desktop rules hide the last slide and the last dot. Both assume the shot
+  // brief is the last slide and that there is exactly one of it.
+  const empties = (out.match(/<span class="empty">/g) || []).length;
+  if (empties !== 1) throw new Error(`mengtoAtf: expected 1 empty slide, found ${empties}`);
+  if (!/<span class="empty">[^<]*<\/span><\/div>\s*<\/div>/.test(out)) {
+    throw new Error('mengtoAtf: the empty slide is no longer the last one; the desktop rule would hide a photograph');
+  }
+  const dots = (out.match(/<button class="dot/g) || []).length;
+  const slides = (out.match(/<div class="slide">/g) || []).length;
+  if (dots !== slides) throw new Error(`mengtoAtf: ${dots} dots for ${slides} slides`);
+
+  const stage = out.match(STAGE);
+  if (!stage) throw new Error('mengtoAtf: the carousel stage was not found');
+  out = out.replace(STAGE, `<div class="wc-stage">${stage[0]}</div>${mengtoThumbs(stage[0])}`);
+
+  return out + MENGTO_REVIEWS + MENGTO_THUMB_JS;
 }
 
 const MENGTO_ATF_CSS = `
 /* The two elements the section does not have. Hidden everywhere, shown only in
    the desktop query below, so nothing under 900px moves. */
-#atf .wc-rating,#atf .wc-reviews,#atf .wc-tape{display:none}
+#atf .wc-rating,#atf .wc-reviews,#atf .wc-tape,#atf .wc-thumbs{display:none}
 
 @media(min-width:900px){
+  /* 1 — the announce bar reaches both edges of the window. It already carried
+     width:100vw and a negative margin from atfDesktopCss(), and was clipped back
+     to 1120px by the rule #atf{overflow-x:clip} — scopedAtfCss() maps the
+     section's own html,body{overflow-x:clip} onto the wrapper, and clip clips to
+     the padding box. The page keeps its own html,body clip, so releasing it here
+     cannot give the document a sideways scrollbar. */
+  #atf{overflow-x:visible}
+
   /* 2 — a thin cream header row, the logo at its left, nothing else in it. */
   #atf>.hdr{background:var(--cream);border-bottom:1px solid var(--tan);
     height:60px;display:flex;align-items:center;margin:0 0 28px;padding:0}
@@ -90,7 +151,9 @@ const MENGTO_ATF_CSS = `
   /* 4 — the left column, top to bottom. */
   #atf .wc-rating{display:flex;align-items:baseline;gap:9px;margin:0 0 15px}
   #atf .wc-stars{color:var(--bark);font-size:13px;letter-spacing:.14em}
-  #atf .wc-rated{color:var(--green);font-size:12px}
+  /* the rating row only: the review cards below keep the 13px stars they had. */
+  #atf .wc-rating .wc-stars{font-size:15px}
+  #atf .wc-rated{color:var(--green);font-size:15px}
 
   /* moon and eyebrow on one line; the divider is a mobile device and goes. */
   #atf .badge{display:flex;align-items:center;gap:9px;padding-top:0;text-align:left}
@@ -102,18 +165,34 @@ const MENGTO_ATF_CSS = `
 
   #atf .sub{margin-left:0;text-align:left;max-width:46ch;font-size:15px;line-height:1.5}
   #atf .form{margin-top:20px}
-  #atf .cta{height:54px;line-height:54px;font-size:16px}
+  #atf .cta{height:54px;line-height:54px;font-size:16px;border-radius:999px}
   #atf .under{text-align:left}
 
   /* the reassurance ticks as a check list rather than a bordered well. */
-  #atf .fuds{grid-template-columns:1fr;gap:8px;padding:0;border:0;background:none;margin-top:18px}
+  /* 5px, under the 7px the subline sits below the headline (.sub margin-top). */
+  #atf .fuds{grid-template-columns:1fr;gap:5px;padding:0;border:0;background:none;margin-top:18px}
   #atf .fud{font-size:13px}
 
   /* 5 — the carousel in the frame the photographs on this page already wear:
      a cream matte, a tan hairline, and one piece of tape. No crop and no cover;
      the slides are 1400x1050 inside a 4:3 box, so contain fits exactly. */
-  #atf>.carousel{background:var(--cream);border:1px solid var(--tan);
+  #atf>.carousel{background:#F8F5EC;border:1px solid var(--tan);
     padding:3.5%;overflow:visible}
+  #atf .wc-stage{position:relative}
+  /* the dots leave the photograph and sit in the flow, above the strip, so the
+     strip cannot be covered by them. */
+  #atf .dots{position:static;margin-top:10px}
+  /* 5b — the strip: one preview per photograph, inside the frame. */
+  #atf .wc-thumbs{display:flex;justify-content:center;gap:8px;margin-top:10px}
+  #atf .wc-thumb{width:74px;aspect-ratio:4/3;padding:0;background:#F8F5EC;
+    border:1px solid var(--tan);cursor:pointer;opacity:.7}
+  #atf .wc-thumb img{display:block;width:100%;height:100%;object-fit:contain}
+  #atf .wc-thumb.on{border-color:var(--bark);opacity:1}
+  /* 6 — three photographs, three dots. The fourth slide is the shot brief for a
+     photograph nobody has taken yet, and its dot came with it. Both are hidden
+     here and both still stand on the phone. */
+  #atf .slide:has(.empty){display:none}
+  #atf .dots .dot:last-child{display:none}
   #atf .wc-tape{display:block;position:absolute;top:-19px;left:50%;width:24%;
     height:auto;z-index:3;transform:translateX(-50%) rotate(-2deg);border:0;padding:0}
   #atf .slide img{object-fit:contain;width:100%;height:100%}
