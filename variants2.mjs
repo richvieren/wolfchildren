@@ -156,46 +156,6 @@ const MENGTO_ATF_CSS = `
 /* The pinned header is hidden everywhere and shown only below 900px, so no
    desktop rule is needed for it at all. */
 #atf .wc-topbar{display:none}
-
-@media(max-width:899px){
-  /* ── 1. THE MOBILE REORDER ─────────────────────────────────────────────
-     This is the line. The photograph's order value is the whole thing: -1
-     lifts the framed carousel above the eyebrow, the headline, the subline,
-     the fields, the button and the ticks, and below the announce bar and the
-     logo row, which are pinned ahead of it. Put it back under the headline
-     with: #atf{--m-photo:0} */
-  #atf{--m-photo:-1}
-  #atf{display:flex;flex-direction:column}
-  #atf>.announce{order:-3}
-  #atf>.hdr{order:-2}
-  #atf>.carousel{order:var(--m-photo)}
-
-  /* ── 2. the desktop frame, on the phone: the matte, the hairline, the tape.
-     The slides stay object-fit:contain from the section's own rule. */
-  /* the logo sits in a zero-height header and floats over whatever follows it.
-     With the photograph first, that is the frame, so the frame clears it:
-     the mark is 24px tall at top:10px, and 44px puts the frame under it. */
-  #atf>.carousel{background:#F8F5EC;border:1px solid var(--tan);padding:3.5%;margin-top:44px}
-  #atf .wc-tape{display:block;position:absolute;top:-19px;left:50%;width:24%;
-    height:auto;z-index:3;transform:translateX(-50%) rotate(-2deg);border:0;padding:0}
-
-  /* ── 3. the buy button, as it is above 900px, full width. 46px of line-height
-     inside 50px with 2px borders centres the label on both axes. */
-  #atf .wrap .cta{border:2px solid #3A4435;border-radius:6px;line-height:46px;
-    box-shadow:5px 5px 0 #3A4435}
-
-  /* ── 4. the slim pinned header, shown by the observer when the buy button
-     has left the screen. The announce bar is not part of it. */
-  #atf .wc-topbar{position:fixed;left:0;right:0;top:0;z-index:5;
-    align-items:center;justify-content:space-between;gap:12px;
-    background:var(--cream);border-bottom:1px solid var(--tan);padding:8px 16px}
-  #atf .wc-topbar.on{display:flex}
-  #atf .wc-topbar .mark{position:static;left:auto;top:auto;height:20px;width:46px}
-  #atf .wc-topbar .cta{margin:0;width:auto;height:38px;line-height:30px;
-    padding:0 16px;font-size:12px;border:2px solid #3A4435;border-radius:6px;
-    box-shadow:5px 5px 0 #3A4435}
-}
-
 /* ── 1. The announce bar is flush to the top of the window, at every width ──
    Every box above it, with its value:
      html            no rule here and no UA margin              0
@@ -259,6 +219,59 @@ const MENGTO_ATF_CSS = `
 /* ── 6. The birth-detail fields read as inputs at every width. The bible has
    fields as cream with a tan border; white is Richard's instruction. */
 #atf .field{background:#FFFFFF}
+
+@media(max-width:899px){
+  /* ── 1. THE MOBILE REORDER ─────────────────────────────────────────────
+     This is the line. The photograph's order value is the whole thing: -1
+     lifts the framed carousel above the eyebrow, the headline, the subline,
+     the fields, the button and the ticks, and below the announce bar and the
+     logo row, which are pinned ahead of it. Put it back under the headline
+     with: #atf{--m-photo:0} */
+  #atf{--m-photo:-1}
+  #atf{display:flex;flex-direction:column}
+  #atf>.announce{order:-3}
+  #atf>.hdr{order:-2}
+  #atf>.carousel{order:var(--m-photo)}
+
+  /* ── 1b. the divider under the eyebrow: 16px tall, now 8px. */
+  #atf .stem{height:8px}
+
+  /* ── 2. the desktop frame, on the phone: the matte, the hairline, the tape.
+     The slides stay object-fit:contain from the section's own rule. */
+  /* the logo sits in a zero-height header and floats over whatever follows it.
+     With the photograph first, that is the frame, so the frame clears it:
+     the mark is 24px tall at top:10px, and 44px puts the frame under it. */
+  #atf>.carousel{background:#F8F5EC;border:1px solid var(--tan);padding:3.5%;margin-top:44px}
+  #atf .wc-tape{display:block;position:absolute;top:-19px;left:50%;width:24%;
+    height:auto;z-index:3;transform:translateX(-50%) rotate(-2deg);border:0;padding:0}
+
+  /* ── 3. the buy button, as it is above 900px, full width. 46px of line-height
+     inside 50px with 2px borders centres the label on both axes. */
+  #atf .wrap .cta{border:2px solid #3A4435;border-radius:6px;line-height:46px;
+    box-shadow:5px 5px 0 #3A4435}
+
+  /* ── 4. the slim pinned header, shown by the observer when the buy button
+     has left the screen. The announce bar is not part of it. */
+  #atf .wc-topbar{position:fixed;left:0;right:0;top:0;z-index:5;
+    align-items:center;justify-content:space-between;gap:12px;
+    background:var(--cream);border-bottom:1px solid var(--tan);padding:8px 16px}
+  #atf .wc-topbar.on{display:flex}
+  #atf .wc-topbar .mark{position:static;left:auto;top:auto;height:20px;width:46px}
+  /* the label sat 2px high: line-height 30px inside a content box of 34px,
+     which is the 38px height less the 2px borders top and bottom. */
+  #atf .wc-topbar .cta{margin:0;width:auto;height:38px;line-height:34px;
+    padding:0 16px;font-size:12px;border:2px solid #3A4435;border-radius:6px;
+    box-shadow:5px 5px 0 #3A4435}
+
+  /* ── 4. the tick list as it is above 900px: one column, no box, 10px between
+     items, and 20px between the button and the list. */
+  #atf .fuds{grid-template-columns:1fr;gap:10px;padding:0;border:0;background:none;
+    margin-top:20px}
+
+  /* ── 5. the ATF ends on cream, 40px clear of the module below it, which
+     starts hard against the tick list today. */
+  #atf{padding-bottom:40px}
+}
 
 @media(min-width:900px){
   /* 1 — the announce bar reaches both edges of the window. It already carried
