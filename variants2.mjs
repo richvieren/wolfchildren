@@ -16,6 +16,8 @@
 //   node variants2.mjs            build all
 //   node variants2.mjs <slug>     build one
 
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { BASE, FONTS, auditShared, writeVariant } from './variants.mjs';
 
 // ─── mengto-skeuomorphic, desktop above the fold ──────────────────────────────
@@ -1804,8 +1806,12 @@ footer{border-top:1px solid #17203A;padding:56px 0;font-size:11.5px;letter-spaci
 
 };
 
-const only = process.argv[2];
-const list = only ? { [only]: THEMES[only] } : THEMES;
-if (only && !THEMES[only]) { console.error(`no such theme: ${only}`); process.exit(1); }
-auditShared();
-for (const [slug, t] of Object.entries(list)) console.log(`wrote ${writeVariant(slug, t)}`);
+// Only when run directly, so build-mengto.mjs can import THEMES without this
+// file writing fifteen pages as a side effect of the import.
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const only = process.argv[2];
+  const list = only ? { [only]: THEMES[only] } : THEMES;
+  if (only && !THEMES[only]) { console.error(`no such theme: ${only}`); process.exit(1); }
+  auditShared();
+  for (const [slug, t] of Object.entries(list)) console.log(`wrote ${writeVariant(slug, t)}`);
+}
