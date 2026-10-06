@@ -10,6 +10,8 @@ export const variants = {
     eyebrow: 'Your chart, then theirs',
     // the word the drawn ring sits around; the headline itself is untouched
     hook: 'theirs',
+    // the word pair whose gap reads wide in Morning Memories at display size
+    tighten: 'chart a',
     cta: 'Read theirs',
     h2: "You've read your own chart a hundred times. Never theirs.",
     body: [

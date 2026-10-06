@@ -47,10 +47,10 @@ export const css = `
 .rec-large{margin:0;transform:rotate(var(--s-tilt-a))}
 .rec-large img{display:block;width:100%;height:auto;object-fit:contain;
   border:0;border-radius:var(--s-radius-photo)}
-.rec-small{position:absolute;right:-4%;bottom:0;width:45%;margin:0;
+.rec-small{position:absolute;left:-4%;bottom:0;width:45%;margin:0;
   transform:rotate(var(--s-tilt-b))}
 .rec-small-backing{display:block;position:absolute;inset:0;transform:translate(10px,10px);
-  background:var(--b-cta);border-radius:var(--s-radius-photo)}
+  background:var(--b-paper);border-radius:var(--s-radius-photo)}
 /* display:block, because a span is an inline box: aspect-ratio and the
    absolutely positioned slides inside it had no height, so the small
    photograph, its backing card and the squiggle beside them rendered as
@@ -60,17 +60,22 @@ export const css = `
   object-fit:contain;border:0;border-radius:var(--s-radius-photo);
   opacity:0;transition:opacity 900ms ease}
 .rec-slides img.on{opacity:1}
-.rec-mark{position:absolute;color:var(--b-tan);pointer-events:none}
+.rec-mark{position:absolute;color:var(--b-tan);pointer-events:none;z-index:3}
 .rec-mark svg{display:block;width:100%;height:auto}
 .rec-mark-star{width:34px;right:-6%;top:-5%}
 /* the hook: a drawn ring around one word. inline-block keeps it attached to the
    word when the line wraps, and the em sizing makes it scale with the headline.
    Morning Memories carries no ornament of its own (GSUB: liga only, GPOS: kern,
    330 glyphs, no swsh/ornm/salt and no ornament files), so it is drawn here. */
-.rec-hook{position:relative;display:inline-block;color:var(--b-orange)}
-.rec-hook svg{position:absolute;left:-.18em;top:-.12em;width:calc(100% + .36em);
-  height:calc(100% + .3em);overflow:visible;pointer-events:none}
-.rec-mark-squiggle{width:72px;right:38%;bottom:12%}
+.rec-tight{margin-left:var(--s-tighten)}
+.rec-hook{position:relative;display:inline-block;color:inherit}
+.rec-hook svg{position:absolute;left:-.16em;top:50%;transform:translateY(-50%);
+  width:calc(100% + .32em);height:1.25em;overflow:visible;pointer-events:none;
+  color:var(--b-tan)}
+/* where the two photographs meet, on the inner side, and above them: at
+   right:38% it was behind the small photograph, which is why it read as
+   missing once that photograph started rendering. */
+.rec-mark-squiggle{width:72px;left:38%;bottom:6%}
 @media(prefers-reduced-motion:reduce){
   .rec-slides img{transition:none}
 }
@@ -83,10 +88,22 @@ export const css = `
 const STAR = '<span class="rec-mark rec-mark-star" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>';
 const SQUIGGLE = '<span class="rec-mark rec-mark-squiggle" aria-hidden="true"><svg viewBox="0 0 90 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 18c9-14 17 6 26-6s17 14 26 2 13 2 13 2"/></svg></span>';
 
-const RING = '<svg viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="3.4"'
+// One stroke, open where the pen starts and ends, drawn in tan.
+const RING = '<svg viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="3"'
   + ' stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true">'
-  + '<path d="M44 9c-22 3-38 12-40 24-3 15 18 29 56 33 39 4 92 1 130-9 24-6 33-17 28-26'
-  + 'C212 20 186 11 150 7 116 3 76 4 44 9"/></svg>';
+  + '<path d="M62 8C30 11 8 22 6 36c-2 15 22 28 62 30 42 2 96-2 132-13 22-7 26-18 18-26'
+  + 'C208 17 178 9 146 6"/></svg>';
+
+/** Tightens one named word gap in the headline. The words are untouched: the
+ *  pair to tighten is a field beside the copy, and the fix is one negative
+ *  margin on the second word. Richard reads an extra space between "chart" and
+ *  "a"; the served bytes carry one 0x20, so this is optical, not a double
+ *  space, and it is reversible by deleting the field. */
+function tighten(text, pair) {
+  if (!pair || !text.includes(pair)) return text;
+  const [a, b] = pair.split(' ');
+  return text.replace(pair, `${a} <span class="rec-tight">${b}</span>`);
+}
 
 /** Wraps one word of the headline in the drawn ring. The copy itself is never
  *  edited: the word to mark is a field beside it. */
@@ -103,7 +120,7 @@ export function markup(copy, settings = {}) {
   <div class="rec">
     <div class="rec-text">
       <p class="rec-eyebrow">${copy.eyebrow}</p><span class="rec-rule"></span>
-      <h2>${hook(copy.h2, copy.hook)}</h2>
+      <h2>${hook(tighten(copy.h2, copy.tighten), copy.hook)}</h2>
       <p class="rec-lead">${copy.body[0]}</p>
       <p class="rec-body">${copy.body[1]}</p>
       <a class="rec-cta" href="#atf" data-rec-cta>${copy.cta}</a>

@@ -25,7 +25,7 @@ export const tokens = `
   --s-space-block:24px; --s-space-para:18px;
   --s-radius-photo:4px; --s-tilt-a:0deg; --s-tilt-b:0deg;
   --s-type-lead:19.5px; --s-type-lead-lh:1.45;
-  --s-type-eyebrow:12px; --s-type-eyebrow-ls:.22em;
+  --s-type-eyebrow:12px; --s-tighten:0em; --s-type-eyebrow-ls:.22em;
   --s-texture:none; --s-texture-blend:normal;
 `;
 
