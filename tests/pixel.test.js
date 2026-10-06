@@ -36,35 +36,12 @@ const generatedPages = ['readings/compass/sample/nora/index.html',
                         'readings/compass/v1/notes/index.html',
                         'readings/compass/v1/silent/index.html',
                         // The full page in nine more design languages (variants.mjs).
-                        'readings/compass/v1-original/index.html',
-                        'readings/compass/high-end/index.html',
-                        'readings/compass/minimalist/index.html',
-                        'readings/compass/brutalist/index.html',
-                        'readings/compass/gpt-taste/index.html',
-                        'readings/compass/stitch/index.html',
-                        'readings/compass/redesign/index.html',
-                        'readings/compass/hue/index.html',
-                        'readings/compass/hyperframes/index.html',
-                        // 2026-09-24: fifteen more design languages from the seven new skill
-                        // repos in _tools/design-skills/repo (variants2.mjs). Same copy again.
-                        'readings/compass/elaya-landing/index.html',
-                        'readings/compass/tastemaker/index.html',
-                        'readings/compass/web-design-engineer/index.html',
-                        'readings/compass/mengto-beige/index.html',
-                        'readings/compass/mengto-book/index.html',
-                        'readings/compass/mengto-editorial-tech/index.html',
-                        'readings/compass/mengto-paper-technical/index.html',
-                        'readings/compass/mengto-documentary/index.html',
-                        'readings/compass/mengto-agency-grid/index.html',
-                        'readings/compass/mengto-split/index.html',
-                        'readings/compass/mengto-orange-paper/index.html',
-                        'readings/compass/mengto-product-proof/index.html',
-                        'readings/compass/mengto-wireframe/index.html',
+                        // 2026-10-06: every design variant but this one was deleted; the
+                        // page is assembled from modules now (src/page/).
                         'readings/compass/mengto-skeuomorphic/index.html',
                         // 2026-10-06: page variants assembled from modules
                         // (src/page/, built by build-mengto.mjs).
                         'readings/compass/mengto-ab-demo/index.html',
-                        'readings/compass/mengto-dark-blue/index.html',
                         // 2026-09-27: the reasons block with the real product in it
                         // (preview-widgets.mjs). Preview only, noindex, unlinked.
                         'readings/compass/preview-widgets/index.html',
