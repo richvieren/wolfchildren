@@ -96,6 +96,12 @@ const MENGTO_THUMB_JS = `
     b.classList.toggle('on', j===i); b.setAttribute('aria-current', j===i?'true':'false'); }); };
   sc.addEventListener('scroll',mark,{passive:true}); mark();
 })();
+(function(){
+  var bar=document.querySelector('.wc-topbar'), btn=document.querySelector('.wrap .cta');
+  if(!bar||!btn||!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function(e){ bar.classList.toggle('on', !e[0].isIntersecting); },
+    {threshold:0}).observe(btn);
+})();
 </script>`;
 
 function mengtoAtf(html) {
@@ -125,6 +131,17 @@ function mengtoAtf(html) {
   if (under.length !== 1) throw new Error(`mengtoAtf: expected 1 .under line, found ${under.length}`);
   out = out.replace(under[0], '');
 
+  // 4 — the fixed bottom bar and the spacer that cleared it go; a slim pinned
+  // header takes their place. Its button carries the section's own CTA label,
+  // so no new copy is invented here.
+  const sticky = out.match(/\s*<div class="spacer"><\/div>\s*<div class="sticky">[\s\S]*?<\/div>/);
+  if (!sticky) throw new Error('mengtoAtf: the sticky bar was not found');
+  out = out.replace(sticky[0], '');
+  const label = out.match(/<a class="cta" href="#">([^<]+)<\/a>/);
+  if (!label) throw new Error('mengtoAtf: the buy button was not found');
+  out += `\n<div class="wc-topbar"><span class="mark"></span>`
+    + `<a class="cta" href="#">${label[1]}</a></div>`;
+
   const stage = out.match(STAGE);
   if (!stage) throw new Error('mengtoAtf: the carousel stage was not found');
   out = out.replace(STAGE, `<div class="wc-stage">${stage[0]}</div>${mengtoThumbs(stage[0])}`);
@@ -136,6 +153,48 @@ const MENGTO_ATF_CSS = `
 /* The two elements the section does not have. Hidden everywhere, shown only in
    the desktop query below, so nothing under 900px moves. */
 #atf .wc-rating,#atf .wc-reviews,#atf .wc-tape,#atf .wc-thumbs{display:none}
+/* The pinned header is hidden everywhere and shown only below 900px, so no
+   desktop rule is needed for it at all. */
+#atf .wc-topbar{display:none}
+
+@media(max-width:899px){
+  /* ── 1. THE MOBILE REORDER ─────────────────────────────────────────────
+     This is the line. The photograph's order value is the whole thing: -1
+     lifts the framed carousel above the eyebrow, the headline, the subline,
+     the fields, the button and the ticks, and below the announce bar and the
+     logo row, which are pinned ahead of it. Put it back under the headline
+     with: #atf{--m-photo:0} */
+  #atf{--m-photo:-1}
+  #atf{display:flex;flex-direction:column}
+  #atf>.announce{order:-3}
+  #atf>.hdr{order:-2}
+  #atf>.carousel{order:var(--m-photo)}
+
+  /* ── 2. the desktop frame, on the phone: the matte, the hairline, the tape.
+     The slides stay object-fit:contain from the section's own rule. */
+  /* the logo sits in a zero-height header and floats over whatever follows it.
+     With the photograph first, that is the frame, so the frame clears it:
+     the mark is 24px tall at top:10px, and 44px puts the frame under it. */
+  #atf>.carousel{background:#F8F5EC;border:1px solid var(--tan);padding:3.5%;margin-top:44px}
+  #atf .wc-tape{display:block;position:absolute;top:-19px;left:50%;width:24%;
+    height:auto;z-index:3;transform:translateX(-50%) rotate(-2deg);border:0;padding:0}
+
+  /* ── 3. the buy button, as it is above 900px, full width. 46px of line-height
+     inside 50px with 2px borders centres the label on both axes. */
+  #atf .wrap .cta{border:2px solid #3A4435;border-radius:6px;line-height:46px;
+    box-shadow:5px 5px 0 #3A4435}
+
+  /* ── 4. the slim pinned header, shown by the observer when the buy button
+     has left the screen. The announce bar is not part of it. */
+  #atf .wc-topbar{position:fixed;left:0;right:0;top:0;z-index:5;
+    align-items:center;justify-content:space-between;gap:12px;
+    background:var(--cream);border-bottom:1px solid var(--tan);padding:8px 16px}
+  #atf .wc-topbar.on{display:flex}
+  #atf .wc-topbar .mark{position:static;left:auto;top:auto;height:20px;width:46px}
+  #atf .wc-topbar .cta{margin:0;width:auto;height:38px;line-height:30px;
+    padding:0 16px;font-size:12px;border:2px solid #3A4435;border-radius:6px;
+    box-shadow:5px 5px 0 #3A4435}
+}
 
 /* ── 1. The announce bar is flush to the top of the window, at every width ──
    Every box above it, with its value:
