@@ -48,11 +48,14 @@ const MENGTO_RATING = `
 const MENGTO_TAPE =
   '<img class="wc-tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" width="447" height="108">';
 
+// The card: the review, then one bottom row with a photo placeholder, the five
+// stars and the name. The placeholder carries its own data-placeholder marker,
+// like every other invented element here.
 const MENGTO_REVIEWS = `
 <section class="wc-reviews" data-placeholder="review">
-${WC_REVIEWS.map((r) => `  <figure class="wc-review" data-placeholder="review">${STARS}
+${WC_REVIEWS.map((r) => `  <figure class="wc-review" data-placeholder="review">
     <blockquote>${r.q}</blockquote>
-    <figcaption>${r.by}</figcaption>
+    <figcaption><span class="wc-face" data-placeholder="review"></span>${STARS}<span class="wc-by">${r.by}</span></figcaption>
   </figure>`).join('\n')}
 </section>`;
 
@@ -319,18 +322,29 @@ const MENGTO_ATF_CSS = `
      2 — and the step down to them halves: it was margin-top 44px plus
      padding-top 28px, 72px in all; it is 22px plus 14px, 36px. */
   #atf>.wc-reviews{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:18px;margin-top:22px;padding-top:14px;border-top:0}
+    gap:18px;margin-top:22px;padding-top:14px;border-top:0;
+    /* 2 — the module below is a .s section with 108px of top padding, so the
+       testimonials sat 108px from it while two .s modules sit 108 + 108 = 216px
+       apart. 108px below the cards makes it the same 216px. */
+    margin-bottom:108px}
   /* 3 — the cards take the stat cards' radius and hairline from further down
      the page (.stat: border-radius 14px, border 1px solid #495543), on white,
      with the stat cards' outer shadow geometry tinted to the palette's green
      instead of black, because these sit on cream and not on the dark shell. */
-  #atf .wc-review{margin:0;padding:16px 18px;background:#FFFFFF;
-    border:1px solid #495543;border-radius:14px;
-    box-shadow:0 5px 16px rgba(73,85,67,.18)}
-  #atf .wc-review .wc-stars{display:block;margin-bottom:9px}
+  /* 1 — the buy button's treatment on the cards: white, a 20px radius, a 2px
+     #3A4435 outline and the same hard offset shadow down and to the right. */
+  #atf .wc-review{margin:0;padding:22px 20px;background:#FFFFFF;text-align:center;
+    border:2px solid #3A4435;border-radius:20px;
+    box-shadow:5px 5px 0 #3A4435}
   #atf .wc-review blockquote{margin:0;color:var(--green);font-size:13.5px;line-height:1.55}
-  #atf .wc-review figcaption{margin-top:11px;color:var(--bark);font-size:10.5px;
+  /* the bottom row: the placeholder circle, the stars, the name. */
+  #atf .wc-review figcaption{display:flex;align-items:center;justify-content:center;
+    gap:12px;margin-top:16px;color:var(--bark);font-size:10.5px;
     letter-spacing:.09em;text-transform:uppercase}
+  #atf .wc-face{width:40px;height:40px;flex:0 0 40px;border-radius:50%;background:var(--tan)}
+  /* the stars as the rating row above the headline wears them. */
+  #atf .wc-review .wc-stars{display:inline-block;margin:0;color:#9C7A2B;
+    font-size:19px;letter-spacing:.14em}
 }`;
 
 export const THEMES = {
