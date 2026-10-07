@@ -170,7 +170,7 @@ test('no pin on whats-inside, no wave-1 in the order, and the wave is offer-v2\'
 
     // the parallax comes from the config, and the shared script reads the speed
     assert.ok(pinned.classList.contains('wc-parallax'), 'the section is marked for parallax');
-    assert.equal(pinned.getAttribute('data-parallax'), '0.5', 'half the scroll speed');
+    assert.equal(pinned.getAttribute('data-parallax'), '0.4', '0.4 of the scroll speed');
 
     // 3 and 5 — the wave is offer-v2's edge, set by the page, drawn by the shared layer
     const offer = win.document.querySelector('.offer-v2-s');
@@ -178,7 +178,13 @@ test('no pin on whats-inside, no wave-1 in the order, and the wave is offer-v2\'
     const css = [...win.document.querySelectorAll('style')].map((x) => x.textContent).join('');
     assert.match(css, /\.wc-edge-wave\{[^}]*mask-image:url\(\/assets\/img\/frames\/wave-edge\.png\)/);
     assert.match(css, /\.wc-edge-wave\{[^}]*margin-top:calc\(var\(--wc-edge-h\) \* -1\)/);
+    // the mask keeps the file's own shape: width 100%, height follows
+    assert.match(css, /mask-size:100% auto,/, 'the edge is not squashed into a fixed height');
     assert.ok(!/\.wave-1-band/.test(css), 'wave-1 brings no CSS to this page');
+    assert.match(css, /\.wc-parallax\{[^}]*isolation:isolate[^}]*overflow:hidden/,
+      'the section is its own stacking context and clips its contents');
+    assert.ok(!/var cap=/.test([...win.document.querySelectorAll('script')]
+      .map((x) => x.textContent).join('')), 'no cap on the lag');
 
     // 4 — the gradient and the light card
     assert.match(css, /--ov-gradient:linear-gradient\(90deg,#CDB494,#D9A15A,#DA4635\)/);

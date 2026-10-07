@@ -10,22 +10,27 @@
 // and grain.
 
 /** One feTurbulence, inline, no file. A section may paint it over its ground. */
-export const GRAIN = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)' opacity='.42'/%3E%3C/svg%3E\")";
+export const GRAIN = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)' opacity='.21'/%3E%3C/svg%3E\")";
 
-/** The edge height is one token, so a page can change the overlap in one line. */
+/** The edge keeps the file's own shape: the mask is drawn at the window width
+    and its height follows (1600x360, so 22.5vw). Squashing it into a fixed
+    height flattened the wave to about 12px of travel; at its natural ratio the
+    edge travels 76px at 1440px wide, measured from the file. */
 export const css = `
-:root{--wc-edge-h:220px}
-@media(max-width:899px){:root{--wc-edge-h:110px}}
+:root{--wc-edge-h:22.5vw}
 .wc-edge-wave{position:relative;z-index:1;
   margin-top:calc(var(--wc-edge-h) * -1);padding-top:var(--wc-edge-h);
   -webkit-mask-image:url(/assets/img/frames/wave-edge.png),linear-gradient(#000,#000);
   mask-image:url(/assets/img/frames/wave-edge.png),linear-gradient(#000,#000);
-  -webkit-mask-size:100% var(--wc-edge-h),100% calc(100% - var(--wc-edge-h) + 1px);
-  mask-size:100% var(--wc-edge-h),100% calc(100% - var(--wc-edge-h) + 1px);
+  -webkit-mask-size:100% auto,100% calc(100% - var(--wc-edge-h) + 1px);
+  mask-size:100% auto,100% calc(100% - var(--wc-edge-h) + 1px);
   -webkit-mask-position:top center,bottom center;mask-position:top center,bottom center;
   -webkit-mask-repeat:no-repeat,no-repeat;mask-repeat:no-repeat,no-repeat;
   mask-composite:add}
-.wc-parallax{z-index:0}
+/* isolation:isolate makes the section its own stacking context, so a positioned
+   child (the phone carries z-index:2) can no longer paint above the section
+   that covers it. The section's contents are clipped, so the lag stays inside. */
+.wc-parallax{position:relative;isolation:isolate;z-index:0;overflow:hidden}
 .wc-parallax > *{will-change:transform}
 @media(prefers-reduced-motion:reduce){.wc-parallax > *{transform:none!important}}
 `;
@@ -36,15 +41,12 @@ export const script = `<script>
   var secs=[].slice.call(document.querySelectorAll('.wc-parallax'));
   if(!secs.length) return;
   var mq=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
-  var narrow=window.matchMedia ? window.matchMedia('(max-width: 899px)') : null;
   var ticking=false;
   function off(){ secs.forEach(function(s){ var c=s.firstElementChild; if(c) c.style.transform=''; }); }
   function frame(){
     ticking=false;
     if(mq && mq.matches) return off();
     var h=window.innerHeight;
-    // the cap keeps the lag inside the overlap the next section's edge covers
-    var cap=narrow && narrow.matches ? 110 : 220;
     secs.forEach(function(s){
       var c=s.firstElementChild;
       if(!c) return;
@@ -52,7 +54,7 @@ export const script = `<script>
       if(r.bottom < 0 || r.top > h) return;             // only while it is on screen
       var speed=parseFloat(s.getAttribute('data-parallax')) || 0.5;
       var passed=Math.max(0, -r.top);                   // how far its top went by
-      var lag=Math.min(passed * speed, cap);
+      var lag=passed * speed;             // no cap: the section clips its own contents
       c.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
     });
   }

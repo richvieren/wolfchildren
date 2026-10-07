@@ -37,8 +37,8 @@ export default {
     {
       id: 'whats-inside',
       copy: 'A',
-      // its contents lag at half the scroll speed while it is on screen
-      parallax: 0.5,
+      // its contents lag at 0.4 of the scroll speed, the whole time it is on screen
+      parallax: 0.4,
       settings: {
         // flipped horizontally in CSS so the child faces the phone
         photo: {
