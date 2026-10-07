@@ -717,16 +717,20 @@ html,body{overflow-x:clip}
 .rec-small{position:absolute;left:-4%;bottom:0;width:45%;margin:0;
   transform:rotate(var(--s-tilt-b))}
 .rec-small-backing{display:block;position:absolute;inset:0;transform:translate(10px,10px);
-  background:var(--b-paper);border-radius:var(--s-radius-photo)}
+  background:var(--b-tan);border-radius:var(--s-radius-photo)}
 /* display:block, because a span is an inline box: aspect-ratio and the
    absolutely positioned slides inside it had no height, so the small
    photograph, its backing card and the squiggle beside them rendered as
    nothing. That was the bug, 2026-10-06. */
 .rec-slides{display:block;position:relative;aspect-ratio:3/4}
+/* the crossfade: the outgoing photograph keeps full opacity underneath while the
+   incoming one fades in on top of it, so the card behind never shows through.
+   .under is the one being left; .on is the one arriving. */
 .rec-slides img{position:absolute;inset:0;width:100%;height:100%;
   object-fit:contain;border:0;border-radius:var(--s-radius-photo);
-  opacity:0;transition:opacity 900ms ease}
-.rec-slides img.on{opacity:1}
+  opacity:0;z-index:0;transition:opacity 900ms ease}
+.rec-slides img.under{opacity:1;z-index:1;transition:none}
+.rec-slides img.on{opacity:1;z-index:2}
 .rec-mark{position:absolute;color:var(--b-tan);pointer-events:none;z-index:3}
 .rec-mark svg{display:block;width:100%;height:auto}
 .rec-mark-star{width:34px;right:-6%;top:-5%}
@@ -742,7 +746,7 @@ html,body{overflow-x:clip}
 /* where the two photographs meet, on the inner side, and above them: at
    right:38% it was behind the small photograph, which is why it read as
    missing once that photograph started rendering. */
-.rec-mark-squiggle{width:72px;left:38%;bottom:6%}
+.rec-mark-squiggle{width:144px;left:34%;bottom:4%}
 @media(prefers-reduced-motion:reduce){
   .rec-slides img{transition:none}
 }
@@ -890,10 +894,14 @@ html,body{overflow-x:clip}
 /* the phone, Cato's geometry on our tokens */
 .wi-phone{position:relative;width:100%;max-width:307px;aspect-ratio:969/1959;margin:var(--s-space-section) auto 0;
   filter:drop-shadow(0 30px 40px var(--g-shade))}
+/* the frame PNG is opaque where the screen sits (its centre alpha is 255), so it
+   goes under the screen, as Cato's .phone__frame{z-index:0} does. Painted over
+   the screen it hid every pane, which is why the phone read as empty and why
+   hover and tap looked dead: they were swapping panes nobody could see. */
 .wi-phone img.wi-frame{position:absolute;inset:0;width:100%;height:100%;display:block;
-  pointer-events:none;z-index:2;border:0;border-radius:0}
+  pointer-events:none;z-index:0;border:0;border-radius:0}
 .wi-screen{position:absolute;left:5.9%;right:6.5%;top:2.6%;bottom:3.7%;border-radius:17px;
-  overflow:hidden;background:var(--b-cream);z-index:1}
+  overflow:hidden;background:var(--b-cream);z-index:2}
 .wi-scroll{height:100%;overflow-y:auto;padding:38px 12px 18px;scrollbar-width:none}
 .wi-scroll::-webkit-scrollbar{display:none}
 .wi-who{position:absolute;left:0;right:0;top:0;z-index:2;text-align:center;padding:14px 0 8px;
@@ -911,9 +919,12 @@ html,body{overflow-x:clip}
   width:100%;height:64px;padding:0;background:none;border:0;cursor:pointer;text-align:left}
 .wi-num{font-family:var(--b-display);font-size:var(--s-type-lead);line-height:1;color:var(--g-quiet)}
 .wi-label{font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.2;color:var(--g-text)}
-.wi-mark svg{display:block;width:22px;height:22px;fill:var(--g-quiet)}
-.wi-row:hover .wi-mark svg,.wi-item.is-active .wi-mark svg{fill:var(--g-accent)}
+/* an unchosen tick is the hairline tone, so six of them do not read as six
+   ticked boxes; the chosen one is green. */
+.wi-mark svg{display:block;width:22px;height:22px;fill:var(--g-rule)}
+.wi-row:hover .wi-mark svg,.wi-item.is-active .wi-mark svg{fill:var(--b-green)}
 .wi-item.is-active .wi-label{color:var(--g-text)}
+.wi-row:focus{outline:none}
 .wi-row:focus-visible{outline:2px solid var(--g-text);outline-offset:3px}
 .wi-cta{display:inline-block;margin-top:var(--s-space-block);font-family:var(--b-body);
   font-size:var(--s-type-body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
@@ -923,14 +934,19 @@ html,body{overflow-x:clip}
 .wi-photo{display:none}
 
 @media(min-width:900px){
-  /* the photograph runs edge to edge under the phone's left half; the phone is
-     centred in the section and the words sit to its right. */
-  .wi{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:var(--s-space-section);
-    align-items:start}
-  .wi-photo{display:block;position:absolute;left:0;top:0;bottom:0;width:38%;margin:0;overflow:hidden}
-  .wi-photo img{display:block;width:100%;height:100%;object-fit:contain;object-position:left top;border:0}
+  /* the photograph fills the left half of the section, top to bottom, and bleeds
+     past the wrap to the window's left edge. The phone sits in the horizontal
+     centre, straddling the photograph's right edge; the words sit to its right.
+     Filling a half-height panel needs a crop, so this panel alone is cropped,
+     centred on the child (object-fit:cover, object-position 50% 40%). */
+  .wi{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    column-gap:var(--s-space-section);align-items:center;min-height:620px}
+  .wi-photo{display:block;position:absolute;top:0;bottom:0;right:50%;
+    left:calc(50% - 50vw);margin:0;overflow:hidden}
+  .wi-photo img{display:block;width:100%;height:100%;object-fit:cover;
+    object-position:50% 40%;border:0;transform:scaleX(-1)}
   .wi-phone{position:relative;z-index:2;margin:0 auto}
-  .wi-text{grid-column:2}
+  .wi-text{grid-column:2;position:relative;z-index:2}
 }
 </style>
 </head>
@@ -1045,7 +1061,7 @@ html,body{overflow-x:clip}
       <figure class="rec-small"><span class="rec-small-backing" aria-hidden="true"></span>
         <span class="rec-slides"><img class="on" src="/assets/img/compass2/reason-3.webp" width="1200" height="1600" alt="A child running across grass towards the trees" loading="lazy" decoding="async"><img class="" src="/assets/img/compass2/reason-4.webp" width="1200" height="1600" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="" src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
       </figure>
-      <span class="rec-mark rec-mark-squiggle" aria-hidden="true"><svg viewBox="0 0 90 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 18c9-14 17 6 26-6s17 14 26 2 13 2 13 2"/></svg></span>
+      <span class="rec-mark rec-mark-squiggle" aria-hidden="true"><svg viewBox="0 0 90 26" fill="none" stroke="currentColor" stroke-width="4.8" stroke-linecap="round"><path d="M3 18c9-14 17 6 26-6s17 14 26 2 13 2 13 2"/></svg></span>
     </div>
   </div>
 </div></section>
@@ -1070,16 +1086,21 @@ html,body{overflow-x:clip}
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var i=0;
   setInterval(function(){
-    imgs[i].classList.remove('on');
+    var out=imgs[i];
     i=(i+1)%imgs.length;
-    imgs[i].classList.add('on');
+    var into=imgs[i];
+    out.classList.remove('on'); out.classList.add('under');   // stays fully visible
+    into.classList.remove('under');
+    void into.offsetWidth;                                     // start the fade from 0
+    into.classList.add('on');
+    setTimeout(function(){ out.classList.remove('under'); }, 900);
   },3500);
 })();
 </script>
 
 <section class="s whats-inside-s wc-ground-light" data-wi><div class="wrap">
   <div class="wi">
-    <figure class="wi-photo"><img src="/assets/img/compass2/reason-3.webp" width="1200" height="1600" alt="A child running across grass towards the trees" loading="lazy" decoding="async"></figure>
+    <figure class="wi-photo"><img src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="A child standing on a rock in a forest, looking back" loading="lazy" decoding="async"></figure>
     <div class="wi-phone">
       <img class="wi-frame" src="/assets/img/phone-frame.png" alt="" width="969" height="1959" aria-hidden="true">
       <div class="wi-screen">
@@ -1119,6 +1140,10 @@ html,body{overflow-x:clip}
   var panes=root.querySelectorAll('[data-pane]'), rows=root.querySelectorAll('.wi-row');
   var who=root.querySelector('[data-wi-who]'), screen=root.querySelector('[data-wi-screen]');
   var phone=root.querySelector('.wi-phone');
+  // matchMedia is missing in some environments (jsdom, for one); hover then
+  // behaves as the wide screen it was written for rather than doing nothing.
+  function wide(){ return window.matchMedia ? window.matchMedia('(min-width:900px)').matches : true; }
+  function narrow(){ return window.matchMedia ? window.matchMedia('(max-width:899px)').matches : false; }
   function show(id, scroll){
     panes.forEach(function(p){
       var on=p.getAttribute('data-pane')===id;
@@ -1132,7 +1157,7 @@ html,body{overflow-x:clip}
     });
     if(screen) screen.scrollTop=0;
     // on a phone the rows sit under the frame; keep the frame in view on a tap
-    if(scroll && phone && window.matchMedia('(max-width:899px)').matches){
+    if(scroll && phone && narrow()){
       var r=phone.getBoundingClientRect();
       if(r.top<0||r.bottom>window.innerHeight) phone.scrollIntoView({behavior:'smooth',block:'center'});
     }
@@ -1140,7 +1165,7 @@ html,body{overflow-x:clip}
   rows.forEach(function(b){
     var id=b.getAttribute('data-section');
     b.addEventListener('click',function(){ show(id,true); });
-    b.addEventListener('mouseenter',function(){ if(window.matchMedia('(min-width:900px)').matches) show(id,false); });
+    b.addEventListener('mouseenter',function(){ if(wide()) show(id,false); });
   });
   var cta=root.querySelector('[data-wi-cta]');
   if(cta) cta.addEventListener('click',function(e){

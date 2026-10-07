@@ -50,16 +50,20 @@ export const css = `
 .rec-small{position:absolute;left:-4%;bottom:0;width:45%;margin:0;
   transform:rotate(var(--s-tilt-b))}
 .rec-small-backing{display:block;position:absolute;inset:0;transform:translate(10px,10px);
-  background:var(--b-paper);border-radius:var(--s-radius-photo)}
+  background:var(--b-tan);border-radius:var(--s-radius-photo)}
 /* display:block, because a span is an inline box: aspect-ratio and the
    absolutely positioned slides inside it had no height, so the small
    photograph, its backing card and the squiggle beside them rendered as
    nothing. That was the bug, 2026-10-06. */
 .rec-slides{display:block;position:relative;aspect-ratio:3/4}
+/* the crossfade: the outgoing photograph keeps full opacity underneath while the
+   incoming one fades in on top of it, so the card behind never shows through.
+   .under is the one being left; .on is the one arriving. */
 .rec-slides img{position:absolute;inset:0;width:100%;height:100%;
   object-fit:contain;border:0;border-radius:var(--s-radius-photo);
-  opacity:0;transition:opacity 900ms ease}
-.rec-slides img.on{opacity:1}
+  opacity:0;z-index:0;transition:opacity 900ms ease}
+.rec-slides img.under{opacity:1;z-index:1;transition:none}
+.rec-slides img.on{opacity:1;z-index:2}
 .rec-mark{position:absolute;color:var(--b-tan);pointer-events:none;z-index:3}
 .rec-mark svg{display:block;width:100%;height:auto}
 .rec-mark-star{width:34px;right:-6%;top:-5%}
@@ -75,7 +79,7 @@ export const css = `
 /* where the two photographs meet, on the inner side, and above them: at
    right:38% it was behind the small photograph, which is why it read as
    missing once that photograph started rendering. */
-.rec-mark-squiggle{width:72px;left:38%;bottom:6%}
+.rec-mark-squiggle{width:144px;left:34%;bottom:4%}
 @media(prefers-reduced-motion:reduce){
   .rec-slides img{transition:none}
 }
@@ -86,7 +90,7 @@ export const css = `
 `;
 
 const STAR = '<span class="rec-mark rec-mark-star" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>';
-const SQUIGGLE = '<span class="rec-mark rec-mark-squiggle" aria-hidden="true"><svg viewBox="0 0 90 26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 18c9-14 17 6 26-6s17 14 26 2 13 2 13 2"/></svg></span>';
+const SQUIGGLE = '<span class="rec-mark rec-mark-squiggle" aria-hidden="true"><svg viewBox="0 0 90 26" fill="none" stroke="currentColor" stroke-width="4.8" stroke-linecap="round"><path d="M3 18c9-14 17 6 26-6s17 14 26 2 13 2 13 2"/></svg></span>';
 
 // One stroke, open where the pen starts and ends, drawn in tan.
 const RING = '<svg viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="3"'
@@ -156,9 +160,14 @@ export function markup(copy, settings = {}) {
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var i=0;
   setInterval(function(){
-    imgs[i].classList.remove('on');
+    var out=imgs[i];
     i=(i+1)%imgs.length;
-    imgs[i].classList.add('on');
+    var into=imgs[i];
+    out.classList.remove('on'); out.classList.add('under');   // stays fully visible
+    into.classList.remove('under');
+    void into.offsetWidth;                                     // start the fade from 0
+    into.classList.add('on');
+    setTimeout(function(){ out.classList.remove('under'); }, 900);
   },3500);
 })();
 </script>`;

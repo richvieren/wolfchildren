@@ -32,11 +32,12 @@ export default {
     { id: 'whats-inside',
       copy: 'A',
       settings: {
+        // flipped horizontally in CSS so the child faces the phone
         photo: {
-          src: '/assets/img/compass2/reason-3.webp',
+          src: '/assets/img/compass2/reason-1.webp',
           w: 1200,
           h: 1600,
-          alt: 'A child running across grass towards the trees',
+          alt: 'A child standing on a rock in a forest, looking back',
         },
       } },
     { id: 'hero', copy: 'A' },

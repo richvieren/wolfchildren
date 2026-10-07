@@ -54,10 +54,14 @@ export const css = `${WIDGET_CSS}
 /* the phone, Cato's geometry on our tokens */
 .wi-phone{position:relative;width:100%;max-width:307px;aspect-ratio:969/1959;margin:var(--s-space-section) auto 0;
   filter:drop-shadow(0 30px 40px var(--g-shade))}
+/* the frame PNG is opaque where the screen sits (its centre alpha is 255), so it
+   goes under the screen, as Cato's .phone__frame{z-index:0} does. Painted over
+   the screen it hid every pane, which is why the phone read as empty and why
+   hover and tap looked dead: they were swapping panes nobody could see. */
 .wi-phone img.wi-frame{position:absolute;inset:0;width:100%;height:100%;display:block;
-  pointer-events:none;z-index:2;border:0;border-radius:0}
+  pointer-events:none;z-index:0;border:0;border-radius:0}
 .wi-screen{position:absolute;left:5.9%;right:6.5%;top:2.6%;bottom:3.7%;border-radius:17px;
-  overflow:hidden;background:var(--b-cream);z-index:1}
+  overflow:hidden;background:var(--b-cream);z-index:2}
 .wi-scroll{height:100%;overflow-y:auto;padding:38px 12px 18px;scrollbar-width:none}
 .wi-scroll::-webkit-scrollbar{display:none}
 .wi-who{position:absolute;left:0;right:0;top:0;z-index:2;text-align:center;padding:14px 0 8px;
@@ -75,9 +79,12 @@ export const css = `${WIDGET_CSS}
   width:100%;height:64px;padding:0;background:none;border:0;cursor:pointer;text-align:left}
 .wi-num{font-family:var(--b-display);font-size:var(--s-type-lead);line-height:1;color:var(--g-quiet)}
 .wi-label{font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.2;color:var(--g-text)}
-.wi-mark svg{display:block;width:22px;height:22px;fill:var(--g-quiet)}
-.wi-row:hover .wi-mark svg,.wi-item.is-active .wi-mark svg{fill:var(--g-accent)}
+/* an unchosen tick is the hairline tone, so six of them do not read as six
+   ticked boxes; the chosen one is green. */
+.wi-mark svg{display:block;width:22px;height:22px;fill:var(--g-rule)}
+.wi-row:hover .wi-mark svg,.wi-item.is-active .wi-mark svg{fill:var(--b-green)}
 .wi-item.is-active .wi-label{color:var(--g-text)}
+.wi-row:focus{outline:none}
 .wi-row:focus-visible{outline:2px solid var(--g-text);outline-offset:3px}
 .wi-cta{display:inline-block;margin-top:var(--s-space-block);font-family:var(--b-body);
   font-size:var(--s-type-body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
@@ -87,14 +94,19 @@ export const css = `${WIDGET_CSS}
 .wi-photo{display:none}
 
 @media(min-width:900px){
-  /* the photograph runs edge to edge under the phone's left half; the phone is
-     centred in the section and the words sit to its right. */
-  .wi{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:var(--s-space-section);
-    align-items:start}
-  .wi-photo{display:block;position:absolute;left:0;top:0;bottom:0;width:38%;margin:0;overflow:hidden}
-  .wi-photo img{display:block;width:100%;height:100%;object-fit:contain;object-position:left top;border:0}
+  /* the photograph fills the left half of the section, top to bottom, and bleeds
+     past the wrap to the window's left edge. The phone sits in the horizontal
+     centre, straddling the photograph's right edge; the words sit to its right.
+     Filling a half-height panel needs a crop, so this panel alone is cropped,
+     centred on the child (object-fit:cover, object-position 50% 40%). */
+  .wi{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    column-gap:var(--s-space-section);align-items:center;min-height:620px}
+  .wi-photo{display:block;position:absolute;top:0;bottom:0;right:50%;
+    left:calc(50% - 50vw);margin:0;overflow:hidden}
+  .wi-photo img{display:block;width:100%;height:100%;object-fit:cover;
+    object-position:50% 40%;border:0;transform:scaleX(-1)}
   .wi-phone{position:relative;z-index:2;margin:0 auto}
-  .wi-text{grid-column:2}
+  .wi-text{grid-column:2;position:relative;z-index:2}
 }
 `;
 
@@ -133,6 +145,10 @@ ${SCREENS.map((s, i) => `        <li class="wi-item${i ? '' : ' is-active'}"><bu
   var panes=root.querySelectorAll('[data-pane]'), rows=root.querySelectorAll('.wi-row');
   var who=root.querySelector('[data-wi-who]'), screen=root.querySelector('[data-wi-screen]');
   var phone=root.querySelector('.wi-phone');
+  // matchMedia is missing in some environments (jsdom, for one); hover then
+  // behaves as the wide screen it was written for rather than doing nothing.
+  function wide(){ return window.matchMedia ? window.matchMedia('(min-width:900px)').matches : true; }
+  function narrow(){ return window.matchMedia ? window.matchMedia('(max-width:899px)').matches : false; }
   function show(id, scroll){
     panes.forEach(function(p){
       var on=p.getAttribute('data-pane')===id;
@@ -146,7 +162,7 @@ ${SCREENS.map((s, i) => `        <li class="wi-item${i ? '' : ' is-active'}"><bu
     });
     if(screen) screen.scrollTop=0;
     // on a phone the rows sit under the frame; keep the frame in view on a tap
-    if(scroll && phone && window.matchMedia('(max-width:899px)').matches){
+    if(scroll && phone && narrow()){
       var r=phone.getBoundingClientRect();
       if(r.top<0||r.bottom>window.innerHeight) phone.scrollIntoView({behavior:'smooth',block:'center'});
     }
@@ -154,7 +170,7 @@ ${SCREENS.map((s, i) => `        <li class="wi-item${i ? '' : ' is-active'}"><bu
   rows.forEach(function(b){
     var id=b.getAttribute('data-section');
     b.addEventListener('click',function(){ show(id,true); });
-    b.addEventListener('mouseenter',function(){ if(window.matchMedia('(min-width:900px)').matches) show(id,false); });
+    b.addEventListener('mouseenter',function(){ if(wide()) show(id,false); });
   });
   var cta=root.querySelector('[data-wi-cta]');
   if(cta) cta.addEventListener('click',function(e){
