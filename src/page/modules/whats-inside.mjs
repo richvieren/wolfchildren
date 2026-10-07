@@ -40,6 +40,10 @@ const SCREENS = [
 const TICK = '<svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg>';
 
 export const css = `${WIDGET_CSS}
+/* 1 — the two hairlines down the section are the skin's app-shell frame:
+   .s,.band{margin:0 16px;border-left:var(--s-border);border-right:var(--s-border)}.
+   They go for this module only; the section keeps its ground. */
+.whats-inside-s{position:relative;border-left:0;border-right:0}
 .wi{position:relative}
 .wi-head{text-align:left}
 .wi-eyebrow{font-family:var(--b-body);color:var(--g-text);font-size:var(--s-type-eyebrow);
@@ -94,18 +98,23 @@ export const css = `${WIDGET_CSS}
 .wi-photo{display:none}
 
 @media(min-width:900px){
-  /* the photograph fills the left half of the section, top to bottom, and bleeds
-     past the wrap to the window's left edge. The phone sits in the horizontal
-     centre, straddling the photograph's right edge; the words sit to its right.
-     Filling a half-height panel needs a crop, so this panel alone is cropped,
-     centred on the child (object-fit:cover, object-position 50% 40%). */
+  /* 2 — the photograph is positioned against the SECTION, not the padded wrap,
+     so it runs its full height, flush top and bottom, and meets the sections
+     above and below directly. It bleeds left to the window edge. The section's
+     vertical padding still spaces the words, which sit inside the wrap.
+     3 — the phone is centred on the window's midline, which is the photograph's
+     right edge, so half of it sits on the photograph and half on the cream, and
+     it is centred vertically in the section.
+     4 — a panel this tall has to crop: object-fit:cover at 50% 35%, which keeps
+     the child in frame as the panel grows taller than the file. */
   .wi{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
     column-gap:var(--s-space-section);align-items:center;min-height:620px}
-  .wi-photo{display:block;position:absolute;top:0;bottom:0;right:50%;
-    left:calc(50% - 50vw);margin:0;overflow:hidden}
-  .wi-photo img{display:block;width:100%;height:100%;object-fit:cover;
-    object-position:50% 40%;border:0;transform:scaleX(-1)}
-  .wi-phone{position:relative;z-index:2;margin:0 auto}
+  .whats-inside-s>.wi-photo{display:block;position:absolute;top:0;bottom:0;
+    right:50%;left:calc(50% - 50vw);margin:0;padding:0;overflow:hidden;z-index:1}
+  .whats-inside-s>.wi-photo img{display:block;width:100%;height:100%;
+    object-fit:cover;object-position:50% 35%;border:0;transform:scaleX(-1)}
+  .wi-phone{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    z-index:2;margin:0}
   .wi-text{grid-column:2;position:relative;z-index:2}
 }
 `;
@@ -113,9 +122,16 @@ export const css = `${WIDGET_CSS}
 export function markup(copy, settings = {}) {
   const g = settings.className ? ` ${settings.className}` : '';
   const p = settings.photo;
-  return `<section class="s whats-inside-s${g}" data-wi><div class="wrap">
+  return `<section class="s whats-inside-s${g}" data-wi>
+  <figure class="wi-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${p.alt}" loading="lazy" decoding="async"></figure>
+  <div class="wrap">
   <div class="wi">
-    <figure class="wi-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${p.alt}" loading="lazy" decoding="async"></figure>
+    <div class="wi-text">
+      <div class="wi-head">
+        <p class="wi-eyebrow">${copy.eyebrow}</p>
+        <h2>${copy.h2}</h2>
+        <p class="wi-sub">${copy.sub}</p>
+      </div>
     <div class="wi-phone">
       <img class="wi-frame" src="/assets/img/phone-frame.png" alt="" width="969" height="1959" aria-hidden="true">
       <div class="wi-screen">
@@ -125,12 +141,6 @@ ${SCREENS.map((s, i) => `          <div class="wi-pane${i ? '' : ' on'}" data-pa
         </div>
       </div>
     </div>
-    <div class="wi-text">
-      <div class="wi-head">
-        <p class="wi-eyebrow">${copy.eyebrow}</p>
-        <h2>${copy.h2}</h2>
-        <p class="wi-sub">${copy.sub}</p>
-      </div>
       <p class="wi-listhead">${copy.listhead}</p>
       <ol class="wi-list">
 ${SCREENS.map((s, i) => `        <li class="wi-item${i ? '' : ' is-active'}"><button type="button" class="wi-row" data-section="${s.id}" aria-pressed="${i ? 'false' : 'true'}"><span class="wi-num">${String(i + 1).padStart(2, '0')}</span><span class="wi-label">${s.label}</span><span class="wi-mark" aria-hidden="true">${TICK}</span></button></li>`).join('\n')}
