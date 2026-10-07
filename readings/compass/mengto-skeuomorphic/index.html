@@ -904,14 +904,46 @@ html,body{overflow-x:clip}
    hover and tap looked dead: they were swapping panes nobody could see. */
 .wi-phone img.wi-frame{position:absolute;inset:0;width:100%;height:100%;display:block;
   pointer-events:none;z-index:0;border:0;border-radius:0}
-/* 1 — the sample reading's own page ground is html{background:var(--cream)},
-   which is #DFD7C3, the same cream the section uses, so the screen takes the
-   photo-frame white #F8F5EC (--b-paper) and stands off the section. */
+/* The screen is the reading inverted: green ground, cream ink. It is done with
+   one scoped token block, not by editing the widgets. The reading paints almost
+   everything through --green (its ink), --cream (its fills), --tan (its rules)
+   and --tan-soft (its tracks), so swapping those four inside the screen flips
+   every bar fill, slider track and dot, rule and divider, halo and quadrant.
+   The handful of literals the reading hard-codes are listed under them. */
 .wi-screen{position:absolute;left:5.9%;right:6.5%;top:2.6%;bottom:3.7%;border-radius:17px;
-  overflow:hidden;background:var(--b-paper);z-index:2}
+  overflow:hidden;background:var(--b-green);z-index:2}
+.wi-scroll .wc-live{
+  --green:var(--b-cream);                      /* ink: green becomes cream */
+  --cream:var(--b-green);                      /* fills: cream becomes green */
+  --tan:rgba(223,215,195,.35);                 /* rules and dividers */
+  --tan-soft:rgba(223,215,195,.18);            /* tracks and empty bar parts */
+  color:var(--b-cream)}
+/* secondary and label text */
+.wi-scroll .wc-live .wlabel,.wi-scroll .wc-live .bar-footer,.wi-scroll .wc-live .bar-name,
+.wi-scroll .wc-live .pole,.wi-scroll .wc-live .big3-word,.wi-scroll .wc-live .badge-type,
+.wi-scroll .wc-live .pill-text{color:rgba(223,215,195,.65)}
+/* the reading's own literals, flipped */
+.wi-scroll .wc-live .moon-sky{fill:var(--b-green)}
+.wi-scroll .wc-live .moon-dark{fill:rgba(223,215,195,.18)}
+.wi-scroll .wc-live .moon-lit{fill:var(--b-cream)}
+.wi-scroll .wc-live .moon-pit{fill:var(--b-green);opacity:.34}
+.wi-scroll .wc-live .moon-ring{stroke:rgba(223,215,195,.35)}
+.wi-scroll .wc-live .hemi-cell.on{background:rgba(223,215,195,.18);border-color:rgba(223,215,195,.35)}
+.wi-scroll .wc-live .badge-halo.fire,.wi-scroll .wc-live .badge-halo.earth,
+.wi-scroll .wc-live .badge-halo.air,.wi-scroll .wc-live .badge-halo.water{background:rgba(223,215,195,.12)}
+/* the being-seen dial draws its colours as SVG attributes; CSS beats those */
+.wi-scroll .wc-live svg [stroke="#495543"]{stroke:var(--b-cream)}
+.wi-scroll .wc-live svg [fill="#495543"]{fill:var(--b-cream)}
+.wi-scroll .wc-live svg [stroke="#CDB494"]{stroke:rgba(223,215,195,.35)}
+/* the widgets' own meaning stands: an inactive pole or quadrant is dimmer than
+   the active one. Active 1, inactive .5, where the reading uses .45 and .55. */
+.wi-scroll .wc-live .pole,.wi-scroll .wc-live .hemi-cell{opacity:.5}
+.wi-scroll .wc-live .pole.on,.wi-scroll .wc-live .hemi-cell.on{opacity:1}
 /* 2 — no name header: the widget starts at the top of the screen, with just
    enough room above it to clear the frame's notch. */
-.wi-scroll{height:100%;overflow-y:auto;padding:44px 12px 18px;scrollbar-width:none}
+/* percentages of the screen's width, so the notch is cleared at 307px and at
+   200px alike (16% of the screen is 43px at full size, 28px at the floor). */
+.wi-scroll{height:100%;overflow-y:auto;padding:16% 4.5% 7%;scrollbar-width:none}
 .wi-scroll::-webkit-scrollbar{display:none}
 /* 3 — the card chrome goes: no border, no fill, no padding of its own. The
    screen's own inner margin is the only margin. */
