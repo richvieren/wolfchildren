@@ -9,9 +9,13 @@ export default {
   atfMarkupFrom: 'mengto-skeuomorphic',   // the ATF's markup transform, variants2.mjs
   atf: { cell: 'control' },               // a cell in src/lib/atf-copy.mjs
   modules: [
-    // 2026-10-06: recognition sits directly after the ATF; support-band and
-    // photo-dusk are out of this page's order. Both modules stay in the system.
-    { id: 'recognition',
+    // 2026-10-07, Richard: the page is these four modules and nothing else.
+    // Every other module stays in src/page/modules/ and in the system, simply
+    // not named here: support-band, photo-dusk, hero, sample, stats, reasons,
+    // gallery, refusal, outcomes, offer, banner-one, compare, banner-two,
+    // photo-season, faq, photo-close, close.
+    {
+      id: 'recognition',
       copy: 'A',
       settings: {
         // One line to swap the photograph. Three candidates are named in
@@ -28,8 +32,10 @@ export default {
           { src: '/assets/img/compass2/reason-4.webp', w: 1200, h: 1600, alt: 'A child small on a path between tall pines' },
           { src: '/assets/img/compass2/reason-1.webp', w: 1200, h: 1600, alt: 'A child standing on a rock in a forest, looking back' },
         ],
-      } },
-    { id: 'whats-inside',
+      },
+    },
+    {
+      id: 'whats-inside',
       copy: 'A',
       settings: {
         // flipped horizontally in CSS so the child faces the phone
@@ -39,23 +45,9 @@ export default {
           h: 1600,
           alt: 'A child standing on a rock in a forest, looking back',
         },
-      } },
+      },
+    },
     { id: 'offer-card', copy: 'A' },
-    { id: 'hero', copy: 'A' },
-    { id: 'sample', copy: 'A' },
-    { id: 'stats', copy: 'A' },
-    { id: 'reasons', copy: 'A' },
-    { id: 'gallery', copy: 'A' },
-    { id: 'refusal', copy: 'A' },
-    { id: 'outcomes', copy: 'A' },
-    { id: 'offer', copy: 'A' },
-    { id: 'banner-one', copy: 'A' },
-    { id: 'compare', copy: 'A' },
-    { id: 'banner-two', copy: 'A' },
-    { id: 'photo-season', copy: 'A' },
-    { id: 'faq', copy: 'A' },
-    { id: 'photo-close', copy: 'A' },
-    { id: 'close', copy: 'A' },
     { id: 'footer', copy: 'A' },
   ],
 };
