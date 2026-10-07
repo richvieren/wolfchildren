@@ -45,8 +45,10 @@ body{background:var(--b-cream);color:rgba(223,215,195,.82);font:400 15px/1.7 var
 .nav{margin:0 16px;background:linear-gradient(180deg,#3F4A39 0%,#3A4435 100%);border-radius:var(--s-radius-shell) var(--s-radius-shell) 0 0;
   border:1px solid var(--b-green);border-bottom:0;box-shadow:var(--s-shadow-shell-top);padding:0 24px}
 .nav .mark{font:400 14px var(--b-display);color:var(--b-cream)}
-/* 2026-10-07, Richard, standing rule: no section ever gets side borders. */
-.s,.band{margin:0 16px;background:var(--g-bg);color:var(--g-text)}
+/* 2026-10-07, Richard, standing rules: no section ever gets side borders, and
+   every section runs edge to edge. The cream strips either side were this
+   margin, not a border. */
+.s,.band{margin:0;background:var(--g-bg);color:var(--g-text)}
 .s{padding:var(--s-space-section) 0}@media(min-width:900px){.s{padding:var(--s-space-section-wide) 0}}
 .wrap{max-width:1040px}
 footer{margin:0 16px;background:var(--g-bg);border-radius:0 0 var(--s-radius-shell) var(--s-radius-shell);

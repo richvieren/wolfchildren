@@ -100,16 +100,40 @@ test('all three tiers are selectable, and a tier with no link turns the button o
   });
 });
 
-test('the left column is one photograph, with no gallery',
+test('the split is two halves, the photograph left and the buy box right',
   { skip: !JSDOM && 'jsdom not installed' }, () => {
   load((win) => {
     const left = win.document.querySelector('.ov-left');
+    const right = win.document.querySelector('.ov-right');
+    assert.ok(left && right, 'both halves exist');
     const imgs = [...left.querySelectorAll('img')];
-    assert.equal(imgs.length, 1, 'one photograph');
+    assert.equal(imgs.length, 1, 'one photograph on the left');
     assert.match(imgs[0].getAttribute('src'), /compass2\/offer\.webp$/);
     assert.equal(win.document.querySelectorAll('[data-ov-thumb]').length, 0, 'no thumbnails');
-    assert.equal(win.document.querySelectorAll('[data-ov-slide]').length, 0, 'no slides');
-    assert.equal(win.document.querySelectorAll('.ov-phone').length, 0, 'no phone shot');
+    assert.ok(right.querySelector('.ov-box .ov-cta'), 'the buy box holds the button');
+    assert.ok(right.querySelector('.ov-box .ov-faq'), 'and the FAQ');
+    // the Inter stylesheet the buy box asks for
+    const fonts = [...win.document.querySelectorAll('link[rel="stylesheet"]')]
+      .map((l) => l.getAttribute('href'));
+    assert.ok(fonts.some((h) => /fonts\.googleapis\.com.*Inter:wght@400;600/.test(h)),
+      'Inter 400 and 600 are requested');
+  });
+});
+
+test('each tier carries its per-child line, and two carry a saving chip',
+  { skip: !JSDOM && 'jsdom not installed' }, () => {
+  load((win) => {
+    const boxes = [...win.document.querySelectorAll('.ov-tier-box')];
+    assert.equal(boxes.length, 3, 'three tier boxes');
+    assert.equal(boxes[0].querySelectorAll('.ov-save').length, 0, 'tier 1 has no chip');
+    assert.equal(boxes[1].querySelector('.ov-save').textContent, 'Save $7');
+    assert.equal(boxes[2].querySelector('.ov-save').textContent, 'Save $27');
+    assert.match(boxes[1].querySelector('.ov-each').textContent, /\$23\.50 each/);
+    assert.match(boxes[2].querySelector('.ov-each').textContent, /\$18 each/);
+    assert.equal(boxes[2].querySelector('.ov-note').textContent,
+      'Keep one as a gift, or for later');
+    boxes.forEach((b) => assert.equal(b.querySelectorAll('.ov-more li').length, 3,
+      'each box holds the three ticks'));
   });
 });
 

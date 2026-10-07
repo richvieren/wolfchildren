@@ -40,10 +40,7 @@ const SCREENS = [
 const TICK = '<svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg>';
 
 export const css = `${WIDGET_CSS}
-/* 1 — the two hairlines down the section are the skin's app-shell frame:
-   .s,.band{margin:0 16px;border-left:var(--s-border);border-right:var(--s-border)}.
-   They go for this module only; the section keeps its ground. */
-.whats-inside-s{position:relative;border-left:0;border-right:0}
+.whats-inside-s{position:relative}
 .wi{position:relative}
 .wi-head{text-align:left}
 .wi-eyebrow{font-family:var(--b-body);color:var(--g-text);font-size:var(--s-type-eyebrow);

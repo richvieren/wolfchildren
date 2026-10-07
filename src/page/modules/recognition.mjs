@@ -9,12 +9,7 @@ export const id = 'recognition';
 export const css = `
 /* the paper: the squared sheet the homepage uses, blended over the ground so a
    dark module stays dark and a light one reads as paper. One token turns it off. */
-/* full bleed. The cream strips either side came from the skin's app-shell rule
-   .s,.band{margin:0 16px;border-left:var(--s-border);border-right:var(--s-border)},
-   which frames every section inside the light field. This module leaves the
-   frame at every width. */
-.recognition-s{margin-left:0;margin-right:0;border-left:0;border-right:0;
-  background-image:var(--s-texture);background-size:cover;
+.recognition-s{background-image:var(--s-texture);background-size:cover;
   background-position:center;background-blend-mode:var(--s-texture-blend)}
 .rec{display:grid;gap:var(--s-space-block)}
 
