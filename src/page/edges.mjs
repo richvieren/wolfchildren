@@ -42,8 +42,8 @@ export const motionCss = `
 /** The motion: every child of a .wc-parallax section lags while any part of the
     section is on screen. Moving only the first child moved the background photo
     and left the phone and the text at normal speed, which read as no parallax at
-    all. The lag starts the moment the section's top edge enters the window, not
-    when it passes the top of it. */
+    all. The lag starts when the section's bottom edge reaches the bottom of the
+    window: before that the section scrolls normally. */
 export const script = `<script>
 (function(){
   var secs=[].slice.call(document.querySelectorAll('.wc-parallax'));
@@ -60,8 +60,9 @@ export const script = `<script>
       var r=s.getBoundingClientRect();
       if(r.bottom < 0 || r.top > h) return;             // only while it is on screen
       var speed=parseFloat(s.getAttribute('data-parallax')) || 0.5;
-      // how far the window has travelled since the section's top edge came in
-      var travelled=Math.max(0, h - r.top);
+      // the lag starts when the section's bottom edge reaches the bottom of the
+      // window, which is the moment the section after it starts to come over
+      var travelled=Math.max(0, h - r.bottom);
       var lag=travelled * speed;          // no cap: the section clips its own contents
       var t='translate3d(0,' + lag.toFixed(1) + 'px,0)';
       kids(s).forEach(function(c){ c.style.transform=t; });

@@ -190,7 +190,8 @@ test('the wave is its own layer, and no mask touches a section or its content',
       .filter((m) => /mask-image/.test(m[2]))
       .map((m) => m[1].trim().split('\n').pop().trim());
     assert.deepEqual(masked, ['.wd::before'], `only the decorative layer is masked: ${masked}`);
-    assert.match(css, /\.wd::before\{[^}]*bottom:100%/, 'the layer sits above the section');
+    assert.match(css, /\.wd::before\{[^}]*bottom:calc\(100% - 2px\)/,
+      'the layer sits above the section, lapping 2px over it');
     assert.match(css, /\.wd::before\{[^}]*mask-size:200% auto/, 'the swoop is drawn at 200%');
     assert.match(css, /\.wd\{[^}]*z-index:1/, 'the wave section paints above the one before it');
 
@@ -202,10 +203,10 @@ test('the wave is its own layer, and no mask touches a section or its content',
   }, WAVE_PAGE);
 });
 
-test('scrolling writes a growing transform on every child of the parallax section',
+test('the lag starts when the section\'s bottom edge reaches the bottom of the window',
   { skip: !JSDOM && 'jsdom not installed' }, async () => {
   // jsdom has no layout, so the section's rectangle is supplied: a 2400px tall
-  // section passing a 768px window. Each step is one scroll event plus a frame.
+  // section passing a 768px window, stepped by its BOTTOM edge.
   const dom = new JSDOM(readFileSync(WAVE_PAGE, 'utf8'),
     { runScripts: 'dangerously', pretendToBeVisual: true });
   const win = dom.window;
@@ -215,20 +216,30 @@ test('scrolling writes a growing transform on every child of the parallax sectio
     assert.ok(kids.length >= 2, `the section has more than one child: ${kids.length}`);
     win.innerHeight = 768;
     const seen = [];
-    for (const top of [700, 300, 0, -200, -600, -1200]) {
-      sec.getBoundingClientRect = () => ({ top, bottom: top + 2400, height: 2400,
+    for (const bottom of [2000, 1200, 900, 768, 700, 500, 200, 0]) {
+      sec.getBoundingClientRect = () => ({ top: bottom - 2400, bottom, height: 2400,
         left: 0, right: 1440, width: 1440 });
       win.dispatchEvent(new win.Event('scroll'));
       await new Promise((r) => win.requestAnimationFrame(r));   // let the frame run
       const ts = kids.map((c) => c.style.transform);
       assert.equal(new Set(ts).size, 1, `every child moves together: ${ts}`);
-      seen.push(Number((ts[0].match(/,([-\d.]+)px/) || [])[1]));
+      seen.push(Number((ts[0].match(/,([-\d.]+)px/) || [0, 0])[1]));
     }
-    // it grows the whole way: moving only the first child, or starting at the
-    // top of the window, is what made it invisible before
-    for (let i = 1; i < seen.length; i += 1) {
-      assert.ok(seen[i] > seen[i - 1], `step ${i} moved further: ${seen}`);
-    }
-    assert.ok(seen[0] > 0, `it is already moving while the section is entering: ${seen[0]}`);
+    // nothing until the bottom edge reaches the bottom of the window
+    assert.deepEqual(seen.slice(0, 4), [0, 0, 0, 0], `still at normal speed: ${seen}`);
+    // then half of every pixel scrolled
+    assert.deepEqual(seen.slice(4), [34, 134, 284, 384], `half speed after: ${seen}`);
   } finally { win.close(); }
+});
+
+test('the wave layer covers the swoop and laps over the section',
+  { skip: !JSDOM && 'jsdom not installed' }, () => {
+  load((win) => {
+    const css = [...win.document.querySelectorAll('style')].map((x) => x.textContent).join('');
+    assert.match(css, /--wd-wave-h:calc\(var\(--wd-swoop\) \+ 40px\)/, 'the swoop plus 40px');
+    assert.match(css, /--wd-swoop:10\.875vw/, 'the swoop is 87 source rows at 200%');
+    assert.match(css, /--wd-mask-y:-22\.375vw/, 'the mask is pushed up to the swoop');
+    assert.match(css, /\.wd::before\{[^}]*bottom:calc\(100% - 2px\)/, 'a 2px lap, no seam');
+    assert.ok(!/--wd-wave-h:45vw/.test(css), 'the old 45vw layer is gone');
+  }, WAVE_PAGE);
 });
