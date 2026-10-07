@@ -17,14 +17,17 @@ export const id = 'wave-demo';
 export const ground = 'neutral';
 
 export const css = `
-/* The layer covers the swoop and 40px of solid colour under it, nothing more.
-   Measured from the file's right half (the half mask-position:right shows):
-   the swoop runs from row 179 to row 266 of 360, and one source row is
-   200/1600 = 0.125vw at mask-size:200%. So the swoop is 87 x 0.125 = 10.875vw
-   and the mask is pushed up 179 x 0.125 = 22.375vw to put its top edge at the
-   top of the layer. Height: 197px at 1440, 82px at 390.
+/* The mask is drawn at 115% of the window width, so the file keeps its own
+   proportions and the grain its own shape; nothing is squashed. Measured from
+   the file over the columns that show at that size (208..1600 of 1600, the
+   right 87%): the swoop rises 87 rows, which is 90px at 1440 and 120px at 1920,
+   and the first inked pixel is on row 1. One source row is 115/1600 = 0.071875vw.
+   The layer holds every inked row (1 to 266, so 265 rows = 19.0469vw) and 40px
+   of solid colour under it: 314px at 1440, 114px at 390. Holding the spray too
+   is what keeps it off the sample link above.
    The tokens sit on :root because the section above reads the height too. */
-:root{--wd-swoop:10.875vw;--wd-wave-h:calc(var(--wd-swoop) + 40px);--wd-mask-y:-22.375vw}
+:root{--wd-mask-w:115%;--wd-ink:19.0469vw;--wd-wave-h:calc(var(--wd-ink) + 40px);
+  --wd-mask-y:-0.071875vw}
 .wd{position:relative;z-index:1;
   background:var(--wd-gradient);background-size:100% 100%;background-repeat:no-repeat;
   min-height:70vh;padding:var(--s-space-section) 0}
@@ -37,7 +40,7 @@ export const css = `
   background-size:100% 100%;background-repeat:no-repeat;pointer-events:none;
   -webkit-mask-image:url(/assets/img/frames/wave-edge.png);
   mask-image:url(/assets/img/frames/wave-edge.png);
-  -webkit-mask-size:200% auto;mask-size:200% auto;
+  -webkit-mask-size:var(--wd-mask-w) auto;mask-size:var(--wd-mask-w) auto;
   -webkit-mask-position:right var(--wd-mask-y);mask-position:right var(--wd-mask-y);
   -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 

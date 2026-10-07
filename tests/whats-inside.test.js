@@ -192,7 +192,8 @@ test('the wave is its own layer, and no mask touches a section or its content',
     assert.deepEqual(masked, ['.wd-wave'], `only the decorative layer is masked: ${masked}`);
     assert.match(css, /\.wd-wave\{[^}]*bottom:calc\(100% - 2px\)/,
       'the layer sits above the section, lapping 2px over it');
-    assert.match(css, /\.wd-wave\{[^}]*mask-size:200% auto/, 'the swoop is drawn at 200%');
+    assert.match(css, /\.wd-wave\{[^}]*mask-size:var\(--wd-mask-w\) auto/, 'the file keeps its proportions');
+    assert.match(css, /--wd-mask-w:115%/, 'drawn at 115% of the window: a 90px rise at 1440');
     assert.match(css, /\.wd\{[^}]*z-index:1/, 'the wave section paints above the one before it');
 
     // the section above moves at half speed, clipped, and cannot paint out of itself
@@ -247,12 +248,15 @@ test('the wave layer covers the swoop and laps over the section',
   { skip: !JSDOM && 'jsdom not installed' }, () => {
   load((win) => {
     const css = [...win.document.querySelectorAll('style')].map((x) => x.textContent).join('');
-    assert.match(css, /--wd-wave-h:calc\(var\(--wd-swoop\) \+ 40px\)/, 'the swoop plus 40px');
-    assert.match(css, /--wd-swoop:10\.875vw/, 'the swoop is 87 source rows at 200%');
-    assert.match(css, /--wd-mask-y:-22\.375vw/, 'the mask is pushed up to the swoop');
+    assert.match(css, /--wd-wave-h:calc\(var\(--wd-ink\) \+ 40px\)/, 'every inked row plus 40px');
+    assert.match(css, /--wd-ink:19\.0469vw/, '265 inked rows at 115%: row 1 to row 266');
+    assert.match(css, /--wd-mask-y:-0\.071875vw/, 'the first inked row sits at the top of the layer');
+    // the gap above the wave is the section's own padding plus the 2px lap
+    assert.match(css, /\.wc-parallax > \.wc-move\{[^}]*padding-bottom:calc\(var\(--s-space-section\) \+ var\(--wd-wave-h\)\)/);
+    assert.match(css, /@media\(min-width:900px\)\{\s*\.wc-parallax > \.wc-move\{[^}]*padding-bottom:calc\(var\(--s-space-section-wide\) \+ var\(--wd-wave-h\)\)/);
     assert.match(css, /\.wd-wave\{[^}]*bottom:calc\(100% - 2px\)/, 'a 2px lap, no seam');
     assert.match(css, /\.wc-parallax > \.wc-move\{[^}]*padding-bottom:calc\(var\(--s-space-section\) \+ var\(--wd-wave-h\)\)/,
       'the section above keeps the wave\'s height clear at the bottom');
-    assert.ok(!/--wd-wave-h:45vw/.test(css), 'the old 45vw layer is gone');
+    assert.ok(!/--wd-wave-h:45vw|--wd-swoop/.test(css), 'the old layers are gone');
   }, WAVE_PAGE);
 });
