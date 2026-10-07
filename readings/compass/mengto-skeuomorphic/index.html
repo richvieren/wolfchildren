@@ -156,8 +156,8 @@ body{background:var(--b-cream);color:rgba(223,215,195,.82);font:400 15px/1.7 var
 .nav{margin:0 16px;background:linear-gradient(180deg,#3F4A39 0%,#3A4435 100%);border-radius:var(--s-radius-shell) var(--s-radius-shell) 0 0;
   border:1px solid var(--b-green);border-bottom:0;box-shadow:var(--s-shadow-shell-top);padding:0 24px}
 .nav .mark{font:400 14px var(--b-display);color:var(--b-cream)}
-.s,.band{margin:0 16px;background:var(--g-bg);color:var(--g-text);
-  border-left:var(--s-border);border-right:var(--s-border)}
+/* 2026-10-07, Richard, standing rule: no section ever gets side borders. */
+.s,.band{margin:0 16px;background:var(--g-bg);color:var(--g-text)}
 .s{padding:var(--s-space-section) 0}@media(min-width:900px){.s{padding:var(--s-space-section-wide) 0}}
 .wrap{max-width:1040px}
 footer{margin:0 16px;background:var(--g-bg);border-radius:0 0 var(--s-radius-shell) var(--s-radius-shell);
@@ -1008,227 +1008,77 @@ html,body{overflow-x:clip}
     width:var(--wi-phone-w);max-width:none;z-index:2;margin:0}
   .wi-text{position:static;margin-left:calc(50% + var(--wi-phone-w) / 2 + 48px)}
 }
-@font-face{font-family:"Wheel Glyphs";src:url("/assets/fonts/wheel-glyphs.woff2")}
-.wc-live{--cream:#DFD7C3;--green:#495543;--tan:#CDB494;--orange:#DA4635;--cta:#AC2E20;--tan-soft:rgba(205,180,148,.45)}
-.wc-live body{margin:0;color:var(--green);font-family:"IBM Plex Mono";font-size:14px;line-height:1.6}
-.wc-live h1{font-family:Montserrat;font-weight:900;font-size:40px;line-height:1;margin:6px 0 10px;letter-spacing:-.01em}
-.wc-live .overline, .wc-live .wlabel, .wc-live .letter-label, .wc-live .sh-label, .wc-live .biz-label, .wc-live .badge-label, .wc-live .cusp-label, .wc-live .stellium-label, .wc-live .pill-label, .wc-live .bar-name, .wc-live .pole, .wc-live .hemi-title, .wc-live .sub-head, .wc-live .product-lock{font-family:Montserrat;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
-.wc-live .hero{text-align:center;padding:12px 0 6px}
-.wc-live .big3-line{font-size:14px}
-.wc-live .disclaimer{font-size:12px;line-height:1.5;margin:0 0 18px;color:var(--green)}
-.wc-live .card{background:var(--cream);border:1px solid var(--tan);border-radius:4px;padding:24px}
-.wc-live .big3-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:28px}
-.wc-live .big3{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:16px 8px}
-.wc-live .big3-circle{width:60px;height:60px;border-radius:50%;border:1px solid var(--tan);display:flex;align-items:center;justify-content:center;position:relative}
-.wc-live .big3-circle:after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid var(--tan-soft)}
-.wc-live .big3-circle.fire{background:rgba(218,70,53,.10)}
-.wc-live .big3-circle.earth{background:rgba(73,85,67,.12)}
-.wc-live .big3-circle.air{background:rgba(205,180,148,.28)}
-.wc-live .big3-circle.water{background:rgba(73,85,67,.06)}
-.wc-live .big3-word{font-family:Montserrat;font-weight:900;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
-.wc-live .big3-sign{font-family:Montserrat;font-weight:900;font-size:15px;line-height:1.1}
-.wc-live .big3-sub{font-size:11px;line-height:1.35}
-.wc-live .pill-wrap{display:flex;justify-content:center;margin-top:14px}
-.wc-live .pill{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--tan);border-radius:999px;padding:10px 22px}
-.wc-live .pill.small{margin-top:18px;padding:8px 18px}
-.wc-live .pill-label{white-space:nowrap}
-.wc-live .pill-div{width:1px;height:14px;background:var(--tan)}
-.wc-live .pill-text{font-size:13px}
-.wc-live .letter{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:40px 0}
-.wc-live .letter-rule{width:32px;height:1px;background:var(--tan)}
-.wc-live .letter-text{margin:0;max-width:620px;font-family:"Libre Baskerville";font-size:17px;line-height:1.55;letter-spacing:-.01em}
-.wc-live .letter-text.italic{font-style:italic;font-size:18px}
-.wc-live .section{padding:28px 0 0}
-.wc-live .section.tight{padding-top:20px}
-.wc-live .sh{display:flex;align-items:center;gap:14px;margin-bottom:22px}
-.wc-live .sh-line{flex:1;height:1px;background:var(--tan)}
-.wc-live .sh-num{font-family:Montserrat;font-weight:900;font-size:12px}
-.wc-live .grid2{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px}
-.wc-live .grid3{display:grid;grid-template-columns:1fr;gap:14px}
-.wc-live .grid2.texts{gap:18px;margin:8px 0 18px}
-.wc-live .wlabel{margin-bottom:22px}
-.wc-live .wcontext{font-family:"Libre Baskerville";font-size:14px;line-height:1.55;margin-top:16px}
-.wc-live .bar-rows{display:flex;flex-direction:column;gap:14px}
-.wc-live .bar{display:flex;flex-direction:column;gap:8px}
-.wc-live .bar-head{display:flex;justify-content:space-between;align-items:baseline}
-.wc-live .bar-count{font-family:Montserrat;font-weight:900;font-size:16px}
-.wc-live .bar-track{height:3px;background:var(--tan-soft);border-radius:1px;overflow:hidden}
-.wc-live .bar-fill{height:100%;background:var(--green)}
-.wc-live .bar-footer{margin-top:18px;padding-top:14px;border-top:1px solid var(--tan);font-size:13px}
-.wc-live .bar-footer span{font-weight:700;text-transform:capitalize}
-.wc-live .spec-rows{display:flex;flex-direction:column;gap:22px}
-.wc-live .spec{display:flex;flex-direction:column;gap:10px}
-.wc-live .spec-poles{display:flex;justify-content:space-between}
-.wc-live .pole{opacity:.45}
-.wc-live .pole.on{opacity:1}
-.wc-live .spec-track{position:relative;height:14px}
-.wc-live .spec-line{position:absolute;left:0;right:0;top:6.5px;height:1px;background:var(--tan)}
-.wc-live .spec-tick{position:absolute;left:50%;top:3.5px;width:1px;height:7px;background:var(--tan)}
-.wc-live .spec-dot{position:absolute;top:2px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--green)}
-.wc-live .spec-context{font-family:"Libre Baskerville";font-size:13.5px;line-height:1.5}
-.wc-live .hemi-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px}
-.wc-live .hemi-cell{border:1px solid var(--tan-soft);border-radius:4px;padding:16px 14px;display:flex;flex-direction:column;gap:4px;opacity:.55}
-.wc-live .hemi-cell.on{opacity:1;background:rgba(205,180,148,.28);border-color:var(--tan)}
-.wc-live .hemi-title{font-size:11px}
-.wc-live .hemi-sub{font-size:12px}
-.wc-live .moon-wrap{display:flex;justify-content:center;padding:4px 0 12px}
-.wc-live .moon{width:124px;height:124px}
-.wc-live .moon-sky{fill:#3A4435}
-.wc-live .moon-dark{fill:#5D6A56}
-.wc-live .moon-lit{fill:#F0E7D2}
-.wc-live .moon-pit{fill:#C9BCA0;opacity:.34}
-.wc-live .moon-ring{fill:none;stroke:#2F382B;stroke-width:1.2}
-.wc-live .moon-line{font-size:12px;line-height:1.5;color:var(--green)}
-.wc-live .hemi-footer{font-family:"Libre Baskerville";font-size:14px;line-height:1.55;margin-top:16px}
-.wc-live .vis{display:flex;flex-direction:column;align-items:center}
-.wc-live .vis .wlabel{align-self:flex-start;margin-bottom:10px}
-.wc-live .gauge-num{font-family:Montserrat;font-weight:900;font-size:44px}
-.wc-live .gauge-sub{font-family:Montserrat;font-weight:900;font-size:9px;letter-spacing:.2em}
-.wc-live .biz{border-left:2px solid var(--tan);padding-left:18px}
-.wc-live .biz-label{margin-bottom:8px}
-.wc-live .biz-body{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.6}
-.wc-live .divider{height:1px;background:var(--tan);margin:20px 0}
-.wc-live .badge{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:30px 28px 32px}
-.wc-live .badge-halo{width:64px;height:64px;border-radius:50%;border:1px solid var(--tan);display:flex;align-items:center;justify-content:center;position:relative}
-.wc-live .badge-halo:after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid var(--tan-soft)}
-.wc-live .badge-halo.fire{background:rgba(218,70,53,.10)}
-.wc-live .badge-halo.earth{background:rgba(73,85,67,.12)}
-.wc-live .badge-halo.air{background:rgba(205,180,148,.28)}
-.wc-live .badge-halo.water{background:rgba(73,85,67,.06)}
-.wc-live .badge-type{font-family:Montserrat;font-weight:900;font-size:19px;line-height:1.1}
-.wc-live .badge-desc{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.55;max-width:360px}
-.wc-live .badge-rule{width:32px;height:1px;background:var(--tan)}
-.wc-live .badge-placement{font-size:12px;letter-spacing:.04em;text-transform:uppercase}
-.wc-live .badge-basis{margin:0;font-family:"Libre Baskerville";font-size:13.5px;line-height:1.55;max-width:360px;text-align:left}
-.wc-live .sub{margin-top:8px}
-.wc-live .sub-head{margin-bottom:16px}
-.wc-live .cusp-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:12px}
-.wc-live .cusp-num{font-family:Montserrat;font-weight:900;font-size:26px;line-height:1;min-width:30px}
-.wc-live .cusp-sign{font-size:12px;margin-top:4px}
-.wc-live .cusp-text{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.55}
-.wc-live .retro-rows{display:flex;flex-direction:column;gap:18px}
-.wc-live .retro{display:flex;gap:16px;align-items:flex-start}
-.wc-live .retro-circle{width:40px;height:40px;border-radius:50%;border:1px solid var(--tan);display:flex;align-items:center;justify-content:center;font-family:Montserrat;font-weight:900;font-size:16px;flex:none}
-.wc-live .retro-name{font-weight:700}
-.wc-live .retro-place{font-size:12px;margin:2px 0 8px}
-.wc-live .retro-meaning{font-family:"Libre Baskerville";font-size:14px;line-height:1.55}
-.wc-live .retro-none{font-size:13px}
-.wc-live .stellium{background:var(--green);color:var(--cream);border-radius:4px;padding:24px;margin-bottom:14px}
-.wc-live .stellium-name{font-family:Montserrat;font-weight:900;font-size:22px;line-height:1.1;margin:6px 0 12px}
-.wc-live .stellium-desc{margin:0 0 18px;font-family:"Libre Baskerville";font-size:14px;line-height:1.55;max-width:560px}
-.wc-live .spills{display:flex;flex-wrap:wrap;gap:8px}
-.wc-live .spill{border:1px solid rgba(223,215,195,.5);border-radius:999px;padding:6px 12px;font-size:12px}
-.wc-live .product{display:flex;flex-direction:column;gap:10px}
-.wc-live .product-name{font-family:Montserrat;font-weight:900;font-size:22px;line-height:1.1}
-.wc-live .product-desc{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.55}
-.wc-live .product-price{font-family:Montserrat;font-weight:900;font-size:28px}
-.wc-live .product.locked{opacity:.7}
-.wc-live .product-lock{font-size:11px}
-.wc-live .cta{display:block;text-align:center;background:var(--cta);color:var(--cream);font-weight:700;font-size:15px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:14px;border-radius:4px;margin-top:6px}
-.wc-live .fine{font-size:13px;text-align:center;margin:8px 0 28px}
-.wc-live .wheel-wrap{margin:0px auto 0;width:398px}
-.wc-live .wheel{display:block;width:100%;height:398px}
-.wc-live .photo{width:100%;border:1px solid var(--tan);border-radius:4px;overflow:hidden}
-.wc-live .photo.wide{height:299px;margin:28px 0 8px}
-.wc-live .photo img{display:block;width:100%;height:100%;object-fit:cover}
-.wc-live .photo.placeholder{background:var(--tan-soft);display:flex;align-items:center;justify-content:center}
-.wc-live .photo.placeholder span{font-family:Montserrat;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
-.wc-live .pending{color:var(--orange)}
+
 .ov{display:grid;gap:var(--s-space-section)}
 
-/* the gallery */
-.ov-stage{position:relative;border-radius:var(--s-radius-card);overflow:hidden}
-.ov-slide{display:none}
-.ov-slide.on{display:block}
-.ov-slide img.ov-flat{display:block;width:100%;height:auto;object-fit:contain;border:0}
-/* slide 1: the phone on a photograph, built here rather than shot */
-.ov-shot{position:relative;display:grid;place-items:center;aspect-ratio:4/3;overflow:hidden}
-.ov-shot-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
-.ov-phone{position:relative;width:38%;max-width:260px;aspect-ratio:969/1959;z-index:2;
-  filter:drop-shadow(0 20px 36px var(--g-shade))}
-.ov-frame{position:absolute;inset:0;width:100%;height:100%;z-index:0;border:0;pointer-events:none}
-.ov-screen{position:absolute;left:5.9%;right:6.5%;top:2.6%;bottom:3.7%;border-radius:12px;
-  overflow:hidden;background:var(--b-green);z-index:2}
-.ov-screen .ov-scroll{height:100%;overflow:hidden;padding:16% 6% 6%}
-/* the screen is the reading inverted, the same four tokens the phone module swaps */
-.ov-screen .wc-live{--green:var(--b-cream);--cream:var(--b-green);
-  --tan:rgba(223,215,195,.35);--tan-soft:rgba(223,215,195,.18);color:var(--b-cream)}
-.ov-screen .wc-live .card{background:none;border:0;padding:0}
-.ov-screen .wc-live .wlabel{color:rgba(223,215,195,.65)}
-.ov-screen .wc-live .moon{width:54px;height:54px}
-.ov-screen .wc-live .moon-sky{fill:var(--b-green)}
-.ov-screen .wc-live .moon-dark{fill:rgba(223,215,195,.18)}
-.ov-screen .wc-live .moon-lit{fill:var(--b-cream)}
-.ov-screen .wc-live .moon-pit{fill:var(--b-green);opacity:.34}
-.ov-screen .wc-live .moon-ring{stroke:rgba(223,215,195,.35)}
-.ov-screen .wc-live .moon-line,.ov-screen .wc-live .bar-footer{font-size:9px;line-height:1.5}
-.ov-thumbs{display:flex;gap:10px;margin-top:12px}
-.ov-thumb{flex:1;padding:0;border:var(--s-border);border-radius:var(--s-radius-btn-hard);
-  background:none;cursor:pointer;overflow:hidden;line-height:0}
-.ov-thumb img{display:block;width:100%;height:auto;object-fit:cover;aspect-ratio:4/3;border:0}
-.ov-thumb[aria-pressed="true"]{border:2px solid var(--g-text)}
-.ov-thumb:focus{outline:none}
-.ov-thumb:focus-visible{outline:2px solid var(--g-text);outline-offset:2px}
+/* left: one photograph, as large as the column allows, uncropped */
+.ov-photo{margin:0;border-radius:var(--s-radius-photo)}
+.ov-photo img{display:block;width:100%;height:auto;object-fit:contain;border:0;
+  border-radius:var(--s-radius-photo)}
 
-/* the buy box */
-.ov-pill{display:inline-block;font-family:var(--b-body);font-size:var(--s-type-eyebrow);
-  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--g-text);
-  background:var(--b-tan);border-radius:999px;padding:5px 12px;margin:0 0 var(--s-space-para)}
+/* right: cream text on the dark ground */
 .ov-title{font-family:var(--b-display);font-weight:400;color:var(--g-text);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);margin:0 0 10px}
 .ov-rating{display:flex;align-items:baseline;gap:9px;margin:0 0 12px;font-family:var(--b-body)}
-.ov-stars{color:var(--b-gold);font-size:19px;letter-spacing:.14em}
+.ov-stars{color:var(--b-tan);font-size:19px;letter-spacing:.14em}
 .ov-rated{color:var(--g-text);font-size:var(--s-type-body)}
 .ov-line{font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.5;
-  color:var(--g-quiet);margin:0 0 var(--s-space-block)}
+  color:var(--g-text);opacity:.85;margin:0 0 var(--s-space-block)}
 
+/* the tier boxes stay light, with green text */
 .ov-tiers{list-style:none;margin:0 0 var(--s-space-block);padding:0;display:grid;gap:10px}
 .ov-tier input{position:absolute;opacity:0;width:0;height:0}
 .ov-box{display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:center;
-  padding:16px;border:var(--s-border);border-radius:var(--s-radius-btn-hard);cursor:pointer}
+  padding:16px;background:var(--b-paper);color:var(--b-green);
+  border:1px solid var(--b-tan);border-radius:var(--s-radius-btn-hard);cursor:pointer}
 .ov-tier input:checked + .ov-box{border:2px solid var(--b-green);padding:15px}
-.ov-tier input:focus-visible + .ov-box{outline:2px solid var(--b-green);outline-offset:2px}
+.ov-tier input:focus-visible + .ov-box{outline:2px solid var(--b-paper);outline-offset:2px}
 .ov-name{display:flex;align-items:center;gap:10px;font-family:var(--b-body);
-  font-size:var(--s-type-body);color:var(--g-text)}
-.ov-dot{flex:0 0 16px;width:16px;height:16px;border-radius:50%;border:1px solid var(--g-text)}
+  font-size:var(--s-type-body);color:var(--b-green)}
+.ov-dot{flex:0 0 16px;width:16px;height:16px;border-radius:50%;border:1px solid var(--b-green)}
 .ov-tier input:checked + .ov-box .ov-dot{background:var(--b-green);box-shadow:inset 0 0 0 3px var(--b-paper)}
 .ov-price{font-family:var(--b-display);font-weight:400;font-size:var(--s-type-lead);
-  line-height:1;color:var(--g-text);text-align:right}
+  line-height:1;color:var(--b-green);text-align:right}
 .ov-each{grid-column:2;font-family:var(--b-body);font-size:var(--s-type-eyebrow);
-  line-height:1.5;color:var(--g-quiet);text-align:right}
+  line-height:1.5;color:var(--b-bark);text-align:right}
 .ov-note{grid-column:1;font-family:var(--b-body);font-size:var(--s-type-eyebrow);
-  line-height:1.5;color:var(--g-quiet)}
+  line-height:1.5;color:var(--b-bark)}
 .ov-more{grid-column:1/-1;display:none;margin:10px 0 0;padding:0;list-style:none}
 .ov-tier input:checked + .ov-box .ov-more{display:grid;gap:7px}
 .ov-more li{display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:start;
-  font-family:var(--b-body);font-size:var(--s-type-eyebrow);line-height:1.5;color:var(--g-text)}
-.ov-tick{width:14px;height:14px;margin-top:2px;border:1px solid var(--g-text);border-radius:50%;position:relative}
+  font-family:var(--b-body);font-size:var(--s-type-eyebrow);line-height:1.5;color:var(--b-green)}
+.ov-tick{width:14px;height:14px;margin-top:2px;border:1px solid var(--b-green);border-radius:50%;position:relative}
 .ov-tick:after{content:"";position:absolute;left:4px;top:2px;width:3.5px;height:7px;
-  border-right:1.5px solid var(--g-text);border-bottom:1.5px solid var(--g-text);transform:rotate(42deg)}
+  border-right:1.5px solid var(--b-green);border-bottom:1.5px solid var(--b-green);transform:rotate(42deg)}
 
+/* the button reads on the dark ground: cream fill, green label */
 .ov-cta{display:block;width:100%;text-align:center;font-family:var(--b-body);
   font-size:var(--s-type-body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
-  height:54px;line-height:50px;background:var(--b-green);color:var(--b-cream);
-  border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);box-shadow:var(--s-shadow-hard)}
-.ov-secure,.ov-fine{font-family:var(--b-body);font-size:var(--s-type-eyebrow);line-height:1.6;
-  color:var(--g-quiet);text-align:center}
-.ov-secure{margin:12px 0 0}
-.ov-fine{margin:8px 0 0}
+  height:54px;line-height:50px;background:var(--b-paper);color:var(--b-green);
+  border:2px solid var(--b-green-deep);border-radius:var(--s-radius-btn-hard);
+  box-shadow:var(--s-shadow-hard)}
+.ov-cta[aria-disabled="true"]{opacity:.45;box-shadow:none;cursor:default;pointer-events:none}
+.ov-secure{font-family:var(--b-body);font-size:var(--s-type-eyebrow);line-height:1.6;
+  color:var(--g-text);opacity:.75;text-align:center;margin:12px 0 0}
 
-/* the FAQ: rules, a plus, nothing else */
-.ov-faq{margin-top:var(--s-space-section);border-top:1px solid var(--b-tan)}
-.ov-q{border-bottom:1px solid var(--b-tan)}
-.ov-q summary{list-style:none;cursor:pointer;padding:16px 0;display:flex;gap:16px;
-  align-items:baseline;justify-content:space-between;font-family:var(--b-body);
-  font-size:var(--s-type-body);line-height:1.4;color:var(--g-text)}
-.ov-q summary::-webkit-details-marker{display:none}
-.ov-q summary:after{content:"+";color:var(--g-quiet)}
-.ov-q[open] summary:after{content:"\2013"}
-.ov-q summary:focus{outline:none}
-.ov-q summary:focus-visible{outline:2px solid var(--g-text);outline-offset:2px}
-.ov-a{font-family:var(--b-body);font-size:var(--s-type-body);line-height:var(--s-type-body-lh);
-  color:var(--g-text);margin:0 0 16px;max-width:60ch}
+/* the FAQ: rows and one rule between them. No fill, no border, no shadow. */
+.ov-faq{margin-top:var(--s-space-section)}
+.ov-faq .ov-q{background:none;border:0;border-radius:0;box-shadow:none;
+  margin:0;padding:0;border-top:1px solid var(--b-tan)}
+.ov-faq .ov-q:last-child{border-bottom:1px solid var(--b-tan)}
+.ov-faq .ov-q summary{list-style:none;cursor:pointer;display:flex;gap:16px;
+  align-items:baseline;justify-content:space-between;padding:18px 0;
+  font-family:var(--b-display);font-weight:400;font-size:20px;line-height:1.3;
+  letter-spacing:var(--s-type-display-ls);color:var(--g-text)}
+.ov-faq .ov-q summary::-webkit-details-marker{display:none}
+.ov-faq .ov-q summary::after{content:"+";font-family:var(--b-body);font-size:16px;color:var(--b-tan)}
+.ov-faq .ov-q[open] summary::after{content:"\2013"}
+.ov-faq .ov-q summary:focus{outline:none}
+.ov-faq .ov-q summary:focus-visible{outline:2px solid var(--b-paper);outline-offset:2px}
+.ov-faq .ov-a{font-family:var(--b-body);font-size:var(--s-type-body);
+  line-height:var(--s-type-body-lh);color:var(--g-text);opacity:.8;
+  margin:0 0 20px;padding:0 0 0 20px;max-width:60ch}
 
 @media(min-width:900px){
   .ov{grid-template-columns:55% 45%;gap:var(--s-space-section);align-items:start}
@@ -1463,33 +1313,13 @@ html,body{overflow-x:clip}
 })();
 </script>
 
-<section class="s offer-v2-s wc-ground-light"><div class="wrap">
+<section class="s offer-v2-s wc-ground-dark"><div class="wrap">
   <div class="ov">
     <div class="ov-left">
-      <div class="ov-stage">
-        <div class="ov-slide on" data-ov-slide="0">
-          <div class="ov-shot">
-            <img class="ov-shot-bg" src="/assets/compass/nature-2.jpg" alt="A forest floor in low light" loading="lazy" decoding="async">
-            <div class="ov-phone">
-              <img class="ov-frame" src="/assets/img/phone-frame.png" alt="" width="969" height="1959" aria-hidden="true">
-              <div class="ov-screen"><div class="ov-scroll"><div class="wc-live"><div class="card"><div class="wlabel">The moon that night</div><div class="moon-wrap"><svg aria-label="The moon that night" class="moon" role="img" viewBox="0 0 120 120"><circle class="moon-sky" cx="60" cy="60" r="55"></circle><circle class="moon-dark" cx="60" cy="60" r="46"></circle><path class="moon-lit" d="M 60,14 A 46,46 0 0,0 60,106 Z"></path><path class="moon-lit" d="M 60,14 A 42.25,46 0 0,1 60,106 Z"></path><circle class="moon-pit" cx="46" cy="44" r="9"></circle><circle class="moon-pit" cx="74" cy="52" r="6"></circle><circle class="moon-pit" cx="56" cy="74" r="7"></circle><circle class="moon-pit" cx="38" cy="66" r="4"></circle><circle class="moon-pit" cx="68" cy="34" r="3.5"></circle><circle class="moon-pit" cx="80" cy="70" r="4.5"></circle><circle class="moon-ring" cx="60" cy="60" r="46"></circle></svg></div><div class="moon-line">Nora was born two days after a full moon, with the light going back down.</div><div class="bar-footer">waning gibbous</div></div></div></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="ov-slide" data-ov-slide="1"><img class="ov-flat" src="/assets/img/atf/slide-0.webp" width="1400" height="1050" alt="A child on a beach at sunset, with the zodiac wheel drawn across the sky" loading="lazy" decoding="async"></div>
-        <div class="ov-slide" data-ov-slide="2"><img class="ov-flat" src="/assets/img/atf/slide-1.webp" width="1400" height="1050" alt="Four cards from the reading, floating above a child walking on a beach" loading="lazy" decoding="async"></div>
-        <div class="ov-slide" data-ov-slide="3"><img class="ov-flat" src="/assets/img/atf/slide-2.webp" width="1400" height="1050" alt="Two cards from the reading, beside a child standing at the shoreline" loading="lazy" decoding="async"></div>
-      </div>
-      <div class="ov-thumbs">
-        <button type="button" class="ov-thumb" data-ov-thumb="0" aria-pressed="true" aria-label="Show the reading on a phone"><img src="/assets/compass/nature-2.jpg" alt="" loading="lazy" decoding="async"></button>
-        <button type="button" class="ov-thumb" data-ov-thumb="1" aria-pressed="false" aria-label="Show picture 2"><img src="/assets/img/atf/slide-0.webp" alt="" loading="lazy" decoding="async"></button>
-        <button type="button" class="ov-thumb" data-ov-thumb="2" aria-pressed="false" aria-label="Show picture 3"><img src="/assets/img/atf/slide-1.webp" alt="" loading="lazy" decoding="async"></button>
-        <button type="button" class="ov-thumb" data-ov-thumb="3" aria-pressed="false" aria-label="Show picture 4"><img src="/assets/img/atf/slide-2.webp" alt="" loading="lazy" decoding="async"></button>
-      </div>
+      <figure class="ov-photo"><img src="/assets/img/compass2/offer.webp" width="1200" height="1600" alt="A child in a doorway at the end of the day, boots muddy" loading="lazy" decoding="async"></figure>
     </div>
 
     <div class="ov-right">
-      <p class="ov-pill">Buy two, get one free</p>
       <h2 class="ov-title">Compass</h2>
       <p class="ov-rating" data-placeholder="review"><span class="ov-stars" aria-hidden="true">★★★★★</span><span class="ov-rated">4.8/5 Based on dozens of users</span></p>
       <p class="ov-line">One page per child &middot; Ready in minutes &middot; Yours to keep</p>
@@ -1508,10 +1338,37 @@ html,body{overflow-x:clip}
             </ul>
           </label>
         </li>
+        <li class="ov-tier">
+          <input type="radio" name="ov-tier" id="ov-two" value="two">
+          <label class="ov-box" for="ov-two">
+            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>Two children</span>
+            <span class="ov-price">$47</span>
+            <span class="ov-each">$23.50 each &middot; Save $7</span>
+            
+            <ul class="ov-more">
+              <li><span class="ov-tick" aria-hidden="true"></span><span>One page per child, ready in minutes</span></li>
+              <li><span class="ov-tick" aria-hidden="true"></span><span>Kept in your private portal</span></li>
+              <li><span class="ov-tick" aria-hidden="true"></span><span>Fill in each child whenever you're ready</span></li>
+            </ul>
+          </label>
+        </li>
+        <li class="ov-tier">
+          <input type="radio" name="ov-tier" id="ov-three" value="three">
+          <label class="ov-box" for="ov-three">
+            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>Buy two, get one free</span>
+            <span class="ov-price">$54</span>
+            <span class="ov-each">$18 each &middot; Save $27</span>
+            <span class="ov-note">Keep one as a gift, or for later</span>
+            <ul class="ov-more">
+              <li><span class="ov-tick" aria-hidden="true"></span><span>One page per child, ready in minutes</span></li>
+              <li><span class="ov-tick" aria-hidden="true"></span><span>Kept in your private portal</span></li>
+              <li><span class="ov-tick" aria-hidden="true"></span><span>Fill in each child whenever you're ready</span></li>
+            </ul>
+          </label>
+        </li>
       </ul>
       <a class="ov-cta" data-ov-cta href="https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07">Get their Compass · $27</a>
       <p class="ov-secure">Secure checkout with Stripe.</p>
-      <p class="ov-fine">Refund available until you enter birth details. A mistake on our side is redone or refunded within 30 days.</p>
       <div class="ov-faq">
         <details class="ov-q" data-ov-q><summary>What if I don't know the exact birth time?</summary><p class="ov-a">It&rsquo;s on the birth certificate, and the hospital keeps it on file. Without it, the reading would be guessing.</p></details>
         <details class="ov-q" data-ov-q><summary>I can look up their chart for free. Why pay?</summary><p class="ov-a">A free chart gives you the positions. Compass reads them for you: one child, the whole chart, in plain words.</p></details>
@@ -1532,19 +1389,12 @@ html,body{overflow-x:clip}
   var cta=document.querySelector('[data-ov-cta]');
   [].forEach.call(document.querySelectorAll('input[name="ov-tier"]'), function(r){
     r.addEventListener('change', function(){
+      if(!cta) return;
       var url=links[r.value];
-      if(!url || !cta) return;
-      cta.setAttribute('href', url);
       cta.textContent=label + ' ' + prices[r.value];
-    });
-  });
-  var slides=[].slice.call(document.querySelectorAll('[data-ov-slide]'));
-  var thumbs=[].slice.call(document.querySelectorAll('[data-ov-thumb]'));
-  thumbs.forEach(function(b){
-    b.addEventListener('click', function(){
-      var i=b.getAttribute('data-ov-thumb');
-      slides.forEach(function(s){ s.classList.toggle('on', s.getAttribute('data-ov-slide')===i); });
-      thumbs.forEach(function(o){ o.setAttribute('aria-pressed', o===b ? 'true' : 'false'); });
+      if(url){ cta.setAttribute('href', url); cta.removeAttribute('aria-disabled'); }
+      // no link yet: the button carries no target at all
+      else { cta.removeAttribute('href'); cta.setAttribute('aria-disabled','true'); }
     });
   });
   var qs=[].slice.call(document.querySelectorAll('[data-ov-q]'));

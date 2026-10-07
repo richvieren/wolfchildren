@@ -69,40 +69,47 @@ test('hover and click on row 03 swap the phone and move the mark', { skip: !JSDO
 });
 
 // ── the offer block (offer-v2) ────────────────────────────────────────────
-test('only the live tiers are rendered, and the button stays on the Compass link',
+test('all three tiers are selectable, and a tier with no link turns the button off',
   { skip: !JSDOM && 'jsdom not installed' }, () => {
   load((win) => {
     const cta = win.document.querySelector('[data-ov-cta]');
-    const href = cta.getAttribute('href');
-    assert.match(href, /^https:\/\/buy\.stripe\.com\//, 'the button points at a Stripe link');
+    const live = cta.getAttribute('href');
+    assert.match(live, /^https:\/\/buy\.stripe\.com\//, 'the button starts on the Compass link');
+    assert.equal(cta.getAttribute('aria-disabled'), null, 'the button starts on');
 
     const radios = [...win.document.querySelectorAll('input[name="ov-tier"]')];
-    assert.equal(radios.length, 1, 'one tier has a checkout URL, so one tier is rendered');
-    assert.ok(radios[0].checked, 'the first live tier is chosen on load');
+    assert.equal(radios.length, 3, 'three tiers');
     assert.equal(win.document.querySelectorAll('.ov-tier input:disabled').length, 0,
-      'a tier with no URL is not rendered at all, so no disabled tier exists');
-    assert.ok(!/Coming soon/.test(win.document.querySelector('.ov-tiers').textContent),
-      'no "Coming soon" row in this design');
+      'every tier is selectable');
+    assert.ok(radios[0].checked, 'tier 1 is chosen on load');
+    assert.ok(!/Coming soon/i.test(win.document.querySelector('.offer-v2-s').textContent),
+      'no "coming soon" text anywhere in the section');
 
+    // a tier with no checkout link: the button loses its target
+    radios[2].checked = true;
+    radios[2].dispatchEvent(new win.Event('change', { bubbles: true }));
+    assert.equal(cta.getAttribute('href'), null, 'no target while the tier has no link');
+    assert.equal(cta.getAttribute('aria-disabled'), 'true', 'the button is off');
+    assert.match(cta.textContent, /\$54$/, 'the label still carries the chosen price');
+
+    // back to the live tier: the button comes back on, on the Compass link
+    radios[0].checked = true;
     radios[0].dispatchEvent(new win.Event('change', { bubbles: true }));
-    assert.equal(cta.getAttribute('href'), href, 'choosing the live tier keeps the Compass link');
-    assert.match(cta.textContent, /\$27$/, 'the label carries the chosen price');
+    assert.equal(cta.getAttribute('href'), live, 'the Compass link is back');
+    assert.equal(cta.getAttribute('aria-disabled'), null, 'the button is on again');
   });
 });
 
-test('a thumbnail swaps the main picture', { skip: !JSDOM && 'jsdom not installed' }, () => {
+test('the left column is one photograph, with no gallery',
+  { skip: !JSDOM && 'jsdom not installed' }, () => {
   load((win) => {
-    const slides = [...win.document.querySelectorAll('[data-ov-slide]')];
-    const thumbs = [...win.document.querySelectorAll('[data-ov-thumb]')];
-    assert.equal(slides.length, 4, 'four slides');
-    assert.equal(thumbs.length, 4, 'four thumbnails');
-    assert.equal(slides[0].className, 'ov-slide on', 'slide 1 shows on load');
-
-    thumbs[2].dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
-    assert.ok(slides[2].classList.contains('on'), 'slide 3 shows');
-    assert.equal(slides.filter((s) => s.classList.contains('on')).length, 1, 'one slide at a time');
-    assert.equal(thumbs[2].getAttribute('aria-pressed'), 'true');
-    assert.equal(thumbs.filter((t) => t.getAttribute('aria-pressed') === 'true').length, 1);
+    const left = win.document.querySelector('.ov-left');
+    const imgs = [...left.querySelectorAll('img')];
+    assert.equal(imgs.length, 1, 'one photograph');
+    assert.match(imgs[0].getAttribute('src'), /compass2\/offer\.webp$/);
+    assert.equal(win.document.querySelectorAll('[data-ov-thumb]').length, 0, 'no thumbnails');
+    assert.equal(win.document.querySelectorAll('[data-ov-slide]').length, 0, 'no slides');
+    assert.equal(win.document.querySelectorAll('.ov-phone').length, 0, 'no phone shot');
   });
 });
 
