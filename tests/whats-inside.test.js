@@ -152,3 +152,30 @@ test('opening one FAQ item closes the others', { skip: !JSDOM && 'jsdom not inst
     assert.equal(open[0], qs[4]);
   });
 });
+
+// ── the transition (wave-1) ───────────────────────────────────────────────
+test('wave-1 sits between whats-inside and offer-v2, and pins whats-inside',
+  { skip: !JSDOM && 'jsdom not installed' }, () => {
+  load((win) => {
+    const ids = [...win.document.querySelectorAll('section.s')]
+      .map((s) => (s.className.match(/\b([a-z0-9-]+)-s\b/) || [])[1]);
+    const w = ids.indexOf('whats-inside');
+    const v = ids.indexOf('wave-1');
+    const o = ids.indexOf('offer-v2');
+    assert.ok(w >= 0 && v >= 0 && o >= 0, `all three sections exist: ${ids}`);
+    assert.equal(v, w + 1, 'wave-1 comes directly after whats-inside');
+    assert.equal(o, v + 1, 'offer-v2 comes directly after wave-1');
+
+    const pinned = win.document.querySelector('.whats-inside-s');
+    assert.equal(win.getComputedStyle(pinned).position, 'sticky', 'whats-inside is sticky');
+    const top = win.getComputedStyle(pinned).top;
+    assert.match(top, /^-?\d+px$/, `a computed top offset, not a keyword: ${top}`);
+
+    // the band carries the mask and one gradient token
+    const band = win.document.querySelector('.wave-1-band');
+    assert.ok(band, 'the band exists');
+    const css = [...win.document.querySelectorAll('style')].map((s) => s.textContent).join('');
+    assert.match(css, /--wave-gradient:linear-gradient\(90deg,#495543,#D9A15A,#AC2E20\)/);
+    assert.match(css, /mask-image:url\(\/assets\/img\/frames\/wave-edge\.png\)/);
+  });
+});

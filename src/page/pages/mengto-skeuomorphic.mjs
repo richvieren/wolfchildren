@@ -47,6 +47,8 @@ export default {
         },
       },
     },
+    // the transition: wave-1 pins whats-inside and rides over it
+    { id: 'wave-1', copy: 'A' },
     // 2026-10-07, Richard: the offer block sits on the dark green ground.
     { id: 'offer-v2', copy: 'A', ground: 'dark' },
     { id: 'footer', copy: 'A' },
