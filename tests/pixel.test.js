@@ -42,6 +42,9 @@ const generatedPages = ['readings/compass/sample/nora/index.html',
                         // 2026-10-06: page variants assembled from modules
                         // (src/page/, built by build-mengto.mjs).
                         'readings/compass/mengto-ab-demo/index.html',
+                        // 2026-10-07: the bench for the wave edge and the parallax.
+                        // noindex, linked from nowhere.
+                        'readings/compass/wave-test/index.html',
                         // 2026-09-27: the reasons block with the real product in it
                         // (preview-widgets.mjs). Preview only, noindex, unlinked.
                         'readings/compass/preview-widgets/index.html',

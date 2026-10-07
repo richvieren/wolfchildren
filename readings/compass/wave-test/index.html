@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="wc-variant" content="mengto-skeuomorphic">
-<title>MengTo · high-contrast-skeuomorphic-clean | Compass</title>
+<meta name="wc-variant" content="wave-test">
+<title>Wave test | Compass</title>
 <script src="/assets/js/pixel.js?v=d54ec4f6"></script>
-<script>window.WC_VARIANT="mengto-skeuomorphic";fbq('trackCustom','VariantView',{variant:window.WC_VARIANT});</script>
+<script>window.WC_VARIANT="wave-test";fbq('trackCustom','VariantView',{variant:window.WC_VARIANT});</script>
 <style>
 @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
@@ -117,7 +117,11 @@ footer{padding:56px 0}
 }
 /* every element inside a module inherits its ground's text colour, so a rule
    that sets no colour of its own cannot end up cream on cream. */
-.wc-ground-light,.wc-ground-dark{color:var(--g-text)}:root{
+.wc-ground-light,.wc-ground-dark{color:var(--g-text)}
+.wc-parallax{position:relative;isolation:isolate;z-index:0;overflow:hidden}
+.wc-parallax > *{will-change:transform}
+@media(prefers-reduced-motion:reduce){.wc-parallax > *{transform:none!important}}
+:root{
   --s-radius-card:14px; --s-radius-card-lg:20px; --s-radius-btn:11px;
   --s-radius-btn-sm:9px; --s-radius-btn-hard:6px; --s-radius-chip:7px;
   --s-radius-panel:12px; --s-radius-pill:999px; --s-radius-shell:20px;
@@ -675,83 +679,7 @@ html,body{overflow-x:clip}
   /* the stars as the rating row above the headline wears them. */
   #atf .wc-review .wc-stars{display:inline-block;margin:0;color:var(--s-star);
     font-size:19px;letter-spacing:.14em}
-}
-/* the paper: the squared sheet the homepage uses, blended over the ground so a
-   dark module stays dark and a light one reads as paper. One token turns it off. */
-.recognition-s{background-image:var(--s-texture);background-size:cover;
-  background-position:center;background-blend-mode:var(--s-texture-blend)}
-.rec{display:grid;gap:var(--s-space-block)}
-
-/* the text column */
-.rec-eyebrow{font-family:var(--b-body);color:var(--g-text);
-  font-size:var(--s-type-eyebrow);letter-spacing:var(--s-type-eyebrow-ls);
-  text-transform:uppercase;line-height:1.4}
-.rec-rule{display:block;width:44px;height:1px;background:var(--b-tan);
-  margin:10px 0 var(--s-space-block)}
-.rec h2{font-family:var(--b-display);font-weight:400;color:var(--g-text);
-  font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
-  letter-spacing:var(--s-type-display-ls);max-width:none}
-.rec-lead{font-family:var(--b-body);color:var(--g-text);
-  font-size:var(--s-type-lead);line-height:var(--s-type-lead-lh);
-  letter-spacing:var(--s-type-body-ls);max-width:46ch;margin-top:var(--s-space-block)}
-.rec-body{font-family:var(--b-body);color:var(--g-text);
-  font-size:var(--s-type-body);line-height:var(--s-type-body-lh);
-  letter-spacing:var(--s-type-body-ls);max-width:60ch;margin-top:var(--s-space-para)}
-.rec-cta{display:inline-block;margin-top:var(--s-space-block);
-  font-family:var(--b-body);font-size:var(--s-type-body);letter-spacing:.06em;
-  text-transform:uppercase;text-decoration:none;cursor:pointer;
-  padding:0 26px;height:54px;line-height:50px;
-  background:var(--b-green);color:var(--b-cream);
-  border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
-  box-shadow:var(--s-shadow-hard)}
-
-/* the photo cluster: one large photograph, one small one overlapping its lower
-   outer corner on a backing card, and two drawn marks. */
-.rec-cluster{position:relative;padding:0 0 18% 0}
-.rec-large{margin:0;transform:rotate(var(--s-tilt-a))}
-.rec-large img{display:block;width:100%;height:auto;object-fit:contain;
-  border:0;border-radius:var(--s-radius-photo)}
-.rec-small{position:absolute;left:-4%;bottom:0;width:45%;margin:0;
-  transform:rotate(var(--s-tilt-b))}
-.rec-small-backing{display:block;position:absolute;inset:0;transform:translate(10px,10px);
-  background:var(--b-tan);border-radius:var(--s-radius-photo)}
-/* display:block, because a span is an inline box: aspect-ratio and the
-   absolutely positioned slides inside it had no height, so the small
-   photograph, its backing card and the squiggle beside them rendered as
-   nothing. That was the bug, 2026-10-06. */
-.rec-slides{display:block;position:relative;aspect-ratio:3/4}
-/* the crossfade: the outgoing photograph keeps full opacity underneath while the
-   incoming one fades in on top of it, so the card behind never shows through.
-   .under is the one being left; .on is the one arriving. */
-.rec-slides img{position:absolute;inset:0;width:100%;height:100%;
-  object-fit:contain;border:0;border-radius:var(--s-radius-photo);
-  opacity:0;z-index:0;transition:opacity 900ms ease}
-.rec-slides img.under{opacity:1;z-index:1;transition:none}
-.rec-slides img.on{opacity:1;z-index:2}
-.rec-mark{position:absolute;color:var(--b-tan);pointer-events:none;z-index:3}
-.rec-mark svg{display:block;width:100%;height:auto}
-.rec-mark-star{width:34px;right:-6%;top:-5%}
-/* the hook: a drawn ring around one word. inline-block keeps it attached to the
-   word when the line wraps, and the em sizing makes it scale with the headline.
-   Morning Memories carries no ornament of its own (GSUB: liga only, GPOS: kern,
-   330 glyphs, no swsh/ornm/salt and no ornament files), so it is drawn here. */
-.rec-tight{margin-left:var(--s-tighten)}
-.rec-hook{position:relative;display:inline-block;color:inherit}
-.rec-hook svg{position:absolute;left:-.16em;top:50%;transform:translateY(-50%);
-  width:calc(100% + .32em);height:1.25em;overflow:visible;pointer-events:none;
-  color:var(--b-tan)}
-/* where the two photographs meet, on the inner side, and above them: at
-   right:38% it was behind the small photograph, which is why it read as
-   missing once that photograph started rendering. */
-.rec-mark-squiggle{width:144px;left:34%;bottom:4%}
-@media(prefers-reduced-motion:reduce){
-  .rec-slides img{transition:none}
-}
-@media(min-width:900px){
-  .rec{grid-template-columns:40% 45%;justify-content:space-between;
-    align-items:start;gap:0}
-}
-@font-face{font-family:"Wheel Glyphs";src:url("/assets/fonts/wheel-glyphs.woff2")}
+}@font-face{font-family:"Wheel Glyphs";src:url("/assets/fonts/wheel-glyphs.woff2")}
 .wc-live{--cream:#DFD7C3;--green:#495543;--tan:#CDB494;--orange:#DA4635;--cta:#AC2E20;--tan-soft:rgba(205,180,148,.45)}
 .wc-live body{margin:0;color:var(--green);font-family:"IBM Plex Mono";font-size:14px;line-height:1.6}
 .wc-live h1{font-family:Montserrat;font-weight:900;font-size:40px;line-height:1;margin:6px 0 10px;letter-spacing:-.01em}
@@ -1003,89 +931,27 @@ html,body{overflow-x:clip}
   .wi-text{position:static;margin-left:calc(50% + var(--wi-phone-w) / 2 + 48px)}
 }
 
-/* the split runs the full window: no section padding, two halves of 50% */
-.offer-v2-s{padding:0}
-.ov{display:grid}
-.ov-left{background:var(--b-green);display:grid;place-items:center;padding:32px 24px}
-.ov-left img{display:block;max-width:100%;max-height:80vh;width:auto;height:auto;
-  object-fit:contain;border:0;border-radius:24px}
-.ov-right{background:var(--b-paper);padding:64px 24px}
-.ov-box{max-width:480px;margin:0 auto}
-
-/* Inter inside the buy box only; the title keeps Morning Memories */
-.ov-box{--ov-ui:'Inter',system-ui,sans-serif}
-.ov-title{font-family:var(--b-display);font-weight:400;color:var(--b-green);
-  font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
-  letter-spacing:var(--s-type-display-ls);margin:0 0 10px}
-.ov-rating{display:flex;align-items:baseline;gap:9px;margin:0 0 12px;font-family:var(--b-body)}
-.ov-stars{color:var(--b-gold);font-size:19px;letter-spacing:.14em}
-.ov-rated{color:var(--b-green);font-size:var(--s-type-body)}
-.ov-line{font-family:var(--ov-ui);font-weight:400;font-size:15px;line-height:1.5;
-  color:var(--b-green);margin:0 0 20px}
-
-/* the tiers */
-.ov-tiers{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:10px}
-.ov-tier input{position:absolute;opacity:0;width:0;height:0}
-.ov-tier-box{display:grid;grid-template-columns:1fr auto;gap:2px 16px;align-items:center;
-  padding:16px;background:#FFFFFF;border:1px solid var(--b-tan);border-radius:10px;cursor:pointer}
-.ov-tier input:checked + .ov-tier-box{border:2px solid var(--b-green);padding:15px}
-.ov-tier input:focus-visible + .ov-tier-box{outline:2px solid var(--b-green);outline-offset:2px}
-.ov-name{display:flex;align-items:center;gap:10px;font-family:var(--ov-ui);font-weight:600;
-  font-size:16px;line-height:1.3;color:var(--b-green)}
-.ov-dot{flex:0 0 16px;width:16px;height:16px;border-radius:50%;border:1px solid var(--b-green)}
-.ov-tier input:checked + .ov-tier-box .ov-dot{background:var(--b-green);box-shadow:inset 0 0 0 3px #FFFFFF}
-.ov-price{font-family:var(--ov-ui);font-weight:600;font-size:20px;line-height:1;
-  color:var(--b-green);text-align:right}
-.ov-each{grid-column:1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-  font-family:var(--ov-ui);font-weight:400;font-size:13px;line-height:1.5;
-  color:var(--b-green);padding-left:26px}
-.ov-save{font-family:var(--ov-ui);font-weight:600;font-size:13px;color:var(--b-green);
-  background:rgba(73,85,67,.1);border-radius:999px;padding:2px 8px}
-.ov-note{grid-column:1;font-family:var(--ov-ui);font-weight:400;font-size:13px;
-  line-height:1.5;color:var(--b-green);padding-left:26px}
-.ov-more{grid-column:1/-1;display:none;margin:12px 0 0;padding:0;list-style:none}
-.ov-tier input:checked + .ov-tier-box .ov-more{display:grid;gap:8px}
-.ov-more li{display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:start;
-  font-family:var(--ov-ui);font-weight:400;font-size:14px;line-height:1.45;color:var(--b-green)}
-.ov-tick{width:14px;height:14px;margin-top:3px;border:1px solid var(--b-green);
-  border-radius:50%;position:relative}
-.ov-tick:after{content:"";position:absolute;left:4px;top:2px;width:3.5px;height:7px;
-  border-right:1.5px solid var(--b-green);border-bottom:1.5px solid var(--b-green);transform:rotate(42deg)}
-
-/* the button */
-.ov-cta{display:block;width:100%;text-align:center;font-family:var(--ov-ui);font-weight:600;
-  font-size:16px;letter-spacing:.02em;text-decoration:none;height:54px;line-height:50px;
-  background:var(--b-green);color:var(--b-cream);border:2px solid var(--b-green-deep);
-  border-radius:6px;box-shadow:4px 4px 0 var(--b-green-deep)}
-.ov-cta[aria-disabled="true"]{opacity:.45;box-shadow:none;cursor:default;pointer-events:none}
-.ov-secure{font-family:var(--ov-ui);font-weight:400;font-size:13px;line-height:1.6;
-  color:var(--b-green);text-align:center;margin:12px 0 0}
-
-/* the FAQ */
-.ov-faq{margin-top:32px}
-.ov-faq .ov-q{background:none;border:0;border-radius:0;box-shadow:none;margin:0;padding:0;
-  border-top:1px solid var(--b-tan)}
-.ov-faq .ov-q:last-child{border-bottom:1px solid var(--b-tan)}
-.ov-faq .ov-q summary{list-style:none;cursor:pointer;display:flex;gap:16px;
-  align-items:baseline;justify-content:space-between;padding:16px 0;
-  font-family:var(--ov-ui);font-weight:600;font-size:15px;line-height:1.4;color:var(--b-green)}
-.ov-faq .ov-q summary::-webkit-details-marker{display:none}
-.ov-faq .ov-q summary::after{content:"+";font-weight:400;font-size:16px;color:var(--b-tan)}
-.ov-faq .ov-q[open] summary::after{content:"\2013"}
-.ov-faq .ov-q summary:focus{outline:none}
-.ov-faq .ov-q summary:focus-visible{outline:2px solid var(--b-green);outline-offset:2px}
-.ov-faq .ov-a{font-family:var(--ov-ui);font-weight:400;font-size:15px;line-height:1.6;
-  color:var(--b-green);opacity:.8;margin:0 0 18px;max-width:60ch}
-
-@media(min-width:900px){
-  .ov{grid-template-columns:50% 50%}
-  .ov-left{padding:48px}
-  .ov-right{padding:64px 48px}
-  .ov-box{margin:0}
-}
+.wd{--wd-wave-h:45vw;position:relative;z-index:1;
+  background:var(--wd-gradient);min-height:70vh;
+  padding:var(--s-space-section) 0}
+.wd::before{content:"";position:absolute;left:0;right:0;bottom:100%;
+  height:var(--wd-wave-h);background:var(--wd-gradient);pointer-events:none;
+  -webkit-mask-image:url(/assets/img/frames/wave-edge.png);
+  mask-image:url(/assets/img/frames/wave-edge.png);
+  -webkit-mask-size:200% auto;mask-size:200% auto;
+  -webkit-mask-position:top right;mask-position:top right;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.wd-h{font-family:var(--b-display);font-weight:400;font-size:var(--s-type-display);
+  line-height:var(--s-type-display-lh);letter-spacing:var(--s-type-display-ls);
+  color:var(--b-green);margin:0 0 var(--s-space-para)}
+.wd-p{font-family:var(--b-body);font-size:var(--s-type-body);
+  line-height:var(--s-type-body-lh);color:var(--b-green);margin:0;max-width:60ch}
+.wd-tag{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;
+  color:var(--b-bark);margin:0 0 10px}
 </style>
 </head>
-<body data-variant="mengto-skeuomorphic">
+<body data-variant="wave-test">
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=1622703732974632&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
 <div id="atf">
 
@@ -1181,59 +1047,7 @@ html,body{overflow-x:clip}
 })();
 </script></div>
 
-<section class="s recognition-s wc-ground-dark"><div class="wrap">
-  <div class="rec">
-    <div class="rec-text">
-      <p class="rec-eyebrow">Your chart, then theirs</p><span class="rec-rule"></span>
-      <h2>You've read your own chart <span class="rec-tight">a</span> hundred times. Never <span class="rec-hook">theirs<svg viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true"><path d="M62 8C30 11 8 22 6 36c-2 15 22 28 62 30 42 2 96-2 132-13 22-7 26-18 18-26C208 17 178 9 146 6"/></svg></span>.</h2>
-      <p class="rec-lead">You know why you need a quiet hour after a crowded day. You know which part of you picks the fight and which part makes up after. You learned it from your own chart, line by line.</p>
-      <p class="rec-body">Your child has one too. Same sky, a different night. It says what settles them after a hard day, why bedtime goes the way it goes, and why the two of you clash over the same small thing.</p>
-      <a class="rec-cta" href="#atf" data-rec-cta>Read theirs</a>
-    </div>
-    <div class="rec-cluster">
-      <figure class="rec-large"><img src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence, absorbed in the animals on the other side" loading="lazy" decoding="async"></figure>
-      <span class="rec-mark rec-mark-star" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
-      <figure class="rec-small"><span class="rec-small-backing" aria-hidden="true"></span>
-        <span class="rec-slides"><img class="on" src="/assets/img/compass2/reason-3.webp" width="1200" height="1600" alt="A child running across grass towards the trees" loading="lazy" decoding="async"><img class="" src="/assets/img/compass2/reason-4.webp" width="1200" height="1600" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="" src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
-      </figure>
-      <span class="rec-mark rec-mark-squiggle" aria-hidden="true"><svg viewBox="0 0 90 26" fill="none" stroke="currentColor" stroke-width="4.8" stroke-linecap="round"><path d="M3 18c9-14 17 6 26-6s17 14 26 2 13 2 13 2"/></svg></span>
-    </div>
-  </div>
-</div></section>
-<script>
-(function(){
-  // the button: back to the birth form, and the first field takes focus. The
-  // fields are spans in the section's own markup, so focus needs a tabindex,
-  // set here at runtime rather than by changing the ATF.
-  var b=document.querySelector('[data-rec-cta]');
-  if(b) b.addEventListener('click',function(e){
-    var form=document.querySelector('#atf .form'); if(!form) return;
-    e.preventDefault();
-    form.scrollIntoView({behavior:'smooth',block:'center'});
-    var f=form.querySelector('.field'); if(!f) return;
-    if(!f.hasAttribute('tabindex')) f.setAttribute('tabindex','-1');
-    setTimeout(function(){ f.focus({preventScroll:true}); },600);
-  });
-  // the small photograph crossfades; it stands still when the reader asks for
-  // less motion.
-  var imgs=[].slice.call(document.querySelectorAll('.rec-slides img'));
-  if(imgs.length<2) return;
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var i=0;
-  setInterval(function(){
-    var out=imgs[i];
-    i=(i+1)%imgs.length;
-    var into=imgs[i];
-    out.classList.remove('on'); out.classList.add('under');   // stays fully visible
-    into.classList.remove('under');
-    void into.offsetWidth;                                     // start the fade from 0
-    into.classList.add('on');
-    setTimeout(function(){ out.classList.remove('under'); }, 900);
-  },3500);
-})();
-</script>
-
-<section class="s whats-inside-s wc-ground-light" data-wi>
+<section class="s whats-inside-s wc-ground-light wc-parallax" data-wi data-parallax="0.4">
   <figure class="wi-photo"><img src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="A child standing on a rock in a forest, looking back" loading="lazy" decoding="async"></figure>
   <div class="wrap">
   <div class="wi">
@@ -1312,106 +1126,21 @@ html,body{overflow-x:clip}
 })();
 </script>
 
-<section class="s offer-v2-s wc-ground-dark">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
-  <div class="ov">
-    <div class="ov-left">
-      <img src="/assets/img/compass2/offer.webp" width="1200" height="1600" alt="A child in a doorway at the end of the day, boots muddy" loading="lazy" decoding="async">
-    </div>
-
-    <div class="ov-right">
-      <div class="ov-box">
-        <h2 class="ov-title">Compass</h2>
-        <p class="ov-rating" data-placeholder="review"><span class="ov-stars" aria-hidden="true">★★★★★</span><span class="ov-rated">4.8/5 Based on dozens of users</span></p>
-        <p class="ov-line">One page per child &middot; Ready in minutes &middot; Yours to keep</p>
-        <ul class="ov-tiers">
-        <li class="ov-tier">
-          <input type="radio" name="ov-tier" id="ov-one" value="one" checked>
-          <label class="ov-tier-box" for="ov-one">
-            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>One child</span>
-            <span class="ov-price">$27</span>
-            
-            
-            <ul class="ov-more">
-              <li><span class="ov-tick" aria-hidden="true"></span><span>One page per child, ready in minutes</span></li>
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Kept in your private portal</span></li>
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Fill in each child whenever you're ready</span></li>
-            </ul>
-          </label>
-        </li>
-        <li class="ov-tier">
-          <input type="radio" name="ov-tier" id="ov-two" value="two">
-          <label class="ov-tier-box" for="ov-two">
-            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>Two children</span>
-            <span class="ov-price">$47</span>
-            <span class="ov-each"><span>$23.50 each</span><span class="ov-save">Save $7</span></span>
-            
-            <ul class="ov-more">
-              <li><span class="ov-tick" aria-hidden="true"></span><span>One page per child, ready in minutes</span></li>
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Kept in your private portal</span></li>
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Fill in each child whenever you're ready</span></li>
-            </ul>
-          </label>
-        </li>
-        <li class="ov-tier">
-          <input type="radio" name="ov-tier" id="ov-three" value="three">
-          <label class="ov-tier-box" for="ov-three">
-            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>Buy two, get one free</span>
-            <span class="ov-price">$54</span>
-            <span class="ov-each"><span>$18 each</span><span class="ov-save">Save $27</span></span>
-            <span class="ov-note">Keep one as a gift, or for later</span>
-            <ul class="ov-more">
-              <li><span class="ov-tick" aria-hidden="true"></span><span>One page per child, ready in minutes</span></li>
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Kept in your private portal</span></li>
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Fill in each child whenever you're ready</span></li>
-            </ul>
-          </label>
-        </li>
-        </ul>
-        <a class="ov-cta" data-ov-cta href="https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07">Get their Compass · $27</a>
-        <p class="ov-secure">Secure checkout with Stripe.</p>
-        <div class="ov-faq">
-          <details class="ov-q" data-ov-q><summary>What if I don't know the exact birth time?</summary><p class="ov-a">It&rsquo;s on the birth certificate, and the hospital keeps it on file. Without it, the reading would be guessing.</p></details>
-          <details class="ov-q" data-ov-q><summary>I can look up their chart for free. Why pay?</summary><p class="ov-a">A free chart gives you the positions. Compass reads them for you: one child, the whole chart, in plain words.</p></details>
-          <details class="ov-q" data-ov-q><summary>Will it put my child in a box?</summary><p class="ov-a">No predictions, no types, no labels. It describes how they&rsquo;re wired now.</p></details>
-          <details class="ov-q" data-ov-q><summary>How does it arrive?</summary><p class="ov-a">In your private portal, minutes after you enter the details.</p></details>
-          <details class="ov-q" data-ov-q><summary>Do I have to fill them all in at once?</summary><p class="ov-a">No. Each one waits in your portal until you&rsquo;re ready.</p></details>
-          <details class="ov-q" data-ov-q><summary>What if it doesn't sound like them?</summary><p class="ov-a">Say so. A person reads every reply.</p></details>
-          <details class="ov-q" data-ov-q><summary>What happens to their details?</summary><p class="ov-a">They stay on our own server and never leave it. You can delete a child from your portal at any time.</p></details>
-        </div>
-      </div>
-    </div>
+<section class="s wave-demo-s wd" style="--wd-gradient:linear-gradient(90deg,#DFD7C3,#CDB494)">
+  <div class="wrap">
+    <p class="wd-tag">Version 1</p>
+    <h2 class="wd-h">Cream into tan</h2>
+    <p class="wd-p">The ground is linear-gradient(90deg,#DFD7C3,#CDB494). The wave above this heading is a separate layer: it carries the same gradient and wears the mask, so nothing here is masked.</p>
   </div>
 </section>
-<script>
-(function(){
-  var links={"one":"https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07","two":null,"three":null};
-  var prices={"one":"$27","two":"$47","three":"$54"};
-  var label="Get their Compass ·";
-  var cta=document.querySelector('[data-ov-cta]');
-  [].forEach.call(document.querySelectorAll('input[name="ov-tier"]'), function(r){
-    r.addEventListener('change', function(){
-      if(!cta) return;
-      var url=links[r.value];
-      cta.textContent=label + ' ' + prices[r.value];
-      if(url){ cta.setAttribute('href', url); cta.removeAttribute('aria-disabled'); }
-      // no link yet: the button carries no target at all
-      else { cta.removeAttribute('href'); cta.setAttribute('aria-disabled','true'); }
-    });
-  });
-  var qs=[].slice.call(document.querySelectorAll('[data-ov-q]'));
-  qs.forEach(function(d){
-    d.addEventListener('toggle', function(){
-      if(!d.open) return;
-      qs.forEach(function(o){ if(o!==d) o.open=false; });
-    });
-  });
-})();
-</script>
 
-<footer class="wc-ground-light"><div class="wrap">Wolf Children · hello@wolfchildren.co</div></footer>
+<section class="s wave-demo-s wd" style="--wd-gradient:linear-gradient(90deg,#495543,#CDB494)">
+  <div class="wrap">
+    <p class="wd-tag">Version 2</p>
+    <h2 class="wd-h">Green into tan</h2>
+    <p class="wd-p">The ground is linear-gradient(90deg,#495543,#CDB494). The wave above this heading is a separate layer: it carries the same gradient and wears the mask, so nothing here is masked.</p>
+  </div>
+</section>
 
 
 <script>
@@ -1431,5 +1160,34 @@ html,body{overflow-x:clip}
 })();
 </script>
 
+<script>
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('.wc-parallax'));
+  if(!secs.length) return;
+  var mq=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var ticking=false;
+  function off(){ secs.forEach(function(s){ var c=s.firstElementChild; if(c) c.style.transform=''; }); }
+  function frame(){
+    ticking=false;
+    if(mq && mq.matches) return off();
+    var h=window.innerHeight;
+    secs.forEach(function(s){
+      var c=s.firstElementChild;
+      if(!c) return;
+      var r=s.getBoundingClientRect();
+      if(r.bottom < 0 || r.top > h) return;             // only while it is on screen
+      var speed=parseFloat(s.getAttribute('data-parallax')) || 0.5;
+      var passed=Math.max(0, -r.top);                   // how far its top went by
+      var lag=passed * speed;             // no cap: the section clips its own contents
+      c.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+    });
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  if(mq && mq.addEventListener) mq.addEventListener('change', function(){ off(); onScroll(); });
+  frame();
+})();
+</script>
 </body>
 </html>

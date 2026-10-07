@@ -83,7 +83,13 @@ export async function render(config) {
     return m.parallax ? html.replace(/^<section([^>]*)>/, `<section$1 data-parallax="${m.parallax}">`) : html;
   }).join('\n\n');
 
-  const moduleCss = config.modules.map((m) => mods[m.id].css).filter(Boolean).join('');
+  // a module used twice brings its CSS once
+  const moduleCss = [...new Set(config.modules.map((m) => mods[m.id].css))].filter(Boolean).join('');
+
+  // each half of the edge layer ships only to a page that asks for it
+  const edgeCss = (config.modules.some((m) => m.edge) ? edges.css : '')
+    + (config.modules.some((m) => m.parallax) ? edges.motionCss : '');
+  const edgeJs = config.modules.some((m) => m.parallax) ? edges.script : '';
   const atf = resolveAtf(config.atf?.cell ?? 'control');
   const section = theme.atfV2 ? theme.atfV2(atfMarkup(atf)) : atfMarkup(atf);
 
@@ -103,7 +109,7 @@ export async function render(config) {
 <title>${config.title} | Compass</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
 <script>window.WC_VARIANT=${JSON.stringify(config.id)};fbq('trackCustom','VariantView',{variant:window.WC_VARIANT});</script>
-<style>${FONTS_V2}${TOKENS_WC}${BASE}${brand.css}${grounds.css}${edges.css}${skinCss}${skin.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${scopedAtfCss('#atf')}${ATF_GUARD}${atfDesktopCss('#atf')}${skin.atfCss}${moduleCss}</style>
+<style>${FONTS_V2}${TOKENS_WC}${BASE}${brand.css}${grounds.css}${edgeCss}${skinCss}${skin.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${scopedAtfCss('#atf')}${ATF_GUARD}${atfDesktopCss('#atf')}${skin.atfCss}${moduleCss}</style>
 </head>
 <body data-variant="${config.id}">
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
@@ -111,8 +117,7 @@ export async function render(config) {
 
 ${body}
 
-${ATF_JS}
-${edges.script}
+${ATF_JS}${edgeJs ? `\n${edgeJs}` : ''}
 </body>
 </html>
 `;

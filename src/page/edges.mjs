@@ -30,6 +30,10 @@ export const css = `
 /* isolation:isolate makes the section its own stacking context, so a positioned
    child (the phone carries z-index:2) can no longer paint above the section
    that covers it. The section's contents are clipped, so the lag stays inside. */
+`;
+
+/** The motion layer, shipped only to a page with a parallax setting. */
+export const motionCss = `
 .wc-parallax{position:relative;isolation:isolate;z-index:0;overflow:hidden}
 .wc-parallax > *{will-change:transform}
 @media(prefers-reduced-motion:reduce){.wc-parallax > *{transform:none!important}}

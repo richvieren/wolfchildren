@@ -12,12 +12,13 @@ let JSDOM = null;
 try { ({ JSDOM } = await import('jsdom')); } catch { /* not installed */ }
 
 const PAGE = 'readings/compass/mengto-skeuomorphic/index.html';
+const WAVE_PAGE = 'readings/compass/wave-test/index.html';
 
 // The page's own scripts run (that is the point), so every window is closed
 // again: the recognition slideshow sets an interval that would hold the test
 // process open.
-function load(fn) {
-  const dom = new JSDOM(readFileSync(PAGE, 'utf8'), { runScripts: 'dangerously' });
+function load(fn, page = PAGE) {
+  const dom = new JSDOM(readFileSync(page, 'utf8'), { runScripts: 'dangerously' });
   try { fn(dom.window); } finally { dom.window.close(); }
 }
 
@@ -153,41 +154,51 @@ test('opening one FAQ item closes the others', { skip: !JSDOM && 'jsdom not inst
   });
 });
 
-// ── the transition (a page setting, not module code) ──────────────────────
-test('no pin on whats-inside, no wave-1 in the order, and the wave is offer-v2\'s edge',
+// ── the live page carries no transition ───────────────────────────────────
+test('the live page has no wave edge, no parallax and no gradient section',
+  { skip: !JSDOM && 'jsdom not installed' }, () => {
+  load((win) => {
+    const ids = [...win.document.querySelectorAll('section.s')]
+      .map((s) => (s.className.match(/\b([a-z0-9-]+)-s\b/) || [])[1]);
+    assert.deepEqual(ids, ['recognition', 'whats-inside', 'offer-v2'], `the order: ${ids}`);
+    const html = win.document.documentElement.outerHTML;
+    assert.ok(!/wave-edge\.png/.test(html), 'no wave mask anywhere');
+    assert.ok(!/wc-parallax|wc-edge-wave/.test(html), 'no edge or parallax layer');
+    assert.ok(!/--ov-gradient/.test(html), 'no gradient ground on the offer');
+    // the split is back: the green half and the paper half
+    const css = [...win.document.querySelectorAll('style')].map((x) => x.textContent).join('');
+    assert.match(css, /\.ov-left\{background:var\(--b-green\)/);
+    assert.match(css, /\.ov-right\{background:var\(--b-paper\)/);
+  });
+});
+
+// ── the bench: readings/compass/wave-test ─────────────────────────────────
+test('the wave is its own layer, and no mask touches a section or its content',
   { skip: !JSDOM && 'jsdom not installed' }, () => {
   load((win) => {
     const secs = [...win.document.querySelectorAll('section.s')];
     const ids = secs.map((s) => (s.className.match(/\b([a-z0-9-]+)-s\b/) || [])[1]);
-    assert.ok(!ids.includes('wave-1'), `wave-1 is out of the order: ${ids}`);
-    assert.equal(ids.indexOf('offer-v2'), ids.indexOf('whats-inside') + 1,
-      'offer-v2 follows whats-inside directly');
+    assert.deepEqual(ids, ['whats-inside', 'wave-demo', 'wave-demo'], `the order: ${ids}`);
 
-    // 1 — the pin is gone: nothing sets position sticky on whats-inside
-    const pinned = win.document.querySelector('.whats-inside-s');
-    assert.notEqual(win.getComputedStyle(pinned).position, 'sticky', 'no sticky pin');
-    assert.ok(!/sticky/.test(pinned.getAttribute('style') || ''), 'no inline pin either');
+    // the two grounds under test
+    const grads = secs.slice(1).map((s) => s.getAttribute('style'));
+    assert.equal(grads[0], '--wd-gradient:linear-gradient(90deg,#DFD7C3,#CDB494)');
+    assert.equal(grads[1], '--wd-gradient:linear-gradient(90deg,#495543,#CDB494)');
 
-    // the parallax comes from the config, and the shared script reads the speed
-    assert.ok(pinned.classList.contains('wc-parallax'), 'the section is marked for parallax');
-    assert.equal(pinned.getAttribute('data-parallax'), '0.4', '0.4 of the scroll speed');
-
-    // 3 and 5 — the wave is offer-v2's edge, set by the page, drawn by the shared layer
-    const offer = win.document.querySelector('.offer-v2-s');
-    assert.ok(offer.classList.contains('wc-edge-wave'), 'offer-v2 carries the wave edge');
     const css = [...win.document.querySelectorAll('style')].map((x) => x.textContent).join('');
-    assert.match(css, /\.wc-edge-wave\{[^}]*mask-image:url\(\/assets\/img\/frames\/wave-edge\.png\)/);
-    assert.match(css, /\.wc-edge-wave\{[^}]*margin-top:calc\(var\(--wc-edge-h\) \* -1\)/);
-    // the mask keeps the file's own shape: width 100%, height follows
-    assert.match(css, /mask-size:100% auto,/, 'the edge is not squashed into a fixed height');
-    assert.ok(!/\.wave-1-band/.test(css), 'wave-1 brings no CSS to this page');
-    assert.match(css, /\.wc-parallax\{[^}]*isolation:isolate[^}]*overflow:hidden/,
-      'the section is its own stacking context and clips its contents');
-    assert.ok(!/var cap=/.test([...win.document.querySelectorAll('script')]
-      .map((x) => x.textContent).join('')), 'no cap on the lag');
+    // every rule that carries a mask, and the selector it carries it on
+    const masked = [...css.matchAll(/([^{}]*)\{([^}]*)\}/g)]
+      .filter((m) => /mask-image/.test(m[2]))
+      .map((m) => m[1].trim().split('\n').pop().trim());
+    assert.deepEqual(masked, ['.wd::before'], `only the decorative layer is masked: ${masked}`);
+    assert.match(css, /\.wd::before\{[^}]*bottom:100%/, 'the layer sits above the section');
+    assert.match(css, /\.wd::before\{[^}]*mask-size:200% auto/, 'the swoop is drawn at 200%');
+    assert.match(css, /\.wd\{[^}]*z-index:1/, 'the wave section paints above the one before it');
 
-    // 4 — the gradient and the light card
-    assert.match(css, /--ov-gradient:linear-gradient\(90deg,#CDB494,#D9A15A,#DA4635\)/);
-    assert.match(css, /\.ov-box\{[^}]*background:var\(--b-paper\)[^}]*border-radius:16px/);
-  });
+    // the section above moves at 0.4, clipped, and cannot paint out of itself
+    const above = win.document.querySelector('.whats-inside-s');
+    assert.ok(above.classList.contains('wc-parallax'));
+    assert.equal(above.getAttribute('data-parallax'), '0.4');
+    assert.match(css, /\.wc-parallax\{[^}]*isolation:isolate[^}]*overflow:hidden/);
+  }, WAVE_PAGE);
 });
