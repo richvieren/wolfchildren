@@ -67,3 +67,56 @@ test('hover and click on row 03 swap the phone and move the mark', { skip: !JSDO
   }
   });
 });
+
+// ── the offer card ────────────────────────────────────────────────────────
+test('tier 1 keeps the button on the Compass link, and tiers 2 and 3 cannot be chosen',
+  { skip: !JSDOM && 'jsdom not installed' }, () => {
+  load((win) => {
+    const cta = win.document.querySelector('[data-oc-cta]');
+    const href = cta.getAttribute('href');
+    assert.match(href, /^https:\/\/buy\.stripe\.com\//, 'the button starts on a Stripe link');
+
+    const radios = [...win.document.querySelectorAll('input[name="oc-tier"]')];
+    assert.equal(radios.length, 3, 'three tiers');
+    assert.ok(radios[0].checked, 'tier 1 is chosen on load');
+    assert.ok(!radios[0].disabled, 'tier 1 is selectable');
+    assert.ok(radios[1].disabled && radios[2].disabled, 'tiers 2 and 3 are not selectable');
+
+    radios[0].dispatchEvent(new win.Event('change', { bubbles: true }));
+    assert.equal(cta.getAttribute('href'), href, 'clicking tier 1 keeps the Compass link');
+
+    // a disabled tier cannot be chosen, and even a forced change leaves the link alone
+    radios[2].checked = true;
+    radios[2].dispatchEvent(new win.Event('change', { bubbles: true }));
+    assert.equal(cta.getAttribute('href'), href, 'a tier with no link never moves the button');
+  });
+});
+
+test('a thumbnail swaps the large picture', { skip: !JSDOM && 'jsdom not installed' }, () => {
+  load((win) => {
+    const big = win.document.querySelector('[data-oc-shot]');
+    const thumbs = [...win.document.querySelectorAll('[data-oc-thumb]')];
+    assert.equal(thumbs.length, 3, 'three thumbnails');
+    const first = big.getAttribute('src');
+    thumbs[2].dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+    assert.notEqual(big.getAttribute('src'), first, 'the large picture changed');
+    assert.equal(thumbs[2].getAttribute('aria-pressed'), 'true');
+    assert.equal(thumbs.filter((t) => t.getAttribute('aria-pressed') === 'true').length, 1);
+  });
+});
+
+test('opening one FAQ item closes the others', { skip: !JSDOM && 'jsdom not installed' }, () => {
+  load((win) => {
+    const qs = [...win.document.querySelectorAll('[data-oc-q]')];
+    assert.equal(qs.length, 7, 'seven questions');
+    assert.equal(qs.filter((d) => d.open).length, 0, 'all closed on load');
+
+    qs[1].open = true;
+    qs[1].dispatchEvent(new win.Event('toggle'));
+    qs[4].open = true;
+    qs[4].dispatchEvent(new win.Event('toggle'));
+    const open = qs.filter((d) => d.open);
+    assert.equal(open.length, 1, 'one open at a time');
+    assert.equal(open[0], qs[4]);
+  });
+});

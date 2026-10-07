@@ -1008,48 +1008,245 @@ html,body{overflow-x:clip}
     width:var(--wi-phone-w);max-width:none;z-index:2;margin:0}
   .wi-text{position:static;margin-left:calc(50% + var(--wi-phone-w) / 2 + 48px)}
 }
+@font-face{font-family:"Wheel Glyphs";src:url("/assets/fonts/wheel-glyphs.woff2")}
+.wc-live{--cream:#DFD7C3;--green:#495543;--tan:#CDB494;--orange:#DA4635;--cta:#AC2E20;--tan-soft:rgba(205,180,148,.45)}
+.wc-live body{margin:0;color:var(--green);font-family:"IBM Plex Mono";font-size:14px;line-height:1.6}
+.wc-live h1{font-family:Montserrat;font-weight:900;font-size:40px;line-height:1;margin:6px 0 10px;letter-spacing:-.01em}
+.wc-live .overline, .wc-live .wlabel, .wc-live .letter-label, .wc-live .sh-label, .wc-live .biz-label, .wc-live .badge-label, .wc-live .cusp-label, .wc-live .stellium-label, .wc-live .pill-label, .wc-live .bar-name, .wc-live .pole, .wc-live .hemi-title, .wc-live .sub-head, .wc-live .product-lock{font-family:Montserrat;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.wc-live .hero{text-align:center;padding:12px 0 6px}
+.wc-live .big3-line{font-size:14px}
+.wc-live .disclaimer{font-size:12px;line-height:1.5;margin:0 0 18px;color:var(--green)}
+.wc-live .card{background:var(--cream);border:1px solid var(--tan);border-radius:4px;padding:24px}
+.wc-live .big3-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:28px}
+.wc-live .big3{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:16px 8px}
+.wc-live .big3-circle{width:60px;height:60px;border-radius:50%;border:1px solid var(--tan);display:flex;align-items:center;justify-content:center;position:relative}
+.wc-live .big3-circle:after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid var(--tan-soft)}
+.wc-live .big3-circle.fire{background:rgba(218,70,53,.10)}
+.wc-live .big3-circle.earth{background:rgba(73,85,67,.12)}
+.wc-live .big3-circle.air{background:rgba(205,180,148,.28)}
+.wc-live .big3-circle.water{background:rgba(73,85,67,.06)}
+.wc-live .big3-word{font-family:Montserrat;font-weight:900;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.wc-live .big3-sign{font-family:Montserrat;font-weight:900;font-size:15px;line-height:1.1}
+.wc-live .big3-sub{font-size:11px;line-height:1.35}
+.wc-live .pill-wrap{display:flex;justify-content:center;margin-top:14px}
+.wc-live .pill{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--tan);border-radius:999px;padding:10px 22px}
+.wc-live .pill.small{margin-top:18px;padding:8px 18px}
+.wc-live .pill-label{white-space:nowrap}
+.wc-live .pill-div{width:1px;height:14px;background:var(--tan)}
+.wc-live .pill-text{font-size:13px}
+.wc-live .letter{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:40px 0}
+.wc-live .letter-rule{width:32px;height:1px;background:var(--tan)}
+.wc-live .letter-text{margin:0;max-width:620px;font-family:"Libre Baskerville";font-size:17px;line-height:1.55;letter-spacing:-.01em}
+.wc-live .letter-text.italic{font-style:italic;font-size:18px}
+.wc-live .section{padding:28px 0 0}
+.wc-live .section.tight{padding-top:20px}
+.wc-live .sh{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.wc-live .sh-line{flex:1;height:1px;background:var(--tan)}
+.wc-live .sh-num{font-family:Montserrat;font-weight:900;font-size:12px}
+.wc-live .grid2{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px}
+.wc-live .grid3{display:grid;grid-template-columns:1fr;gap:14px}
+.wc-live .grid2.texts{gap:18px;margin:8px 0 18px}
+.wc-live .wlabel{margin-bottom:22px}
+.wc-live .wcontext{font-family:"Libre Baskerville";font-size:14px;line-height:1.55;margin-top:16px}
+.wc-live .bar-rows{display:flex;flex-direction:column;gap:14px}
+.wc-live .bar{display:flex;flex-direction:column;gap:8px}
+.wc-live .bar-head{display:flex;justify-content:space-between;align-items:baseline}
+.wc-live .bar-count{font-family:Montserrat;font-weight:900;font-size:16px}
+.wc-live .bar-track{height:3px;background:var(--tan-soft);border-radius:1px;overflow:hidden}
+.wc-live .bar-fill{height:100%;background:var(--green)}
+.wc-live .bar-footer{margin-top:18px;padding-top:14px;border-top:1px solid var(--tan);font-size:13px}
+.wc-live .bar-footer span{font-weight:700;text-transform:capitalize}
+.wc-live .spec-rows{display:flex;flex-direction:column;gap:22px}
+.wc-live .spec{display:flex;flex-direction:column;gap:10px}
+.wc-live .spec-poles{display:flex;justify-content:space-between}
+.wc-live .pole{opacity:.45}
+.wc-live .pole.on{opacity:1}
+.wc-live .spec-track{position:relative;height:14px}
+.wc-live .spec-line{position:absolute;left:0;right:0;top:6.5px;height:1px;background:var(--tan)}
+.wc-live .spec-tick{position:absolute;left:50%;top:3.5px;width:1px;height:7px;background:var(--tan)}
+.wc-live .spec-dot{position:absolute;top:2px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--green)}
+.wc-live .spec-context{font-family:"Libre Baskerville";font-size:13.5px;line-height:1.5}
+.wc-live .hemi-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px}
+.wc-live .hemi-cell{border:1px solid var(--tan-soft);border-radius:4px;padding:16px 14px;display:flex;flex-direction:column;gap:4px;opacity:.55}
+.wc-live .hemi-cell.on{opacity:1;background:rgba(205,180,148,.28);border-color:var(--tan)}
+.wc-live .hemi-title{font-size:11px}
+.wc-live .hemi-sub{font-size:12px}
+.wc-live .moon-wrap{display:flex;justify-content:center;padding:4px 0 12px}
+.wc-live .moon{width:124px;height:124px}
+.wc-live .moon-sky{fill:#3A4435}
+.wc-live .moon-dark{fill:#5D6A56}
+.wc-live .moon-lit{fill:#F0E7D2}
+.wc-live .moon-pit{fill:#C9BCA0;opacity:.34}
+.wc-live .moon-ring{fill:none;stroke:#2F382B;stroke-width:1.2}
+.wc-live .moon-line{font-size:12px;line-height:1.5;color:var(--green)}
+.wc-live .hemi-footer{font-family:"Libre Baskerville";font-size:14px;line-height:1.55;margin-top:16px}
+.wc-live .vis{display:flex;flex-direction:column;align-items:center}
+.wc-live .vis .wlabel{align-self:flex-start;margin-bottom:10px}
+.wc-live .gauge-num{font-family:Montserrat;font-weight:900;font-size:44px}
+.wc-live .gauge-sub{font-family:Montserrat;font-weight:900;font-size:9px;letter-spacing:.2em}
+.wc-live .biz{border-left:2px solid var(--tan);padding-left:18px}
+.wc-live .biz-label{margin-bottom:8px}
+.wc-live .biz-body{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.6}
+.wc-live .divider{height:1px;background:var(--tan);margin:20px 0}
+.wc-live .badge{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:30px 28px 32px}
+.wc-live .badge-halo{width:64px;height:64px;border-radius:50%;border:1px solid var(--tan);display:flex;align-items:center;justify-content:center;position:relative}
+.wc-live .badge-halo:after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid var(--tan-soft)}
+.wc-live .badge-halo.fire{background:rgba(218,70,53,.10)}
+.wc-live .badge-halo.earth{background:rgba(73,85,67,.12)}
+.wc-live .badge-halo.air{background:rgba(205,180,148,.28)}
+.wc-live .badge-halo.water{background:rgba(73,85,67,.06)}
+.wc-live .badge-type{font-family:Montserrat;font-weight:900;font-size:19px;line-height:1.1}
+.wc-live .badge-desc{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.55;max-width:360px}
+.wc-live .badge-rule{width:32px;height:1px;background:var(--tan)}
+.wc-live .badge-placement{font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.wc-live .badge-basis{margin:0;font-family:"Libre Baskerville";font-size:13.5px;line-height:1.55;max-width:360px;text-align:left}
+.wc-live .sub{margin-top:8px}
+.wc-live .sub-head{margin-bottom:16px}
+.wc-live .cusp-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:12px}
+.wc-live .cusp-num{font-family:Montserrat;font-weight:900;font-size:26px;line-height:1;min-width:30px}
+.wc-live .cusp-sign{font-size:12px;margin-top:4px}
+.wc-live .cusp-text{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.55}
+.wc-live .retro-rows{display:flex;flex-direction:column;gap:18px}
+.wc-live .retro{display:flex;gap:16px;align-items:flex-start}
+.wc-live .retro-circle{width:40px;height:40px;border-radius:50%;border:1px solid var(--tan);display:flex;align-items:center;justify-content:center;font-family:Montserrat;font-weight:900;font-size:16px;flex:none}
+.wc-live .retro-name{font-weight:700}
+.wc-live .retro-place{font-size:12px;margin:2px 0 8px}
+.wc-live .retro-meaning{font-family:"Libre Baskerville";font-size:14px;line-height:1.55}
+.wc-live .retro-none{font-size:13px}
+.wc-live .stellium{background:var(--green);color:var(--cream);border-radius:4px;padding:24px;margin-bottom:14px}
+.wc-live .stellium-name{font-family:Montserrat;font-weight:900;font-size:22px;line-height:1.1;margin:6px 0 12px}
+.wc-live .stellium-desc{margin:0 0 18px;font-family:"Libre Baskerville";font-size:14px;line-height:1.55;max-width:560px}
+.wc-live .spills{display:flex;flex-wrap:wrap;gap:8px}
+.wc-live .spill{border:1px solid rgba(223,215,195,.5);border-radius:999px;padding:6px 12px;font-size:12px}
+.wc-live .product{display:flex;flex-direction:column;gap:10px}
+.wc-live .product-name{font-family:Montserrat;font-weight:900;font-size:22px;line-height:1.1}
+.wc-live .product-desc{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.55}
+.wc-live .product-price{font-family:Montserrat;font-weight:900;font-size:28px}
+.wc-live .product.locked{opacity:.7}
+.wc-live .product-lock{font-size:11px}
+.wc-live .cta{display:block;text-align:center;background:var(--cta);color:var(--cream);font-weight:700;font-size:15px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:14px;border-radius:4px;margin-top:6px}
+.wc-live .fine{font-size:13px;text-align:center;margin:8px 0 28px}
+.wc-live .wheel-wrap{margin:0px auto 0;width:398px}
+.wc-live .wheel{display:block;width:100%;height:398px}
+.wc-live .photo{width:100%;border:1px solid var(--tan);border-radius:4px;overflow:hidden}
+.wc-live .photo.wide{height:299px;margin:28px 0 8px}
+.wc-live .photo img{display:block;width:100%;height:100%;object-fit:cover}
+.wc-live .photo.placeholder{background:var(--tan-soft);display:flex;align-items:center;justify-content:center}
+.wc-live .photo.placeholder span{font-family:Montserrat;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.wc-live .pending{color:var(--orange)}
+/* the ground: green to tan across the window, and one cream-white card on it */
+.offer-card-s{border-left:0;border-right:0;margin-left:0;margin-right:0;
+  background:linear-gradient(90deg,var(--b-green) 0%,var(--b-tan) 100%)}
+.oc{max-width:1200px;margin:0 auto;background:var(--b-paper);border-radius:32px;
+  padding:var(--s-pad-card);display:grid;gap:var(--s-space-section)}
 
-.oc{max-width:560px;margin:0 auto;background:var(--b-paper);
-  border-radius:var(--s-radius-card);padding:var(--s-pad-card)}
+/* left: the gallery and its badge */
+.oc-gallery{position:relative;margin:0}
+.oc-shot{margin:0;border-radius:var(--s-radius-card);overflow:hidden}
+.oc-shot img{display:block;width:100%;height:auto;object-fit:contain;border:0}
+.oc-thumbs{display:flex;gap:10px;margin-top:12px}
+.oc-thumb{flex:1;padding:0;border:var(--s-border);border-radius:var(--s-radius-btn-hard);
+  background:none;cursor:pointer;overflow:hidden;line-height:0}
+.oc-thumb img{display:block;width:100%;height:auto;object-fit:contain;border:0}
+.oc-thumb[aria-pressed="true"]{border:2px solid var(--b-green)}
+.oc-thumb:focus{outline:none}
+.oc-thumb:focus-visible{outline:2px solid var(--b-green);outline-offset:2px}
+.oc-badge{position:absolute;top:-26px;left:-26px;width:108px;height:108px;z-index:2;
+  display:grid;place-items:center;color:var(--b-tan)}
+.oc-badge svg{position:absolute;inset:0;width:100%;height:100%;
+  animation:oc-spin 26s linear infinite}
+.oc-badge text{font-family:var(--b-body);font-size:11px;letter-spacing:.14em;fill:currentColor}
+.oc-badge-star{font-family:var(--b-body);font-size:20px;color:var(--b-tan);line-height:1}
+@keyframes oc-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.oc-badge svg{animation:none}}
+
+/* right column */
+.oc-eyebrow{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--b-bark);margin:0}
+.oc-rule{display:block;width:44px;height:1px;background:var(--b-tan);margin:10px 0 var(--s-space-block)}
 .oc-title{font-family:var(--b-display);font-weight:400;color:var(--b-green);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
-  letter-spacing:var(--s-type-display-ls);margin:0 0 var(--s-space-block);text-align:center}
+  letter-spacing:var(--s-type-display-ls);margin:0 0 var(--s-space-block)}
+.oc-hook{position:relative;display:inline-block;color:inherit}
+.oc-hook svg{position:absolute;left:-.16em;top:50%;transform:translateY(-50%);
+  width:calc(100% + .32em);height:1.25em;overflow:visible;pointer-events:none;color:var(--b-tan)}
+
 .oc-tiers{list-style:none;margin:0 0 var(--s-space-block);padding:0;display:grid;gap:10px}
-.oc-tier{display:block}
 .oc-tier input{position:absolute;opacity:0;width:0;height:0}
 .oc-row{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;cursor:pointer;
   border:var(--s-border);border-radius:var(--s-radius-btn-hard);background:none}
 .oc-tier input:checked + .oc-row{border:2px solid var(--b-green);padding:13px 15px}
 .oc-tier input:focus-visible + .oc-row{outline:2px solid var(--b-green);outline-offset:2px}
-.oc-dot{flex:0 0 16px;width:16px;height:16px;margin-top:3px;border-radius:50%;
-  border:1px solid var(--b-green)}
-.oc-tier input:checked + .oc-row .oc-dot{background:var(--b-green);
-  box-shadow:inset 0 0 0 3px var(--b-paper)}
+.oc-dot{flex:0 0 16px;width:16px;height:16px;margin-top:3px;border-radius:50%;border:1px solid var(--b-green)}
+.oc-tier input:checked + .oc-row .oc-dot{background:var(--b-green);box-shadow:inset 0 0 0 3px var(--b-paper)}
 .oc-main{font-family:var(--b-body);font-size:var(--s-type-body);
   line-height:var(--s-type-body-lh);color:var(--b-green)}
-.oc-note{display:block;font-size:var(--s-type-eyebrow);line-height:1.5;color:var(--b-bark);
-  margin-top:4px}
+.oc-note{display:block;font-size:var(--s-type-eyebrow);line-height:1.5;color:var(--b-bark);margin-top:4px}
+.oc-save{margin-left:auto;align-self:center;font-family:var(--b-body);
+  font-size:var(--s-type-eyebrow);letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;
+  color:var(--b-green);border:var(--s-border);border-radius:999px;padding:3px 10px;white-space:nowrap}
 .oc-tier.is-soon .oc-row{cursor:default;opacity:.65}
-.oc-soon{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
-  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--b-bark);
-  margin-left:auto;white-space:nowrap}
+.oc-soon{margin-left:8px;align-self:center;font-family:var(--b-body);font-size:var(--s-type-eyebrow);
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--b-bark);white-space:nowrap}
+
+/* "Inside every Compass": three dark cards, the phone screen's theme, visuals only */
+.oc-inside{margin:0 0 var(--s-space-block)}
+.oc-inside-head{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--b-bark);margin:0 0 12px}
+.oc-minis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;list-style:none;margin:0;padding:0}
+.oc-mini{display:grid;gap:8px}
+.oc-mini-card{background:var(--b-green);border-radius:var(--s-radius-btn-hard);
+  padding:14px;display:grid;place-items:center;aspect-ratio:1/1;overflow:hidden}
+.oc-mini-card .wc-live{width:100%;
+  --green:var(--b-cream);--cream:var(--b-green);
+  --tan:rgba(223,215,195,.35);--tan-soft:rgba(223,215,195,.18);color:var(--b-cream)}
+.oc-mini-card .wc-live svg{max-width:100%;height:auto}
+.oc-mini-card .wc-live .moon{width:62px;height:62px}
+.oc-mini-card .wc-live .moon-sky{fill:var(--b-green)}
+.oc-mini-card .wc-live .moon-dark{fill:rgba(223,215,195,.18)}
+.oc-mini-card .wc-live .moon-lit{fill:var(--b-cream)}
+.oc-mini-card .wc-live .moon-pit{fill:var(--b-green);opacity:.34}
+.oc-mini-card .wc-live .moon-ring{stroke:rgba(223,215,195,.35)}
+.oc-mini-card .wc-live [stroke="#495543"]{stroke:var(--b-cream)}
+.oc-mini-card .wc-live [fill="#495543"]{fill:var(--b-cream)}
+.oc-mini-card .wc-live [stroke="#CDB494"]{stroke:rgba(223,215,195,.35)}
+.oc-mini-card .wc-live .bar-name,.oc-mini-card .wc-live .bar-count{color:rgba(223,215,195,.65);font-size:10px}
+.oc-mini-title{font-family:var(--b-body);font-size:var(--s-type-eyebrow);line-height:1.4;
+  color:var(--b-bark);text-align:center}
+
 .oc-list{list-style:none;margin:0 0 var(--s-space-block);padding:0;display:grid;gap:8px}
 .oc-item{display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:start;
   font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.45;color:var(--b-green)}
-.oc-tick{width:14px;height:14px;margin-top:3px;border:1px solid var(--b-green);
-  border-radius:50%;position:relative}
+.oc-tick{width:14px;height:14px;margin-top:3px;border:1px solid var(--b-green);border-radius:50%;position:relative}
 .oc-tick:after{content:"";position:absolute;left:4px;top:2px;width:3.5px;height:7px;
-  border-right:1.5px solid var(--b-green);border-bottom:1.5px solid var(--b-green);
-  transform:rotate(42deg)}
-.oc-add{font-family:var(--b-body);font-size:var(--s-type-eyebrow);line-height:1.6;
-  color:var(--b-bark);margin:0 0 var(--s-space-block)}
+  border-right:1.5px solid var(--b-green);border-bottom:1.5px solid var(--b-green);transform:rotate(42deg)}
 .oc-cta{display:block;width:100%;text-align:center;font-family:var(--b-body);
-  font-size:var(--s-type-body);letter-spacing:.06em;text-transform:uppercase;
-  text-decoration:none;height:54px;line-height:50px;background:var(--b-green);
-  color:var(--b-cream);border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
-  box-shadow:var(--s-shadow-hard)}
+  font-size:var(--s-type-body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+  height:54px;line-height:50px;background:var(--b-green);color:var(--b-cream);
+  border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);box-shadow:var(--s-shadow-hard)}
 .oc-fine{font-family:var(--b-body);font-size:var(--s-type-eyebrow);line-height:1.6;
   color:var(--b-bark);margin:14px 0 0;text-align:center}
+
+/* the FAQ */
+.oc-faq{margin-top:var(--s-space-section);border-top:var(--s-border)}
+.oc-q{border-bottom:var(--s-border)}
+.oc-q summary{list-style:none;cursor:pointer;padding:16px 0;font-family:var(--b-body);
+  font-size:var(--s-type-body);line-height:1.4;color:var(--b-green);display:flex;
+  align-items:baseline;justify-content:space-between;gap:16px}
+.oc-q summary::-webkit-details-marker{display:none}
+.oc-q summary:after{content:"+";font-family:var(--b-body);color:var(--b-bark)}
+.oc-q[open] summary:after{content:"\2013"}
+.oc-q summary:focus{outline:none}
+.oc-q summary:focus-visible{outline:2px solid var(--b-green);outline-offset:2px}
+.oc-a{font-family:var(--b-body);font-size:var(--s-type-body);line-height:var(--s-type-body-lh);
+  color:var(--b-green);margin:0 0 16px;max-width:60ch}
+
+@media(min-width:900px){
+  .oc{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s-space-section);
+    padding:48px;align-items:start}
+  .oc-left{position:sticky;top:40px}
+  .oc-badge{width:132px;height:132px;top:-34px;left:-34px}
+}
 </style>
 </head>
 <body data-variant="mengto-skeuomorphic">
@@ -1281,57 +1478,110 @@ html,body{overflow-x:clip}
 
 <section class="s offer-card-s wc-ground-dark"><div class="wrap">
   <div class="oc">
-    <h2 class="oc-title">Compass</h2>
-    <ul class="oc-tiers">
-      <li class="oc-tier">
-        <input type="radio" name="oc-tier" id="oc-one" value="one" checked>
-        <label class="oc-row" for="oc-one">
-          <span class="oc-dot" aria-hidden="true"></span>
-          <span class="oc-main">One child <span aria-hidden="true">&middot;</span> $27</span>
-          
-        </label>
-      </li>
-      <li class="oc-tier is-soon">
-        <input type="radio" name="oc-tier" id="oc-two" value="two" disabled>
-        <label class="oc-row" for="oc-two">
-          <span class="oc-dot" aria-hidden="true"></span>
-          <span class="oc-main">Two children <span aria-hidden="true">&middot;</span> $47 <span aria-hidden="true">&middot;</span> $23.50 each</span>
-          <span class="oc-soon">Coming soon</span>
-        </label>
-      </li>
-      <li class="oc-tier is-soon">
-        <input type="radio" name="oc-tier" id="oc-three" value="three" disabled>
-        <label class="oc-row" for="oc-three">
-          <span class="oc-dot" aria-hidden="true"></span>
-          <span class="oc-main">Buy two, get one free <span aria-hidden="true">&middot;</span> $54 <span aria-hidden="true">&middot;</span> $18 each<span class="oc-note">Keep one as a gift, or for later</span></span>
-          <span class="oc-soon">Coming soon</span>
-        </label>
-      </li>
-    </ul>
-    <ul class="oc-list">
-      <li class="oc-item"><span class="oc-tick" aria-hidden="true"></span><span>One page per child, ready in minutes</span></li>
-      <li class="oc-item"><span class="oc-tick" aria-hidden="true"></span><span>Kept in your private portal</span></li>
-      <li class="oc-item"><span class="oc-tick" aria-hidden="true"></span><span>Fill in each child whenever you're ready</span></li>
-      <li class="oc-item"><span class="oc-tick" aria-hidden="true"></span><span>A wrong birth entry rewritten once, free</span></li>
-    </ul>
-    <p class="oc-add">You can add Parent and Child ($99) at checkout: how the two of you fit together. It needs your own birth details and three short answers.</p>
-    <a class="oc-cta" data-oc-cta href="https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07">Get their Compass · $27</a>
-    <p class="oc-fine">Refund available until you enter birth details. A mistake on our side is redone or refunded within 30 days.</p>
+    <div class="oc-left">
+      <div class="oc-gallery">
+        <div class="oc-badge" aria-hidden="true">
+  <svg viewBox="0 0 120 120"><defs><path id="oc-badge-path" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"></path></defs>
+  <text><textPath href="#oc-badge-path">INSTANT &middot; YOURS TO KEEP &middot; INSTANT &middot; YOURS TO KEEP &middot; </textPath></text></svg>
+  <span class="oc-badge-star">*</span></div>
+        <figure class="oc-shot"><img data-oc-shot src="/assets/img/atf/slide-0.webp" width="1400" height="1050" alt="A child on a beach at sunset, with the zodiac wheel drawn across the sky" loading="lazy" decoding="async"></figure>
+        <div class="oc-thumbs">
+          <button type="button" class="oc-thumb" data-oc-thumb="0" aria-pressed="true" aria-label="Show picture 1"><img src="/assets/img/atf/slide-0.webp" width="1400" height="1050" alt="" loading="lazy" decoding="async"></button>
+          <button type="button" class="oc-thumb" data-oc-thumb="1" aria-pressed="false" aria-label="Show picture 2"><img src="/assets/img/atf/slide-1.webp" width="1400" height="1050" alt="" loading="lazy" decoding="async"></button>
+          <button type="button" class="oc-thumb" data-oc-thumb="2" aria-pressed="false" aria-label="Show picture 3"><img src="/assets/img/atf/slide-2.webp" width="1400" height="1050" alt="" loading="lazy" decoding="async"></button>
+        </div>
+      </div>
+    </div>
+    <div class="oc-right">
+      <p class="oc-eyebrow">One page per child</p><span class="oc-rule"></span>
+      <h2 class="oc-title">Get <span class="oc-hook">their<svg viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true"><path d="M62 8C30 11 8 22 6 36c-2 15 22 28 62 30 42 2 96-2 132-13 22-7 26-18 18-26C208 17 178 9 146 6"/></svg></span> Compass</h2>
+      <ul class="oc-tiers">
+        <li class="oc-tier">
+          <input type="radio" name="oc-tier" id="oc-one" value="one" checked>
+          <label class="oc-row" for="oc-one">
+            <span class="oc-dot" aria-hidden="true"></span>
+            <span class="oc-main">One child <span aria-hidden="true">&middot;</span> $27</span>
+            
+          </label>
+        </li>
+        <li class="oc-tier is-soon">
+          <input type="radio" name="oc-tier" id="oc-two" value="two" disabled>
+          <label class="oc-row" for="oc-two">
+            <span class="oc-dot" aria-hidden="true"></span>
+            <span class="oc-main">Two children <span aria-hidden="true">&middot;</span> $47 <span aria-hidden="true">&middot;</span> $23.50 each</span>
+            <span class="oc-save">Save $7</span><span class="oc-soon">Coming soon</span>
+          </label>
+        </li>
+        <li class="oc-tier is-soon">
+          <input type="radio" name="oc-tier" id="oc-three" value="three" disabled>
+          <label class="oc-row" for="oc-three">
+            <span class="oc-dot" aria-hidden="true"></span>
+            <span class="oc-main">Buy two, get one free <span aria-hidden="true">&middot;</span> $54 <span aria-hidden="true">&middot;</span> $18 each<span class="oc-note">Keep one as a gift, or for later</span></span>
+            <span class="oc-save">Save $27</span><span class="oc-soon">Coming soon</span>
+          </label>
+        </li>
+      </ul>
+      <div class="oc-inside">
+        <p class="oc-inside-head">Inside every Compass</p>
+        <ul class="oc-minis">
+          <li class="oc-mini"><div class="oc-mini-card"><div class="wc-live"><div class="moon-wrap"><svg aria-label="The moon that night" class="moon" role="img" viewBox="0 0 120 120"><circle class="moon-sky" cx="60" cy="60" r="55"></circle><circle class="moon-dark" cx="60" cy="60" r="46"></circle><path class="moon-lit" d="M 60,14 A 46,46 0 0,0 60,106 Z"></path><path class="moon-lit" d="M 60,14 A 42.25,46 0 0,1 60,106 Z"></path><circle class="moon-pit" cx="46" cy="44" r="9"></circle><circle class="moon-pit" cx="74" cy="52" r="6"></circle><circle class="moon-pit" cx="56" cy="74" r="7"></circle><circle class="moon-pit" cx="38" cy="66" r="4"></circle><circle class="moon-pit" cx="68" cy="34" r="3.5"></circle><circle class="moon-pit" cx="80" cy="70" r="4.5"></circle><circle class="moon-ring" cx="60" cy="60" r="46"></circle></svg></div></div></div><p class="oc-mini-title">The moon that night</p></li>
+          <li class="oc-mini"><div class="oc-mini-card"><div class="wc-live"><div class="bar-rows"><div class="bar"><div class="bar-head"><span class="bar-name">fire</span><span class="bar-count">35%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div></div><p class="oc-mini-title">Elements</p></li>
+          <li class="oc-mini"><div class="oc-mini-card"><div class="wc-live"><svg height="140" viewBox="0 0 240 140" width="240"><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#CDB494" stroke-linecap="round" stroke-width="10"></path><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#495543" stroke-dasharray="283" stroke-dashoffset="62.3" stroke-linecap="round" stroke-width="10"></path><text fill="#495543" font-family="Montserrat" font-size="44" font-weight="900" text-anchor="middle" x="120" y="108">78%</text><text fill="#495543" font-family="Montserrat" font-size="9" font-weight="900" letter-spacing="2" text-anchor="middle" x="120" y="132">IN THE OPEN</text></svg></div></div><p class="oc-mini-title">Being seen</p></li>
+        </ul>
+      </div>
+      <ul class="oc-list">
+        <li class="oc-item"><span class="oc-tick" aria-hidden="true"></span><span>One page per child, ready in minutes</span></li>
+        <li class="oc-item"><span class="oc-tick" aria-hidden="true"></span><span>Kept in your private portal</span></li>
+        <li class="oc-item"><span class="oc-tick" aria-hidden="true"></span><span>Fill in each child whenever you're ready</span></li>
+      </ul>
+      <a class="oc-cta" data-oc-cta href="https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07">Get their Compass · $27</a>
+      <p class="oc-fine">Refund available until you enter birth details. A mistake on our side is redone or refunded within 30 days.</p>
+      <div class="oc-faq">
+        <details class="oc-q" data-oc-q><summary>What if I don't know the exact birth time?</summary><p class="oc-a">It&rsquo;s on the birth certificate, and the hospital keeps it on file. Without it, the reading would be guessing.</p></details>
+        <details class="oc-q" data-oc-q><summary>I can look up their chart for free. Why pay?</summary><p class="oc-a">A free chart gives you the positions. Compass reads them for you: one child, the whole chart, in plain words.</p></details>
+        <details class="oc-q" data-oc-q><summary>Will it put my child in a box?</summary><p class="oc-a">No predictions, no types, no labels. It describes how they&rsquo;re wired now.</p></details>
+        <details class="oc-q" data-oc-q><summary>How does it arrive?</summary><p class="oc-a">In your private portal, minutes after you enter the details.</p></details>
+        <details class="oc-q" data-oc-q><summary>Do I have to fill them all in at once?</summary><p class="oc-a">No. Each one waits in your portal until you&rsquo;re ready.</p></details>
+        <details class="oc-q" data-oc-q><summary>What if it doesn't sound like them?</summary><p class="oc-a">Say so. A person reads every reply.</p></details>
+        <details class="oc-q" data-oc-q><summary>What happens to their details?</summary><p class="oc-a">They stay on our own server and never leave it. You can delete a child from your portal at any time.</p></details>
+      </div>
+    </div>
   </div>
 </div></section>
 <script>
 (function(){
   var links={"one":"https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07","two":null,"three":null};
   var prices={"one":"$27","two":"$47","three":"$54"};
+  var shots=[{"src":"/assets/img/atf/slide-0.webp","alt":"A child on a beach at sunset, with the zodiac wheel drawn across the sky"},{"src":"/assets/img/atf/slide-1.webp","alt":"Four cards from the reading, floating above a child walking on a beach"},{"src":"/assets/img/atf/slide-2.webp","alt":"Two cards from the reading, beside a child standing at the shoreline"}];
   var label="Get their Compass ·";
   var cta=document.querySelector('[data-oc-cta]');
-  if(!cta) return;
+  // the tiers: a tier with no link never moves the button
   [].forEach.call(document.querySelectorAll('input[name="oc-tier"]'), function(r){
     r.addEventListener('change', function(){
       var url=links[r.value];
-      if(!url) return;                       // a tier with no link never moves the button
+      if(!url || !cta) return;
       cta.setAttribute('href', url);
       cta.textContent=label + ' ' + prices[r.value];
+    });
+  });
+  // the gallery
+  var big=document.querySelector('[data-oc-shot]');
+  var thumbs=[].slice.call(document.querySelectorAll('[data-oc-thumb]'));
+  thumbs.forEach(function(b){
+    b.addEventListener('click', function(){
+      var i=Number(b.getAttribute('data-oc-thumb'));
+      if(!big || !shots[i]) return;
+      big.setAttribute('src', shots[i].src);
+      big.setAttribute('alt', shots[i].alt);
+      thumbs.forEach(function(o){ o.setAttribute('aria-pressed', o===b ? 'true' : 'false'); });
+    });
+  });
+  // the FAQ: one open at a time
+  var qs=[].slice.call(document.querySelectorAll('[data-oc-q]'));
+  qs.forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(!d.open) return;
+      qs.forEach(function(o){ if(o!==d) o.open=false; });
     });
   });
 })();

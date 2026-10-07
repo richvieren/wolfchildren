@@ -1,7 +1,6 @@
 // refunds.mjs — the refund policy. Richard's decisions, 2026-09-14: full refund
 // before the details are submitted; final once the reading is being written; a
-// mistake of ours is redone or refunded within 30 days; one free rewrite for a
-// parent's own wrong birth entry within 30 days; refund on request when nothing
+// mistake of ours is redone or refunded within 30 days; refund on request when nothing
 // has been delivered 48 hours after the details arrived. Entity per the privacy page.
 
 import { banner, header, prose, footer, h } from '../components.mjs';
@@ -40,14 +39,6 @@ export function sections() {
       heading: 'We redo it or refund it. Your choice.',
       paragraphs: [
         h('span', {}, 'If the reading arrives with a mistake that is ours, such as a wrong chart from a correct birth entry, a missing section, or a file that does not open, write to ', MAIL, ' within 30 days of delivery and we redo it or refund it, your choice.'),
-      ],
-    })],
-
-    ['yours', prose({
-      eyebrow: 'A wrong birth entry',
-      heading: 'One rewrite at no cost.',
-      paragraphs: [
-        'If you entered the birth details wrong, write to us within 30 days of submitting them and we rewrite the reading once at no cost, from the corrected details.',
       ],
     })],
 
