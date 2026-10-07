@@ -35,23 +35,44 @@ export const css = `
 /** The motion layer, shipped only to a page with a parallax setting. */
 export const motionCss = `
 .wc-parallax{position:relative;isolation:isolate;z-index:0;overflow:hidden}
-.wc-parallax > *{will-change:transform}
+.wc-parallax > .wc-move{will-change:transform}
 @media(prefers-reduced-motion:reduce){.wc-parallax > *{transform:none!important}}
 `;
 
-/** The motion: every child of a .wc-parallax section lags while any part of the
-    section is on screen. Moving only the first child moved the background photo
-    and left the phone and the text at normal speed, which read as no parallax at
-    all. The lag starts when the section's bottom edge reaches the bottom of the
-    window: before that the section scrolls normally. */
+/** The motion: the script wraps a .wc-parallax section's children in one
+    .wc-move element and moves that, so nothing inside changes its stacking
+    order. Moving the children one by one gave each its own stacking context and
+    the phone fell behind the photograph. The lag starts when the top edge of
+    whatever covers the section ([data-cover] in the next section) reaches the
+    bottom of the window; before that the section scrolls normally. */
 export const script = `<script>
 (function(){
   var secs=[].slice.call(document.querySelectorAll('.wc-parallax'));
   if(!secs.length) return;
   var mq=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var ticking=false;
-  function kids(s){ return [].slice.call(s.children); }
-  function off(){ secs.forEach(function(s){ kids(s).forEach(function(c){ c.style.transform=''; }); }); }
+  // One wrapper per section, made once: moving the children one by one gave each
+  // of them its own stacking context, which dropped the phone behind the photo.
+  function mover(s){
+    var m=s.querySelector(':scope > .wc-move');
+    if(m) return m;
+    m=document.createElement('div');
+    m.className='wc-move';
+    while(s.firstChild) m.appendChild(s.firstChild);
+    s.appendChild(m);
+    return m;
+  }
+  // the height of whatever covers this section: the first [data-cover] layer
+  // after it. A module may be followed by its own <script>, so the walk steps
+  // over anything that holds no cover rather than looking at one sibling.
+  function cover(s){
+    for(var n=s.nextElementSibling; n; n=n.nextElementSibling){
+      var c=n.matches && n.matches('[data-cover]') ? n : (n.querySelector && n.querySelector('[data-cover]'));
+      if(c) return c.getBoundingClientRect().height;
+    }
+    return 0;
+  }
+  function off(){ secs.forEach(function(s){ mover(s).style.transform=''; }); }
   function frame(){
     ticking=false;
     if(mq && mq.matches) return off();
@@ -60,12 +81,11 @@ export const script = `<script>
       var r=s.getBoundingClientRect();
       if(r.bottom < 0 || r.top > h) return;             // only while it is on screen
       var speed=parseFloat(s.getAttribute('data-parallax')) || 0.5;
-      // the lag starts when the section's bottom edge reaches the bottom of the
-      // window, which is the moment the section after it starts to come over
-      var travelled=Math.max(0, h - r.bottom);
+      // the lag starts when the wave's own top edge reaches the bottom of the
+      // window, which is the moment the cover begins to come over this section
+      var travelled=Math.max(0, h - (r.bottom - cover(s)));
       var lag=travelled * speed;          // no cap: the section clips its own contents
-      var t='translate3d(0,' + lag.toFixed(1) + 'px,0)';
-      kids(s).forEach(function(c){ c.style.transform=t; });
+      mover(s).style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
     });
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }

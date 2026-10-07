@@ -189,10 +189,10 @@ test('the wave is its own layer, and no mask touches a section or its content',
     const masked = [...css.matchAll(/([^{}]*)\{([^}]*)\}/g)]
       .filter((m) => /mask-image/.test(m[2]))
       .map((m) => m[1].trim().split('\n').pop().trim());
-    assert.deepEqual(masked, ['.wd::before'], `only the decorative layer is masked: ${masked}`);
-    assert.match(css, /\.wd::before\{[^}]*bottom:calc\(100% - 2px\)/,
+    assert.deepEqual(masked, ['.wd-wave'], `only the decorative layer is masked: ${masked}`);
+    assert.match(css, /\.wd-wave\{[^}]*bottom:calc\(100% - 2px\)/,
       'the layer sits above the section, lapping 2px over it');
-    assert.match(css, /\.wd::before\{[^}]*mask-size:200% auto/, 'the swoop is drawn at 200%');
+    assert.match(css, /\.wd-wave\{[^}]*mask-size:200% auto/, 'the swoop is drawn at 200%');
     assert.match(css, /\.wd\{[^}]*z-index:1/, 'the wave section paints above the one before it');
 
     // the section above moves at half speed, clipped, and cannot paint out of itself
@@ -203,32 +203,43 @@ test('the wave is its own layer, and no mask touches a section or its content',
   }, WAVE_PAGE);
 });
 
-test('the lag starts when the section\'s bottom edge reaches the bottom of the window',
+test('the lag starts when the wave\'s top edge reaches the bottom of the window',
   { skip: !JSDOM && 'jsdom not installed' }, async () => {
-  // jsdom has no layout, so the section's rectangle is supplied: a 2400px tall
-  // section passing a 768px window, stepped by its BOTTOM edge.
+  // jsdom has no layout, so the rectangles are supplied: a 2400px tall section
+  // passing a 768px window, and the wave layer at its used height, 197px.
   const dom = new JSDOM(readFileSync(WAVE_PAGE, 'utf8'),
     { runScripts: 'dangerously', pretendToBeVisual: true });
   const win = dom.window;
   try {
     const sec = win.document.querySelector('.wc-parallax');
-    const kids = [...sec.children];
-    assert.ok(kids.length >= 2, `the section has more than one child: ${kids.length}`);
+    const wave = win.document.querySelector('[data-cover]');
+    const WAVE = 197;
+    wave.getBoundingClientRect = () => ({ top: 0, bottom: WAVE, height: WAVE,
+      left: 0, right: 1440, width: 1440 });
     win.innerHeight = 768;
+
+    // 1 — one wrapper holds both children, so their stacking is untouched
+    assert.equal(sec.children.length, 1, 'the section has one child');
+    assert.equal(sec.firstElementChild.className, 'wc-move');
+    assert.deepEqual([...sec.firstElementChild.children].map((c) => c.className),
+      ['wi-photo', 'wrap'], 'the photograph and the content are inside it');
+    assert.ok(sec.querySelector('.wc-move .wrap .wi .wi-text .wi-phone'),
+      'the phone still sits inside the content, above the photograph');
+
     const seen = [];
-    for (const bottom of [2000, 1200, 900, 768, 700, 500, 200, 0]) {
+    for (const bottom of [2000, 1200, 965, 900, 800, 600, 300, 0]) {
       sec.getBoundingClientRect = () => ({ top: bottom - 2400, bottom, height: 2400,
         left: 0, right: 1440, width: 1440 });
       win.dispatchEvent(new win.Event('scroll'));
       await new Promise((r) => win.requestAnimationFrame(r));   // let the frame run
-      const ts = kids.map((c) => c.style.transform);
-      assert.equal(new Set(ts).size, 1, `every child moves together: ${ts}`);
-      seen.push(Number((ts[0].match(/,([-\d.]+)px/) || [0, 0])[1]));
+      const moved = [...sec.querySelectorAll('*')].filter((e) => e.style.transform);
+      assert.equal(moved.length, 1, `one element moves: ${moved.map((e) => e.className)}`);
+      assert.equal(moved[0].className, 'wc-move');
+      seen.push(Number((moved[0].style.transform.match(/,([-\d.]+)px/) || [0, 0])[1]));
     }
-    // nothing until the bottom edge reaches the bottom of the window
-    assert.deepEqual(seen.slice(0, 4), [0, 0, 0, 0], `still at normal speed: ${seen}`);
-    // then half of every pixel scrolled
-    assert.deepEqual(seen.slice(4), [34, 134, 284, 384], `half speed after: ${seen}`);
+    // nothing until the wave's top edge (section bottom minus 197) reaches 768
+    assert.deepEqual(seen.slice(0, 3), [0, 0, 0], `still at normal speed: ${seen}`);
+    assert.deepEqual(seen.slice(3), [32.5, 82.5, 182.5, 332.5, 482.5], `half speed after: ${seen}`);
   } finally { win.close(); }
 });
 
@@ -239,7 +250,9 @@ test('the wave layer covers the swoop and laps over the section',
     assert.match(css, /--wd-wave-h:calc\(var\(--wd-swoop\) \+ 40px\)/, 'the swoop plus 40px');
     assert.match(css, /--wd-swoop:10\.875vw/, 'the swoop is 87 source rows at 200%');
     assert.match(css, /--wd-mask-y:-22\.375vw/, 'the mask is pushed up to the swoop');
-    assert.match(css, /\.wd::before\{[^}]*bottom:calc\(100% - 2px\)/, 'a 2px lap, no seam');
+    assert.match(css, /\.wd-wave\{[^}]*bottom:calc\(100% - 2px\)/, 'a 2px lap, no seam');
+    assert.match(css, /\.wc-parallax > \.wc-move\{[^}]*padding-bottom:calc\(var\(--s-space-section\) \+ var\(--wd-wave-h\)\)/,
+      'the section above keeps the wave\'s height clear at the bottom');
     assert.ok(!/--wd-wave-h:45vw/.test(css), 'the old 45vw layer is gone');
   }, WAVE_PAGE);
 });
