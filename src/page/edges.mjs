@@ -12,30 +12,48 @@
 /** One feTurbulence, inline, no file. A section may paint it over its ground. */
 export const GRAIN = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)' opacity='.21'/%3E%3C/svg%3E\")";
 
-/** The edge keeps the file's own shape: the mask is drawn at the window width
-    and its height follows (1600x360, so 22.5vw). Squashing it into a fixed
-    height flattened the wave to about 12px of travel; at its natural ratio the
-    edge travels 76px at 1440px wide, measured from the file. */
+/** The wave edge. The mask is drawn at 115% of the window width, so the file
+    keeps its own proportions and the grain its own shape; nothing is squashed.
+    Measured from assets/img/frames/wave-edge.png (1600x360) over the columns
+    that show at that size (208..1600, the right 87%): the swoop rises 87 rows,
+    which is 90px at 1440 and 120px at 1920, and the first inked pixel is on
+    row 1. One source row is 115/1600 = 0.071875vw. The layer holds every inked
+    row (1 to 266, so 265 rows = 19.0469vw) and 40px of solid colour under it:
+    314px at 1440, 114px at 390. Holding the spray too is what keeps it off the
+    content above.
+
+    The layer is its own element, never a mask on the section: the renderer puts
+    one inside a module that asks for edge: 'wave', and it inherits the section's
+    background, so the two carry the same gradient at the same width. It laps 2px
+    over the section so no hairline can show between them. */
 export const css = `
-:root{--wc-edge-h:22.5vw}
-.wc-edge-wave{position:relative;z-index:1;
-  margin-top:calc(var(--wc-edge-h) * -1);padding-top:var(--wc-edge-h);
-  -webkit-mask-image:url(/assets/img/frames/wave-edge.png),linear-gradient(#000,#000);
-  mask-image:url(/assets/img/frames/wave-edge.png),linear-gradient(#000,#000);
-  -webkit-mask-size:100% auto,100% calc(100% - var(--wc-edge-h) + 1px);
-  mask-size:100% auto,100% calc(100% - var(--wc-edge-h) + 1px);
-  -webkit-mask-position:top center,bottom center;mask-position:top center,bottom center;
-  -webkit-mask-repeat:no-repeat,no-repeat;mask-repeat:no-repeat,no-repeat;
-  mask-composite:add}
-/* isolation:isolate makes the section its own stacking context, so a positioned
-   child (the phone carries z-index:2) can no longer paint above the section
-   that covers it. The section's contents are clipped, so the lag stays inside. */
+:root{--wc-mask-w:115%;--wc-ink:19.0469vw;--wc-wave-h:calc(var(--wc-ink) + 40px);
+  --wc-mask-y:-0.071875vw}
+.wc-edge-wave{position:relative;z-index:1}
+.wc-wave{position:absolute;left:0;right:0;bottom:calc(100% - 2px);
+  height:var(--wc-wave-h);background:inherit;pointer-events:none;
+  -webkit-mask-image:url(/assets/img/frames/wave-edge.png);
+  mask-image:url(/assets/img/frames/wave-edge.png);
+  -webkit-mask-size:var(--wc-mask-w) auto;mask-size:var(--wc-mask-w) auto;
+  -webkit-mask-position:right var(--wc-mask-y);mask-position:right var(--wc-mask-y);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 `;
 
 /** The motion layer, shipped only to a page with a parallax setting. */
 export const motionCss = `
-.wc-parallax{position:relative;isolation:isolate;z-index:0;overflow:hidden}
-.wc-parallax > .wc-move{will-change:transform}
+.wc-parallax{position:relative;isolation:isolate;z-index:0;overflow:hidden;
+  padding-top:0;padding-bottom:0}
+/* the wrapper carries the section's own vertical padding, so a full-height
+   panel inside it still spans the section, and the bottom padding carries the
+   whole wave layer, spray included: the last line clears the wave's highest
+   inked pixel by the section's padding plus the 2px lap. */
+.wc-parallax > .wc-move{will-change:transform;position:static;
+  padding-top:var(--s-space-section);
+  padding-bottom:calc(var(--s-space-section) + var(--wc-wave-h))}
+@media(min-width:900px){
+  .wc-parallax > .wc-move{padding-top:var(--s-space-section-wide);
+    padding-bottom:calc(var(--s-space-section-wide) + var(--wc-wave-h))}
+}
 @media(prefers-reduced-motion:reduce){.wc-parallax > *{transform:none!important}}
 `;
 

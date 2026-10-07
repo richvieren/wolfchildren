@@ -117,7 +117,33 @@ footer{padding:56px 0}
 }
 /* every element inside a module inherits its ground's text colour, so a rule
    that sets no colour of its own cannot end up cream on cream. */
-.wc-ground-light,.wc-ground-dark{color:var(--g-text)}:root{
+.wc-ground-light,.wc-ground-dark{color:var(--g-text)}
+:root{--wc-mask-w:115%;--wc-ink:19.0469vw;--wc-wave-h:calc(var(--wc-ink) + 40px);
+  --wc-mask-y:-0.071875vw}
+.wc-edge-wave{position:relative;z-index:1}
+.wc-wave{position:absolute;left:0;right:0;bottom:calc(100% - 2px);
+  height:var(--wc-wave-h);background:inherit;pointer-events:none;
+  -webkit-mask-image:url(/assets/img/frames/wave-edge.png);
+  mask-image:url(/assets/img/frames/wave-edge.png);
+  -webkit-mask-size:var(--wc-mask-w) auto;mask-size:var(--wc-mask-w) auto;
+  -webkit-mask-position:right var(--wc-mask-y);mask-position:right var(--wc-mask-y);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+
+.wc-parallax{position:relative;isolation:isolate;z-index:0;overflow:hidden;
+  padding-top:0;padding-bottom:0}
+/* the wrapper carries the section's own vertical padding, so a full-height
+   panel inside it still spans the section, and the bottom padding carries the
+   whole wave layer, spray included: the last line clears the wave's highest
+   inked pixel by the section's padding plus the 2px lap. */
+.wc-parallax > .wc-move{will-change:transform;position:static;
+  padding-top:var(--s-space-section);
+  padding-bottom:calc(var(--s-space-section) + var(--wc-wave-h))}
+@media(min-width:900px){
+  .wc-parallax > .wc-move{padding-top:var(--s-space-section-wide);
+    padding-bottom:calc(var(--s-space-section-wide) + var(--wc-wave-h))}
+}
+@media(prefers-reduced-motion:reduce){.wc-parallax > *{transform:none!important}}
+:root{
   --s-radius-card:14px; --s-radius-card-lg:20px; --s-radius-btn:11px;
   --s-radius-btn-sm:9px; --s-radius-btn-hard:6px; --s-radius-chip:7px;
   --s-radius-panel:12px; --s-radius-pill:999px; --s-radius-shell:20px;
@@ -990,27 +1016,36 @@ html,body{overflow-x:clip}
      2 — the text starts at the phone's right edge plus 48px, measured from the
      same half of the same box, so it cannot be reached by the phone.
      3 — the phone is fluid: 307px down to 200px, so at any width from 900px up
-     the text keeps its own column. */
+     the text keeps its own column.
+     4 — each of the three selectors has a second form: the parallax script wraps
+     a section's children in .wc-move, and these rules name a direct child. The
+     markup is the same either way. */
   .whats-inside-s{--wi-phone-w:clamp(200px,21vw,307px)}
-  .whats-inside-s>.wrap{max-width:none;padding-left:40px;padding-right:40px}
+  .whats-inside-s>.wrap,.whats-inside-s>.wc-move>.wrap{max-width:none;padding-left:40px;padding-right:40px}
   .wi{display:block;position:static;min-height:620px}
-  .whats-inside-s>.wi-photo{display:block;position:absolute;top:0;bottom:0;
+  .whats-inside-s>.wi-photo,.whats-inside-s>.wc-move>.wi-photo{display:block;position:absolute;top:0;bottom:0;
     right:50%;left:calc(50% - 50vw);margin:0;padding:0;overflow:hidden;z-index:1}
-  .whats-inside-s>.wi-photo img{display:block;width:100%;height:100%;
+  .whats-inside-s>.wi-photo img,.whats-inside-s>.wc-move>.wi-photo img{display:block;width:100%;height:100%;
     object-fit:cover;object-position:50% 35%;border:0;transform:scaleX(-1)}
   .wi-phone{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
     width:var(--wi-phone-w);max-width:none;z-index:2;margin:0}
   .wi-text{position:static;margin-left:calc(50% + var(--wi-phone-w) / 2 + 48px)}
 }
 
-/* the split runs the full window: no section padding, two halves of 50% */
-.offer-v2-s{padding:0}
+/* The whole section is one gradient with the grain over it, the same pair the
+   wave above it carries, so the wave and the section are one surface. */
+.offer-v2-s{--ov-gradient:linear-gradient(90deg,#495543,#CDB494);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)' opacity='.21'/%3E%3C/svg%3E"),var(--ov-gradient);
+  background-size:220px 220px,100% 100%;background-repeat:repeat,no-repeat;
+  padding:0 0 var(--s-space-section)}
 .ov{display:grid}
-.ov-left{background:var(--b-green);display:grid;place-items:center;padding:32px 24px}
+.ov-left{display:grid;place-items:center;padding:32px 24px}
 .ov-left img{display:block;max-width:100%;max-height:80vh;width:auto;height:auto;
   object-fit:contain;border:0;border-radius:24px}
-.ov-right{background:var(--b-paper);padding:64px 24px}
-.ov-box{max-width:480px;margin:0 auto}
+.ov-right{padding:32px 24px}
+/* the buy box keeps its own light card, so its text stays on light */
+.ov-box{max-width:480px;margin:0 auto;background:var(--b-paper);
+  border-radius:16px;padding:32px}
 
 /* Inter inside the buy box only; the title keeps Morning Memories */
 .ov-box{--ov-ui:'Inter',system-ui,sans-serif}
@@ -1080,7 +1115,7 @@ html,body{overflow-x:clip}
 @media(min-width:900px){
   .ov{grid-template-columns:50% 50%}
   .ov-left{padding:48px}
-  .ov-right{padding:64px 48px}
+  .ov-right{padding:32px 48px}
   .ov-box{margin:0}
 }
 </style>
@@ -1233,7 +1268,7 @@ html,body{overflow-x:clip}
 })();
 </script>
 
-<section class="s whats-inside-s wc-ground-light" data-wi>
+<section class="s whats-inside-s wc-ground-light wc-parallax" data-wi data-parallax="0.5">
   <figure class="wi-photo"><img src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="A child standing on a rock in a forest, looking back" loading="lazy" decoding="async"></figure>
   <div class="wrap">
   <div class="wi">
@@ -1312,7 +1347,8 @@ html,body{overflow-x:clip}
 })();
 </script>
 
-<section class="s offer-v2-s wc-ground-dark">
+<section class="s offer-v2-s wc-ground-dark wc-edge-wave">
+  <div class="wc-wave" data-cover aria-hidden="true"></div>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
@@ -1431,5 +1467,55 @@ html,body{overflow-x:clip}
 })();
 </script>
 
+<script>
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('.wc-parallax'));
+  if(!secs.length) return;
+  var mq=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var ticking=false;
+  // One wrapper per section, made once: moving the children one by one gave each
+  // of them its own stacking context, which dropped the phone behind the photo.
+  function mover(s){
+    var m=s.querySelector(':scope > .wc-move');
+    if(m) return m;
+    m=document.createElement('div');
+    m.className='wc-move';
+    while(s.firstChild) m.appendChild(s.firstChild);
+    s.appendChild(m);
+    return m;
+  }
+  // the height of whatever covers this section: the first [data-cover] layer
+  // after it. A module may be followed by its own <script>, so the walk steps
+  // over anything that holds no cover rather than looking at one sibling.
+  function cover(s){
+    for(var n=s.nextElementSibling; n; n=n.nextElementSibling){
+      var c=n.matches && n.matches('[data-cover]') ? n : (n.querySelector && n.querySelector('[data-cover]'));
+      if(c) return c.getBoundingClientRect().height;
+    }
+    return 0;
+  }
+  function off(){ secs.forEach(function(s){ mover(s).style.transform=''; }); }
+  function frame(){
+    ticking=false;
+    if(mq && mq.matches) return off();
+    var h=window.innerHeight;
+    secs.forEach(function(s){
+      var r=s.getBoundingClientRect();
+      if(r.bottom < 0 || r.top > h) return;             // only while it is on screen
+      var speed=parseFloat(s.getAttribute('data-parallax')) || 0.5;
+      // the lag starts when the wave's own top edge reaches the bottom of the
+      // window, which is the moment the cover begins to come over this section
+      var travelled=Math.max(0, h - (r.bottom - cover(s)));
+      var lag=travelled * speed;          // no cap: the section clips its own contents
+      mover(s).style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+    });
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  if(mq && mq.addEventListener) mq.addEventListener('change', function(){ off(); onScroll(); });
+  frame();
+})();
+</script>
 </body>
 </html>

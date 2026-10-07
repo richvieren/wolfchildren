@@ -154,22 +154,83 @@ test('opening one FAQ item closes the others', { skip: !JSDOM && 'jsdom not inst
   });
 });
 
-// ── the live page carries no transition ───────────────────────────────────
-test('the live page has no wave edge, no parallax and no gradient section',
+// ── the live page carries the transition ──────────────────────────────────
+test('the live page has the wave and the parallax, and only the wave is masked',
   { skip: !JSDOM && 'jsdom not installed' }, () => {
   load((win) => {
     const ids = [...win.document.querySelectorAll('section.s')]
       .map((s) => (s.className.match(/\b([a-z0-9-]+)-s\b/) || [])[1]);
     assert.deepEqual(ids, ['recognition', 'whats-inside', 'offer-v2'], `the order: ${ids}`);
-    const html = win.document.documentElement.outerHTML;
-    assert.ok(!/wave-edge\.png/.test(html), 'no wave mask anywhere');
-    assert.ok(!/wc-parallax|wc-edge-wave/.test(html), 'no edge or parallax layer');
-    assert.ok(!/--ov-gradient/.test(html), 'no gradient ground on the offer');
-    // the split is back: the green half and the paper half
+
+    const above = win.document.querySelector('.whats-inside-s');
+    assert.ok(above.classList.contains('wc-parallax'), 'whats-inside is the parallax section');
+    assert.equal(above.getAttribute('data-parallax'), '0.5', 'half the scroll speed');
+    assert.equal(above.children.length, 1, 'one wrapper holds its children');
+    assert.equal(above.firstElementChild.className, 'wc-move');
+    assert.deepEqual([...above.firstElementChild.children].map((c) => c.className),
+      ['wi-photo', 'wrap'], 'the photograph and the content, in that order');
+    assert.ok(above.querySelector('.wc-move .wrap .wi .wi-text .wi-phone'),
+      'the phone still sits inside the content, above the photograph');
+
+    const offer = win.document.querySelector('.offer-v2-s');
+    assert.ok(offer.classList.contains('wc-edge-wave'), 'the offer carries the edge');
+    const waves = win.document.querySelectorAll('[data-cover]');
+    assert.equal(waves.length, 1, 'one wave layer');
+    assert.equal(waves[0].parentElement, offer, 'it belongs to the offer');
+    assert.equal(waves[0].textContent, '', 'it holds no content');
+
     const css = [...win.document.querySelectorAll('style')].map((x) => x.textContent).join('');
-    assert.match(css, /\.ov-left\{background:var\(--b-green\)/);
-    assert.match(css, /\.ov-right\{background:var\(--b-paper\)/);
+    const masked = [...css.matchAll(/([^{}]*)\{([^}]*)\}/g)]
+      .filter((m) => /mask-image/.test(m[2]))
+      .map((m) => m[1].trim().split('\n').pop().trim());
+    assert.deepEqual(masked, ['.wc-wave'], `only the wave layer is masked: ${masked}`);
+    assert.match(css, /--wc-mask-w:115%/, 'drawn at 115%: a 90px rise at 1440');
+    assert.match(css, /--wc-ink:19\.0469vw/, 'every inked row, spray included');
+    assert.match(css, /\.wc-wave\{[^}]*bottom:calc\(100% - 2px\)/, 'a 2px lap, no seam');
+    assert.match(css, /\.wc-parallax > \.wc-move\{[^}]*padding-bottom:calc\(var\(--s-space-section\) \+ var\(--wc-wave-h\)\)/);
+
+    // the offer's own ground: the same gradient, and no mask, clip or filter inside it
+    assert.match(css, /--ov-gradient:linear-gradient\(90deg,#495543,#CDB494\)/);
+    assert.match(css, /\.ov-box\{[^}]*background:var\(--b-paper\)[^}]*border-radius:16px/);
+    assert.ok(!/\.ov-left\{background:var\(--b-green\)|\.ov-right\{background:var\(--b-paper\)/.test(css),
+      'the green and cream halves are gone');
+    const inside = [...css.matchAll(/([^{}]*)\{([^}]*)\}/g)]
+      .filter((m) => /^\.ov[-\s.:,]/.test(m[1].trim().split('\n').pop().trim()))
+      .filter((m) => /mask-image|clip-path|[^-]filter:/.test(m[2]))
+      .map((m) => m[1].trim());
+    assert.deepEqual(inside, [], `nothing in the offer is masked, clipped or filtered: ${inside}`);
   });
+});
+
+test('scrolling the live page moves one wrapper, from the wave\'s top edge',
+  { skip: !JSDOM && 'jsdom not installed' }, async () => {
+  // jsdom has no layout, so the rectangles are supplied: a 2400px tall section
+  // passing a 768px window, and the wave layer at its used height, 314px.
+  const dom = new JSDOM(readFileSync(PAGE, 'utf8'),
+    { runScripts: 'dangerously', pretendToBeVisual: true });
+  const win = dom.window;
+  try {
+    const sec = win.document.querySelector('.wc-parallax');
+    const wave = win.document.querySelector('[data-cover]');
+    const WAVE = 314;
+    wave.getBoundingClientRect = () => ({ top: 0, bottom: WAVE, height: WAVE,
+      left: 0, right: 1440, width: 1440 });
+    win.innerHeight = 768;
+    const seen = [];
+    for (const bottom of [2000, 1200, 1082, 1000, 900, 600, 300, 0]) {
+      sec.getBoundingClientRect = () => ({ top: bottom - 2400, bottom, height: 2400,
+        left: 0, right: 1440, width: 1440 });
+      win.dispatchEvent(new win.Event('scroll'));
+      await new Promise((r) => win.requestAnimationFrame(r));   // let the frame run
+      const moved = [...sec.querySelectorAll('*')].filter((e) => e.style.transform);
+      assert.equal(moved.length, 1, `one element moves: ${moved.map((e) => e.className)}`);
+      assert.equal(moved[0].className, 'wc-move');
+      seen.push(Number((moved[0].style.transform.match(/,([-\d.]+)px/) || [0, 0])[1]));
+    }
+    // nothing until the wave's top edge (section bottom minus 314) reaches 768
+    assert.deepEqual(seen.slice(0, 3), [0, 0, 0], `still at normal speed: ${seen}`);
+    assert.deepEqual(seen.slice(3), [41, 91, 241, 391, 541], `half speed after: ${seen}`);
+  } finally { win.close(); }
 });
 
 // ── the bench: readings/compass/wave-test ─────────────────────────────────

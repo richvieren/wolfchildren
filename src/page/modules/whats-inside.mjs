@@ -153,13 +153,16 @@ export const css = `${WIDGET_CSS}
      2 — the text starts at the phone's right edge plus 48px, measured from the
      same half of the same box, so it cannot be reached by the phone.
      3 — the phone is fluid: 307px down to 200px, so at any width from 900px up
-     the text keeps its own column. */
+     the text keeps its own column.
+     4 — each of the three selectors has a second form: the parallax script wraps
+     a section's children in .wc-move, and these rules name a direct child. The
+     markup is the same either way. */
   .whats-inside-s{--wi-phone-w:clamp(200px,21vw,307px)}
-  .whats-inside-s>.wrap{max-width:none;padding-left:40px;padding-right:40px}
+  .whats-inside-s>.wrap,.whats-inside-s>.wc-move>.wrap{max-width:none;padding-left:40px;padding-right:40px}
   .wi{display:block;position:static;min-height:620px}
-  .whats-inside-s>.wi-photo{display:block;position:absolute;top:0;bottom:0;
+  .whats-inside-s>.wi-photo,.whats-inside-s>.wc-move>.wi-photo{display:block;position:absolute;top:0;bottom:0;
     right:50%;left:calc(50% - 50vw);margin:0;padding:0;overflow:hidden;z-index:1}
-  .whats-inside-s>.wi-photo img{display:block;width:100%;height:100%;
+  .whats-inside-s>.wi-photo img,.whats-inside-s>.wc-move>.wi-photo img{display:block;width:100%;height:100%;
     object-fit:cover;object-position:50% 35%;border:0;transform:scaleX(-1)}
   .wi-phone{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
     width:var(--wi-phone-w);max-width:none;z-index:2;margin:0}

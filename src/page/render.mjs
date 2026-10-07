@@ -80,7 +80,13 @@ export async function render(config) {
       .filter(Boolean).join(' ');
     const html = mod.markup(copy, { ...(m.settings ?? {}), ground: groundOf[i], className: cls });
     // the section's own tag carries the speed, so the shared script reads it there
-    return m.parallax ? html.replace(/^<section([^>]*)>/, `<section$1 data-parallax="${m.parallax}">`) : html;
+    const withSpeed = m.parallax
+      ? html.replace(/^<section([^>]*)>/, `<section$1 data-parallax="${m.parallax}">`)
+      : html;
+    // the wave is a layer of its own, put in by the page, never a mask on a module
+    return m.edge === 'wave'
+      ? withSpeed.replace(/^(<section[^>]*>)/, '$1\n  <div class="wc-wave" data-cover aria-hidden="true"></div>')
+      : withSpeed;
   }).join('\n\n');
 
   // a module used twice brings its CSS once

@@ -118,8 +118,19 @@ footer{padding:56px 0}
 /* every element inside a module inherits its ground's text colour, so a rule
    that sets no colour of its own cannot end up cream on cream. */
 .wc-ground-light,.wc-ground-dark{color:var(--g-text)}
-.wc-parallax{position:relative;isolation:isolate;z-index:0;overflow:hidden}
-.wc-parallax > .wc-move{will-change:transform}
+.wc-parallax{position:relative;isolation:isolate;z-index:0;overflow:hidden;
+  padding-top:0;padding-bottom:0}
+/* the wrapper carries the section's own vertical padding, so a full-height
+   panel inside it still spans the section, and the bottom padding carries the
+   whole wave layer, spray included: the last line clears the wave's highest
+   inked pixel by the section's padding plus the 2px lap. */
+.wc-parallax > .wc-move{will-change:transform;position:static;
+  padding-top:var(--s-space-section);
+  padding-bottom:calc(var(--s-space-section) + var(--wc-wave-h))}
+@media(min-width:900px){
+  .wc-parallax > .wc-move{padding-top:var(--s-space-section-wide);
+    padding-bottom:calc(var(--s-space-section-wide) + var(--wc-wave-h))}
+}
 @media(prefers-reduced-motion:reduce){.wc-parallax > *{transform:none!important}}
 :root{
   --s-radius-card:14px; --s-radius-card-lg:20px; --s-radius-btn:11px;
@@ -918,13 +929,16 @@ html,body{overflow-x:clip}
      2 — the text starts at the phone's right edge plus 48px, measured from the
      same half of the same box, so it cannot be reached by the phone.
      3 — the phone is fluid: 307px down to 200px, so at any width from 900px up
-     the text keeps its own column. */
+     the text keeps its own column.
+     4 — each of the three selectors has a second form: the parallax script wraps
+     a section's children in .wc-move, and these rules name a direct child. The
+     markup is the same either way. */
   .whats-inside-s{--wi-phone-w:clamp(200px,21vw,307px)}
-  .whats-inside-s>.wrap{max-width:none;padding-left:40px;padding-right:40px}
+  .whats-inside-s>.wrap,.whats-inside-s>.wc-move>.wrap{max-width:none;padding-left:40px;padding-right:40px}
   .wi{display:block;position:static;min-height:620px}
-  .whats-inside-s>.wi-photo{display:block;position:absolute;top:0;bottom:0;
+  .whats-inside-s>.wi-photo,.whats-inside-s>.wc-move>.wi-photo{display:block;position:absolute;top:0;bottom:0;
     right:50%;left:calc(50% - 50vw);margin:0;padding:0;overflow:hidden;z-index:1}
-  .whats-inside-s>.wi-photo img{display:block;width:100%;height:100%;
+  .whats-inside-s>.wi-photo img,.whats-inside-s>.wc-move>.wi-photo img{display:block;width:100%;height:100%;
     object-fit:cover;object-position:50% 35%;border:0;transform:scaleX(-1)}
   .wi-phone{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
     width:var(--wi-phone-w);max-width:none;z-index:2;margin:0}
