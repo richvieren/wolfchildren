@@ -7,5 +7,6 @@ export const variants = {
     sub: 'Read from their whole chart, in plain words. These are real pieces of a sample reading. Tap one and it opens in the phone.',
     listhead: 'Start with these six',
     cta: 'Get their Compass · $27',
+    samples: 'Read a full sample:',
   },
 };
