@@ -67,13 +67,3 @@ test('hover and click on row 03 swap the phone and move the mark', { skip: !JSDO
   }
   });
 });
-
-test('the phone header names the child of the pane on show', { skip: !JSDOM && 'jsdom not installed' }, () => {
-  load((win) => {
-  const rows = [...win.document.querySelectorAll('.wi-row')];
-  const who = win.document.querySelector('[data-wi-who]');
-  rows[1].dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
-  const pane = win.document.querySelectorAll('[data-pane]')[1];
-  assert.equal(who.textContent, pane.dataset.who);
-  });
-});

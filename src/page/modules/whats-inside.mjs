@@ -64,13 +64,18 @@ export const css = `${WIDGET_CSS}
    hover and tap looked dead: they were swapping panes nobody could see. */
 .wi-phone img.wi-frame{position:absolute;inset:0;width:100%;height:100%;display:block;
   pointer-events:none;z-index:0;border:0;border-radius:0}
+/* 1 — the sample reading's own page ground is html{background:var(--cream)},
+   which is #DFD7C3, the same cream the section uses, so the screen takes the
+   photo-frame white #F8F5EC (--b-paper) and stands off the section. */
 .wi-screen{position:absolute;left:5.9%;right:6.5%;top:2.6%;bottom:3.7%;border-radius:17px;
-  overflow:hidden;background:var(--b-cream);z-index:2}
-.wi-scroll{height:100%;overflow-y:auto;padding:38px 12px 18px;scrollbar-width:none}
+  overflow:hidden;background:var(--b-paper);z-index:2}
+/* 2 — no name header: the widget starts at the top of the screen, with just
+   enough room above it to clear the frame's notch. */
+.wi-scroll{height:100%;overflow-y:auto;padding:44px 12px 18px;scrollbar-width:none}
 .wi-scroll::-webkit-scrollbar{display:none}
-.wi-who{position:absolute;left:0;right:0;top:0;z-index:2;text-align:center;padding:14px 0 8px;
-  background:var(--b-cream);font-family:var(--b-body);font-size:var(--s-type-eyebrow);
-  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--b-bark)}
+/* 3 — the card chrome goes: no border, no fill, no padding of its own. The
+   screen's own inner margin is the only margin. */
+.wi-scroll .wc-live .card{background:none;border:0;padding:0}
 .wi-pane{display:none}
 .wi-pane.on{display:block}
 
@@ -146,9 +151,8 @@ export function markup(copy, settings = {}) {
     <div class="wi-phone">
       <img class="wi-frame" src="/assets/img/phone-frame.png" alt="" width="969" height="1959" aria-hidden="true">
       <div class="wi-screen">
-        <p class="wi-who" data-wi-who>${SCREENS[0].who}</p>
         <div class="wi-scroll" data-wi-screen>
-${SCREENS.map((s, i) => `          <div class="wi-pane${i ? '' : ' on'}" data-pane="${s.id}" data-who="${s.who}"><div class="wc-live">${s.html}</div></div>`).join('\n')}
+${SCREENS.map((s, i) => `          <div class="wi-pane${i ? '' : ' on'}" data-pane="${s.id}"><div class="wc-live">${s.html}</div></div>`).join('\n')}
         </div>
       </div>
     </div>
@@ -164,7 +168,7 @@ ${SCREENS.map((s, i) => `        <li class="wi-item${i ? '' : ' is-active'}"><bu
 (function(){
   var root=document.querySelector('[data-wi]'); if(!root) return;
   var panes=root.querySelectorAll('[data-pane]'), rows=root.querySelectorAll('.wi-row');
-  var who=root.querySelector('[data-wi-who]'), screen=root.querySelector('[data-wi-screen]');
+  var screen=root.querySelector('[data-wi-screen]');
   var phone=root.querySelector('.wi-phone');
   // matchMedia is missing in some environments (jsdom, for one); hover then
   // behaves as the wide screen it was written for rather than doing nothing.
@@ -172,9 +176,7 @@ ${SCREENS.map((s, i) => `        <li class="wi-item${i ? '' : ' is-active'}"><bu
   function narrow(){ return window.matchMedia ? window.matchMedia('(max-width:899px)').matches : false; }
   function show(id, scroll){
     panes.forEach(function(p){
-      var on=p.getAttribute('data-pane')===id;
-      p.classList.toggle('on', on);
-      if(on && who) who.textContent=p.getAttribute('data-who');
+      p.classList.toggle('on', p.getAttribute('data-pane')===id);
     });
     rows.forEach(function(b){
       var on=b.getAttribute('data-section')===id;
