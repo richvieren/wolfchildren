@@ -29,7 +29,16 @@ export default {
           { src: '/assets/img/compass2/reason-1.webp', w: 1200, h: 1600, alt: 'A child standing on a rock in a forest, looking back' },
         ],
       } },
-    { id: 'whats-inside', copy: 'A' },
+    { id: 'whats-inside',
+      copy: 'A',
+      settings: {
+        photo: {
+          src: '/assets/img/compass2/reason-3.webp',
+          w: 1200,
+          h: 1600,
+          alt: 'A child running across grass towards the trees',
+        },
+      } },
     { id: 'hero', copy: 'A' },
     { id: 'sample', copy: 'A' },
     { id: 'stats', copy: 'A' },

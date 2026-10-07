@@ -876,59 +876,61 @@ html,body{overflow-x:clip}
 .wc-live .photo.placeholder{background:var(--tan-soft);display:flex;align-items:center;justify-content:center}
 .wc-live .photo.placeholder span{font-family:Montserrat;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
 .wc-live .pending{color:var(--orange)}
-.wi-head{text-align:center}
+.wi{position:relative}
+.wi-head{text-align:left}
+.wi-eyebrow{font-family:var(--b-body);color:var(--g-text);font-size:var(--s-type-eyebrow);
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0 0 var(--s-space-para)}
 .wi-head h2{font-family:var(--b-display);font-weight:400;color:var(--g-text);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
-  letter-spacing:var(--s-type-display-ls);max-width:none;margin:0 auto}
+  letter-spacing:var(--s-type-display-ls);max-width:none;margin:0}
 .wi-sub{font-family:var(--b-body);color:var(--g-text);font-size:var(--s-type-body);
   line-height:var(--s-type-body-lh);letter-spacing:var(--s-type-body-ls);
-  margin:var(--s-space-para) auto 0;max-width:46ch}
-.wi-grid{display:grid;grid-template-columns:1fr;gap:var(--s-space-block);
-  grid-auto-rows:1fr;align-items:stretch;margin-top:var(--s-space-section)}
-.wi-tile{background:var(--b-paper);border-radius:var(--s-radius-card);
-  padding:var(--s-pad-card);display:flex;flex-direction:column;gap:10px;
-  aspect-ratio:1/1;min-width:0;overflow:hidden}
-.wi-who{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
+  margin:var(--s-space-para) 0 0;max-width:52ch}
+
+/* the phone, Cato's geometry on our tokens */
+.wi-phone{position:relative;width:100%;max-width:307px;aspect-ratio:969/1959;margin:var(--s-space-section) auto 0;
+  filter:drop-shadow(0 30px 40px var(--g-shade))}
+.wi-phone img.wi-frame{position:absolute;inset:0;width:100%;height:100%;display:block;
+  pointer-events:none;z-index:2;border:0;border-radius:0}
+.wi-screen{position:absolute;left:5.9%;right:6.5%;top:2.6%;bottom:3.7%;border-radius:17px;
+  overflow:hidden;background:var(--b-cream);z-index:1}
+.wi-scroll{height:100%;overflow-y:auto;padding:38px 12px 18px;scrollbar-width:none}
+.wi-scroll::-webkit-scrollbar{display:none}
+.wi-who{position:absolute;left:0;right:0;top:0;z-index:2;text-align:center;padding:14px 0 8px;
+  background:var(--b-cream);font-family:var(--b-body);font-size:var(--s-type-eyebrow);
   letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--b-bark)}
+.wi-pane{display:none}
+.wi-pane.on{display:block}
 
-/* a — the blocks' dimmed states. The reading dims an inactive pole to .45, an
-   inactive quadrant to .55 and a moon crater to .34, which on a tile reads as
-   text that is barely there. Nothing here is a scroll reveal: the reading ships
-   no such script. Everything in a tile is fully opaque. */
-.wi-tile .wc-live *{opacity:1;visibility:visible}
+/* the rows, Cato's grid */
+.wi-listhead{font-family:var(--b-display);font-weight:400;color:var(--g-text);
+  font-size:var(--s-type-lead);line-height:var(--s-type-lead-lh);margin:var(--s-space-block) 0 12px}
+.wi-list{list-style:none;margin:0;padding:0;border-top:var(--s-border)}
+.wi-item{border-bottom:var(--s-border)}
+.wi-row{display:grid;grid-template-columns:54px minmax(0,1fr) 26px;align-items:center;
+  width:100%;height:64px;padding:0;background:none;border:0;cursor:pointer;text-align:left}
+.wi-num{font-family:var(--b-display);font-size:var(--s-type-lead);line-height:1;color:var(--g-quiet)}
+.wi-label{font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.2;color:var(--g-text)}
+.wi-mark svg{display:block;width:22px;height:22px;fill:var(--g-quiet)}
+.wi-row:hover .wi-mark svg,.wi-item.is-active .wi-mark svg{fill:var(--g-accent)}
+.wi-item.is-active .wi-label{color:var(--g-text)}
+.wi-row:focus-visible{outline:2px solid var(--g-text);outline-offset:3px}
+.wi-cta{display:inline-block;margin-top:var(--s-space-block);font-family:var(--b-body);
+  font-size:var(--s-type-body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+  cursor:pointer;padding:0 26px;height:54px;line-height:50px;background:var(--b-green);
+  color:var(--b-cream);border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
+  box-shadow:var(--s-shadow-hard)}
+.wi-photo{display:none}
 
-/* b — the blocks' own widths. The reading sets max-widths of 360px and 620px on
-   its text and draws its gauges at their natural size, so a block overflowed its
-   grid cell and ran across the row. No rule in the reading's CSS sets
-   grid-column; the overflow was the cause. */
-.wi-tile .wc-live,.wi-tile .wc-live *{max-width:100%;min-width:0;grid-column:auto}
-.wi-tile .wc-live .card{background:none;border:0;padding:0}
-.wi-tile .wc-live svg{max-width:100%;height:auto}
-.wi-tile .wc-live .moon{width:88px;height:88px}
-.wi-tile .wc-live .gauge,.wi-tile .wc-live .badge-halo{max-width:116px}
-.wi-tile .wc-live .badge-halo{width:52px;height:52px}
-
-/* c — the serif. The reading sets Libre Baskerville on its prose and Montserrat
-   900 on its labels and numbers. Inside a tile the page's own faces are used:
-   Special Elite for text, and the page's label treatment for labels. */
-.wi-tile .wc-live,.wi-tile .wc-live p,.wi-tile .wc-live div,.wi-tile .wc-live span,
-.wi-tile .wc-live text{font-family:var(--b-body)}
-.wi-tile .wc-live .letter-text,.wi-tile .wc-live .wcontext,.wi-tile .wc-live .spec-context,
-.wi-tile .wc-live .hemi-footer,.wi-tile .wc-live .badge-desc,.wi-tile .wc-live .moon-line{
-  font-family:var(--b-body);font-size:var(--s-type-body);line-height:var(--s-type-body-lh);
-  letter-spacing:var(--s-type-body-ls);color:var(--g-text);max-width:none}
-.wi-tile .wc-live .wlabel,.wi-tile .wc-live .badge-label,.wi-tile .wc-live .big3-word,
-.wi-tile .wc-live .badge-type,.wi-tile .wc-live .bar-name,.wi-tile .wc-live .pole{
-  font-family:var(--b-body);font-weight:400;letter-spacing:var(--s-type-eyebrow-ls);
-  text-transform:uppercase;color:var(--b-bark)}
-.wi-tile .wc-live .bar-count,.wi-tile .wc-live .pill-text{font-family:var(--b-body);font-weight:400}
-
-.wi-links{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
-  gap:12px;margin-top:var(--s-space-section);font-family:var(--b-body);
-  font-size:var(--s-type-body);color:var(--g-text)}
-.wi-links a{color:var(--g-text);text-underline-offset:4px}
 @media(min-width:900px){
-  .wi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  /* the photograph runs edge to edge under the phone's left half; the phone is
+     centred in the section and the words sit to its right. */
+  .wi{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:var(--s-space-section);
+    align-items:start}
+  .wi-photo{display:block;position:absolute;left:0;top:0;bottom:0;width:38%;margin:0;overflow:hidden}
+  .wi-photo img{display:block;width:100%;height:100%;object-fit:contain;object-position:left top;border:0}
+  .wi-phone{position:relative;z-index:2;margin:0 auto}
+  .wi-text{grid-column:2}
 }
 </style>
 </head>
@@ -1075,21 +1077,81 @@ html,body{overflow-x:clip}
 })();
 </script>
 
-<section class="s whats-inside-s wc-ground-light"><div class="wrap">
-  <div class="wi-head">
-    <h2>Everything in it is about them.</h2>
-    <p class="wi-sub">Read from their whole chart, written in plain words.</p>
+<section class="s whats-inside-s wc-ground-light" data-wi><div class="wrap">
+  <div class="wi">
+    <figure class="wi-photo"><img src="/assets/img/compass2/reason-3.webp" width="1200" height="1600" alt="A child running across grass towards the trees" loading="lazy" decoding="async"></figure>
+    <div class="wi-phone">
+      <img class="wi-frame" src="/assets/img/phone-frame.png" alt="" width="969" height="1959" aria-hidden="true">
+      <div class="wi-screen">
+        <p class="wi-who" data-wi-who>Nora, 6</p>
+        <div class="wi-scroll" data-wi-screen>
+          <div class="wi-pane on" data-pane="w-moon" data-who="Nora, 6"><div class="wc-live"><div class="card"><div class="wlabel">The moon that night</div><div class="moon-wrap"><svg aria-label="The moon that night" class="moon" role="img" viewBox="0 0 120 120"><circle class="moon-sky" cx="60" cy="60" r="55"></circle><circle class="moon-dark" cx="60" cy="60" r="46"></circle><path class="moon-lit" d="M 60,14 A 46,46 0 0,0 60,106 Z"></path><path class="moon-lit" d="M 60,14 A 42.25,46 0 0,1 60,106 Z"></path><circle class="moon-pit" cx="46" cy="44" r="9"></circle><circle class="moon-pit" cx="74" cy="52" r="6"></circle><circle class="moon-pit" cx="56" cy="74" r="7"></circle><circle class="moon-pit" cx="38" cy="66" r="4"></circle><circle class="moon-pit" cx="68" cy="34" r="3.5"></circle><circle class="moon-pit" cx="80" cy="70" r="4.5"></circle><circle class="moon-ring" cx="60" cy="60" r="46"></circle></svg></div><div class="moon-line">Nora was born two days after a full moon, with the light going back down.</div><div class="bar-footer">waning gibbous</div></div></div></div>
+          <div class="wi-pane" data-pane="w-elements" data-who="Finn, 6"><div class="wc-live"><div class="card"><div class="wlabel">Elements</div><div class="bar-rows"><div class="bar"><div class="bar-head"><span class="bar-name">fire</span><span class="bar-count">35%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">earth</span><span class="bar-count">35%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">air</span><span class="bar-count">25%</span></div><div class="bar-track"><div class="bar-fill" style="width:71%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">water</span><span class="bar-count">5%</span></div><div class="bar-track"><div class="bar-fill" style="width:14%"></div></div></div></div><div class="bar-footer">Most of: <span>fire</span></div><div class="wcontext">Finn meets the day head on and spends energy without much accounting for it. Fire is his fullest element and water his scarcest. Feeling registers as action, so what another child might sit with quietly comes out of him as movement or heat. Naming the softer undercurrent in himself, or noticing it in someone else, is the part that stays out of reach longest.</div></div></div></div>
+          <div class="wi-pane" data-pane="w-wired" data-who="Nora, 6"><div class="wc-live"><div class="card "><div class="wlabel">What&#x27;s wired to what</div><div class="bar-rows"><div class="bar"><div class="bar-head"><span class="bar-name">Who she is</span><span class="bar-count">3</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">How she feels</span><span class="bar-count">1</span></div><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">How she thinks and talks</span><span class="bar-count">3</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">What she loves</span><span class="bar-count">0</span></div><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">How she pushes</span><span class="bar-count">1</span></div><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div></div></div><div class="bar-footer">Wired to nothing else: what she loves</div><div class="wcontext">What she loves is not wired to anything else in Nora&#x27;s chart. It works on its own, so it shows up the same way every time. The longer a bar, the more other parts of Nora are wired into that one, and the more it changes depending on what else is going on.</div></div></div></div>
+          <div class="wi-pane" data-pane="w-starter" data-who="Finn, 6"><div class="wc-live"><div class="card"><div class="wlabel">Three lines</div><div class="spec"><div class="spec-poles"><span class="pole on">Starter</span><span class="pole">Finisher</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:48%"></div></div><div class="spec-context">Some things Finn carries all the way to the end and others he leaves standing once the interesting part is done. The deciding factor sits in how much the thing holds him, so his follow-through looks inconsistent until you see what he is choosing between.</div></div></div></div></div>
+          <div class="wi-pane" data-pane="w-seen" data-who="Nora, 6"><div class="wc-live"><div class="card vis"><div class="wlabel">Being seen</div><svg height="140" viewBox="0 0 240 140" width="240"><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#CDB494" stroke-linecap="round" stroke-width="10"></path><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#495543" stroke-dasharray="283" stroke-dashoffset="62.3" stroke-linecap="round" stroke-width="10"></path><text fill="#495543" font-family="Montserrat" font-size="44" font-weight="900" text-anchor="middle" x="120" y="108">78%</text><text fill="#495543" font-family="Montserrat" font-size="9" font-weight="900" letter-spacing="2" text-anchor="middle" x="120" y="132">IN THE OPEN</text></svg><div class="pill small"><span class="pill-text">Midheaven in Aquarius</span></div></div></div></div>
+          <div class="wi-pane" data-pane="w-group" data-who="Finn, 6"><div class="wc-live"><div class="card badge"><div class="badge-label">In a group</div><div class="badge-halo earth"><span class="big3-word">earth</span></div><div class="badge-type">The steady one</div><p class="badge-desc">Finn holds steady in a group while the noise sorts itself out around him, and other children drift toward him once the game needs someone to hold the shape of it. With the Sun in an earth sign, his weight in a room comes from staying put and finishing what he started. He takes a while to warm to new company, then works alongside them easily.</p><div class="badge-rule"></div><div class="badge-placement">Sun in Capricorn · Mars in Sagittarius</div><p class="badge-basis">Pushing for something, Finn argues the whole shape of it out loud, often widening the question rather than narrowing it. Mars in Sagittarius moves by conviction, so wanting a thing and believing it is fair arrive together and sound the same. He pursues hard while the case still feels alive, then drifts once the matter is agreed and the next question has already caught him.</p></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="wi-text">
+      <div class="wi-head">
+        <p class="wi-eyebrow">Inside their Compass</p>
+        <h2>Everything in it is about them.</h2>
+        <p class="wi-sub">Read from their whole chart, in plain words. These are real pieces of a sample reading. Tap one and it opens in the phone.</p>
+      </div>
+      <p class="wi-listhead">Start with these six</p>
+      <ol class="wi-list">
+        <li class="wi-item is-active"><button type="button" class="wi-row" data-section="w-moon" aria-pressed="true"><span class="wi-num">01</span><span class="wi-label">The moon that night</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
+        <li class="wi-item"><button type="button" class="wi-row" data-section="w-elements" aria-pressed="false"><span class="wi-num">02</span><span class="wi-label">Elements</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
+        <li class="wi-item"><button type="button" class="wi-row" data-section="w-wired" aria-pressed="false"><span class="wi-num">03</span><span class="wi-label">What's wired to what</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
+        <li class="wi-item"><button type="button" class="wi-row" data-section="w-starter" aria-pressed="false"><span class="wi-num">04</span><span class="wi-label">Starter or finisher</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
+        <li class="wi-item"><button type="button" class="wi-row" data-section="w-seen" aria-pressed="false"><span class="wi-num">05</span><span class="wi-label">Being seen</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
+        <li class="wi-item"><button type="button" class="wi-row" data-section="w-group" aria-pressed="false"><span class="wi-num">06</span><span class="wi-label">In a group</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
+      </ol>
+      <a class="wi-cta" href="#atf" data-wi-cta>Get their Compass · $27</a>
+    </div>
   </div>
-  <div class="wi-grid">
-    <div class="wi-tile"><p class="wi-who">Nora</p><div class="wc-live"><div class="card"><div class="wlabel">The moon that night</div><div class="moon-wrap"><svg aria-label="The moon that night" class="moon" role="img" viewBox="0 0 120 120"><circle class="moon-sky" cx="60" cy="60" r="55"></circle><circle class="moon-dark" cx="60" cy="60" r="46"></circle><path class="moon-lit" d="M 60,14 A 46,46 0 0,0 60,106 Z"></path><path class="moon-lit" d="M 60,14 A 42.25,46 0 0,1 60,106 Z"></path><circle class="moon-pit" cx="46" cy="44" r="9"></circle><circle class="moon-pit" cx="74" cy="52" r="6"></circle><circle class="moon-pit" cx="56" cy="74" r="7"></circle><circle class="moon-pit" cx="38" cy="66" r="4"></circle><circle class="moon-pit" cx="68" cy="34" r="3.5"></circle><circle class="moon-pit" cx="80" cy="70" r="4.5"></circle><circle class="moon-ring" cx="60" cy="60" r="46"></circle></svg></div><div class="moon-line">Nora was born two days after a full moon, with the light going back down.</div></div></div></div>
-    <div class="wi-tile"><p class="wi-who">Finn</p><div class="wc-live"><div class="card"><div class="wlabel">Elements</div><div class="bar-rows"><div class="bar"><div class="bar-head"><span class="bar-name">fire</span><span class="bar-count">35%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">earth</span><span class="bar-count">35%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">air</span><span class="bar-count">25%</span></div><div class="bar-track"><div class="bar-fill" style="width:71%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">water</span><span class="bar-count">5%</span></div><div class="bar-track"><div class="bar-fill" style="width:14%"></div></div></div></div><div class="wcontext">Finn meets the day head on and spends energy without much accounting for it.</div></div></div></div>
-    <div class="wi-tile"><p class="wi-who">Nora</p><div class="wc-live"><div class="card "><div class="wlabel">What&#x27;s wired to what</div><div class="bar-rows"><div class="bar"><div class="bar-head"><span class="bar-name">Who she is</span><span class="bar-count">3</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">How she feels</span><span class="bar-count">1</span></div><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">How she thinks and talks</span><span class="bar-count">3</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">What she loves</span><span class="bar-count">0</span></div><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">How she pushes</span><span class="bar-count">1</span></div><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div></div></div><div class="wcontext">What she loves is not wired to anything else in Nora&#x27;s chart.</div></div></div></div>
-    <div class="wi-tile"><p class="wi-who">Finn</p><div class="wc-live"><div class="card"><div class="wlabel">Three lines</div><div class="spec"><div class="spec-poles"><span class="pole on">Starter</span><span class="pole">Finisher</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:48%"></div></div><div class="spec-context">Some things Finn carries all the way to the end and others he leaves standing once the interesting part is done.</div></div></div></div></div>
-    <div class="wi-tile"><p class="wi-who">Nora</p><div class="wc-live"><div class="card vis"><div class="wlabel">Being seen</div><svg height="140" viewBox="0 0 240 140" width="240"><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#CDB494" stroke-linecap="round" stroke-width="10"></path><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#495543" stroke-dasharray="283" stroke-dashoffset="62.3" stroke-linecap="round" stroke-width="10"></path><text fill="#495543" font-family="Montserrat" font-size="44" font-weight="900" text-anchor="middle" x="120" y="108">78%</text><text fill="#495543" font-family="Montserrat" font-size="9" font-weight="900" letter-spacing="2" text-anchor="middle" x="120" y="132">IN THE OPEN</text></svg><div class="pill small"><span class="pill-text">Midheaven in Aquarius</span></div></div></div></div>
-    <div class="wi-tile"><p class="wi-who">Finn</p><div class="wc-live"><div class="card badge"><div class="badge-label">In a group</div><div class="badge-halo earth"><span class="big3-word">earth</span></div><div class="badge-type">The steady one</div><p class="badge-desc">Finn holds steady in a group while the noise sorts itself out around him, and other children drift toward him once the game needs someone to hold the shape of it.</p></div></div></div>
-  </div>
-  <p class="wi-links"><a href="/readings/compass/sample/nora/">Read all of Nora's</a><span aria-hidden="true">&middot;</span><a href="/readings/compass/sample/finn/">Read all of Finn's</a></p>
 </div></section>
+<script>
+(function(){
+  var root=document.querySelector('[data-wi]'); if(!root) return;
+  var panes=root.querySelectorAll('[data-pane]'), rows=root.querySelectorAll('.wi-row');
+  var who=root.querySelector('[data-wi-who]'), screen=root.querySelector('[data-wi-screen]');
+  var phone=root.querySelector('.wi-phone');
+  function show(id, scroll){
+    panes.forEach(function(p){
+      var on=p.getAttribute('data-pane')===id;
+      p.classList.toggle('on', on);
+      if(on && who) who.textContent=p.getAttribute('data-who');
+    });
+    rows.forEach(function(b){
+      var on=b.getAttribute('data-section')===id;
+      b.setAttribute('aria-pressed', on?'true':'false');
+      b.parentNode.classList.toggle('is-active', on);
+    });
+    if(screen) screen.scrollTop=0;
+    // on a phone the rows sit under the frame; keep the frame in view on a tap
+    if(scroll && phone && window.matchMedia('(max-width:899px)').matches){
+      var r=phone.getBoundingClientRect();
+      if(r.top<0||r.bottom>window.innerHeight) phone.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+  }
+  rows.forEach(function(b){
+    var id=b.getAttribute('data-section');
+    b.addEventListener('click',function(){ show(id,true); });
+    b.addEventListener('mouseenter',function(){ if(window.matchMedia('(min-width:900px)').matches) show(id,false); });
+  });
+  var cta=root.querySelector('[data-wi-cta]');
+  if(cta) cta.addEventListener('click',function(e){
+    var form=document.querySelector('#atf .form'); if(!form) return;
+    e.preventDefault(); form.scrollIntoView({behavior:'smooth',block:'center'});
+    var f=form.querySelector('.field'); if(!f) return;
+    if(!f.hasAttribute('tabindex')) f.setAttribute('tabindex','-1');
+    setTimeout(function(){ f.focus({preventScroll:true}); },600);
+  });
+})();
+</script>
 
 <section class="s hero wc-ground-dark"><div class="wrap">
   <h1>Stop Guessing What Your Child Needs Right Now.</h1>

@@ -1,12 +1,11 @@
-// Copy for the whats-inside module. A is Richard's, 2026-10-06, verbatim.
-// The tiles carry no copy of their own: every word in them is the sample's.
+// Copy for the whats-inside module. A is Richard's, 2026-10-07, verbatim.
+// The phone carries no copy of its own: every word in it is the sample's.
 export const variants = {
   A: {
+    eyebrow: 'Inside their Compass',
     h2: 'Everything in it is about them.',
-    sub: 'Read from their whole chart, written in plain words.',
-    links: [
-      ["Read all of Nora's", '/readings/compass/sample/nora/'],
-      ["Read all of Finn's", '/readings/compass/sample/finn/'],
-    ],
+    sub: 'Read from their whole chart, in plain words. These are real pieces of a sample reading. Tap one and it opens in the phone.',
+    listhead: 'Start with these six',
+    cta: 'Get their Compass · $27',
   },
 };
