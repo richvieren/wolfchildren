@@ -40,6 +40,7 @@ export default {
           alt: 'A child standing on a rock in a forest, looking back',
         },
       } },
+    { id: 'offer-card', copy: 'A' },
     { id: 'hero', copy: 'A' },
     { id: 'sample', copy: 'A' },
     { id: 'stats', copy: 'A' },
