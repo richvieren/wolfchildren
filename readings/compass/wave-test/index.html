@@ -1047,7 +1047,7 @@ html,body{overflow-x:clip}
 })();
 </script></div>
 
-<section class="s whats-inside-s wc-ground-light wc-parallax" data-wi data-parallax="0.4">
+<section class="s whats-inside-s wc-ground-light wc-parallax" data-wi data-parallax="0.5">
   <figure class="wi-photo"><img src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="A child standing on a rock in a forest, looking back" loading="lazy" decoding="async"></figure>
   <div class="wrap">
   <div class="wi">
@@ -1126,14 +1126,6 @@ html,body{overflow-x:clip}
 })();
 </script>
 
-<section class="s wave-demo-s wd" style="--wd-gradient:linear-gradient(90deg,#DFD7C3,#CDB494)">
-  <div class="wrap">
-    <p class="wd-tag">Version 1</p>
-    <h2 class="wd-h">Cream into tan</h2>
-    <p class="wd-p">The ground is linear-gradient(90deg,#DFD7C3,#CDB494). The wave above this heading is a separate layer: it carries the same gradient and wears the mask, so nothing here is masked.</p>
-  </div>
-</section>
-
 <section class="s wave-demo-s wd" style="--wd-gradient:linear-gradient(90deg,#495543,#CDB494)">
   <div class="wrap">
     <p class="wd-tag">Version 2</p>
@@ -1166,20 +1158,21 @@ html,body{overflow-x:clip}
   if(!secs.length) return;
   var mq=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var ticking=false;
-  function off(){ secs.forEach(function(s){ var c=s.firstElementChild; if(c) c.style.transform=''; }); }
+  function kids(s){ return [].slice.call(s.children); }
+  function off(){ secs.forEach(function(s){ kids(s).forEach(function(c){ c.style.transform=''; }); }); }
   function frame(){
     ticking=false;
     if(mq && mq.matches) return off();
     var h=window.innerHeight;
     secs.forEach(function(s){
-      var c=s.firstElementChild;
-      if(!c) return;
       var r=s.getBoundingClientRect();
       if(r.bottom < 0 || r.top > h) return;             // only while it is on screen
       var speed=parseFloat(s.getAttribute('data-parallax')) || 0.5;
-      var passed=Math.max(0, -r.top);                   // how far its top went by
-      var lag=passed * speed;             // no cap: the section clips its own contents
-      c.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+      // how far the window has travelled since the section's top edge came in
+      var travelled=Math.max(0, h - r.top);
+      var lag=travelled * speed;          // no cap: the section clips its own contents
+      var t='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+      kids(s).forEach(function(c){ c.style.transform=t; });
     });
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }

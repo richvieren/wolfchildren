@@ -39,27 +39,32 @@ export const motionCss = `
 @media(prefers-reduced-motion:reduce){.wc-parallax > *{transform:none!important}}
 `;
 
-/** The motion: the contents of a .wc-parallax section lag while it is on screen. */
+/** The motion: every child of a .wc-parallax section lags while any part of the
+    section is on screen. Moving only the first child moved the background photo
+    and left the phone and the text at normal speed, which read as no parallax at
+    all. The lag starts the moment the section's top edge enters the window, not
+    when it passes the top of it. */
 export const script = `<script>
 (function(){
   var secs=[].slice.call(document.querySelectorAll('.wc-parallax'));
   if(!secs.length) return;
   var mq=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var ticking=false;
-  function off(){ secs.forEach(function(s){ var c=s.firstElementChild; if(c) c.style.transform=''; }); }
+  function kids(s){ return [].slice.call(s.children); }
+  function off(){ secs.forEach(function(s){ kids(s).forEach(function(c){ c.style.transform=''; }); }); }
   function frame(){
     ticking=false;
     if(mq && mq.matches) return off();
     var h=window.innerHeight;
     secs.forEach(function(s){
-      var c=s.firstElementChild;
-      if(!c) return;
       var r=s.getBoundingClientRect();
       if(r.bottom < 0 || r.top > h) return;             // only while it is on screen
       var speed=parseFloat(s.getAttribute('data-parallax')) || 0.5;
-      var passed=Math.max(0, -r.top);                   // how far its top went by
-      var lag=passed * speed;             // no cap: the section clips its own contents
-      c.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+      // how far the window has travelled since the section's top edge came in
+      var travelled=Math.max(0, h - r.top);
+      var lag=travelled * speed;          // no cap: the section clips its own contents
+      var t='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+      kids(s).forEach(function(c){ c.style.transform=t; });
     });
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }

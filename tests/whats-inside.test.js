@@ -178,12 +178,11 @@ test('the wave is its own layer, and no mask touches a section or its content',
   load((win) => {
     const secs = [...win.document.querySelectorAll('section.s')];
     const ids = secs.map((s) => (s.className.match(/\b([a-z0-9-]+)-s\b/) || [])[1]);
-    assert.deepEqual(ids, ['whats-inside', 'wave-demo', 'wave-demo'], `the order: ${ids}`);
+    assert.deepEqual(ids, ['whats-inside', 'wave-demo'], `the order: ${ids}`);
 
-    // the two grounds under test
-    const grads = secs.slice(1).map((s) => s.getAttribute('style'));
-    assert.equal(grads[0], '--wd-gradient:linear-gradient(90deg,#DFD7C3,#CDB494)');
-    assert.equal(grads[1], '--wd-gradient:linear-gradient(90deg,#495543,#CDB494)');
+    // the one ground under test
+    assert.equal(secs[1].getAttribute('style'),
+      '--wd-gradient:linear-gradient(90deg,#495543,#CDB494)');
 
     const css = [...win.document.querySelectorAll('style')].map((x) => x.textContent).join('');
     // every rule that carries a mask, and the selector it carries it on
@@ -195,10 +194,41 @@ test('the wave is its own layer, and no mask touches a section or its content',
     assert.match(css, /\.wd::before\{[^}]*mask-size:200% auto/, 'the swoop is drawn at 200%');
     assert.match(css, /\.wd\{[^}]*z-index:1/, 'the wave section paints above the one before it');
 
-    // the section above moves at 0.4, clipped, and cannot paint out of itself
+    // the section above moves at half speed, clipped, and cannot paint out of itself
     const above = win.document.querySelector('.whats-inside-s');
     assert.ok(above.classList.contains('wc-parallax'));
-    assert.equal(above.getAttribute('data-parallax'), '0.4');
+    assert.equal(above.getAttribute('data-parallax'), '0.5');
     assert.match(css, /\.wc-parallax\{[^}]*isolation:isolate[^}]*overflow:hidden/);
   }, WAVE_PAGE);
+});
+
+test('scrolling writes a growing transform on every child of the parallax section',
+  { skip: !JSDOM && 'jsdom not installed' }, async () => {
+  // jsdom has no layout, so the section's rectangle is supplied: a 2400px tall
+  // section passing a 768px window. Each step is one scroll event plus a frame.
+  const dom = new JSDOM(readFileSync(WAVE_PAGE, 'utf8'),
+    { runScripts: 'dangerously', pretendToBeVisual: true });
+  const win = dom.window;
+  try {
+    const sec = win.document.querySelector('.wc-parallax');
+    const kids = [...sec.children];
+    assert.ok(kids.length >= 2, `the section has more than one child: ${kids.length}`);
+    win.innerHeight = 768;
+    const seen = [];
+    for (const top of [700, 300, 0, -200, -600, -1200]) {
+      sec.getBoundingClientRect = () => ({ top, bottom: top + 2400, height: 2400,
+        left: 0, right: 1440, width: 1440 });
+      win.dispatchEvent(new win.Event('scroll'));
+      await new Promise((r) => win.requestAnimationFrame(r));   // let the frame run
+      const ts = kids.map((c) => c.style.transform);
+      assert.equal(new Set(ts).size, 1, `every child moves together: ${ts}`);
+      seen.push(Number((ts[0].match(/,([-\d.]+)px/) || [])[1]));
+    }
+    // it grows the whole way: moving only the first child, or starting at the
+    // top of the window, is what made it invisible before
+    for (let i = 1; i < seen.length; i += 1) {
+      assert.ok(seen[i] > seen[i - 1], `step ${i} moved further: ${seen}`);
+    }
+    assert.ok(seen[0] > 0, `it is already moving while the section is entering: ${seen[0]}`);
+  } finally { win.close(); }
 });

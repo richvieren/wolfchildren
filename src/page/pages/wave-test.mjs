@@ -11,9 +11,8 @@ export default {
   title: 'Wave test',
   url: 'readings/compass/wave-test',
   modules: [
-    // the section that holds still at 0.4 of scroll speed while the waves pass over
-    { ...whatsInside, ground: 'light', parallax: 0.4 },
-    { id: 'wave-demo', copy: 'A', settings: { gradient: 'linear-gradient(90deg,#DFD7C3,#CDB494)' } },
+    // its contents move up at half the scroll speed while the wave passes over
+    { ...whatsInside, ground: 'light', parallax: 0.5 },
     { id: 'wave-demo', copy: 'B', settings: { gradient: 'linear-gradient(90deg,#495543,#CDB494)' } },
   ],
 };
