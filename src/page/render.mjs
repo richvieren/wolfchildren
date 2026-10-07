@@ -11,6 +11,7 @@ import {
 } from '../../variants.mjs';
 import { THEMES } from '../../variants2.mjs';
 import * as grounds from './grounds.mjs';
+import * as edges from './edges.mjs';
 import { atfMarkup, ATF_JS, scopedAtfCss, atfDesktopCss } from '../lib/atf-section.mjs';
 import { resolve as resolveAtf } from '../lib/atf-copy.mjs';
 
@@ -72,9 +73,14 @@ export async function render(config) {
     const mod = mods[m.id];
     const copy = mod.copy[m.copy ?? 'A'];
     if (!copy) throw new Error(`${config.id}: module ${m.id} has no copy variant ${m.copy}`);
-    const cls = [groundOf[i] ? `wc-ground-${groundOf[i]}` : '', m.skin ? `wc-skin-${m.skin}` : '']
+    // edge and parallax are settings of the page, not code inside a module.
+    if (m.edge && m.edge !== 'wave') throw new Error(`${config.id}: ${m.id} wants edge ${m.edge}`);
+    const cls = [groundOf[i] ? `wc-ground-${groundOf[i]}` : '', m.skin ? `wc-skin-${m.skin}` : '',
+      m.edge ? `wc-edge-${m.edge}` : '', m.parallax ? 'wc-parallax' : '']
       .filter(Boolean).join(' ');
-    return mod.markup(copy, { ...(m.settings ?? {}), ground: groundOf[i], className: cls });
+    const html = mod.markup(copy, { ...(m.settings ?? {}), ground: groundOf[i], className: cls });
+    // the section's own tag carries the speed, so the shared script reads it there
+    return m.parallax ? html.replace(/^<section([^>]*)>/, `<section$1 data-parallax="${m.parallax}">`) : html;
   }).join('\n\n');
 
   const moduleCss = config.modules.map((m) => mods[m.id].css).filter(Boolean).join('');
@@ -97,7 +103,7 @@ export async function render(config) {
 <title>${config.title} | Compass</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
 <script>window.WC_VARIANT=${JSON.stringify(config.id)};fbq('trackCustom','VariantView',{variant:window.WC_VARIANT});</script>
-<style>${FONTS_V2}${TOKENS_WC}${BASE}${brand.css}${grounds.css}${skinCss}${skin.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${scopedAtfCss('#atf')}${ATF_GUARD}${atfDesktopCss('#atf')}${skin.atfCss}${moduleCss}</style>
+<style>${FONTS_V2}${TOKENS_WC}${BASE}${brand.css}${grounds.css}${edges.css}${skinCss}${skin.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${scopedAtfCss('#atf')}${ATF_GUARD}${atfDesktopCss('#atf')}${skin.atfCss}${moduleCss}</style>
 </head>
 <body data-variant="${config.id}">
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
@@ -106,6 +112,7 @@ export async function render(config) {
 ${body}
 
 ${ATF_JS}
+${edges.script}
 </body>
 </html>
 `;

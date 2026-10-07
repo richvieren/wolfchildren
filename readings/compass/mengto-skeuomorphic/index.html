@@ -117,7 +117,22 @@ footer{padding:56px 0}
 }
 /* every element inside a module inherits its ground's text colour, so a rule
    that sets no colour of its own cannot end up cream on cream. */
-.wc-ground-light,.wc-ground-dark{color:var(--g-text)}:root{
+.wc-ground-light,.wc-ground-dark{color:var(--g-text)}
+:root{--wc-edge-h:220px}
+@media(max-width:899px){:root{--wc-edge-h:110px}}
+.wc-edge-wave{position:relative;z-index:1;
+  margin-top:calc(var(--wc-edge-h) * -1);padding-top:var(--wc-edge-h);
+  -webkit-mask-image:url(/assets/img/frames/wave-edge.png),linear-gradient(#000,#000);
+  mask-image:url(/assets/img/frames/wave-edge.png),linear-gradient(#000,#000);
+  -webkit-mask-size:100% var(--wc-edge-h),100% calc(100% - var(--wc-edge-h) + 1px);
+  mask-size:100% var(--wc-edge-h),100% calc(100% - var(--wc-edge-h) + 1px);
+  -webkit-mask-position:top center,bottom center;mask-position:top center,bottom center;
+  -webkit-mask-repeat:no-repeat,no-repeat;mask-repeat:no-repeat,no-repeat;
+  mask-composite:add}
+.wc-parallax{z-index:0}
+.wc-parallax > *{will-change:transform}
+@media(prefers-reduced-motion:reduce){.wc-parallax > *{transform:none!important}}
+:root{
   --s-radius-card:14px; --s-radius-card-lg:20px; --s-radius-btn:11px;
   --s-radius-btn-sm:9px; --s-radius-btn-hard:6px; --s-radius-chip:7px;
   --s-radius-panel:12px; --s-radius-pill:999px; --s-radius-shell:20px;
@@ -1003,41 +1018,20 @@ html,body{overflow-x:clip}
   .wi-text{position:static;margin-left:calc(50% + var(--wi-phone-w) / 2 + 48px)}
 }
 
-.wave-1-s{--wave-gradient:linear-gradient(90deg,#495543,#D9A15A,#AC2E20);
-  --wave-edge-h:220px;--wave-h:45vh;
-  padding:0;border:0;background:none;
-  height:var(--wave-h);margin-top:calc(var(--wave-edge-h) * -1)}
-/* the band: grain over the gradient, both cut by the edge mask */
-.wave-1-band{height:100%;width:100%;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)' opacity='.42'/%3E%3C/svg%3E"),var(--wave-gradient);
+/* the whole section is one gradient with the same fine grain over it.
+   Variant C, 2026-10-07. One line changes it. */
+.offer-v2-s{--ov-gradient:linear-gradient(90deg,#CDB494,#D9A15A,#DA4635);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)' opacity='.42'/%3E%3C/svg%3E"),var(--ov-gradient);
   background-size:220px 220px,100% 100%;background-repeat:repeat,no-repeat;
-  -webkit-mask-image:url(/assets/img/frames/wave-edge.png),linear-gradient(#000,#000);
-  mask-image:url(/assets/img/frames/wave-edge.png),linear-gradient(#000,#000);
-  -webkit-mask-size:100% var(--wave-edge-h),100% calc(100% - var(--wave-edge-h) + 1px);
-  mask-size:100% var(--wave-edge-h),100% calc(100% - var(--wave-edge-h) + 1px);
-  -webkit-mask-position:top center,bottom center;mask-position:top center,bottom center;
-  -webkit-mask-repeat:no-repeat,no-repeat;mask-repeat:no-repeat,no-repeat;
-  mask-composite:add}
-
-/* the pin: whats-inside holds still, this band and everything after it ride over */
-.whats-inside-s{z-index:0}
-.wave-1-s,.wave-1-s ~ *{position:relative;z-index:1}
-
-@media(max-width:899px){
-  .wave-1-s{--wave-edge-h:110px;--wave-h:32vh}
-}
-@media(prefers-reduced-motion:reduce){
-  .whats-inside-s{position:static!important;top:auto!important}
-}
-
-/* the split runs the full window: no section padding, two halves of 50% */
-.offer-v2-s{padding:0}
+  padding-bottom:var(--s-space-section)}
 .ov{display:grid}
-.ov-left{background:var(--b-green);display:grid;place-items:center;padding:32px 24px}
+.ov-left{display:grid;place-items:center;padding:32px 24px}
 .ov-left img{display:block;max-width:100%;max-height:80vh;width:auto;height:auto;
   object-fit:contain;border:0;border-radius:24px}
-.ov-right{background:var(--b-paper);padding:64px 24px}
-.ov-box{max-width:480px;margin:0 auto}
+.ov-right{padding:32px 24px}
+/* the buy box keeps its own light card, so its text stays on light */
+.ov-box{max-width:480px;margin:0 auto;background:var(--b-paper);
+  border-radius:16px;padding:32px}
 
 /* Inter inside the buy box only; the title keeps Morning Memories */
 .ov-box{--ov-ui:'Inter',system-ui,sans-serif}
@@ -1107,7 +1101,7 @@ html,body{overflow-x:clip}
 @media(min-width:900px){
   .ov{grid-template-columns:50% 50%}
   .ov-left{padding:48px}
-  .ov-right{padding:64px 48px}
+  .ov-right{padding:32px 48px}
   .ov-box{margin:0}
 }
 </style>
@@ -1260,7 +1254,7 @@ html,body{overflow-x:clip}
 })();
 </script>
 
-<section class="s whats-inside-s wc-ground-light" data-wi>
+<section class="s whats-inside-s wc-ground-light wc-parallax" data-wi data-parallax="0.5">
   <figure class="wi-photo"><img src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="A child standing on a rock in a forest, looking back" loading="lazy" decoding="async"></figure>
   <div class="wrap">
   <div class="wi">
@@ -1339,27 +1333,7 @@ html,body{overflow-x:clip}
 })();
 </script>
 
-<section class="s wave-1-s" aria-hidden="true">
-  <div class="wave-1-band"></div>
-</section>
-<script>
-(function(){
-  var pinned=document.querySelector('.whats-inside-s');
-  if(!pinned) return;
-  var mq=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
-  function place(){
-    if(mq && mq.matches){ pinned.style.position=''; pinned.style.top=''; return; }
-    // stick once the section's bottom edge reaches the bottom of the window
-    pinned.style.position='sticky';
-    pinned.style.top=(window.innerHeight - pinned.offsetHeight) + 'px';
-  }
-  place();
-  window.addEventListener('resize', place);
-  if(mq && mq.addEventListener) mq.addEventListener('change', place);
-})();
-</script>
-
-<section class="s offer-v2-s wc-ground-dark">
+<section class="s offer-v2-s wc-ground-dark wc-edge-wave">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
@@ -1478,5 +1452,37 @@ html,body{overflow-x:clip}
 })();
 </script>
 
+<script>
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('.wc-parallax'));
+  if(!secs.length) return;
+  var mq=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var narrow=window.matchMedia ? window.matchMedia('(max-width: 899px)') : null;
+  var ticking=false;
+  function off(){ secs.forEach(function(s){ var c=s.firstElementChild; if(c) c.style.transform=''; }); }
+  function frame(){
+    ticking=false;
+    if(mq && mq.matches) return off();
+    var h=window.innerHeight;
+    // the cap keeps the lag inside the overlap the next section's edge covers
+    var cap=narrow && narrow.matches ? 110 : 220;
+    secs.forEach(function(s){
+      var c=s.firstElementChild;
+      if(!c) return;
+      var r=s.getBoundingClientRect();
+      if(r.bottom < 0 || r.top > h) return;             // only while it is on screen
+      var speed=parseFloat(s.getAttribute('data-parallax')) || 0.5;
+      var passed=Math.max(0, -r.top);                   // how far its top went by
+      var lag=Math.min(passed * speed, cap);
+      c.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+    });
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  if(mq && mq.addEventListener) mq.addEventListener('change', function(){ off(); onScroll(); });
+  frame();
+})();
+</script>
 </body>
 </html>

@@ -37,6 +37,8 @@ export default {
     {
       id: 'whats-inside',
       copy: 'A',
+      // its contents lag at half the scroll speed while it is on screen
+      parallax: 0.5,
       settings: {
         // flipped horizontally in CSS so the child faces the phone
         photo: {
@@ -47,10 +49,8 @@ export default {
         },
       },
     },
-    // the transition: wave-1 pins whats-inside and rides over it
-    { id: 'wave-1', copy: 'A' },
     // 2026-10-07, Richard: the offer block sits on the dark green ground.
-    { id: 'offer-v2', copy: 'A', ground: 'dark' },
+    { id: 'offer-v2', copy: 'A', ground: 'dark', edge: 'wave' },
     { id: 'footer', copy: 'A' },
   ],
 };

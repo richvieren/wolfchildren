@@ -1,6 +1,7 @@
-// offer-v2 — the product block: a full-bleed split, the photograph on dark green
-// on the left and the buy box on a cream-white panel on the right, after
+// offer-v2 — the product block: a full-bleed split on one gradient, the
+// photograph on the left and the buy box on a light card on the right, after
 // MUD\WTR's product page. Self-contained: markup, CSS from tokens, script.
+// The wave along its top edge is a page setting (edge: 'wave'), not code here.
 //
 // Inter comes from Google Fonts, by Richard's instruction 2026-10-07. The brand
 // bible forbids a third-party font call; that rule exists for the portal, which
@@ -11,6 +12,7 @@
 // the button goes. Every tier is selectable; a tier with no URL turns the button
 // off instead of carrying a target of its own.
 import { CHECKOUT } from './offer-card.mjs';
+import { GRAIN } from '../edges.mjs';
 
 export const id = 'offer-v2';
 
@@ -29,14 +31,20 @@ const PHOTO = {
 };
 
 export const css = `
-/* the split runs the full window: no section padding, two halves of 50% */
-.offer-v2-s{padding:0}
+/* the whole section is one gradient with the same fine grain over it.
+   Variant C, 2026-10-07. One line changes it. */
+.offer-v2-s{--ov-gradient:linear-gradient(90deg,#CDB494,#D9A15A,#DA4635);
+  background-image:${GRAIN},var(--ov-gradient);
+  background-size:220px 220px,100% 100%;background-repeat:repeat,no-repeat;
+  padding-bottom:var(--s-space-section)}
 .ov{display:grid}
-.ov-left{background:var(--b-green);display:grid;place-items:center;padding:32px 24px}
+.ov-left{display:grid;place-items:center;padding:32px 24px}
 .ov-left img{display:block;max-width:100%;max-height:80vh;width:auto;height:auto;
   object-fit:contain;border:0;border-radius:24px}
-.ov-right{background:var(--b-paper);padding:64px 24px}
-.ov-box{max-width:480px;margin:0 auto}
+.ov-right{padding:32px 24px}
+/* the buy box keeps its own light card, so its text stays on light */
+.ov-box{max-width:480px;margin:0 auto;background:var(--b-paper);
+  border-radius:16px;padding:32px}
 
 /* Inter inside the buy box only; the title keeps Morning Memories */
 .ov-box{--ov-ui:'Inter',system-ui,sans-serif}
@@ -106,7 +114,7 @@ export const css = `
 @media(min-width:900px){
   .ov{grid-template-columns:50% 50%}
   .ov-left{padding:48px}
-  .ov-right{padding:64px 48px}
+  .ov-right{padding:32px 48px}
   .ov-box{margin:0}
 }
 `;

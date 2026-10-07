@@ -153,29 +153,35 @@ test('opening one FAQ item closes the others', { skip: !JSDOM && 'jsdom not inst
   });
 });
 
-// ── the transition (wave-1) ───────────────────────────────────────────────
-test('wave-1 sits between whats-inside and offer-v2, and pins whats-inside',
+// ── the transition (a page setting, not module code) ──────────────────────
+test('no pin on whats-inside, no wave-1 in the order, and the wave is offer-v2\'s edge',
   { skip: !JSDOM && 'jsdom not installed' }, () => {
   load((win) => {
-    const ids = [...win.document.querySelectorAll('section.s')]
-      .map((s) => (s.className.match(/\b([a-z0-9-]+)-s\b/) || [])[1]);
-    const w = ids.indexOf('whats-inside');
-    const v = ids.indexOf('wave-1');
-    const o = ids.indexOf('offer-v2');
-    assert.ok(w >= 0 && v >= 0 && o >= 0, `all three sections exist: ${ids}`);
-    assert.equal(v, w + 1, 'wave-1 comes directly after whats-inside');
-    assert.equal(o, v + 1, 'offer-v2 comes directly after wave-1');
+    const secs = [...win.document.querySelectorAll('section.s')];
+    const ids = secs.map((s) => (s.className.match(/\b([a-z0-9-]+)-s\b/) || [])[1]);
+    assert.ok(!ids.includes('wave-1'), `wave-1 is out of the order: ${ids}`);
+    assert.equal(ids.indexOf('offer-v2'), ids.indexOf('whats-inside') + 1,
+      'offer-v2 follows whats-inside directly');
 
+    // 1 — the pin is gone: nothing sets position sticky on whats-inside
     const pinned = win.document.querySelector('.whats-inside-s');
-    assert.equal(win.getComputedStyle(pinned).position, 'sticky', 'whats-inside is sticky');
-    const top = win.getComputedStyle(pinned).top;
-    assert.match(top, /^-?\d+px$/, `a computed top offset, not a keyword: ${top}`);
+    assert.notEqual(win.getComputedStyle(pinned).position, 'sticky', 'no sticky pin');
+    assert.ok(!/sticky/.test(pinned.getAttribute('style') || ''), 'no inline pin either');
 
-    // the band carries the mask and one gradient token
-    const band = win.document.querySelector('.wave-1-band');
-    assert.ok(band, 'the band exists');
-    const css = [...win.document.querySelectorAll('style')].map((s) => s.textContent).join('');
-    assert.match(css, /--wave-gradient:linear-gradient\(90deg,#495543,#D9A15A,#AC2E20\)/);
-    assert.match(css, /mask-image:url\(\/assets\/img\/frames\/wave-edge\.png\)/);
+    // the parallax comes from the config, and the shared script reads the speed
+    assert.ok(pinned.classList.contains('wc-parallax'), 'the section is marked for parallax');
+    assert.equal(pinned.getAttribute('data-parallax'), '0.5', 'half the scroll speed');
+
+    // 3 and 5 — the wave is offer-v2's edge, set by the page, drawn by the shared layer
+    const offer = win.document.querySelector('.offer-v2-s');
+    assert.ok(offer.classList.contains('wc-edge-wave'), 'offer-v2 carries the wave edge');
+    const css = [...win.document.querySelectorAll('style')].map((x) => x.textContent).join('');
+    assert.match(css, /\.wc-edge-wave\{[^}]*mask-image:url\(\/assets\/img\/frames\/wave-edge\.png\)/);
+    assert.match(css, /\.wc-edge-wave\{[^}]*margin-top:calc\(var\(--wc-edge-h\) \* -1\)/);
+    assert.ok(!/\.wave-1-band/.test(css), 'wave-1 brings no CSS to this page');
+
+    // 4 — the gradient and the light card
+    assert.match(css, /--ov-gradient:linear-gradient\(90deg,#CDB494,#D9A15A,#DA4635\)/);
+    assert.match(css, /\.ov-box\{[^}]*background:var\(--b-paper\)[^}]*border-radius:16px/);
   });
 });
