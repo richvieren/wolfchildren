@@ -107,15 +107,26 @@ export const css = `${WIDGET_CSS}
      it is centred vertically in the section.
      4 — a panel this tall has to crop: object-fit:cover at 50% 35%, which keeps
      the child in frame as the panel grows taller than the file. */
-  .wi{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-    column-gap:var(--s-space-section);align-items:center;min-height:620px}
+  /* 1 — one box for both. The phone used to be positioned against .wi-text,
+     which is the right half of the wrap, so its 50% was the right half's centre,
+     about 16% of the window right of the photograph's edge. .wi and .wi-text
+     drop their positioning here, so the nearest positioned ancestor of both the
+     phone and the photograph is the section, and 50% means the same thing to
+     each: the photograph ends at it and the phone is centred on it.
+     2 — the text starts at the phone's right edge plus 48px, measured from the
+     same half of the same box, so it cannot be reached by the phone.
+     3 — the phone is fluid: 307px down to 200px, so at any width from 900px up
+     the text keeps its own column. */
+  .whats-inside-s{--wi-phone-w:clamp(200px,21vw,307px)}
+  .whats-inside-s>.wrap{max-width:none;padding-left:40px;padding-right:40px}
+  .wi{display:block;position:static;min-height:620px}
   .whats-inside-s>.wi-photo{display:block;position:absolute;top:0;bottom:0;
     right:50%;left:calc(50% - 50vw);margin:0;padding:0;overflow:hidden;z-index:1}
   .whats-inside-s>.wi-photo img{display:block;width:100%;height:100%;
     object-fit:cover;object-position:50% 35%;border:0;transform:scaleX(-1)}
   .wi-phone{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-    z-index:2;margin:0}
-  .wi-text{grid-column:2;position:relative;z-index:2}
+    width:var(--wi-phone-w);max-width:none;z-index:2;margin:0}
+  .wi-text{position:static;margin-left:calc(50% + var(--wi-phone-w) / 2 + 48px)}
 }
 `;
 
