@@ -174,6 +174,11 @@ export const edgeScript = `<script>
       if(p.mover!==p.above){
         lag=Math.min(lag, Math.max(0, p.mover.offsetHeight - p.above.clientHeight));
       }
+      // and no block ever slides past the bottom of the section that covers it.
+      // A moved block paints above its unmoved neighbours, so an uncapped lag
+      // carried the ATF out from under recognition and over how-it-works.
+      var cover=p.wave.parentElement.getBoundingClientRect().height - 2;
+      lag=Math.min(lag, Math.max(0, cover));
       if(lag<=0){ if(p.mover.style.transform) p.mover.style.transform=''; return; }
       p.mover.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
     });
