@@ -15,6 +15,8 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
 .foot-links a{color:var(--g-text);text-decoration:none;border-bottom:1px solid var(--g-rule)}
 .foot-links a:hover{color:var(--g-text);border-bottom-color:var(--g-text)}
 .foot-sep{opacity:.5}
+.foot-note{margin:26px auto 0;max-width:68ch;font-size:12px;line-height:1.6;
+  letter-spacing:.02em;color:var(--g-quiet)}
 .foot-copy{margin:22px 0 0;font-size:12px;letter-spacing:.1em;color:var(--g-quiet)}
 `;
 
@@ -25,6 +27,7 @@ export function markup(copy, settings = {}) {
   return `<footer class="wc-foot${g}"><div class="wrap">
   <img class="foot-mark" src="/assets/img/logo/wolfchildren-logo-cream-1600.webp" width="1600" height="696" alt="Wolf Children" loading="lazy" decoding="async">
   <nav class="foot-links">${links}</nav>
+  <p class="foot-note">${copy.disclaimer}</p>
   <p class="foot-copy">${copy.copyright}</p>
 </div></footer>`;
 }
