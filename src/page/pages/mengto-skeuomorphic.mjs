@@ -40,6 +40,9 @@ export default {
     {
       id: 'whats-inside',
       copy: 'A',
+      // 2026-10-08, Richard: how-it-works left the alternation, which would have
+      // flipped this back to light; it keeps the dark ground it had.
+      ground: 'dark',
       settings: {
         // flipped horizontally in CSS so the child faces the phone
         photo: {

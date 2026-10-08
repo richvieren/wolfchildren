@@ -8,6 +8,9 @@ import { readFileSync } from 'node:fs';
 
 export const id = 'how-it-works';
 
+// it paints its own kraft ground, so it takes none and does not flip the alternation
+export const ground = 'neutral';
+
 const STAR = readFileSync(new URL('../../../assets/img/frames/asterisk-lila.svg', import.meta.url), 'utf8')
   .replace('<svg ', '<svg class="hw-star" aria-hidden="true" fill="currentColor" ')
   .trim();
@@ -15,23 +18,28 @@ const STAR = readFileSync(new URL('../../../assets/img/frames/asterisk-lila.svg'
 export const css = `
 /* 2026-10-08, Richard: half the padding, half the gap under the headline, and
    the steps as tight as they read. */
-.how-it-works-s{padding:calc(var(--s-space-section) / 2) 0}
+.how-it-works-s{position:relative;isolation:isolate;background:var(--b-tan);
+  padding:calc(var(--s-space-section) / 2) 0}
+/* the same kraft layer the facts band wears; see facts.mjs for the tile */
+.how-it-works-s::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:url(/assets/img/frames/paper-kraft.png) repeat 0 0/666px auto;
+  mix-blend-mode:multiply;opacity:1}
 .hiw{display:grid;gap:calc(var(--s-space-section) / 2);justify-items:center;text-align:center}
 .hiw-eyebrow{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
-  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--g-quiet);margin:0}
-.hiw-rule{display:block;width:44px;height:1px;background:var(--b-tan);margin:10px auto 0}
-.hiw-h{font-family:var(--b-display);font-weight:400;color:var(--g-text);
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:#2F382B;margin:0}
+.hiw-rule{display:block;width:44px;height:1px;background:rgba(47,56,43,.4);margin:10px auto 0}
+.hiw-h{font-family:var(--b-display);font-weight:400;color:#2F382B;
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);max-width:none;margin:10px 0 0}
 .hiw-steps{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-space-block);width:100%}
 .hiw-step{display:grid;gap:6px;justify-items:center;padding:0 24px}
-.hw-star{display:block;width:34px;height:auto;color:var(--b-tan)}
+.hw-star{display:block;width:34px;height:auto;color:#2F382B}
 .hiw-n{font-family:var(--b-body);font-size:var(--s-type-eyebrow);letter-spacing:var(--s-type-eyebrow-ls);
-  color:var(--g-quiet);margin:-2px 0 0}
+  color:#2F382B;margin:-2px 0 0}
 .hiw-t{font-family:var(--b-display);font-weight:400;font-size:22px;line-height:1.1;
-  letter-spacing:var(--s-type-display-ls);color:var(--g-text);margin:0}
+  letter-spacing:var(--s-type-display-ls);color:#2F382B;margin:0}
 .hiw-p{font-family:var(--b-body);font-size:var(--s-type-body);line-height:var(--s-type-body-lh);
-  color:var(--g-text);margin:0;max-width:30ch}
+  color:#2F382B;margin:0;max-width:30ch}
 @media(min-width:900px){
   .how-it-works-s{padding:calc(var(--s-space-section-wide) / 2) 0}
   .hiw-steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:48px}
