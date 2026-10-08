@@ -233,7 +233,7 @@ test('the two wave edges, and the modules that carry them',
     assert.match(js, /p\.mover\.offsetHeight - p\.above\.clientHeight/, 'the lag is clamped to the headroom');
     assert.match(css2(win), /\.compare-s\{[^}]*padding-top:55px/, 'half the space under the second wave');
     assert.match(css2(win), /\.facts-s\{position:relative;isolation:isolate;background:var\(--b-cream\);\s*border-top:2px solid var\(--b-tan\);border-bottom:2px solid var\(--b-tan\)/);
-    assert.match(css2(win), /\.facts-s::before\{[^}]*paper-tile\.png[^}]*mix-blend-mode:multiply;opacity:\.55/);
+    assert.match(css2(win), /\.facts-s::before\{[^}]*paper-tile\.png[^}]*mix-blend-mode:multiply;opacity:1/);
     assert.ok(!/appendChild\(m\)|className='wc-move'/.test(js), 'no wrapper is built');
 
     // 4 — the offer carries the ground recognition used to have

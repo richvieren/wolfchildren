@@ -1124,7 +1124,9 @@ html,body{overflow-x:clip}
   padding:64px 0}
 .facts-s::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:url(/assets/img/frames/paper-tile.png) repeat 0 0/666px auto;
-  mix-blend-mode:multiply;opacity:.55}
+  /* the file is pale (mean luminance 235 of 255), so it needs the whole layer to
+     read; at .55 the band measured only 2 points darker than flat cream. */
+  mix-blend-mode:multiply;opacity:1}
 .fa{display:grid;gap:40px;justify-items:center;text-align:center}
 .fa-label{font-family:"Morning Memories Script",var(--b-display);font-weight:400;
   color:var(--b-green);font-size:38px;line-height:1;margin:0}
