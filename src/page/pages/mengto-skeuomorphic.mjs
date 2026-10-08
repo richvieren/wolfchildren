@@ -56,10 +56,10 @@ export default {
       copy: 'A',
       settings: {
         photo: {
-          src: '/assets/compass/nature-2.jpg',
-          w: 1400,
-          h: 1050,
-          alt: 'A child walking alone on a beach at dusk, below a dark headland',
+          src: '/assets/compass/DSCF9381.jpg',
+          w: 2048,
+          h: 1536,
+          alt: 'A child standing at the shoreline at dusk, beside a dark rock',
         },
       },
     },

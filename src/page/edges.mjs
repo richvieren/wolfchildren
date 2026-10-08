@@ -148,13 +148,16 @@ export const edgeScript = `<script>
     if(!wave.parentElement) return;
     var above=wave.parentElement.previousElementSibling;
     while(above && !above.getBoundingClientRect().height) above=above.previousElementSibling;
-    if(above) pairs.push({ wave: wave, above: above });
+    // a block may hand the motion to one element inside it: a photograph taller
+    // than its own section, so the ground can never show while it slides
+    if(above) pairs.push({ wave: wave, above: above,
+      mover: above.querySelector('[data-parallax-photo]') || above });
   });
   if(!pairs.length) return;
   var wide=window.matchMedia ? window.matchMedia('(min-width: 900px)') : null;
   var still=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var ticking=false;
-  function clear(){ pairs.forEach(function(p){ if(p.above.style.transform) p.above.style.transform=''; }); }
+  function clear(){ pairs.forEach(function(p){ if(p.mover.style.transform) p.mover.style.transform=''; }); }
   function frame(){
     ticking=false;
     if((wide && !wide.matches) || (still && still.matches)) return clear();
@@ -165,9 +168,14 @@ export const edgeScript = `<script>
       // leaves a strip above it.
       var waveTop=p.wave.getBoundingClientRect().top + window.scrollY;
       var trigger=Math.max(0, waveTop - window.innerHeight);
-      var lag=Math.max(0, window.scrollY - trigger) * 0.5;
-      if(lag<=0){ if(p.above.style.transform) p.above.style.transform=''; return; }
-      p.above.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+      var speed=parseFloat(p.mover.getAttribute('data-speed')) || 0.5;
+      var lag=Math.max(0, window.scrollY - trigger) * speed;
+      // a photograph never slides further than its own headroom
+      if(p.mover!==p.above){
+        lag=Math.min(lag, Math.max(0, p.mover.offsetHeight - p.above.clientHeight));
+      }
+      if(lag<=0){ if(p.mover.style.transform) p.mover.style.transform=''; return; }
+      p.mover.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
     });
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }

@@ -1125,10 +1125,12 @@ html,body{overflow-x:clip}
   .ov-box{margin:0}
 }
 
-.pc{position:relative;height:85vh;min-height:520px;overflow:hidden;
+.pc{--pc-over:calc(25vh + 3vw);
+  position:relative;height:85vh;min-height:520px;overflow:hidden;
   display:grid;place-items:center}
-.pc-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:50% 55%;border:0}
+.pc-photo{position:absolute;left:0;right:0;top:calc(var(--pc-over) * -1);
+  width:100%;height:calc(100% + var(--pc-over));object-fit:cover;
+  object-position:50% 50%;border:0;will-change:transform}
 /* the sky and the sand are bright, so cream type needs a wash under it. It is
    only under the text, from the middle outwards, and the photograph keeps its
    own edges. */
@@ -1147,7 +1149,10 @@ html,body{overflow-x:clip}
   box-shadow:var(--s-shadow-hard)}
 .pc-cta:hover{filter:brightness(1.08)}
 
-.compare-s{background:var(--b-paper);color:var(--b-green)}
+/* 2026-10-08, Richard: half the space between the wave and the headline. The
+   section's own padding was 108px, which left 106px under the wave's 2px lap;
+   55px leaves 53px. */
+.compare-s{background:var(--b-paper);color:var(--b-green);padding-top:55px}
 .cmp{max-width:980px;margin:0 auto}
 /* the skin caps an h2 at 20ch, which left the headline sitting to the left of
    its own block; it needs the full width to centre. */
@@ -1524,7 +1529,7 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
 </script>
 
 <section class="s photo-close-s pc">
-  <img class="pc-photo" src="/assets/compass/nature-2.jpg" width="1400" height="1050" alt="A child walking alone on a beach at dusk, below a dark headland" loading="lazy" decoding="async">
+  <img class="pc-photo" data-parallax-photo data-speed="0.25" src="/assets/compass/DSCF9381.jpg" width="2048" height="1536" alt="A child standing at the shoreline at dusk, beside a dark rock" loading="lazy" decoding="async">
   <div class="pc-wash" aria-hidden="true"></div>
   <div class="pc-inner">
     <h2 class="pc-h">The same night, one layer deeper.</h2>
@@ -1625,13 +1630,16 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
     if(!wave.parentElement) return;
     var above=wave.parentElement.previousElementSibling;
     while(above && !above.getBoundingClientRect().height) above=above.previousElementSibling;
-    if(above) pairs.push({ wave: wave, above: above });
+    // a block may hand the motion to one element inside it: a photograph taller
+    // than its own section, so the ground can never show while it slides
+    if(above) pairs.push({ wave: wave, above: above,
+      mover: above.querySelector('[data-parallax-photo]') || above });
   });
   if(!pairs.length) return;
   var wide=window.matchMedia ? window.matchMedia('(min-width: 900px)') : null;
   var still=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var ticking=false;
-  function clear(){ pairs.forEach(function(p){ if(p.above.style.transform) p.above.style.transform=''; }); }
+  function clear(){ pairs.forEach(function(p){ if(p.mover.style.transform) p.mover.style.transform=''; }); }
   function frame(){
     ticking=false;
     if((wide && !wide.matches) || (still && still.matches)) return clear();
@@ -1642,9 +1650,14 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
       // leaves a strip above it.
       var waveTop=p.wave.getBoundingClientRect().top + window.scrollY;
       var trigger=Math.max(0, waveTop - window.innerHeight);
-      var lag=Math.max(0, window.scrollY - trigger) * 0.5;
-      if(lag<=0){ if(p.above.style.transform) p.above.style.transform=''; return; }
-      p.above.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+      var speed=parseFloat(p.mover.getAttribute('data-speed')) || 0.5;
+      var lag=Math.max(0, window.scrollY - trigger) * speed;
+      // a photograph never slides further than its own headroom
+      if(p.mover!==p.above){
+        lag=Math.min(lag, Math.max(0, p.mover.offsetHeight - p.above.clientHeight));
+      }
+      if(lag<=0){ if(p.mover.style.transform) p.mover.style.transform=''; return; }
+      p.mover.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
     });
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }

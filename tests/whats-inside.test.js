@@ -207,8 +207,18 @@ test('the two wave edges, and the modules that carry them',
     assert.match(js, /matchMedia\('\(min-width: 900px\)'\)/, 'desktop only');
     assert.match(js, /var trigger=Math\.max\(0, waveTop - window\.innerHeight\)/,
       'the lag starts when the wave\'s top edge meets the bottom of the window');
-    assert.match(js, /var lag=Math\.max\(0, window\.scrollY - trigger\) \* 0\.5/,
-      'half the scroll speed, nothing before the trigger');
+    assert.match(js, /var lag=Math\.max\(0, window\.scrollY - trigger\) \* speed/,
+      'the speed comes from the element that moves, nothing before the trigger');
+    assert.match(js, /parseFloat\(p\.mover\.getAttribute\('data-speed'\)\) \|\| 0\.5/,
+      'a block without its own speed keeps 0.5');
+    // the photograph carries its own speed and never slides past its headroom
+    const photo = win.document.querySelector('[data-parallax-photo]');
+    assert.ok(photo, 'the photograph is the mover for its section');
+    assert.equal(photo.getAttribute('data-speed'), '0.25');
+    assert.match(css2(win), /\.pc-photo\{[^}]*top:calc\(var\(--pc-over\) \* -1\)[^}]*height:calc\(100% \+ var\(--pc-over\)\)/);
+    assert.match(css2(win), /\.pc\{--pc-over:calc\(25vh \+ 3vw\)/);
+    assert.match(js, /p\.mover\.offsetHeight - p\.above\.clientHeight/, 'the lag is clamped to the headroom');
+    assert.match(css2(win), /\.compare-s\{[^}]*padding-top:55px/, 'half the space under the second wave');
     assert.ok(!/appendChild\(m\)|className='wc-move'/.test(js), 'no wrapper is built');
 
     // 4 — the offer carries the ground recognition used to have

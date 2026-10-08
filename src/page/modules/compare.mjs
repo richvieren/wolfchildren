@@ -27,7 +27,10 @@ const CROSS = '<svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-
   + '<path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
 
 export const css = `
-.compare-s{background:var(--b-paper);color:var(--b-green)}
+/* 2026-10-08, Richard: half the space between the wave and the headline. The
+   section's own padding was 108px, which left 106px under the wave's 2px lap;
+   55px leaves 53px. */
+.compare-s{background:var(--b-paper);color:var(--b-green);padding-top:55px}
 .cmp{max-width:980px;margin:0 auto}
 /* the skin caps an h2 at 20ch, which left the headline sitting to the left of
    its own block; it needs the full width to centre. */

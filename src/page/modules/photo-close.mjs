@@ -1,19 +1,28 @@
 // photo-close — one photograph across the window, with the last word and the
-// button over it. Self-contained: markup, CSS from tokens, no script.
+// button over it. Self-contained: markup, CSS from tokens, no script of its own.
 //
-// The crop: the child walks a little right of centre and sits low in the frame,
-// so object-position is 50% 55%. The photograph is 1400x1050 and the band is
-// about 1.9:1, so cover takes the crop off the top and the bottom.
+// The crop: the child stands at about 88% of the width and the centred text ends
+// at about 76%, so the two never meet; object-position stays 50% 50% and the
+// whole child is in frame. The rock mass sits centre-left and low enough that
+// the headline clears it.
+//
+// The parallax moves the photograph only, never the section. The photograph is
+// --pc-over taller than the section and starts that much above it, so as it
+// slides down by at most --pc-over the section's ground can never show at the
+// top or the bottom. --pc-over is 25vh + 3vw, which is a little more than the
+// largest lag the page can produce at 0.25 of scroll speed.
 export const id = 'photo-close';
 
 // it paints a photograph, so it takes no ground and does not flip the alternation
 export const ground = 'neutral';
 
 export const css = `
-.pc{position:relative;height:85vh;min-height:520px;overflow:hidden;
+.pc{--pc-over:calc(25vh + 3vw);
+  position:relative;height:85vh;min-height:520px;overflow:hidden;
   display:grid;place-items:center}
-.pc-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:50% 55%;border:0}
+.pc-photo{position:absolute;left:0;right:0;top:calc(var(--pc-over) * -1);
+  width:100%;height:calc(100% + var(--pc-over));object-fit:cover;
+  object-position:50% 50%;border:0;will-change:transform}
 /* the sky and the sand are bright, so cream type needs a wash under it. It is
    only under the text, from the middle outwards, and the photograph keeps its
    own edges. */
@@ -37,7 +46,7 @@ export function markup(copy, settings = {}) {
   const g = settings.className ? ` ${settings.className}` : '';
   const p = settings.photo;
   return `<section class="s photo-close-s pc${g}">
-  <img class="pc-photo" src="${p.src}" width="${p.w}" height="${p.h}" alt="${p.alt}" loading="lazy" decoding="async">
+  <img class="pc-photo" data-parallax-photo data-speed="0.25" src="${p.src}" width="${p.w}" height="${p.h}" alt="${p.alt}" loading="lazy" decoding="async">
   <div class="pc-wash" aria-hidden="true"></div>
   <div class="pc-inner">
     <h2 class="pc-h">${copy.heading}</h2>
