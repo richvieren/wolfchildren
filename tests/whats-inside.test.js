@@ -169,7 +169,7 @@ test('the two wave edges, and the modules that carry them',
   load((win) => {
     const secs = [...win.document.querySelectorAll('section.s')];
     const ids = secs.map((s) => (s.className.match(/\b([a-z0-9-]+)-s\b/) || [])[1]);
-    assert.deepEqual(ids, ['recognition', 'whats-inside', 'how-it-works', 'facts', 'offer-v2',
+    assert.deepEqual(ids, ['recognition', 'how-it-works', 'whats-inside', 'facts', 'offer-v2',
       'testimonials', 'videos', 'photo-close', 'compare'], `the order: ${ids}`);
     // the quick-facts band: its own ground, its own rules, no wave and no motion
     const facts = win.document.querySelector('.facts-s');
