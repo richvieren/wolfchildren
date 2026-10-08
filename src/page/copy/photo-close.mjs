@@ -1,8 +1,7 @@
-// Copy for the photo-close module, by variant. A is the approved copy, read from the one
-// approved source (src/lib/compass-copy.mjs) rather than copied out of it, so a
-// word is never changed in two places. A B variant is a second key below.
-import { C } from '../../lib/compass-copy.mjs';
-
+// Copy for the photo-close module. A is Richard's, 2026-10-08, verbatim.
 export const variants = {
-  A: {  },
+  A: {
+    heading: 'The same night, one layer deeper.',
+    cta: 'Get their Compass &middot; $27',
+  },
 };

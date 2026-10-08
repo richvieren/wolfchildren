@@ -74,7 +74,7 @@ export async function render(config) {
     const copy = mod.copy[m.copy ?? 'A'];
     if (!copy) throw new Error(`${config.id}: module ${m.id} has no copy variant ${m.copy}`);
     // edge and parallax are settings of the page, not code inside a module.
-    if (m.edge && m.edge !== 'wave') throw new Error(`${config.id}: ${m.id} wants edge ${m.edge}`);
+    if (m.edge && !['wave', 'wave-2'].includes(m.edge)) throw new Error(`${config.id}: ${m.id} wants edge ${m.edge}`);
     const cls = [groundOf[i] ? `wc-ground-${groundOf[i]}` : '', m.skin ? `wc-skin-${m.skin}` : '',
       m.edge ? `wc-edge-${m.edge}` : '', m.parallax ? 'wc-parallax' : '']
       .filter(Boolean).join(' ');
@@ -84,7 +84,7 @@ export async function render(config) {
       ? html.replace(/^<section([^>]*)>/, `<section$1 data-parallax="${m.parallax}">`)
       : html;
     // the wave is a layer of its own, put in by the page, never a mask on a module
-    return m.edge === 'wave'
+    return m.edge
       ? withSpeed.replace(/^(<section[^>]*>)/, '$1\n  <div class="wc-wave" data-cover aria-hidden="true"></div>')
       : withSpeed;
   }).join('\n\n');

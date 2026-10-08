@@ -27,14 +27,25 @@ export const GRAIN = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
     background, so the two carry the same gradient at the same width. It laps 2px
     over the section so no hairline can show between them. */
 export const css = `
-:root{--wc-mask-w:115%;--wc-ink:19.0469vw;--wc-mask-y:-0.071875vw;
+:root{--wc-mask:url(/assets/img/frames/wave-edge.png);
+  --wc-mask-w:115%;--wc-ink:19.0469vw;--wc-mask-y:-0.071875vw;
   /* The mask is drawn 115% x 100vw wide, so it is 115% x 22.5vw = 25.875vw tall.
      The layer must never be taller than that, or its bottom strip carries no
      mask and the ground behind shows through: at 390px wide the mask is 100.8px
      and ink + 40px asks for 114.3px, which left an 8px cream band across the
      page. min() takes whichever is smaller. */
   --wc-wave-h:min(calc(var(--wc-ink) + 40px),25.875vw)}
-.wc-edge-wave{position:relative;z-index:1}
+.wc-edge-wave,.wc-edge-wave-2{position:relative;z-index:1}
+/* The second edge, taken from the top of the "hey, i'm jade!" section on
+   jadem.co.nz: that section's top element is strip_1.png, kept as its alpha and
+   cropped to the band where it turns from clear to solid (rows 172 to 298 of
+   512), saved as wave-edge-2.png, 1600x126. At 115% of the window width one
+   source row is 0.071875vw, so the layer is 126 x 0.071875 = 9.0562vw, which is
+   exactly the height the mask is drawn at: 130px at 1440, 35px at 390. Its edge
+   rises 53px at 1440. The layer takes its colour from the section it belongs
+   to, so a section with a flat ground gives a flat wave. */
+.wc-edge-wave-2{--wc-mask:url(/assets/img/frames/wave-edge-2.png);
+  --wc-wave-h:9.0562vw;--wc-mask-y:0}
 /* The block above a wave keeps room for it, less the trailing margin that block
    already carries: the ATF's last section (.wc-reviews) has 108px of margin
    under it, so 105px comes off the padding and the wave's first inked pixel
@@ -44,8 +55,7 @@ export const css = `
 body > #atf{padding-bottom:max(0px,calc(var(--wc-wave-h) - 105px))}
 .wc-wave{position:absolute;left:0;right:0;bottom:calc(100% - 2px);
   height:var(--wc-wave-h);background:inherit;pointer-events:none;
-  -webkit-mask-image:url(/assets/img/frames/wave-edge.png);
-  mask-image:url(/assets/img/frames/wave-edge.png);
+  -webkit-mask-image:var(--wc-mask);mask-image:var(--wc-mask);
   -webkit-mask-size:var(--wc-mask-w) auto;mask-size:var(--wc-mask-w) auto;
   -webkit-mask-position:right var(--wc-mask-y);mask-position:right var(--wc-mask-y);
   -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
@@ -133,27 +143,32 @@ export const script = `<script>
     header, and a transform would make it a containing block and break it. */
 export const edgeScript = `<script>
 (function(){
-  var wave=document.querySelector('[data-cover]');
-  if(!wave || !wave.parentElement) return;
-  var above=wave.parentElement.previousElementSibling;
-  while(above && !above.getBoundingClientRect().height) above=above.previousElementSibling;
-  if(!above) return;
+  var pairs=[];
+  [].forEach.call(document.querySelectorAll('[data-cover]'), function(wave){
+    if(!wave.parentElement) return;
+    var above=wave.parentElement.previousElementSibling;
+    while(above && !above.getBoundingClientRect().height) above=above.previousElementSibling;
+    if(above) pairs.push({ wave: wave, above: above });
+  });
+  if(!pairs.length) return;
   var wide=window.matchMedia ? window.matchMedia('(min-width: 900px)') : null;
   var still=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var ticking=false;
-  function clear(){ if(above.style.transform) above.style.transform=''; }
+  function clear(){ pairs.forEach(function(p){ if(p.above.style.transform) p.above.style.transform=''; }); }
   function frame(){
     ticking=false;
     if((wide && !wide.matches) || (still && still.matches)) return clear();
-    // the scroll position at which the wave's top edge meets the bottom of the
-    // window. On a tall window that moment is already behind the top of the
-    // page, so it is clamped to 0: without that the block starts out moved and
-    // leaves a strip above it.
-    var waveTop=wave.getBoundingClientRect().top + window.scrollY;
-    var trigger=Math.max(0, waveTop - window.innerHeight);
-    var lag=Math.max(0, window.scrollY - trigger) * 0.5;
-    if(lag<=0) return clear();
-    above.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+    pairs.forEach(function(p){
+      // the scroll position at which the wave's top edge meets the bottom of the
+      // window. On a tall window that moment is already behind the top of the
+      // page, so it is clamped to 0: without that the block starts out moved and
+      // leaves a strip above it.
+      var waveTop=p.wave.getBoundingClientRect().top + window.scrollY;
+      var trigger=Math.max(0, waveTop - window.innerHeight);
+      var lag=Math.max(0, window.scrollY - trigger) * 0.5;
+      if(lag<=0){ if(p.above.style.transform) p.above.style.transform=''; return; }
+      p.above.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+    });
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }
   window.addEventListener('scroll', onScroll, {passive:true});

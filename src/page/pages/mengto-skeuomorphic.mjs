@@ -51,6 +51,20 @@ export default {
     },
     // 2026-10-07, Richard: the offer block sits on the dark green ground.
     { id: 'offer-v2', copy: 'A', ground: 'dark' },
+    {
+      id: 'photo-close',
+      copy: 'A',
+      settings: {
+        photo: {
+          src: '/assets/compass/nature-2.jpg',
+          w: 1400,
+          h: 1050,
+          alt: 'A child walking alone on a beach at dusk, below a dark headland',
+        },
+      },
+    },
+    // the second wave, from the top of jadem.co.nz's "hey, i'm jade!" section
+    { id: 'compare', copy: 'A', edge: 'wave-2' },
     { id: 'footer', copy: 'A' },
   ],
 };

@@ -1,8 +1,12 @@
-// Copy for the footer module, by variant. A is the approved copy, read from the one
-// approved source (src/lib/compass-copy.mjs) rather than copied out of it, so a
-// word is never changed in two places. A B variant is a second key below.
-import { C } from '../../lib/compass-copy.mjs';
-
+// Copy for the footer module, by variant. A is Richard's, 2026-10-08.
 export const variants = {
-  A: {  },
+  A: {
+    links: [
+      { label: 'Privacy', href: '/legal/privacy/' },
+      { label: 'Terms', href: '/legal/terms/' },
+      { label: 'Refunds', href: '/legal/refunds/' },
+      { label: 'Contact', href: 'mailto:hello@wolfchildren.co' },
+    ],
+    copyright: '&copy; 2026 Wolf Children',
+  },
 };

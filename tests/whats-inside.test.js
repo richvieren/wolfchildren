@@ -155,20 +155,31 @@ test('opening one FAQ item closes the others', { skip: !JSDOM && 'jsdom not inst
 });
 
 // ── the live page: the wave on recognition, no motion ─────────────────────
-test('the wave is recognition\'s top edge, and nothing on the page moves',
+const css2 = (win) => [...win.document.querySelectorAll('style')].map((x) => x.textContent).join('');
+
+test('the two wave edges, and the modules that carry them',
   { skip: !JSDOM && 'jsdom not installed' }, () => {
   load((win) => {
     const secs = [...win.document.querySelectorAll('section.s')];
     const ids = secs.map((s) => (s.className.match(/\b([a-z0-9-]+)-s\b/) || [])[1]);
-    assert.deepEqual(ids, ['recognition', 'whats-inside', 'offer-v2'], `the order: ${ids}`);
+    assert.deepEqual(ids, ['recognition', 'whats-inside', 'offer-v2', 'photo-close', 'compare'],
+      `the order: ${ids}`);
 
     // 1 — the wave belongs to recognition; no parallax anywhere
     const rec = win.document.querySelector('.recognition-s');
     assert.ok(rec.classList.contains('wc-edge-wave'), 'recognition carries the edge');
-    const waves = win.document.querySelectorAll('[data-cover]');
-    assert.equal(waves.length, 1, 'one wave layer');
-    assert.equal(waves[0].parentElement, rec, 'it belongs to recognition');
+    const waves = [...win.document.querySelectorAll('[data-cover]')];
+    assert.equal(waves.length, 2, 'two wave layers');
+    assert.equal(waves[0].parentElement, rec, 'the first belongs to recognition');
     assert.equal(waves[0], rec.firstElementChild, 'it is the first thing in the section');
+    const cmp = win.document.querySelector('.compare-s');
+    assert.ok(cmp.classList.contains('wc-edge-wave-2'), 'the comparison carries the second edge');
+    assert.equal(waves[1].parentElement, cmp, 'the second belongs to the comparison');
+    assert.match(css2(win), /\.wc-edge-wave-2\{[^}]*--wc-mask:url\(\/assets\/img\/frames\/wave-edge-2\.png\)/);
+    assert.match(css2(win), /\.wc-edge-wave-2\{[^}]*--wc-wave-h:9\.0562vw/);
+    // the photograph above it, and the paper ground the second wave takes
+    assert.ok(win.document.querySelector('.photo-close-s .pc-photo'), 'the photograph is there');
+    assert.match(css2(win), /\.compare-s\{background:var\(--b-paper\)/);
     assert.equal(win.document.querySelectorAll('.wc-parallax, [data-parallax], .wc-move').length, 0,
       'no parallax section, no speed attribute, no wrapper');
     assert.ok(!win.document.querySelector('.offer-v2-s').classList.contains('wc-edge-wave'),

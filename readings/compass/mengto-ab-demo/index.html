@@ -118,14 +118,25 @@ footer{padding:56px 0}
 /* every element inside a module inherits its ground's text colour, so a rule
    that sets no colour of its own cannot end up cream on cream. */
 .wc-ground-light,.wc-ground-dark{color:var(--g-text)}
-:root{--wc-mask-w:115%;--wc-ink:19.0469vw;--wc-mask-y:-0.071875vw;
+:root{--wc-mask:url(/assets/img/frames/wave-edge.png);
+  --wc-mask-w:115%;--wc-ink:19.0469vw;--wc-mask-y:-0.071875vw;
   /* The mask is drawn 115% x 100vw wide, so it is 115% x 22.5vw = 25.875vw tall.
      The layer must never be taller than that, or its bottom strip carries no
      mask and the ground behind shows through: at 390px wide the mask is 100.8px
      and ink + 40px asks for 114.3px, which left an 8px cream band across the
      page. min() takes whichever is smaller. */
   --wc-wave-h:min(calc(var(--wc-ink) + 40px),25.875vw)}
-.wc-edge-wave{position:relative;z-index:1}
+.wc-edge-wave,.wc-edge-wave-2{position:relative;z-index:1}
+/* The second edge, taken from the top of the "hey, i'm jade!" section on
+   jadem.co.nz: that section's top element is strip_1.png, kept as its alpha and
+   cropped to the band where it turns from clear to solid (rows 172 to 298 of
+   512), saved as wave-edge-2.png, 1600x126. At 115% of the window width one
+   source row is 0.071875vw, so the layer is 126 x 0.071875 = 9.0562vw, which is
+   exactly the height the mask is drawn at: 130px at 1440, 35px at 390. Its edge
+   rises 53px at 1440. The layer takes its colour from the section it belongs
+   to, so a section with a flat ground gives a flat wave. */
+.wc-edge-wave-2{--wc-mask:url(/assets/img/frames/wave-edge-2.png);
+  --wc-wave-h:9.0562vw;--wc-mask-y:0}
 /* The block above a wave keeps room for it, less the trailing margin that block
    already carries: the ATF's last section (.wc-reviews) has 108px of margin
    under it, so 105px comes off the padding and the wave's first inked pixel
@@ -135,8 +146,7 @@ footer{padding:56px 0}
 body > #atf{padding-bottom:max(0px,calc(var(--wc-wave-h) - 105px))}
 .wc-wave{position:absolute;left:0;right:0;bottom:calc(100% - 2px);
   height:var(--wc-wave-h);background:inherit;pointer-events:none;
-  -webkit-mask-image:url(/assets/img/frames/wave-edge.png);
-  mask-image:url(/assets/img/frames/wave-edge.png);
+  -webkit-mask-image:var(--wc-mask);mask-image:var(--wc-mask);
   -webkit-mask-size:var(--wc-mask-w) auto;mask-size:var(--wc-mask-w) auto;
   -webkit-mask-position:right var(--wc-mask-y);mask-position:right var(--wc-mask-y);
   -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
@@ -1114,6 +1124,68 @@ html,body{overflow-x:clip}
   .ov-right{padding:32px 48px}
   .ov-box{margin:0}
 }
+
+.pc{position:relative;height:85vh;min-height:520px;overflow:hidden;
+  display:grid;place-items:center}
+.pc-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:50% 55%;border:0}
+/* the sky and the sand are bright, so cream type needs a wash under it. It is
+   only under the text, from the middle outwards, and the photograph keeps its
+   own edges. */
+.pc-wash{position:absolute;left:0;right:0;top:18%;bottom:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(51,61,47,0) 0%,rgba(51,61,47,.52) 46%,rgba(51,61,47,.62) 100%)}
+.pc-inner{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:22ch}
+.pc-h{font-family:var(--b-display);font-weight:400;color:var(--b-cream);
+  font-size:clamp(2.2rem,4.8vw,3.8rem);line-height:1.02;letter-spacing:-.035em;
+  margin:0 0 var(--s-space-block)}
+.pc-cta{display:inline-block;font-family:var(--b-body);font-size:var(--s-type-body);
+  letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+  padding:0 32px;height:54px;line-height:50px;
+  background:var(--b-green);color:var(--b-cream);
+  border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
+  box-shadow:var(--s-shadow-hard)}
+.pc-cta:hover{filter:brightness(1.08)}
+
+.compare-s{background:var(--b-paper);color:var(--b-green)}
+.cmp{max-width:980px;margin:0 auto}
+.cmp-h{font-family:var(--b-display);font-weight:400;color:var(--b-green);
+  font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
+  letter-spacing:var(--s-type-display-ls);text-align:center;margin:0 0 var(--s-space-section)}
+.cmp-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.cmp-table th,.cmp-table td{padding:14px 10px;text-align:center;vertical-align:middle;
+  border-bottom:1px solid var(--b-tan)}
+.cmp-table thead th{border-bottom:1px solid var(--b-tan);vertical-align:bottom}
+.cmp-row-h{text-align:left;font-family:var(--b-body);font-weight:400;
+  font-size:var(--s-type-body);line-height:1.35;color:var(--b-green);width:30%}
+.cmp-col{font-family:var(--b-body);font-weight:400;font-size:13px;line-height:1.35;
+  color:var(--b-bark)}
+.cmp-col b{display:block;font-weight:400;font-size:var(--s-type-body);color:var(--b-green)}
+.cmp-us{background:rgba(73,85,67,.07)}
+.cmp-us .cmp-col b,.cmp-us.cmp-col b{color:var(--b-green)}
+thead .cmp-us{border-radius:10px 10px 0 0}
+.cmp-yes{color:var(--b-green)}
+.cmp-no{color:var(--b-tan)}
+.cmp-act{margin-top:var(--s-space-section);text-align:center}
+.cmp-cta{display:inline-block;font-family:var(--b-body);font-size:var(--s-type-body);
+  letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+  padding:0 32px;height:54px;line-height:50px;background:var(--b-green);color:var(--b-cream);
+  border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);box-shadow:var(--s-shadow-hard)}
+@media(max-width:699px){
+  .cmp-table th,.cmp-table td{padding:10px 4px}
+  .cmp-row-h{font-size:13px;width:34%}
+  .cmp-col{font-size:11px}
+  .cmp-col b{font-size:12.5px}
+  .cmp-table svg{width:17px;height:17px}
+}
+
+footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:center}
+.foot-mark{display:block;margin:0 auto;height:28px;width:auto}
+.foot-links{margin:22px 0 0;font-size:12.5px;letter-spacing:.1em;
+  display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center}
+.foot-links a{color:var(--g-text);text-decoration:none;border-bottom:1px solid var(--g-rule)}
+.foot-links a:hover{color:var(--g-text);border-bottom-color:var(--g-text)}
+.foot-sep{opacity:.5}
+.foot-copy{margin:22px 0 0;font-size:12px;letter-spacing:.1em;color:var(--g-quiet)}
 </style>
 </head>
 <body data-variant="mengto-ab-demo">
@@ -1443,7 +1515,82 @@ html,body{overflow-x:clip}
 })();
 </script>
 
-<footer class="wc-ground-light"><div class="wrap">Wolf Children · hello@wolfchildren.co</div></footer>
+<section class="s photo-close-s pc">
+  <img class="pc-photo" src="/assets/compass/nature-2.jpg" width="1400" height="1050" alt="A child walking alone on a beach at dusk, below a dark headland" loading="lazy" decoding="async">
+  <div class="pc-wash" aria-hidden="true"></div>
+  <div class="pc-inner">
+    <h2 class="pc-h">The same night, one layer deeper.</h2>
+    <a class="pc-cta" href="#atf">Get their Compass &middot; $27</a>
+  </div>
+</section>
+
+<section class="s compare-s wc-ground-light wc-edge-wave-2">
+  <div class="wc-wave" data-cover aria-hidden="true"></div><div class="wrap">
+  <div class="cmp">
+    <h2 class="cmp-h">How Compass compares</h2>
+    <table class="cmp-table">
+      <thead>
+        <tr><td></td>
+        <th class="cmp-col cmp-us" scope="col"><b>Compass</b>$27</th>
+        <th class="cmp-col" scope="col"><b>A free horoscope app</b></th>
+        <th class="cmp-col" scope="col"><b>A chart report PDF</b>about $20</th>
+        <th class="cmp-col" scope="col"><b>A parenting book</b>about $18</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th class="cmp-row-h" scope="row">About your child alone</th>
+        <td class="cmp-yes cmp-us"><span class="sr-only">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-yes"><span class="sr-only">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+      </tr>
+      <tr>
+        <th class="cmp-row-h" scope="row">Reads the whole chart</th>
+        <td class="cmp-yes cmp-us"><span class="sr-only">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-yes"><span class="sr-only">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+      </tr>
+      <tr>
+        <th class="cmp-row-h" scope="row">In plain words</th>
+        <td class="cmp-yes cmp-us"><span class="sr-only">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-yes"><span class="sr-only">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+      </tr>
+      <tr>
+        <th class="cmp-row-h" scope="row">No predictions</th>
+        <td class="cmp-yes cmp-us"><span class="sr-only">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-yes"><span class="sr-only">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+      </tr>
+      <tr>
+        <th class="cmp-row-h" scope="row">No labels or types</th>
+        <td class="cmp-yes cmp-us"><span class="sr-only">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+      </tr>
+      <tr>
+        <th class="cmp-row-h" scope="row">Ready in minutes</th>
+        <td class="cmp-yes cmp-us"><span class="sr-only">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-yes"><span class="sr-only">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-no"><span class="sr-only">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="cmp-act"><a class="cmp-cta" href="#atf">Get their Compass &middot; $27</a></p>
+  </div>
+</div></section>
+
+<footer class="wc-foot wc-ground-dark"><div class="wrap">
+  <img class="foot-mark" src="/assets/img/logo/wolfchildren-logo-cream-1600.webp" width="1600" height="696" alt="Wolf Children" loading="lazy" decoding="async">
+  <nav class="foot-links"><a href="/legal/privacy/">Privacy</a><span class="foot-sep" aria-hidden="true">&middot;</span><a href="/legal/terms/">Terms</a><span class="foot-sep" aria-hidden="true">&middot;</span><a href="/legal/refunds/">Refunds</a><span class="foot-sep" aria-hidden="true">&middot;</span><a href="mailto:hello@wolfchildren.co">Contact</a></nav>
+  <p class="foot-copy">&copy; 2026 Wolf Children</p>
+</div></footer>
 
 
 <script>
@@ -1465,27 +1612,32 @@ html,body{overflow-x:clip}
 
 <script>
 (function(){
-  var wave=document.querySelector('[data-cover]');
-  if(!wave || !wave.parentElement) return;
-  var above=wave.parentElement.previousElementSibling;
-  while(above && !above.getBoundingClientRect().height) above=above.previousElementSibling;
-  if(!above) return;
+  var pairs=[];
+  [].forEach.call(document.querySelectorAll('[data-cover]'), function(wave){
+    if(!wave.parentElement) return;
+    var above=wave.parentElement.previousElementSibling;
+    while(above && !above.getBoundingClientRect().height) above=above.previousElementSibling;
+    if(above) pairs.push({ wave: wave, above: above });
+  });
+  if(!pairs.length) return;
   var wide=window.matchMedia ? window.matchMedia('(min-width: 900px)') : null;
   var still=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var ticking=false;
-  function clear(){ if(above.style.transform) above.style.transform=''; }
+  function clear(){ pairs.forEach(function(p){ if(p.above.style.transform) p.above.style.transform=''; }); }
   function frame(){
     ticking=false;
     if((wide && !wide.matches) || (still && still.matches)) return clear();
-    // the scroll position at which the wave's top edge meets the bottom of the
-    // window. On a tall window that moment is already behind the top of the
-    // page, so it is clamped to 0: without that the block starts out moved and
-    // leaves a strip above it.
-    var waveTop=wave.getBoundingClientRect().top + window.scrollY;
-    var trigger=Math.max(0, waveTop - window.innerHeight);
-    var lag=Math.max(0, window.scrollY - trigger) * 0.5;
-    if(lag<=0) return clear();
-    above.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+    pairs.forEach(function(p){
+      // the scroll position at which the wave's top edge meets the bottom of the
+      // window. On a tall window that moment is already behind the top of the
+      // page, so it is clamped to 0: without that the block starts out moved and
+      // leaves a strip above it.
+      var waveTop=p.wave.getBoundingClientRect().top + window.scrollY;
+      var trigger=Math.max(0, waveTop - window.innerHeight);
+      var lag=Math.max(0, window.scrollY - trigger) * 0.5;
+      if(lag<=0){ if(p.above.style.transform) p.above.style.transform=''; return; }
+      p.above.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+    });
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }
   window.addEventListener('scroll', onScroll, {passive:true});
