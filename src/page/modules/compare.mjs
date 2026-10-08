@@ -57,10 +57,7 @@ thead .cmp-us{border-radius:10px 10px 0 0}
 .cmp-yes{color:var(--b-green)}
 .cmp-no{color:var(--b-tan)}
 .cmp-act{margin-top:var(--s-space-section);text-align:center}
-.cmp-cta{display:inline-block;font-family:var(--b-body);font-size:var(--s-type-body);
-  letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
-  padding:0 32px;height:54px;line-height:50px;background:var(--b-green);color:var(--b-cream);
-  border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);box-shadow:var(--s-shadow-hard)}
+.cmp-cta{}
 @media(max-width:699px){
   .cmp-table th,.cmp-table td{padding:10px 4px}
   .cmp-row-h{font-size:13px;width:34%}
@@ -91,7 +88,7 @@ ${head}
 ${body}
       </tbody>
     </table>
-    <p class="cmp-act"><a class="cmp-cta" href="#atf">${copy.cta}</a></p>
+    <p class="cmp-act"><a class="wc-cta cmp-cta" href="#atf">${copy.cta}</a></p>
   </div>
 </div></section>`;
 }

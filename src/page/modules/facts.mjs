@@ -7,22 +7,30 @@ export const id = 'facts';
 export const ground = 'neutral';
 
 // the same stroke as recognition's mark, drawn here in its own colour
+// the same stroke as recognition's, at about twice the weight and a little
+// larger, so it carries at band size
 const STAR = '<svg class="fa-star" viewBox="0 0 40 40" fill="none" stroke="currentColor"'
-  + ' stroke-width="2.4" stroke-linecap="round" aria-hidden="true">'
+  + ' stroke-width="5" stroke-linecap="round" aria-hidden="true">'
   + '<path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg>';
 
 const MARK_COLOURS = ['var(--b-tan)', 'var(--b-cream)', '#DA4635'];
 
 export const css = `
+/* Morning Memories ships three styles; the label is set in the script one.
+   File: morning-memories-script.otf from the Morning Memories font duo,
+   converted to woff2 and self-hosted beside the others. */
+@font-face{font-family:"Morning Memories Script";
+  src:url("/assets/fonts/morning-memories-script.woff2") format("woff2");
+  font-weight:400;font-display:swap}
 .facts-s{background:#262E23;
   border-top:2px solid var(--b-tan);border-bottom:2px solid var(--b-tan);
   padding:64px 0}
 .fa{display:grid;gap:40px;justify-items:center;text-align:center}
-.fa-label{font-family:var(--b-display);font-weight:400;color:var(--b-cream);
-  font-size:32px;line-height:1;margin:0}
+.fa-label{font-family:"Morning Memories Script",var(--b-display);font-weight:400;
+  color:var(--b-cream);font-size:38px;line-height:1;margin:0}
 .fa-list{list-style:none;margin:0;padding:0;display:grid;gap:40px;width:100%}
 .fa-item{display:grid;gap:14px;justify-items:center;padding:0 24px}
-.fa-star{display:block;width:26px;height:26px}
+.fa-star{display:block;width:32px;height:32px}
 .fa-line{font-family:var(--b-body);font-size:13px;line-height:1.5;
   letter-spacing:.18em;text-transform:uppercase;color:var(--b-cream);margin:0}
 .fa-line-2{color:rgba(223,215,195,.75)}
@@ -34,7 +42,7 @@ export const css = `
   .facts-s{padding:76px 0}
   /* the row sits left to right; each fact still reads centred under its mark */
   .fa{grid-template-columns:auto 1fr;gap:56px;align-items:center;justify-items:start}
-  .fa-label{font-size:32px}
+  .fa-label{font-size:38px}
   .fa-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
   .fa-item{padding:0 40px}
   .fa-item + .fa-item{border-top:0;border-left:2px solid var(--b-tan);padding-top:0}

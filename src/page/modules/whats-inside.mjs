@@ -127,11 +127,7 @@ export const css = `${WIDGET_CSS}
 .wi-samples{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
   line-height:1.5;color:var(--g-quiet);margin:12px 0 0}
 .wi-samples a{color:var(--g-text);text-decoration:underline;text-underline-offset:3px}
-.wi-cta{display:inline-block;margin-top:var(--s-space-block);font-family:var(--b-body);
-  font-size:var(--s-type-body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
-  cursor:pointer;padding:0 26px;height:54px;line-height:50px;background:var(--b-green);
-  color:var(--b-cream);border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
-  box-shadow:var(--s-shadow-hard)}
+.wi-cta{margin-top:var(--s-space-block)}
 .wi-photo{display:none}
 
 @media(min-width:900px){
@@ -195,7 +191,7 @@ ${SCREENS.map((s, i) => `          <div class="wi-pane${i ? '' : ' on'}" data-pa
       <ol class="wi-list">
 ${SCREENS.map((s, i) => `        <li class="wi-item${i ? '' : ' is-active'}"><button type="button" class="wi-row" data-section="${s.id}" aria-pressed="${i ? 'false' : 'true'}"><span class="wi-num">${String(i + 1).padStart(2, '0')}</span><span class="wi-label">${s.label}</span><span class="wi-mark" aria-hidden="true">${TICK}</span></button></li>`).join('\n')}
       </ol>
-      <a class="wi-cta" href="#atf" data-wi-cta>${copy.cta}</a>
+      <a class="wc-cta wi-cta" href="#atf" data-wi-cta>${copy.cta}</a>
       <p class="wi-samples">${copy.samples} <a href="/readings/compass/sample/nora/">Nora</a> <span aria-hidden="true">&middot;</span> <a href="/readings/compass/sample/finn/">Finn</a></p>
     </div>
   </div>

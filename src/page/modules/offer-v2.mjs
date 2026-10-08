@@ -2,10 +2,8 @@
 // the left and the buy box on a white card on the right, after MUD\WTR's
 // product page. Self-contained: markup, CSS from tokens, script.
 //
-// Inter comes from Google Fonts, by Richard's instruction 2026-10-07. The brand
-// bible forbids a third-party font call; that rule exists for the portal, which
-// carries a child's birth details. This page is a landing page. The link sits in
-// the module, because the renderer gives a module no way into <head>.
+// 2026-10-08, Richard: one type system. Inter is gone, with its Google Fonts
+// call; the buy box reads in the page's own two faces.
 //
 // THE CHECKOUT MAP is imported from offer-card, so one map still decides where
 // the button goes. Every tier is selectable; a tier with no URL turns the button
@@ -44,15 +42,14 @@ export const css = `
 .ov-box{max-width:480px;margin:0 auto;background:#FFFFFF;
   border-radius:16px;padding:32px}
 
-/* Inter inside the buy box only; the title keeps Morning Memories */
-.ov-box{--ov-ui:'Inter',system-ui,sans-serif}
-.ov-title{font-family:var(--b-display);font-weight:400;color:var(--b-green);
+/* the page's two faces: Morning Memories on the title, Special Elite elsewhere */
+.ov-title{font-family:var(--b-display);color:var(--b-green);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);margin:0 0 10px}
 .ov-rating{display:flex;align-items:baseline;gap:9px;margin:0 0 12px;font-family:var(--b-body)}
 .ov-stars{color:var(--b-gold);font-size:19px;letter-spacing:.14em}
 .ov-rated{color:var(--b-green);font-size:var(--s-type-body)}
-.ov-line{font-family:var(--ov-ui);font-weight:400;font-size:15px;line-height:1.5;
+.ov-line{font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.5;
   color:var(--b-green);margin:0 0 20px}
 
 /* the tiers */
@@ -62,35 +59,32 @@ export const css = `
   padding:16px;background:#FFFFFF;border:1px solid var(--b-tan);border-radius:10px;cursor:pointer}
 .ov-tier input:checked + .ov-tier-box{border:2px solid var(--b-green);padding:15px}
 .ov-tier input:focus-visible + .ov-tier-box{outline:2px solid var(--b-green);outline-offset:2px}
-.ov-name{display:flex;align-items:center;gap:10px;font-family:var(--ov-ui);font-weight:600;
-  font-size:16px;line-height:1.3;color:var(--b-green)}
+.ov-name{display:flex;align-items:center;gap:10px;font-family:var(--b-body);
+  font-size:var(--s-type-body);line-height:1.3;color:var(--b-green)}
 .ov-dot{flex:0 0 16px;width:16px;height:16px;border-radius:50%;border:1px solid var(--b-green)}
 .ov-tier input:checked + .ov-tier-box .ov-dot{background:var(--b-green);box-shadow:inset 0 0 0 3px #FFFFFF}
-.ov-price{font-family:var(--ov-ui);font-weight:600;font-size:20px;line-height:1;
+.ov-price{font-family:var(--b-body);font-size:20px;line-height:1;
   color:var(--b-green);text-align:right}
 .ov-each{grid-column:1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-  font-family:var(--ov-ui);font-weight:400;font-size:13px;line-height:1.5;
+  font-family:var(--b-body);font-size:12.5px;line-height:1.5;
   color:var(--b-green);padding-left:26px}
-.ov-save{font-family:var(--ov-ui);font-weight:600;font-size:13px;color:var(--b-green);
+.ov-save{font-family:var(--b-body);font-size:12.5px;color:var(--b-green);
   background:rgba(73,85,67,.1);border-radius:999px;padding:2px 8px}
-.ov-note{grid-column:1;font-family:var(--ov-ui);font-weight:400;font-size:13px;
+.ov-note{grid-column:1;font-family:var(--b-body);font-size:13px;
   line-height:1.5;color:var(--b-green);padding-left:26px}
 .ov-more{grid-column:1/-1;display:none;margin:12px 0 0;padding:0;list-style:none}
 .ov-tier input:checked + .ov-tier-box .ov-more{display:grid;gap:8px}
 .ov-more li{display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:start;
-  font-family:var(--ov-ui);font-weight:400;font-size:14px;line-height:1.45;color:var(--b-green)}
+  font-family:var(--b-body);font-size:12.5px;line-height:1.45;color:var(--b-green)}
 .ov-tick{width:14px;height:14px;margin-top:3px;border:1px solid var(--b-green);
   border-radius:50%;position:relative}
 .ov-tick:after{content:"";position:absolute;left:4px;top:2px;width:3.5px;height:7px;
   border-right:1.5px solid var(--b-green);border-bottom:1.5px solid var(--b-green);transform:rotate(42deg)}
 
 /* the button */
-.ov-cta{display:block;width:100%;text-align:center;font-family:var(--ov-ui);font-weight:600;
-  font-size:16px;letter-spacing:.02em;text-decoration:none;height:54px;line-height:50px;
-  background:var(--b-green);color:var(--b-cream);border:2px solid var(--b-green-deep);
-  border-radius:6px;box-shadow:4px 4px 0 var(--b-green-deep)}
+.ov-cta{width:100%}
 .ov-cta[aria-disabled="true"]{opacity:.45;box-shadow:none;cursor:default;pointer-events:none}
-.ov-secure{font-family:var(--ov-ui);font-weight:400;font-size:13px;line-height:1.6;
+.ov-secure{font-family:var(--b-body);font-size:12.5px;line-height:1.6;
   color:var(--b-green);text-align:center;margin:12px 0 0}
 
 /* the FAQ */
@@ -100,13 +94,13 @@ export const css = `
 .ov-faq .ov-q:last-child{border-bottom:1px solid var(--b-tan)}
 .ov-faq .ov-q summary{list-style:none;cursor:pointer;display:flex;gap:16px;
   align-items:baseline;justify-content:space-between;padding:16px 0;
-  font-family:var(--ov-ui);font-weight:600;font-size:15px;line-height:1.4;color:var(--b-green)}
+  font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.4;color:var(--b-green)}
 .ov-faq .ov-q summary::-webkit-details-marker{display:none}
-.ov-faq .ov-q summary::after{content:"+";font-weight:400;font-size:16px;color:var(--b-tan)}
+.ov-faq .ov-q summary::after{content:"+";font-size:16px;color:var(--b-tan)}
 .ov-faq .ov-q[open] summary::after{content:"\\2013"}
 .ov-faq .ov-q summary:focus{outline:none}
 .ov-faq .ov-q summary:focus-visible{outline:2px solid var(--b-green);outline-offset:2px}
-.ov-faq .ov-a{font-family:var(--ov-ui);font-weight:400;font-size:15px;line-height:1.6;
+.ov-faq .ov-a{font-family:var(--b-body);font-size:15px;line-height:1.6;
   color:var(--b-green);opacity:.8;margin:0 0 18px;max-width:60ch}
 
 @media(min-width:900px){
@@ -136,9 +130,6 @@ ${copy.includes.map((x) => `              <li><span class="ov-tick" aria-hidden=
         </li>`).join('\n');
 
   return `<section class="s offer-v2-s${g}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
   <div class="ov">
     <div class="ov-left">
       <img src="${PHOTO.src}" width="${PHOTO.w}" height="${PHOTO.h}" alt="${PHOTO.alt}" loading="lazy" decoding="async">
@@ -152,7 +143,7 @@ ${copy.includes.map((x) => `              <li><span class="ov-tick" aria-hidden=
         <ul class="ov-tiers">
 ${tiers}
         </ul>
-        <a class="ov-cta" data-ov-cta${firstLive ? ` href="${CHECKOUT[first.key]}"` : ' aria-disabled="true"'}>${copy.cta} ${first.price}</a>
+        <a class="wc-cta wc-cta--full ov-cta" data-ov-cta${firstLive ? ` href="${CHECKOUT[first.key]}"` : ' aria-disabled="true"'}>${copy.cta} ${first.price}</a>
         <p class="ov-secure">${copy.secure}</p>
         <div class="ov-faq">
 ${copy.faq.map(([q, a]) => `          <details class="ov-q" data-ov-q><summary>${q}</summary><p class="ov-a">${a}</p></details>`).join('\n')}

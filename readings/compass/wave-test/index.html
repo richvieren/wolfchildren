@@ -118,6 +118,16 @@ footer{padding:56px 0}
 /* every element inside a module inherits its ground's text colour, so a rule
    that sets no colour of its own cannot end up cream on cream. */
 .wc-ground-light,.wc-ground-dark{color:var(--g-text)}
+.wc-cta{display:inline-block;box-sizing:border-box;text-align:center;white-space:nowrap;
+  font-family:var(--b-body);font-size:16px;text-transform:none;letter-spacing:.06em;
+  text-decoration:none;height:54px;line-height:50px;padding:0 26px;
+  background:var(--b-green);color:var(--b-cream);
+  border:2px solid var(--b-green-deep);border-radius:6px;
+  box-shadow:5px 5px 0 var(--b-green-deep)}
+.wc-cta:hover{filter:brightness(1.08)}
+/* the only thing a context may change is the width */
+.wc-cta--full{display:block;width:100%;padding:0}
+
 .wc-parallax{position:relative;isolation:isolate;z-index:0;overflow:hidden;
   padding-top:0;padding-bottom:0}
 /* the wrapper carries the section's own vertical padding, so a full-height
@@ -903,11 +913,7 @@ html,body{overflow-x:clip}
 .wi-samples{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
   line-height:1.5;color:var(--g-quiet);margin:12px 0 0}
 .wi-samples a{color:var(--g-text);text-decoration:underline;text-underline-offset:3px}
-.wi-cta{display:inline-block;margin-top:var(--s-space-block);font-family:var(--b-body);
-  font-size:var(--s-type-body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
-  cursor:pointer;padding:0 26px;height:54px;line-height:50px;background:var(--b-green);
-  color:var(--b-cream);border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
-  box-shadow:var(--s-shadow-hard)}
+.wi-cta{margin-top:var(--s-space-block)}
 .wi-photo{display:none}
 
 @media(min-width:900px){
@@ -1131,7 +1137,7 @@ html,body{overflow-x:clip}
         <li class="wi-item"><button type="button" class="wi-row" data-section="w-seen" aria-pressed="false"><span class="wi-num">05</span><span class="wi-label">Being seen</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
         <li class="wi-item"><button type="button" class="wi-row" data-section="w-group" aria-pressed="false"><span class="wi-num">06</span><span class="wi-label">In a group</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
       </ol>
-      <a class="wi-cta" href="#atf" data-wi-cta>Get their Compass · $27</a>
+      <a class="wc-cta wi-cta" href="#atf" data-wi-cta>Get their Compass · $27</a>
       <p class="wi-samples">Read a full sample: <a href="/readings/compass/sample/nora/">Nora</a> <span aria-hidden="true">&middot;</span> <a href="/readings/compass/sample/finn/">Finn</a></p>
     </div>
   </div>

@@ -12,6 +12,7 @@ import {
 import { THEMES } from '../../variants2.mjs';
 import * as grounds from './grounds.mjs';
 import * as edges from './edges.mjs';
+import * as cta from './cta.mjs';
 import { atfMarkup, ATF_JS, scopedAtfCss, atfDesktopCss } from '../lib/atf-section.mjs';
 import { resolve as resolveAtf } from '../lib/atf-copy.mjs';
 
@@ -116,7 +117,7 @@ export async function render(config) {
 <title>${config.title} | Compass</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
 <script>window.WC_VARIANT=${JSON.stringify(config.id)};fbq('trackCustom','VariantView',{variant:window.WC_VARIANT});</script>
-<style>${FONTS_V2}${TOKENS_WC}${BASE}${brand.css}${grounds.css}${edgeCss}${skinCss}${skin.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${scopedAtfCss('#atf')}${ATF_GUARD}${atfDesktopCss('#atf')}${skin.atfCss}${moduleCss}</style>
+<style>${FONTS_V2}${TOKENS_WC}${BASE}${brand.css}${grounds.css}${cta.css}${edgeCss}${skinCss}${skin.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${scopedAtfCss('#atf')}${ATF_GUARD}${atfDesktopCss('#atf')}${skin.atfCss}${moduleCss}</style>
 </head>
 <body data-variant="${config.id}">
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>

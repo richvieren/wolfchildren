@@ -113,11 +113,18 @@ test('the split is two halves, the photograph left and the buy box right',
     assert.equal(win.document.querySelectorAll('[data-ov-thumb]').length, 0, 'no thumbnails');
     assert.ok(right.querySelector('.ov-box .ov-cta'), 'the buy box holds the button');
     assert.ok(right.querySelector('.ov-box .ov-faq'), 'and the FAQ');
-    // the Inter stylesheet the buy box asks for
+    // 2026-10-08: one type system, so no third-party font is requested at all
     const fonts = [...win.document.querySelectorAll('link[rel="stylesheet"]')]
       .map((l) => l.getAttribute('href'));
-    assert.ok(fonts.some((h) => /fonts\.googleapis\.com.*Inter:wght@400;600/.test(h)),
-      'Inter 400 and 600 are requested');
+    assert.deepEqual(fonts.filter((h) => /fonts\.googleapis\.com/.test(h)), [],
+      'no Google Fonts call');
+    const css = [...win.document.querySelectorAll('style')].map((x) => x.textContent).join('');
+    assert.ok(!/Inter/.test(css), 'Inter is gone from the stylesheet');
+    // every button on the page is the one component
+    const ctas = [...win.document.querySelectorAll('.wc-cta')];
+    assert.ok(ctas.length >= 5, `every module's button wears it: ${ctas.length}`);
+    assert.match(css, /\.wc-cta\{[^}]*font-size:16px[^}]*letter-spacing:\.06em/);
+    assert.match(css, /\.wc-cta\{[^}]*box-shadow:5px 5px 0 var\(--b-green-deep\)/);
   });
 });
 

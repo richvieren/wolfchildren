@@ -118,6 +118,16 @@ footer{padding:56px 0}
 /* every element inside a module inherits its ground's text colour, so a rule
    that sets no colour of its own cannot end up cream on cream. */
 .wc-ground-light,.wc-ground-dark{color:var(--g-text)}
+.wc-cta{display:inline-block;box-sizing:border-box;text-align:center;white-space:nowrap;
+  font-family:var(--b-body);font-size:16px;text-transform:none;letter-spacing:.06em;
+  text-decoration:none;height:54px;line-height:50px;padding:0 26px;
+  background:var(--b-green);color:var(--b-cream);
+  border:2px solid var(--b-green-deep);border-radius:6px;
+  box-shadow:5px 5px 0 var(--b-green-deep)}
+.wc-cta:hover{filter:brightness(1.08)}
+/* the only thing a context may change is the width */
+.wc-cta--full{display:block;width:100%;padding:0}
+
 :root{--wc-mask:url(/assets/img/frames/wave-edge.png);
   --wc-mask-w:115%;--wc-ink:19.0469vw;--wc-mask-y:-0.071875vw;
   /* The mask is drawn 115% x 100vw wide, so it is 115% x 22.5vw = 25.875vw tall.
@@ -729,13 +739,7 @@ html,body{overflow-x:clip}
 .rec-body{font-family:var(--b-body);color:var(--g-text);
   font-size:var(--s-type-body);line-height:var(--s-type-body-lh);
   letter-spacing:var(--s-type-body-ls);max-width:60ch;margin-top:var(--s-space-para)}
-.rec-cta{display:inline-block;margin-top:var(--s-space-block);
-  font-family:var(--b-body);font-size:var(--s-type-body);letter-spacing:.06em;
-  text-transform:uppercase;text-decoration:none;cursor:pointer;
-  padding:0 26px;height:54px;line-height:50px;
-  background:var(--b-green);color:var(--b-cream);
-  border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
-  box-shadow:var(--s-shadow-hard)}
+.rec-cta{margin-top:var(--s-space-block)}
 
 /* the photo cluster: one large photograph, one small one overlapping its lower
    outer corner on a backing card, and two drawn marks. */
@@ -996,11 +1000,7 @@ html,body{overflow-x:clip}
 .wi-samples{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
   line-height:1.5;color:var(--g-quiet);margin:12px 0 0}
 .wi-samples a{color:var(--g-text);text-decoration:underline;text-underline-offset:3px}
-.wi-cta{display:inline-block;margin-top:var(--s-space-block);font-family:var(--b-body);
-  font-size:var(--s-type-body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
-  cursor:pointer;padding:0 26px;height:54px;line-height:50px;background:var(--b-green);
-  color:var(--b-cream);border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
-  box-shadow:var(--s-shadow-hard)}
+.wi-cta{margin-top:var(--s-space-block)}
 .wi-photo{display:none}
 
 @media(min-width:900px){
@@ -1038,15 +1038,21 @@ html,body{overflow-x:clip}
   .wi-text{position:static;margin-left:calc(50% + var(--wi-phone-w) / 2 + 48px)}
 }
 
+/* Morning Memories ships three styles; the label is set in the script one.
+   File: morning-memories-script.otf from the Morning Memories font duo,
+   converted to woff2 and self-hosted beside the others. */
+@font-face{font-family:"Morning Memories Script";
+  src:url("/assets/fonts/morning-memories-script.woff2") format("woff2");
+  font-weight:400;font-display:swap}
 .facts-s{background:#262E23;
   border-top:2px solid var(--b-tan);border-bottom:2px solid var(--b-tan);
   padding:64px 0}
 .fa{display:grid;gap:40px;justify-items:center;text-align:center}
-.fa-label{font-family:var(--b-display);font-weight:400;color:var(--b-cream);
-  font-size:32px;line-height:1;margin:0}
+.fa-label{font-family:"Morning Memories Script",var(--b-display);font-weight:400;
+  color:var(--b-cream);font-size:38px;line-height:1;margin:0}
 .fa-list{list-style:none;margin:0;padding:0;display:grid;gap:40px;width:100%}
 .fa-item{display:grid;gap:14px;justify-items:center;padding:0 24px}
-.fa-star{display:block;width:26px;height:26px}
+.fa-star{display:block;width:32px;height:32px}
 .fa-line{font-family:var(--b-body);font-size:13px;line-height:1.5;
   letter-spacing:.18em;text-transform:uppercase;color:var(--b-cream);margin:0}
 .fa-line-2{color:rgba(223,215,195,.75)}
@@ -1058,7 +1064,7 @@ html,body{overflow-x:clip}
   .facts-s{padding:76px 0}
   /* the row sits left to right; each fact still reads centred under its mark */
   .fa{grid-template-columns:auto 1fr;gap:56px;align-items:center;justify-items:start}
-  .fa-label{font-size:32px}
+  .fa-label{font-size:38px}
   .fa-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
   .fa-item{padding:0 40px}
   .fa-item + .fa-item{border-top:0;border-left:2px solid var(--b-tan);padding-top:0}
@@ -1079,15 +1085,14 @@ html,body{overflow-x:clip}
 .ov-box{max-width:480px;margin:0 auto;background:#FFFFFF;
   border-radius:16px;padding:32px}
 
-/* Inter inside the buy box only; the title keeps Morning Memories */
-.ov-box{--ov-ui:'Inter',system-ui,sans-serif}
-.ov-title{font-family:var(--b-display);font-weight:400;color:var(--b-green);
+/* the page's two faces: Morning Memories on the title, Special Elite elsewhere */
+.ov-title{font-family:var(--b-display);color:var(--b-green);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);margin:0 0 10px}
 .ov-rating{display:flex;align-items:baseline;gap:9px;margin:0 0 12px;font-family:var(--b-body)}
 .ov-stars{color:var(--b-gold);font-size:19px;letter-spacing:.14em}
 .ov-rated{color:var(--b-green);font-size:var(--s-type-body)}
-.ov-line{font-family:var(--ov-ui);font-weight:400;font-size:15px;line-height:1.5;
+.ov-line{font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.5;
   color:var(--b-green);margin:0 0 20px}
 
 /* the tiers */
@@ -1097,35 +1102,32 @@ html,body{overflow-x:clip}
   padding:16px;background:#FFFFFF;border:1px solid var(--b-tan);border-radius:10px;cursor:pointer}
 .ov-tier input:checked + .ov-tier-box{border:2px solid var(--b-green);padding:15px}
 .ov-tier input:focus-visible + .ov-tier-box{outline:2px solid var(--b-green);outline-offset:2px}
-.ov-name{display:flex;align-items:center;gap:10px;font-family:var(--ov-ui);font-weight:600;
-  font-size:16px;line-height:1.3;color:var(--b-green)}
+.ov-name{display:flex;align-items:center;gap:10px;font-family:var(--b-body);
+  font-size:var(--s-type-body);line-height:1.3;color:var(--b-green)}
 .ov-dot{flex:0 0 16px;width:16px;height:16px;border-radius:50%;border:1px solid var(--b-green)}
 .ov-tier input:checked + .ov-tier-box .ov-dot{background:var(--b-green);box-shadow:inset 0 0 0 3px #FFFFFF}
-.ov-price{font-family:var(--ov-ui);font-weight:600;font-size:20px;line-height:1;
+.ov-price{font-family:var(--b-body);font-size:20px;line-height:1;
   color:var(--b-green);text-align:right}
 .ov-each{grid-column:1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-  font-family:var(--ov-ui);font-weight:400;font-size:13px;line-height:1.5;
+  font-family:var(--b-body);font-size:12.5px;line-height:1.5;
   color:var(--b-green);padding-left:26px}
-.ov-save{font-family:var(--ov-ui);font-weight:600;font-size:13px;color:var(--b-green);
+.ov-save{font-family:var(--b-body);font-size:12.5px;color:var(--b-green);
   background:rgba(73,85,67,.1);border-radius:999px;padding:2px 8px}
-.ov-note{grid-column:1;font-family:var(--ov-ui);font-weight:400;font-size:13px;
+.ov-note{grid-column:1;font-family:var(--b-body);font-size:13px;
   line-height:1.5;color:var(--b-green);padding-left:26px}
 .ov-more{grid-column:1/-1;display:none;margin:12px 0 0;padding:0;list-style:none}
 .ov-tier input:checked + .ov-tier-box .ov-more{display:grid;gap:8px}
 .ov-more li{display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:start;
-  font-family:var(--ov-ui);font-weight:400;font-size:14px;line-height:1.45;color:var(--b-green)}
+  font-family:var(--b-body);font-size:12.5px;line-height:1.45;color:var(--b-green)}
 .ov-tick{width:14px;height:14px;margin-top:3px;border:1px solid var(--b-green);
   border-radius:50%;position:relative}
 .ov-tick:after{content:"";position:absolute;left:4px;top:2px;width:3.5px;height:7px;
   border-right:1.5px solid var(--b-green);border-bottom:1.5px solid var(--b-green);transform:rotate(42deg)}
 
 /* the button */
-.ov-cta{display:block;width:100%;text-align:center;font-family:var(--ov-ui);font-weight:600;
-  font-size:16px;letter-spacing:.02em;text-decoration:none;height:54px;line-height:50px;
-  background:var(--b-green);color:var(--b-cream);border:2px solid var(--b-green-deep);
-  border-radius:6px;box-shadow:4px 4px 0 var(--b-green-deep)}
+.ov-cta{width:100%}
 .ov-cta[aria-disabled="true"]{opacity:.45;box-shadow:none;cursor:default;pointer-events:none}
-.ov-secure{font-family:var(--ov-ui);font-weight:400;font-size:13px;line-height:1.6;
+.ov-secure{font-family:var(--b-body);font-size:12.5px;line-height:1.6;
   color:var(--b-green);text-align:center;margin:12px 0 0}
 
 /* the FAQ */
@@ -1135,13 +1137,13 @@ html,body{overflow-x:clip}
 .ov-faq .ov-q:last-child{border-bottom:1px solid var(--b-tan)}
 .ov-faq .ov-q summary{list-style:none;cursor:pointer;display:flex;gap:16px;
   align-items:baseline;justify-content:space-between;padding:16px 0;
-  font-family:var(--ov-ui);font-weight:600;font-size:15px;line-height:1.4;color:var(--b-green)}
+  font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.4;color:var(--b-green)}
 .ov-faq .ov-q summary::-webkit-details-marker{display:none}
-.ov-faq .ov-q summary::after{content:"+";font-weight:400;font-size:16px;color:var(--b-tan)}
+.ov-faq .ov-q summary::after{content:"+";font-size:16px;color:var(--b-tan)}
 .ov-faq .ov-q[open] summary::after{content:"\2013"}
 .ov-faq .ov-q summary:focus{outline:none}
 .ov-faq .ov-q summary:focus-visible{outline:2px solid var(--b-green);outline-offset:2px}
-.ov-faq .ov-a{font-family:var(--ov-ui);font-weight:400;font-size:15px;line-height:1.6;
+.ov-faq .ov-a{font-family:var(--b-body);font-size:15px;line-height:1.6;
   color:var(--b-green);opacity:.8;margin:0 0 18px;max-width:60ch}
 
 @media(min-width:900px){
@@ -1167,13 +1169,7 @@ html,body{overflow-x:clip}
 .pc-h{font-family:var(--b-display);font-weight:400;color:var(--b-cream);
   font-size:clamp(2.2rem,4.8vw,3.8rem);line-height:1.02;letter-spacing:-.035em;
   max-width:16ch;margin:0 auto var(--s-space-block);text-wrap:balance}
-.pc-cta{display:inline-block;white-space:nowrap;font-family:var(--b-body);
-  font-size:var(--s-type-body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
-  padding:0 32px;height:54px;line-height:50px;
-  background:var(--b-green);color:var(--b-cream);
-  border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
-  box-shadow:var(--s-shadow-hard)}
-.pc-cta:hover{filter:brightness(1.08)}
+.pc-cta{position:relative;z-index:2}
 
 /* 2026-10-08, Richard: half the space between the wave and the headline. The
    section's own padding was 108px, which left 106px under the wave's 2px lap;
@@ -1205,10 +1201,7 @@ thead .cmp-us{border-radius:10px 10px 0 0}
 .cmp-yes{color:var(--b-green)}
 .cmp-no{color:var(--b-tan)}
 .cmp-act{margin-top:var(--s-space-section);text-align:center}
-.cmp-cta{display:inline-block;font-family:var(--b-body);font-size:var(--s-type-body);
-  letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
-  padding:0 32px;height:54px;line-height:50px;background:var(--b-green);color:var(--b-cream);
-  border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);box-shadow:var(--s-shadow-hard)}
+.cmp-cta{}
 @media(max-width:699px){
   .cmp-table th,.cmp-table td{padding:10px 4px}
   .cmp-row-h{font-size:13px;width:34%}
@@ -1331,7 +1324,7 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
       <h2>You've read your own chart <span class="rec-tight">a</span> hundred times. Never <span class="rec-hook">theirs<svg viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true"><path d="M62 8C30 11 8 22 6 36c-2 15 22 28 62 30 42 2 96-2 132-13 22-7 26-18 18-26C208 17 178 9 146 6"/></svg></span>.</h2>
       <p class="rec-lead">You know why you need a quiet hour after a crowded day. You know which part of you picks the fight and which part makes up after. You learned it from your own chart, line by line.</p>
       <p class="rec-body">Your child has one too. Same sky, a different night. It says what settles them after a hard day, why bedtime goes the way it goes, and why the two of you clash over the same small thing.</p>
-      <a class="rec-cta" href="#atf" data-rec-cta>Read theirs</a>
+      <a class="wc-cta rec-cta" href="#atf" data-rec-cta>Read theirs</a>
     </div>
     <div class="rec-cluster">
       <figure class="rec-large"><img src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence, absorbed in the animals on the other side" loading="lazy" decoding="async"></figure>
@@ -1408,7 +1401,7 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
         <li class="wi-item"><button type="button" class="wi-row" data-section="w-seen" aria-pressed="false"><span class="wi-num">05</span><span class="wi-label">Being seen</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
         <li class="wi-item"><button type="button" class="wi-row" data-section="w-group" aria-pressed="false"><span class="wi-num">06</span><span class="wi-label">In a group</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
       </ol>
-      <a class="wi-cta" href="#atf" data-wi-cta>Get their Compass · $27</a>
+      <a class="wc-cta wi-cta" href="#atf" data-wi-cta>Get their Compass · $27</a>
       <p class="wi-samples">Read a full sample: <a href="/readings/compass/sample/nora/">Nora</a> <span aria-hidden="true">&middot;</span> <a href="/readings/compass/sample/finn/">Finn</a></p>
     </div>
   </div>
@@ -1460,17 +1453,17 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
     <p class="fa-label">Quick facts:</p>
     <ul class="fa-list">
       <li class="fa-item">
-        <span style="color:var(--b-tan)"><svg class="fa-star" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
+        <span style="color:var(--b-tan)"><svg class="fa-star" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" aria-hidden="true"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
         <p class="fa-line">Ready in minutes</p>
         <p class="fa-line fa-line-2">after you enter their details</p>
       </li>
       <li class="fa-item">
-        <span style="color:var(--b-cream)"><svg class="fa-star" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
+        <span style="color:var(--b-cream)"><svg class="fa-star" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" aria-hidden="true"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
         <p class="fa-line">The whole chart</p>
         <p class="fa-line fa-line-2">read for one child</p>
       </li>
       <li class="fa-item">
-        <span style="color:#DA4635"><svg class="fa-star" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
+        <span style="color:#DA4635"><svg class="fa-star" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" aria-hidden="true"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
         <p class="fa-line">Yours to keep</p>
         <p class="fa-line fa-line-2">to come back to as they grow</p>
       </li>
@@ -1479,9 +1472,6 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
 </div></section>
 
 <section class="s offer-v2-s wc-ground-dark">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
   <div class="ov">
     <div class="ov-left">
       <img src="/assets/img/compass2/offer.webp" width="1200" height="1600" alt="A child in a doorway at the end of the day, boots muddy" loading="lazy" decoding="async">
@@ -1536,7 +1526,7 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
           </label>
         </li>
         </ul>
-        <a class="ov-cta" data-ov-cta href="https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07">Get their Compass · $27</a>
+        <a class="wc-cta wc-cta--full ov-cta" data-ov-cta href="https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07">Get their Compass · $27</a>
         <p class="ov-secure">Secure checkout with Stripe.</p>
         <div class="ov-faq">
           <details class="ov-q" data-ov-q><summary>What if I don't know the exact birth time?</summary><p class="ov-a">It&rsquo;s on the birth certificate, and the hospital keeps it on file. Without it, the reading would be guessing.</p></details>
@@ -1582,7 +1572,7 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
   <div class="pc-wash" aria-hidden="true"></div>
   <div class="pc-inner">
     <h2 class="pc-h">The same night, one layer deeper.</h2>
-    <a class="pc-cta" href="#atf">Get their Compass &middot; $27</a>
+    <a class="wc-cta pc-cta" href="#atf">Get their Compass &middot; $27</a>
   </div>
 </section>
 
@@ -1644,7 +1634,7 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
       </tr>
       </tbody>
     </table>
-    <p class="cmp-act"><a class="cmp-cta" href="#atf">Get their Compass &middot; $27</a></p>
+    <p class="cmp-act"><a class="wc-cta cmp-cta" href="#atf">Get their Compass &middot; $27</a></p>
   </div>
 </div></section>
 

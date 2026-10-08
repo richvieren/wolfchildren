@@ -35,13 +35,7 @@ export const css = `
 .rec-body{font-family:var(--b-body);color:var(--g-text);
   font-size:var(--s-type-body);line-height:var(--s-type-body-lh);
   letter-spacing:var(--s-type-body-ls);max-width:60ch;margin-top:var(--s-space-para)}
-.rec-cta{display:inline-block;margin-top:var(--s-space-block);
-  font-family:var(--b-body);font-size:var(--s-type-body);letter-spacing:.06em;
-  text-transform:uppercase;text-decoration:none;cursor:pointer;
-  padding:0 26px;height:54px;line-height:50px;
-  background:var(--b-green);color:var(--b-cream);
-  border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
-  box-shadow:var(--s-shadow-hard)}
+.rec-cta{margin-top:var(--s-space-block)}
 
 /* the photo cluster: one large photograph, one small one overlapping its lower
    outer corner on a backing card, and two drawn marks. */
@@ -129,7 +123,7 @@ export function markup(copy, settings = {}) {
       <h2>${hook(tighten(copy.h2, copy.tighten), copy.hook)}</h2>
       <p class="rec-lead">${copy.body[0]}</p>
       <p class="rec-body">${copy.body[1]}</p>
-      <a class="rec-cta" href="#atf" data-rec-cta>${copy.cta}</a>
+      <a class="wc-cta rec-cta" href="#atf" data-rec-cta>${copy.cta}</a>
     </div>
     <div class="rec-cluster">
       <figure class="rec-large"><img src="${big.src}" width="${big.w}" height="${big.h}" alt="${big.alt}" loading="lazy" decoding="async"></figure>

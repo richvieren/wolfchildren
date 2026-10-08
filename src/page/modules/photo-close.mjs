@@ -33,13 +33,7 @@ export const css = `
 .pc-h{font-family:var(--b-display);font-weight:400;color:var(--b-cream);
   font-size:clamp(2.2rem,4.8vw,3.8rem);line-height:1.02;letter-spacing:-.035em;
   max-width:16ch;margin:0 auto var(--s-space-block);text-wrap:balance}
-.pc-cta{display:inline-block;white-space:nowrap;font-family:var(--b-body);
-  font-size:var(--s-type-body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
-  padding:0 32px;height:54px;line-height:50px;
-  background:var(--b-green);color:var(--b-cream);
-  border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
-  box-shadow:var(--s-shadow-hard)}
-.pc-cta:hover{filter:brightness(1.08)}
+.pc-cta{position:relative;z-index:2}
 `;
 
 export function markup(copy, settings = {}) {
@@ -50,7 +44,7 @@ export function markup(copy, settings = {}) {
   <div class="pc-wash" aria-hidden="true"></div>
   <div class="pc-inner">
     <h2 class="pc-h">${copy.heading}</h2>
-    <a class="pc-cta" href="#atf">${copy.cta}</a>
+    <a class="wc-cta pc-cta" href="#atf">${copy.cta}</a>
   </div>
 </section>`;
 }
