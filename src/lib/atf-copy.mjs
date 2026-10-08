@@ -14,6 +14,9 @@
 //
 // RULE: copy in here is Richard's, verbatim. Nothing is reworded, shortened or
 // "improved" on the way through. Typos are raised with him, never silently fixed.
+// One exception, on his instruction (2026-10-08): the three `sub` variants were
+// written here, with the copywriting skill and the brand bible's §7 voice. He
+// picks; index 0 is live until he says otherwise. Everything else stays his.
 
 export const SLOTS = {
   announce:   ['Buy two and get one free.'],
@@ -24,7 +27,14 @@ export const SLOTS = {
   // and nothing may be written for Richard (see the RULE above).
   headline:   [`Discover your child's<br>astrology cheat sheet`,
                'The Compass helps you understand and empower your child based on their unique astrology chart.'],
-  sub:        ['The Compass helps you understand and empower your child based on their unique astrology chart.'],
+  // Three options, written 2026-10-08. [0] is live. Outcome, timeframe, how it works.
+  sub: [
+    "Read your child's whole birth chart in plain words, written for you in minutes from their date, time and place of birth.",
+    'One page about your child, written from their date, time and place of birth, and ready to read minutes after you enter them.',
+    'Give their birth details and read one page that says how your child is wired, in plain words, in minutes.',
+  ],
+  // sits directly under the sub line
+  subAlso: ['Without waiting weeks, reading fifty pages or learning astrology yourself.'],
   formLabel:  ['Start with their birth details'],
   fieldDate:  ['Date of birth'],
   fieldTime:  ['Time'],
@@ -32,12 +42,16 @@ export const SLOTS = {
   cta:        ['Get their Compass · $27'],
   under:      ['Or <a href="/readings/compass/sample/nora/">read a whole one free</a> before you decide.'],
   // Each entry is a whole set, so a test can swap the order or the wording together.
+  // 2026-10-08, Richard: the tick list carries the five benefits. The logistics
+  // moved to one small line under the button (see `logistics` below).
   fuds: [[
-    ['One payment', 'of $27. No subscription, nothing recurring.'],
-    ['Ready in minutes', 'delivered straight to your private portal.'],
-    ['Yours to keep', 'come back to it as they grow.'],
-    ['Stays on our server', 'their details are never shared or sold.'],
+    ['Know what actually settles them after a hard day.'],
+    ['Understand why bedtime goes the way it goes.'],
+    ['Stop taking the meltdowns personally.'],
+    ['See where their energy goes, and what drains it.'],
+    ["A page you'll reread as they grow, and still find true."],
   ]],
+  logistics: ['One payment of $27 &middot; Ready in minutes &middot; Yours to keep &middot; Private'],
   stickyName:  ['Compass'],
   stickyPrice: ['$27'],
   stickyCta:   ['Get their Compass'],
