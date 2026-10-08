@@ -1132,14 +1132,15 @@ html,body{overflow-x:clip}
 /* the sky and the sand are bright, so cream type needs a wash under it. It is
    only under the text, from the middle outwards, and the photograph keeps its
    own edges. */
-.pc-wash{position:absolute;left:0;right:0;top:18%;bottom:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(51,61,47,0) 0%,rgba(51,61,47,.52) 46%,rgba(51,61,47,.62) 100%)}
-.pc-inner{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:22ch}
+.pc-wash{position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(62% 52% at 50% 52%,rgba(51,61,47,.66) 0%,rgba(51,61,47,.34) 58%,rgba(51,61,47,0) 100%),
+  linear-gradient(180deg,rgba(51,61,47,.20) 0%,rgba(51,61,47,.10) 38%,rgba(51,61,47,.42) 100%)}
+.pc-inner{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:760px}
 .pc-h{font-family:var(--b-display);font-weight:400;color:var(--b-cream);
   font-size:clamp(2.2rem,4.8vw,3.8rem);line-height:1.02;letter-spacing:-.035em;
-  margin:0 0 var(--s-space-block)}
-.pc-cta{display:inline-block;font-family:var(--b-body);font-size:var(--s-type-body);
-  letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+  max-width:16ch;margin:0 auto var(--s-space-block);text-wrap:balance}
+.pc-cta{display:inline-block;white-space:nowrap;font-family:var(--b-body);
+  font-size:var(--s-type-body);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
   padding:0 32px;height:54px;line-height:50px;
   background:var(--b-green);color:var(--b-cream);
   border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
