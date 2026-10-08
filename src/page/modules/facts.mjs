@@ -16,7 +16,7 @@ const STAR = readFileSync(new URL('../../../assets/img/frames/asterisk-lila.svg'
   .replace('<svg ', '<svg class="fa-star" aria-hidden="true" fill="currentColor" ')
   .trim();
 
-const MARK_COLOURS = ['var(--b-tan)', 'var(--b-cream)', '#DA4635'];
+const MARK_COLOURS = ['var(--b-tan)', 'var(--b-green)', '#DA4635'];
 
 export const css = `
 /* Morning Memories ships three styles; the label is set in the script one.
@@ -25,18 +25,28 @@ export const css = `
 @font-face{font-family:"Morning Memories Script";
   src:url("/assets/fonts/morning-memories-script.woff2") format("woff2");
   font-weight:400;font-display:swap}
-.facts-s{background:#262E23;
+/* 2026-10-08, Richard: cream, with the paper's fibres multiplied over it. The
+   paper is its own layer so its opacity can be set; multiply needs the band to
+   be its own stacking context, or it would blend with the page behind it.
+   paper.png is 768x956 but its fibres stop short of the edges, with clear
+   margins of 18, 51, 46 and 20px, so tiling it leaves cream strips at every
+   seam. paper-tile.png is its fully inked core, columns 50-715 and rows 47-908,
+   666x862, drawn at its own size so the fibres stay sharp. */
+.facts-s{position:relative;isolation:isolate;background:var(--b-cream);
   border-top:2px solid var(--b-tan);border-bottom:2px solid var(--b-tan);
   padding:64px 0}
+.facts-s::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:url(/assets/img/frames/paper-tile.png) repeat 0 0/666px auto;
+  mix-blend-mode:multiply;opacity:.55}
 .fa{display:grid;gap:40px;justify-items:center;text-align:center}
 .fa-label{font-family:"Morning Memories Script",var(--b-display);font-weight:400;
-  color:var(--b-cream);font-size:38px;line-height:1;margin:0}
+  color:var(--b-green);font-size:38px;line-height:1;margin:0}
 .fa-list{list-style:none;margin:0;padding:0;display:grid;gap:40px;width:100%}
 .fa-item{display:grid;gap:14px;justify-items:center;padding:0 24px}
 .fa-star{display:block;width:34px;height:auto}
 .fa-line{font-family:var(--b-body);font-size:13px;line-height:1.5;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--b-cream);margin:0}
-.fa-line-2{color:rgba(223,215,195,.75)}
+  letter-spacing:.18em;text-transform:uppercase;color:var(--b-green);margin:0}
+.fa-line-2{color:rgba(73,85,67,.75)}
 
 /* mobile: the label on top, the facts stacked, a tan rule between them */
 .fa-item + .fa-item{border-top:2px solid var(--b-tan);padding-top:40px}
