@@ -367,8 +367,10 @@ export const atfCss = `
   /* 5 — the carousel in the frame the photographs on this page already wear:
      a cream matte, a tan hairline, and one piece of tape. No crop and no cover;
      the slides are 1400x1050 inside a 4:3 box, so contain fits exactly. */
-  /* the gallery centres against the copy column, not against four of its rows */
-  #atf>.carousel{grid-row:3/span 5;align-self:center;
+  /* the gallery centres against the copy column: rows 3 and 4 are the two text
+     blocks, and the rows after them are the spacer and the sticky bar, which
+     are display:none here. Spanning past them pulled it off centre by 22px. */
+  #atf>.carousel{grid-row:3/5;align-self:center;
     background:var(--s-paper);border:var(--s-frame-border);
     padding:3.5%;overflow:visible}
   #atf .wc-stage{position:relative}
