@@ -50,6 +50,7 @@ export default {
       },
     },
     // 2026-10-07, Richard: the offer block sits on the dark green ground.
+    { id: 'how-it-works', copy: 'A' },
     // the quick-facts band paints its own ground, so the alternation steps over it
     { id: 'facts', copy: 'A' },
     { id: 'offer-v2', copy: 'A', ground: 'dark' },
