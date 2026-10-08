@@ -35,6 +35,10 @@ export const css = `
      page. min() takes whichever is smaller. */
   --wc-wave-h:min(calc(var(--wc-ink) + 40px),25.875vw)}
 .wc-edge-wave{position:relative;z-index:1}
+/* the block above a wave keeps the wave's own height clear at its bottom, so the
+   wave cannot reach anything in it. body > #atf beats the ATF's own #atf rule on
+   specificity, so this holds wherever it sits in the stylesheet. */
+body > #atf{padding-bottom:var(--wc-wave-h)}
 .wc-wave{position:absolute;left:0;right:0;bottom:calc(100% - 2px);
   height:var(--wc-wave-h);background:inherit;pointer-events:none;
   -webkit-mask-image:url(/assets/img/frames/wave-edge.png);

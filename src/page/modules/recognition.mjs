@@ -2,6 +2,8 @@
 // your coach" reference, flipped: the text column on the left, the photo cluster
 // on the right. Self-contained: its own markup, its own CSS from tokens, its own
 // script, and nothing about where it sits. The id is the one it has always had.
+import { GRAIN } from '../edges.mjs';
+
 export const id = 'recognition';
 
 // Every colour, radius, shadow and tilt is a brand (--b-), skin (--s-) or
@@ -9,8 +11,13 @@ export const id = 'recognition';
 export const css = `
 /* the paper: the squared sheet the homepage uses, blended over the ground so a
    dark module stays dark and a light one reads as paper. One token turns it off. */
-.recognition-s{background-image:var(--s-texture);background-size:cover;
-  background-position:center;background-blend-mode:var(--s-texture-blend)}
+/* 2026-10-08, Richard: one gradient with the same grain the wave carries, in
+   place of the dark ground and the squared sheet. The text column is on the
+   left, over the green end. */
+.recognition-s{--rec-gradient:linear-gradient(90deg,#495543,#CDB494);
+  background-image:${GRAIN},var(--rec-gradient);
+  background-size:220px 220px,100% 100%;background-repeat:repeat,no-repeat;
+  background-blend-mode:normal}
 .rec{display:grid;gap:var(--s-space-block)}
 
 /* the text column */

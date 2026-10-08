@@ -17,6 +17,8 @@ export default {
     {
       id: 'recognition',
       copy: 'A',
+      // the wave sits on its top edge and laps over the block above it
+      edge: 'wave',
       settings: {
         // One line to swap the photograph. Three candidates are named in
         // src/page/README.md; all three are portrait, 1200x1600.
@@ -37,8 +39,6 @@ export default {
     {
       id: 'whats-inside',
       copy: 'A',
-      // its contents lag at half the scroll speed while the wave comes over
-      parallax: 0.5,
       settings: {
         // flipped horizontally in CSS so the child faces the phone
         photo: {
@@ -50,7 +50,7 @@ export default {
       },
     },
     // 2026-10-07, Richard: the offer block sits on the dark green ground.
-    { id: 'offer-v2', copy: 'A', ground: 'dark', edge: 'wave' },
+    { id: 'offer-v2', copy: 'A', ground: 'dark' },
     { id: 'footer', copy: 'A' },
   ],
 };
