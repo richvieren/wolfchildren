@@ -825,23 +825,27 @@ html,body{overflow-x:clip}
     align-items:start;gap:0}
 }
 
-.hiw{display:grid;gap:var(--s-space-section);justify-items:center;text-align:center}
+/* 2026-10-08, Richard: half the padding, half the gap under the headline, and
+   the steps as tight as they read. */
+.how-it-works-s{padding:calc(var(--s-space-section) / 2) 0}
+.hiw{display:grid;gap:calc(var(--s-space-section) / 2);justify-items:center;text-align:center}
 .hiw-eyebrow{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
   letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--g-quiet);margin:0}
 .hiw-rule{display:block;width:44px;height:1px;background:var(--b-tan);margin:10px auto 0}
 .hiw-h{font-family:var(--b-display);font-weight:400;color:var(--g-text);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
-  letter-spacing:var(--s-type-display-ls);max-width:none;margin:18px 0 0}
+  letter-spacing:var(--s-type-display-ls);max-width:none;margin:10px 0 0}
 .hiw-steps{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-space-block);width:100%}
-.hiw-step{display:grid;gap:10px;justify-items:center;padding:0 24px}
+.hiw-step{display:grid;gap:6px;justify-items:center;padding:0 24px}
 .hw-star{display:block;width:34px;height:auto;color:var(--b-tan)}
 .hiw-n{font-family:var(--b-body);font-size:var(--s-type-eyebrow);letter-spacing:var(--s-type-eyebrow-ls);
-  color:var(--g-quiet);margin:0}
+  color:var(--g-quiet);margin:-2px 0 0}
 .hiw-t{font-family:var(--b-display);font-weight:400;font-size:22px;line-height:1.1;
   letter-spacing:var(--s-type-display-ls);color:var(--g-text);margin:0}
 .hiw-p{font-family:var(--b-body);font-size:var(--s-type-body);line-height:var(--s-type-body-lh);
   color:var(--g-text);margin:0;max-width:30ch}
 @media(min-width:900px){
+  .how-it-works-s{padding:calc(var(--s-space-section-wide) / 2) 0}
   .hiw-steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:48px}
   .hiw-step{padding:0}
 }
