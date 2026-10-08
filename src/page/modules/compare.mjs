@@ -29,14 +29,21 @@ const CROSS = '<svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-
 export const css = `
 .compare-s{background:var(--b-paper);color:var(--b-green)}
 .cmp{max-width:980px;margin:0 auto}
+/* the skin caps an h2 at 20ch, which left the headline sitting to the left of
+   its own block; it needs the full width to centre. */
 .cmp-h{font-family:var(--b-display);font-weight:400;color:var(--b-green);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
-  letter-spacing:var(--s-type-display-ls);text-align:center;margin:0 0 var(--s-space-section)}
+  letter-spacing:var(--s-type-display-ls);text-align:center;
+  max-width:none;margin:0 auto var(--s-space-section)}
+/* the word for a screen reader, not for the page */
+.cmp-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap;border:0}
 .cmp-table{width:100%;border-collapse:collapse;table-layout:fixed}
 .cmp-table th,.cmp-table td{padding:14px 10px;text-align:center;vertical-align:middle;
   border-bottom:1px solid var(--b-tan)}
 .cmp-table thead th{border-bottom:1px solid var(--b-tan);vertical-align:bottom}
-.cmp-row-h{text-align:left;font-family:var(--b-body);font-weight:400;
+.cmp-table .cmp-row-h{text-align:left}
+.cmp-row-h{font-family:var(--b-body);font-weight:400;
   font-size:var(--s-type-body);line-height:1.35;color:var(--b-green);width:30%}
 .cmp-col{font-family:var(--b-body);font-weight:400;font-size:13px;line-height:1.35;
   color:var(--b-bark)}
@@ -65,7 +72,7 @@ export function markup(copy, settings = {}) {
   const head = COLUMNS.map((c) => `        <th class="cmp-col${c.us ? ' cmp-us' : ''}" scope="col"><b>${c.name}</b>${c.note ? c.note : ''}</th>`).join('\n');
   const body = ROWS.map(([label, cells]) => `      <tr>
         <th class="cmp-row-h" scope="row">${label}</th>
-${cells.map((v, i) => `        <td class="${v ? 'cmp-yes' : 'cmp-no'}${COLUMNS[i].us ? ' cmp-us' : ''}"><span class="sr-only">${v ? 'Yes' : 'No'}</span>${v ? TICK : CROSS}</td>`).join('\n')}
+${cells.map((v, i) => `        <td class="${v ? 'cmp-yes' : 'cmp-no'}${COLUMNS[i].us ? ' cmp-us' : ''}"><span class="cmp-sr">${v ? 'Yes' : 'No'}</span>${v ? TICK : CROSS}</td>`).join('\n')}
       </tr>`).join('\n');
 
   return `<section class="s compare-s${g}"><div class="wrap">
