@@ -539,7 +539,10 @@ html,body{overflow-x:clip}
     align-items:center;justify-content:space-between;gap:12px;
     background:var(--cream);border-bottom:1px solid var(--tan);padding:8px 16px}
   .wc-topbar.on{display:flex}
-  .wc-topbar .mark{position:static;left:auto;top:auto;height:20px;width:46px}
+  .wc-topbar .mark{position:static;left:auto;top:auto;height:20px;width:46px;
+    background:var(--b-green);
+    -webkit-mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain;
+    mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain}
   /* the label sat 2px high: line-height 30px inside a content box of 34px,
      which is the 38px height less the 2px borders top and bottom. */
   .wc-topbar .cta{margin:0;width:auto;height:38px;line-height:34px;
@@ -672,7 +675,12 @@ html,body{overflow-x:clip}
     align-items:center;justify-content:space-between;gap:16px;
     background:var(--cream);border-bottom:1px solid var(--tan);padding:8px 32px}
   .wc-topbar.on{display:flex}
-  .wc-topbar .mark{position:static;left:auto;top:auto;height:22px;width:114px}
+  /* the wordmark: the ATF's own rule is scoped to #atf and the bar now lives on
+     the body, so it carries the mask itself. */
+  .wc-topbar .mark{position:static;left:auto;top:auto;height:22px;width:114px;
+    background:var(--b-green);
+    -webkit-mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain;
+    mask:url("/assets/img/logo/wolfchildren-logo-mask-1200.png") no-repeat left center/contain}
   .wc-topbar .cta{margin:0;width:auto}
   #atf .under{text-align:left}
 
