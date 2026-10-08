@@ -648,8 +648,10 @@ html,body{overflow-x:clip}
      from the section, and line-height 50px inside 54px with 2px borders. */
   #atf .wrap .cta{width:66%;border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
     line-height:50px;box-shadow:var(--s-shadow-hard);margin-top:20px}
-  /* the logistics line wears the button's box: same left edge, same width. */
-  #atf .logistics{width:66%;max-width:66%;text-align:center;margin-top:12px}
+  /* the logistics line centres on the button's centre and holds one line. Its
+     box is the button's, so the text spills evenly past both edges rather than
+     wrapping. */
+  #atf .logistics{width:66%;max-width:66%;text-align:center;white-space:nowrap;margin-top:12px}
   #atf .under{text-align:left}
 
   /* the benefits as a check list rather than a bordered well. 2026-10-08: they
@@ -1044,7 +1046,7 @@ html,body{overflow-x:clip}
   </div>
 
   <h1>Discover your child's<br>astrology cheat sheet</h1>
-  <p class="sub">Read your child's whole birth chart in plain words, written for you in minutes from their date, time and place of birth.</p>
+  <p class="sub">One page about how your child is wired, read from the moment and place they were born. Ready in seconds</p>
   <p class="sub-also">Without waiting weeks, reading fifty pages or learning astrology yourself.</p>
 
   <div class="fuds">

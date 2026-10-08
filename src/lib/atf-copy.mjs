@@ -27,8 +27,11 @@ export const SLOTS = {
   // and nothing may be written for Richard (see the RULE above).
   headline:   [`Discover your child's<br>astrology cheat sheet`,
                'The Compass helps you understand and empower your child based on their unique astrology chart.'],
-  // Three options, written 2026-10-08. [0] is live. Outcome, timeframe, how it works.
+  // [0] is Richard's own, live from 2026-10-08. The three below it were written
+  // here on his instruction that day and stay in the file, unused, so he can
+  // switch one in by moving an index.
   sub: [
+    'One page about how your child is wired, read from the moment and place they were born. Ready in seconds',
     "Read your child's whole birth chart in plain words, written for you in minutes from their date, time and place of birth.",
     'One page about your child, written from their date, time and place of birth, and ready to read minutes after you enter them.',
     'Give their birth details and read one page that says how your child is wired, in plain words, in minutes.',
