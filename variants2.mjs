@@ -149,7 +149,7 @@ function mengtoAtf(html) {
   const label = out.match(/<a class="cta" href="#">([^<]+)<\/a>/);
   if (!label) throw new Error('mengtoAtf: the buy button was not found');
   out += `\n<div class="wc-topbar"><span class="mark"></span>`
-    + `<a class="cta" href="#">${label[1]}</a></div>`;
+    + `<a class="cta wc-cta" href="#">${label[1]}</a></div>`;
 
   const stage = out.match(STAGE);
   if (!stage) throw new Error('mengtoAtf: the carousel stage was not found');

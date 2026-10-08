@@ -356,6 +356,16 @@ export const atfCss = `
      box is the button's, so the text spills evenly past both edges rather than
      wrapping. */
   #atf .logistics{width:66%;max-width:66%;text-align:center;white-space:nowrap;margin-top:12px}
+
+  /* ── the pinned buy bar on desktop. Same element and same observer as the
+     phone's: it appears once the ATF's buy button has passed the top of the
+     window. The logo sits left, the page's standard button right. */
+  #atf .wc-topbar{position:fixed;left:0;right:0;top:0;z-index:50;
+    align-items:center;justify-content:space-between;gap:16px;
+    background:var(--cream);border-bottom:1px solid var(--tan);padding:8px 32px}
+  #atf .wc-topbar.on{display:flex}
+  #atf .wc-topbar .mark{position:static;left:auto;top:auto;height:22px;width:114px}
+  #atf .wc-topbar .cta{margin:0;width:auto}
   #atf .under{text-align:left}
 
   /* the benefits as a check list rather than a bordered well. 2026-10-08: they
