@@ -644,21 +644,29 @@ html,body{overflow-x:clip}
   /* sized so the section's own line break is the only break there is. */
   #atf h1{font-size:clamp(32px,3vw,44px);text-align:left;margin-top:12px}
 
-  #atf .sub{margin-left:0;text-align:left;max-width:46ch;font-size:15px;line-height:1.5}
-  #atf .form{margin-top:20px}
+  /* 2026-10-08, Richard, desktop only: one measure for every text block in the
+     copy column, and one vertical rhythm. 34rem is 544px at the 16px root.
+     Headline 12, subline 10, without 24, benefits 8 apart, label 32, fields 12,
+     button 20, logistics 12. */
+  #atf .sub,#atf .sub-also,#atf .fuds,#atf .logistics{max-width:34rem;margin-left:0;margin-right:0}
+  #atf .sub{text-align:left;font-size:15px;line-height:1.5;color:var(--green);margin-top:12px}
+  #atf .sub-also{text-align:left;font-size:13.5px;line-height:1.45;opacity:.75;margin-top:10px}
+  #atf .form{margin-top:32px}
+  #atf .flabel{margin-bottom:12px}
+  #atf .field.full{margin-top:12px}
   #atf .cta{height:54px;line-height:54px;font-size:16px;border-radius:var(--s-radius-pill)}
   /* 6 — a rectangle with a 6px radius, a dark green outline and a hard shadow
      down and to the right. The label centres on both axes: text-align:center
      from the section, and line-height 50px inside 54px with 2px borders. */
   #atf .wrap .cta{width:66%;border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
-    line-height:50px;box-shadow:var(--s-shadow-hard);
-    /* 1 — the gap under the last field: .cta{margin-top:8px} x 1.5. */
-    margin-top:12px}
+    line-height:50px;box-shadow:var(--s-shadow-hard);margin-top:20px}
+  /* the logistics line wears the button's box: same left edge, same width. */
+  #atf .logistics{width:66%;max-width:66%;text-align:center;margin-top:12px}
   #atf .under{text-align:left}
 
   /* the benefits as a check list rather than a bordered well. 2026-10-08: they
      are the selling list now, so they read at the subline's size. */
-  #atf .fuds{grid-template-columns:1fr;gap:5px;padding:0;border:0;background:none;margin-top:18px}
+  #atf .fuds{grid-template-columns:1fr;gap:8px;padding:0;border:0;background:none;margin-top:24px}
   #atf .fud{font-size:15px;line-height:1.45}
 
   /* 5 — the carousel in the frame the photographs on this page already wear:
@@ -667,7 +675,9 @@ html,body{overflow-x:clip}
   /* 5 — the carousel in the frame the photographs on this page already wear:
      a cream matte, a tan hairline, and one piece of tape. No crop and no cover;
      the slides are 1400x1050 inside a 4:3 box, so contain fits exactly. */
-  #atf>.carousel{background:var(--s-paper);border:var(--s-frame-border);
+  /* the gallery centres against the copy column, not against four of its rows */
+  #atf>.carousel{grid-row:3/span 5;align-self:center;
+    background:var(--s-paper);border:var(--s-frame-border);
     padding:3.5%;overflow:visible}
   #atf .wc-stage{position:relative}
   /* the dots leave the photograph and sit in the flow, above the strip, so the
