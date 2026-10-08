@@ -33,7 +33,7 @@ import { BASE, FONTS, auditShared, writeVariant } from './variants.mjs';
 // The reviews are invented. They are marked data-placeholder="review" and a test
 // fails if that attribute ever reaches readings/compass/index.html.
 
-const WC_REVIEWS = [
+export const WC_REVIEWS = [
   { q: 'I read it twice in one sitting. It described the bedtime battle we have been having for two years, and then told me what sits underneath it.',
     by: 'Marieke D.' },
   { q: 'I expected something vague. What came back was specific enough that I read parts of it out loud to my partner.',

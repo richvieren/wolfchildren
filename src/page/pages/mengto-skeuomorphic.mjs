@@ -54,6 +54,9 @@ export default {
     // the quick-facts band paints its own ground, so the alternation steps over it
     { id: 'facts', copy: 'A' },
     { id: 'offer-v2', copy: 'A', ground: 'dark' },
+    { id: 'testimonials', copy: 'A' },
+    // built, and hidden until the films exist: settings.show turns it on
+    { id: 'videos', copy: 'A', settings: { show: false } },
     {
       id: 'photo-close',
       copy: 'A',
