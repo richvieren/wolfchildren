@@ -1044,6 +1044,31 @@ html,body{overflow-x:clip}
   .wi-text{position:static;margin-left:calc(50% + var(--wi-phone-w) / 2 + 48px)}
 }
 
+.facts-s{background:#262E23;
+  border-top:2px solid var(--b-tan);border-bottom:2px solid var(--b-tan);
+  padding:64px 0}
+.fa{display:grid;gap:40px;justify-items:center;text-align:center}
+.fa-label{font-family:var(--b-display);font-weight:400;color:var(--b-cream);
+  font-size:32px;line-height:1;margin:0}
+.fa-list{list-style:none;margin:0;padding:0;display:grid;gap:40px;width:100%}
+.fa-item{display:grid;gap:14px;justify-items:center;padding:0 24px}
+.fa-star{display:block;width:26px;height:26px}
+.fa-line{font-family:var(--b-body);font-size:13px;line-height:1.5;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--b-cream);margin:0}
+.fa-line-2{color:rgba(223,215,195,.75)}
+
+/* mobile: the label on top, the facts stacked, a tan rule between them */
+.fa-item + .fa-item{border-top:2px solid var(--b-tan);padding-top:40px}
+
+@media(min-width:900px){
+  .facts-s{padding:76px 0}
+  .fa{grid-template-columns:auto 1fr;gap:56px;align-items:center;justify-items:start;text-align:left}
+  .fa-label{font-size:32px}
+  .fa-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+  .fa-item{padding:0 40px}
+  .fa-item + .fa-item{border-top:0;border-left:2px solid var(--b-tan);padding-top:0}
+}
+
 /* 2026-10-08, Richard: the ground recognition carried until 7749d3c — the dark
    ground with the squared sheet blended over it. The buy box keeps its own
    white card, so its text stays on white. */
@@ -1434,6 +1459,29 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
   });
 })();
 </script>
+
+<section class="s facts-s"><div class="wrap">
+  <div class="fa">
+    <p class="fa-label">Quick facts:</p>
+    <ul class="fa-list">
+      <li class="fa-item">
+        <span style="color:var(--b-tan)"><svg class="fa-star" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
+        <p class="fa-line">Ready in minutes</p>
+        <p class="fa-line fa-line-2">after you enter their details</p>
+      </li>
+      <li class="fa-item">
+        <span style="color:var(--b-cream)"><svg class="fa-star" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
+        <p class="fa-line">The whole chart</p>
+        <p class="fa-line fa-line-2">read for one child</p>
+      </li>
+      <li class="fa-item">
+        <span style="color:#DA4635"><svg class="fa-star" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
+        <p class="fa-line">Yours to keep</p>
+        <p class="fa-line fa-line-2">to come back to as they grow</p>
+      </li>
+    </ul>
+  </div>
+</div></section>
 
 <section class="s offer-v2-s wc-ground-dark">
   <link rel="preconnect" href="https://fonts.googleapis.com">

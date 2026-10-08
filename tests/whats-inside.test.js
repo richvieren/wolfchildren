@@ -162,8 +162,14 @@ test('the two wave edges, and the modules that carry them',
   load((win) => {
     const secs = [...win.document.querySelectorAll('section.s')];
     const ids = secs.map((s) => (s.className.match(/\b([a-z0-9-]+)-s\b/) || [])[1]);
-    assert.deepEqual(ids, ['recognition', 'whats-inside', 'offer-v2', 'photo-close', 'compare'],
+    assert.deepEqual(ids, ['recognition', 'whats-inside', 'facts', 'offer-v2', 'photo-close', 'compare'],
       `the order: ${ids}`);
+    // the quick-facts band: its own ground, its own rules, no wave and no motion
+    const facts = win.document.querySelector('.facts-s');
+    assert.equal(facts.querySelectorAll('.fa-item').length, 3, 'three facts');
+    assert.equal(facts.querySelectorAll('.fa-star').length, 3, 'one mark each');
+    assert.ok(!facts.querySelector('[data-cover]'), 'no wave on the band');
+    assert.ok(!facts.classList.contains('wc-parallax'), 'no motion on the band');
 
     // 1 — the wave belongs to recognition; no parallax anywhere
     const rec = win.document.querySelector('.recognition-s');
@@ -219,6 +225,7 @@ test('the two wave edges, and the modules that carry them',
     assert.match(css2(win), /\.pc\{--pc-over:calc\(25vh \+ 3vw\)/);
     assert.match(js, /p\.mover\.offsetHeight - p\.above\.clientHeight/, 'the lag is clamped to the headroom');
     assert.match(css2(win), /\.compare-s\{[^}]*padding-top:55px/, 'half the space under the second wave');
+    assert.match(css2(win), /\.facts-s\{background:#262E23;\s*border-top:2px solid var\(--b-tan\);border-bottom:2px solid var\(--b-tan\)/);
     assert.ok(!/appendChild\(m\)|className='wc-move'/.test(js), 'no wrapper is built');
 
     // 4 — the offer carries the ground recognition used to have
