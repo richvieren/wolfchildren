@@ -1,17 +1,20 @@
 // facts — the quick-facts band. One row: a label, then three facts separated by
 // tan rules, each under the same hand-drawn asterisk recognition uses.
 // Self-contained: markup, CSS from tokens, no script.
+import { readFileSync } from 'node:fs';
+
 export const id = 'facts';
 
 // it paints its own ground, so it takes none and does not flip the alternation
 export const ground = 'neutral';
 
 // the same stroke as recognition's mark, drawn here in its own colour
-// the same stroke as recognition's, at about twice the weight and a little
-// larger, so it carries at band size
-const STAR = '<svg class="fa-star" viewBox="0 0 40 40" fill="none" stroke="currentColor"'
-  + ' stroke-width="5" stroke-linecap="round" aria-hidden="true">'
-  + '<path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg>';
+// Lila's own asterisk, saved from lila-ray.showit.site/about as
+// assets/img/frames/asterisk-lila.svg and used unredrawn. The file carries no
+// fill, so the colour comes from the CSS, as it does on her page.
+const STAR = readFileSync(new URL('../../../assets/img/frames/asterisk-lila.svg', import.meta.url), 'utf8')
+  .replace('<svg ', '<svg class="fa-star" aria-hidden="true" fill="currentColor" ')
+  .trim();
 
 const MARK_COLOURS = ['var(--b-tan)', 'var(--b-cream)', '#DA4635'];
 
@@ -30,7 +33,7 @@ export const css = `
   color:var(--b-cream);font-size:38px;line-height:1;margin:0}
 .fa-list{list-style:none;margin:0;padding:0;display:grid;gap:40px;width:100%}
 .fa-item{display:grid;gap:14px;justify-items:center;padding:0 24px}
-.fa-star{display:block;width:32px;height:32px}
+.fa-star{display:block;width:34px;height:auto}
 .fa-line{font-family:var(--b-body);font-size:13px;line-height:1.5;
   letter-spacing:.18em;text-transform:uppercase;color:var(--b-cream);margin:0}
 .fa-line-2{color:rgba(223,215,195,.75)}
