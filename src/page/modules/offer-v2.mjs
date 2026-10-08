@@ -11,12 +11,18 @@
 import { CHECKOUT } from './offer-card.mjs';
 
 export const id = 'offer-v2';
+// the stroke recognition draws around a word, here around the tier 3 label
+const RING = '<svg class="ov-ring" viewBox="0 0 220 72" fill="none" stroke="currentColor"'
+  + ' stroke-width="4" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true">'
+  + '<path d="M62 8C30 11 8 22 6 36c-2 15 22 28 62 30 42 2 96-2 132-13 22-7 26-18 18-26'
+  + 'C208 17 178 9 146 6"/></svg>';
+
 
 const TIERS = [
   { key: 'one', name: 'One child', price: '$27', each: null, save: null, note: null },
   { key: 'two', name: 'Two children', price: '$47', each: '$23.50 each', save: 'Save $7', note: null },
   { key: 'three', name: 'Buy two, get one free', price: '$54', each: '$18 each', save: 'Save $27',
-    note: 'Keep one as a gift, or for later' },
+    note: 'Keep one as a gift, or for later', best: 'Best value' },
 ];
 
 const PHOTO = {
@@ -53,6 +59,11 @@ export const css = `
   color:var(--b-green);margin:0 0 20px}
 
 /* the tiers */
+/* the hand-drawn circle around the label on the last tier */
+.ov-best{position:relative;display:inline-block;margin-left:10px;color:var(--b-green);
+  font-family:var(--b-body);font-size:12.5px;line-height:1;white-space:nowrap}
+.ov-ring{position:absolute;left:-.5em;top:50%;transform:translateY(-50%);
+  width:calc(100% + 1em);height:2.1em;overflow:visible;pointer-events:none;color:var(--b-tan)}
 .ov-tiers{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:10px}
 .ov-tier input{position:absolute;opacity:0;width:0;height:0}
 .ov-tier-box{display:grid;grid-template-columns:1fr auto;gap:2px 16px;align-items:center;
@@ -119,7 +130,7 @@ export function markup(copy, settings = {}) {
   const tiers = TIERS.map((t, i) => `        <li class="ov-tier">
           <input type="radio" name="ov-tier" id="ov-${t.key}" value="${t.key}"${i ? '' : ' checked'}>
           <label class="ov-tier-box" for="ov-${t.key}">
-            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>${t.name}</span>
+            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>${t.name}${t.best ? `<span class="ov-best">${t.best}${RING}</span>` : ''}</span>
             <span class="ov-price">${t.price}</span>
             ${t.each || t.save ? `<span class="ov-each">${t.each ? `<span>${t.each}</span>` : ''}${t.save ? `<span class="ov-save">${t.save}</span>` : ''}</span>` : ''}
             ${t.note ? `<span class="ov-note">${t.note}</span>` : ''}
