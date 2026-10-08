@@ -27,8 +27,13 @@ export const GRAIN = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
     background, so the two carry the same gradient at the same width. It laps 2px
     over the section so no hairline can show between them. */
 export const css = `
-:root{--wc-mask-w:115%;--wc-ink:19.0469vw;--wc-wave-h:calc(var(--wc-ink) + 40px);
-  --wc-mask-y:-0.071875vw}
+:root{--wc-mask-w:115%;--wc-ink:19.0469vw;--wc-mask-y:-0.071875vw;
+  /* The mask is drawn 115% x 100vw wide, so it is 115% x 22.5vw = 25.875vw tall.
+     The layer must never be taller than that, or its bottom strip carries no
+     mask and the ground behind shows through: at 390px wide the mask is 100.8px
+     and ink + 40px asks for 114.3px, which left an 8px cream band across the
+     page. min() takes whichever is smaller. */
+  --wc-wave-h:min(calc(var(--wc-ink) + 40px),25.875vw)}
 .wc-edge-wave{position:relative;z-index:1}
 .wc-wave{position:absolute;left:0;right:0;bottom:calc(100% - 2px);
   height:var(--wc-wave-h);background:inherit;pointer-events:none;
