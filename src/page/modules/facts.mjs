@@ -32,7 +32,8 @@ export const css = `
 
 @media(min-width:900px){
   .facts-s{padding:76px 0}
-  .fa{grid-template-columns:auto 1fr;gap:56px;align-items:center;justify-items:start;text-align:left}
+  /* the row sits left to right; each fact still reads centred under its mark */
+  .fa{grid-template-columns:auto 1fr;gap:56px;align-items:center;justify-items:start}
   .fa-label{font-size:32px}
   .fa-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
   .fa-item{padding:0 40px}
