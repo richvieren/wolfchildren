@@ -189,11 +189,17 @@ test('the wave is recognition\'s top edge, and nothing on the page moves',
       'the grain over the gradient');
     assert.ok(!/\.recognition-s\{[^}]*--s-texture/.test(css), 'the squared sheet is gone');
 
-    // 3 — the block above the wave keeps its height clear
-    assert.match(css, /body > #atf\{padding-bottom:var\(--wc-wave-h\)\}/);
+    // 3 — the block above the wave keeps room for it, less its own trailing margin
+    assert.match(css, /body > #atf\{padding-bottom:max\(0px,calc\(var\(--wc-wave-h\) - 105px\)\)\}/);
+    // the ATF itself moves, desktop only, with no wrapper
+    const js = [...win.document.querySelectorAll('script')].map((x) => x.textContent).join('');
+    assert.match(js, /matchMedia\('\(min-width: 900px\)'\)/, 'desktop only');
+    assert.match(js, /window\.innerHeight - wave\.getBoundingClientRect\(\)\.top/,
+      'the lag starts at the wave\'s top edge');
+    assert.ok(!/appendChild\(m\)|className='wc-move'/.test(js), 'no wrapper is built');
 
-    // 4 — the offer: paper, no gradient, no grain, white card
-    assert.match(css, /\.offer-v2-s\{background:var\(--b-paper\)/);
+    // 4 — the offer carries the ground recognition used to have
+    assert.match(css, /\.offer-v2-s\{background-image:var\(--s-texture\)[^}]*background-blend-mode:var\(--s-texture-blend\)/);
     assert.ok(!/--ov-gradient/.test(css), 'no gradient on the offer');
     assert.match(css, /\.ov-box\{[^}]*background:#FFFFFF[^}]*border-radius:16px/);
   });

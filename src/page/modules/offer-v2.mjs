@@ -29,8 +29,12 @@ const PHOTO = {
 };
 
 export const css = `
-/* 2026-10-08, Richard: paper, flat. No gradient and no grain. */
-.offer-v2-s{background:var(--b-paper);padding:0 0 var(--s-space-section)}
+/* 2026-10-08, Richard: the ground recognition carried until 7749d3c — the dark
+   ground with the squared sheet blended over it. The buy box keeps its own
+   white card, so its text stays on white. */
+.offer-v2-s{background-image:var(--s-texture);background-size:cover;
+  background-position:center;background-blend-mode:var(--s-texture-blend);
+  padding:0 0 var(--s-space-section)}
 .ov{display:grid}
 .ov-left{display:grid;place-items:center;padding:32px 24px}
 .ov-left img{display:block;max-width:100%;max-height:80vh;width:auto;height:auto;

@@ -35,10 +35,13 @@ export const css = `
      page. min() takes whichever is smaller. */
   --wc-wave-h:min(calc(var(--wc-ink) + 40px),25.875vw)}
 .wc-edge-wave{position:relative;z-index:1}
-/* the block above a wave keeps the wave's own height clear at its bottom, so the
-   wave cannot reach anything in it. body > #atf beats the ATF's own #atf rule on
-   specificity, so this holds wherever it sits in the stylesheet. */
-body > #atf{padding-bottom:var(--wc-wave-h)}
+/* The block above a wave keeps room for it, less the trailing margin that block
+   already carries: the ATF's last section (.wc-reviews) has 108px of margin
+   under it, so 105px comes off the padding and the wave's first inked pixel
+   lands about 5px under the cards at 1440. max() keeps it at zero on a phone,
+   where the layer is shorter than that margin anyway. body > #atf beats the
+   ATF's own #atf rule on specificity, wherever it sits in the stylesheet. */
+body > #atf{padding-bottom:max(0px,calc(var(--wc-wave-h) - 105px))}
 .wc-wave{position:absolute;left:0;right:0;bottom:calc(100% - 2px);
   height:var(--wc-wave-h);background:inherit;pointer-events:none;
   -webkit-mask-image:url(/assets/img/frames/wave-edge.png);
@@ -119,6 +122,39 @@ export const script = `<script>
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll);
   if(mq && mq.addEventListener) mq.addEventListener('change', function(){ off(); onScroll(); });
+  frame();
+})();
+</script>`;
+
+/** The motion for a wave edge: the block above it moves down at half the scroll
+    speed once the wave's top edge reaches the bottom of the window, so the wave
+    rides up over it. The block itself is moved, not a wrapper, and nothing
+    inside it is restructured. Desktop only: below 900px the ATF carries a fixed
+    header, and a transform would make it a containing block and break it. */
+export const edgeScript = `<script>
+(function(){
+  var wave=document.querySelector('[data-cover]');
+  if(!wave || !wave.parentElement) return;
+  var above=wave.parentElement.previousElementSibling;
+  while(above && !above.getBoundingClientRect().height) above=above.previousElementSibling;
+  if(!above) return;
+  var wide=window.matchMedia ? window.matchMedia('(min-width: 900px)') : null;
+  var still=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var ticking=false;
+  function clear(){ if(above.style.transform) above.style.transform=''; }
+  function frame(){
+    ticking=false;
+    if((wide && !wide.matches) || (still && still.matches)) return clear();
+    var lag=Math.max(0, window.innerHeight - wave.getBoundingClientRect().top) * 0.5;
+    if(lag<=0) return clear();
+    above.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  [wide, still].forEach(function(mq){
+    if(mq && mq.addEventListener) mq.addEventListener('change', function(){ clear(); onScroll(); });
+  });
   frame();
 })();
 </script>`;

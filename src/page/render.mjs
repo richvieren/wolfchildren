@@ -95,7 +95,8 @@ export async function render(config) {
   // each half of the edge layer ships only to a page that asks for it
   const edgeCss = (config.modules.some((m) => m.edge) ? edges.css : '')
     + (config.modules.some((m) => m.parallax) ? edges.motionCss : '');
-  const edgeJs = config.modules.some((m) => m.parallax) ? edges.script : '';
+  const edgeJs = (config.modules.some((m) => m.edge) ? edges.edgeScript : '')
+    + (config.modules.some((m) => m.parallax) ? edges.script : '');
   const atf = resolveAtf(config.atf?.cell ?? 'control');
   const section = theme.atfV2 ? theme.atfV2(atfMarkup(atf)) : atfMarkup(atf);
 
