@@ -101,15 +101,18 @@ h1{margin:4px 0 0;font-family:"Morning Memories",Georgia,serif;font-weight:400;
 .under a{color:var(--bark)}
 
 /* 8 reassurance */
-.fuds{margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-radius:4px;
-  display:grid;grid-template-columns:1fr;gap:7px 12px}
+/* 2026-10-08, Richard: the benefits are the ATF's selling list, so they sit
+   under the sub line at its size and colour. No box around them. */
+.fuds{margin:14px 0 0;display:grid;grid-template-columns:1fr;gap:7px 12px;
+  max-width:48ch;margin-inline:auto;text-align:left}
 /* the sub line's second half, and the logistics under the button */
 .sub-also{margin-top:6px}
 .logistics{margin:7px 0 0;text-align:center;font-size:11.5px;color:var(--muted)}
-.fud{display:grid;grid-template-columns:12px 1fr;gap:6px;font-size:10.5px;line-height:1.28;color:var(--muted)}
+.fud{display:grid;grid-template-columns:14px 1fr;gap:8px;font-size:13.5px;line-height:1.36;
+  letter-spacing:-.01em;color:var(--muted)}
 .fud b{color:var(--green);font-weight:400}
-.tick{width:12px;height:12px;margin-top:1px;border:1px solid var(--bark);border-radius:50%;position:relative}
-.tick:after{content:"";position:absolute;left:3.5px;top:1.5px;width:3px;height:6px;
+.tick{width:14px;height:14px;margin-top:3px;border:1px solid var(--bark);border-radius:50%;position:relative}
+.tick:after{content:"";position:absolute;left:4px;top:2px;width:3.5px;height:7px;
   border-right:1.5px solid var(--bark);border-bottom:1.5px solid var(--bark);transform:rotate(42deg)}
 
 /* 9 sticky bar */
@@ -140,6 +143,10 @@ export const atfMarkup = (T) => `
   <h1>${T.headline}</h1>
   <p class="sub">${T.sub}</p>
   <p class="sub-also">${T.subAlso}</p>
+
+  <div class="fuds">
+    ${T.fuds.map(([h, t]) => `<p class="fud"><span class="tick"></span><span>${t ? `<b>${h}</b> ${t}` : h}</span></p>`).join('\n    ')}
+  </div>
 </div>
 
 <div class="carousel">
@@ -167,10 +174,6 @@ export const atfMarkup = (T) => `
   <p class="under">${T.under}</p>
 
   <p class="logistics">${T.logistics}</p>
-
-  <div class="fuds">
-    ${T.fuds.map(([h, t]) => `<p class="fud"><span class="tick"></span><span>${t ? `<b>${h}</b> ${t}` : h}</span></p>`).join('\n    ')}
-  </div>
 </div>
 
 <div class="spacer"></div>
@@ -275,7 +278,8 @@ export function atfDesktopCss(root = 'body') {
   ${R} .sub{margin-left:0;text-align:left;max-width:44ch;font-size:15px;line-height:1.45}
   ${R} .form{margin-top:22px}
   ${R} .cta{height:54px;line-height:54px;font-size:16px}
-  ${R} .fuds{grid-template-columns:1fr;gap:9px 18px;padding:14px 16px}
+  ${R} .fuds{grid-template-columns:1fr;gap:9px;margin-left:0;max-width:44ch}
+  ${R} .fud{font-size:15px;line-height:1.45}
   ${R} .spacer,${R} .sticky{display:none}
   ${R} .mark{left:0;top:26px;height:30px;width:156px}
 }`;

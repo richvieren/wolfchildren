@@ -380,14 +380,15 @@ html,body{overflow-x:clip}
   letter-spacing:.06em;text-align:center;text-decoration:none}
 #atf .under{margin-top:7px;text-align:center;font-size:11.5px;color:var(--muted)}
 #atf .under a{color:var(--bark)}
-#atf .fuds{margin:12px 0 0;padding:10px 12px;border:1px solid var(--line);border-radius:4px;
-  display:grid;grid-template-columns:1fr;gap:7px 12px}
+#atf .fuds{margin:14px 0 0;display:grid;grid-template-columns:1fr;gap:7px 12px;
+  max-width:48ch;margin-inline:auto;text-align:left}
 #atf .sub-also{margin-top:6px}
 #atf .logistics{margin:7px 0 0;text-align:center;font-size:11.5px;color:var(--muted)}
-#atf .fud{display:grid;grid-template-columns:12px 1fr;gap:6px;font-size:10.5px;line-height:1.28;color:var(--muted)}
+#atf .fud{display:grid;grid-template-columns:14px 1fr;gap:8px;font-size:13.5px;line-height:1.36;
+  letter-spacing:-.01em;color:var(--muted)}
 #atf .fud b{color:var(--green);font-weight:400}
-#atf .tick{width:12px;height:12px;margin-top:1px;border:1px solid var(--bark);border-radius:50%;position:relative}
-#atf .tick:after{content:"";position:absolute;left:3.5px;top:1.5px;width:3px;height:6px;
+#atf .tick{width:14px;height:14px;margin-top:3px;border:1px solid var(--bark);border-radius:50%;position:relative}
+#atf .tick:after{content:"";position:absolute;left:4px;top:2px;width:3.5px;height:7px;
   border-right:1.5px solid var(--bark);border-bottom:1.5px solid var(--bark);transform:rotate(42deg)}
 #atf .sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(223,215,195,.96);
   border-top:1px solid var(--line);padding:9px 20px;display:flex;align-items:center;gap:12px;
@@ -426,7 +427,8 @@ html,body{overflow-x:clip}
   #atf .sub{margin-left:0;text-align:left;max-width:44ch;font-size:15px;line-height:1.45}
   #atf .form{margin-top:22px}
   #atf .cta{height:54px;line-height:54px;font-size:16px}
-  #atf .fuds{grid-template-columns:1fr;gap:9px 18px;padding:14px 16px}
+  #atf .fuds{grid-template-columns:1fr;gap:9px;margin-left:0;max-width:44ch}
+  #atf .fud{font-size:15px;line-height:1.45}
   #atf .spacer,#atf .sticky{display:none}
   #atf .mark{left:0;top:26px;height:30px;width:156px}
 }
@@ -1242,6 +1244,14 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
   <h1>The Compass helps you understand and empower your child based on their unique astrology chart.</h1>
   <p class="sub">Read your child's whole birth chart in plain words, written for you in minutes from their date, time and place of birth.</p>
   <p class="sub-also">Without waiting weeks, reading fifty pages or learning astrology yourself.</p>
+
+  <div class="fuds">
+    <p class="fud"><span class="tick"></span><span>Know what actually settles them after a hard day.</span></p>
+    <p class="fud"><span class="tick"></span><span>Understand why bedtime goes the way it goes.</span></p>
+    <p class="fud"><span class="tick"></span><span>Stop taking the meltdowns personally.</span></p>
+    <p class="fud"><span class="tick"></span><span>See where their energy goes, and what drains it.</span></p>
+    <p class="fud"><span class="tick"></span><span>A page you'll reread as they grow, and still find true.</span></p>
+  </div>
 </div>
 
 <div class="carousel"><img class="wc-tape" src="/assets/img/frames/tape-1.png" alt="" aria-hidden="true" width="447" height="108">
@@ -1270,14 +1280,6 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
   <a class="cta" href="#">Get their Compass · $27</a>
 
   <p class="logistics">One payment of $27 &middot; Ready in minutes &middot; Yours to keep &middot; Private</p>
-
-  <div class="fuds">
-    <p class="fud"><span class="tick"></span><span>Know what actually settles them after a hard day.</span></p>
-    <p class="fud"><span class="tick"></span><span>Understand why bedtime goes the way it goes.</span></p>
-    <p class="fud"><span class="tick"></span><span>Stop taking the meltdowns personally.</span></p>
-    <p class="fud"><span class="tick"></span><span>See where their energy goes, and what drains it.</span></p>
-    <p class="fud"><span class="tick"></span><span>A page you'll reread as they grow, and still find true.</span></p>
-  </div>
 </div>
 
 
