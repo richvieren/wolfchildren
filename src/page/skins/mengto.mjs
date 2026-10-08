@@ -129,7 +129,7 @@ export const atfCss = `
 #atf .wc-rating,#atf .wc-reviews,#atf .wc-tape,#atf .wc-thumbs{display:none}
 /* The pinned header is hidden everywhere and shown only below 900px, so no
    desktop rule is needed for it at all. */
-#atf .wc-topbar{display:none}
+.wc-topbar{display:none}
 /* ── 1. The announce bar is flush to the top of the window, at every width ──
    Every box above it, with its value:
      html            no rule here and no UA margin              0
@@ -227,14 +227,14 @@ export const atfCss = `
 
   /* ── 4. the slim pinned header, shown by the observer when the buy button
      has left the screen. The announce bar is not part of it. */
-  #atf .wc-topbar{position:fixed;left:0;right:0;top:0;z-index:5;
+  .wc-topbar{position:fixed;left:0;right:0;top:0;z-index:5;
     align-items:center;justify-content:space-between;gap:12px;
     background:var(--cream);border-bottom:1px solid var(--tan);padding:8px 16px}
-  #atf .wc-topbar.on{display:flex}
-  #atf .wc-topbar .mark{position:static;left:auto;top:auto;height:20px;width:46px}
+  .wc-topbar.on{display:flex}
+  .wc-topbar .mark{position:static;left:auto;top:auto;height:20px;width:46px}
   /* the label sat 2px high: line-height 30px inside a content box of 34px,
      which is the 38px height less the 2px borders top and bottom. */
-  #atf .wc-topbar .cta{margin:0;width:auto;height:38px;line-height:34px;
+  .wc-topbar .cta{margin:0;width:auto;height:38px;line-height:34px;
     padding:0 16px;font-size:12px;border:var(--s-hard-border);border-radius:var(--s-radius-btn-hard);
     box-shadow:var(--s-shadow-hard)}
 
@@ -360,12 +360,12 @@ export const atfCss = `
   /* ── the pinned buy bar on desktop. Same element and same observer as the
      phone's: it appears once the ATF's buy button has passed the top of the
      window. The logo sits left, the page's standard button right. */
-  #atf .wc-topbar{position:fixed;left:0;right:0;top:0;z-index:50;
+  .wc-topbar{position:fixed;left:0;right:0;top:0;z-index:50;
     align-items:center;justify-content:space-between;gap:16px;
     background:var(--cream);border-bottom:1px solid var(--tan);padding:8px 32px}
-  #atf .wc-topbar.on{display:flex}
-  #atf .wc-topbar .mark{position:static;left:auto;top:auto;height:22px;width:114px}
-  #atf .wc-topbar .cta{margin:0;width:auto}
+  .wc-topbar.on{display:flex}
+  .wc-topbar .mark{position:static;left:auto;top:auto;height:22px;width:114px}
+  .wc-topbar .cta{margin:0;width:auto}
   #atf .under{text-align:left}
 
   /* the benefits as a check list rather than a bordered well. 2026-10-08: they

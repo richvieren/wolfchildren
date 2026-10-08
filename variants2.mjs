@@ -101,6 +101,10 @@ const MENGTO_THUMB_JS = `
 (function(){
   var bar=document.querySelector('.wc-topbar'), btn=document.querySelector('.wrap .cta');
   if(!bar||!btn||!('IntersectionObserver' in window)) return;
+  // #atf is moved by the parallax on desktop, and a transformed ancestor is the
+  // containing block for a fixed child, so the bar would scroll away with it.
+  // It lives on the body instead; its rules are not scoped to #atf.
+  if(bar.parentElement!==document.body) document.body.appendChild(bar);
   // Off screen is not enough: with the photograph first the button starts below
   // the fold, which is also not intersecting. The header belongs to the state
   // where the button has gone past the TOP of the viewport, so the test is its
