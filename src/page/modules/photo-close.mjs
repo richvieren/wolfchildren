@@ -33,6 +33,9 @@ export const css = `
 .pc-h{font-family:var(--b-display);font-weight:400;color:var(--b-cream);
   font-size:clamp(2.2rem,4.8vw,3.8rem);line-height:1.02;letter-spacing:-.035em;
   max-width:16ch;margin:0 auto var(--s-space-block);text-wrap:balance}
+/* the three prices, one line under the headline */
+.pc-prices{font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.5;
+  color:var(--b-cream);margin:0 0 var(--s-space-block)}
 .pc-cta{position:relative;z-index:2}
 `;
 
@@ -44,6 +47,7 @@ export function markup(copy, settings = {}) {
   <div class="pc-wash" aria-hidden="true"></div>
   <div class="pc-inner">
     <h2 class="pc-h">${copy.heading}</h2>
+    <p class="pc-prices">${copy.prices}</p>
     <a class="wc-cta pc-cta" href="#atf">${copy.cta}</a>
   </div>
 </section>`;

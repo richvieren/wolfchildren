@@ -1253,6 +1253,9 @@ html,body{overflow-x:clip}
 .pc-h{font-family:var(--b-display);font-weight:400;color:var(--b-cream);
   font-size:clamp(2.2rem,4.8vw,3.8rem);line-height:1.02;letter-spacing:-.035em;
   max-width:16ch;margin:0 auto var(--s-space-block);text-wrap:balance}
+/* the three prices, one line under the headline */
+.pc-prices{font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.5;
+  color:var(--b-cream);margin:0 0 var(--s-space-block)}
 .pc-cta{position:relative;z-index:2}
 
 /* 2026-10-08, Richard: half the space between the wave and the headline. The
@@ -1735,6 +1738,7 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
   <div class="pc-wash" aria-hidden="true"></div>
   <div class="pc-inner">
     <h2 class="pc-h">The same night, one layer deeper.</h2>
+    <p class="pc-prices">One child $27 &middot; Two children $47 &middot; Three for $54</p>
     <a class="wc-cta pc-cta" href="#atf">Get their Compass &middot; $27</a>
   </div>
 </section>
