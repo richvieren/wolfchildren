@@ -145,7 +145,13 @@ export const edgeScript = `<script>
   function frame(){
     ticking=false;
     if((wide && !wide.matches) || (still && still.matches)) return clear();
-    var lag=Math.max(0, window.innerHeight - wave.getBoundingClientRect().top) * 0.5;
+    // the scroll position at which the wave's top edge meets the bottom of the
+    // window. On a tall window that moment is already behind the top of the
+    // page, so it is clamped to 0: without that the block starts out moved and
+    // leaves a strip above it.
+    var waveTop=wave.getBoundingClientRect().top + window.scrollY;
+    var trigger=Math.max(0, waveTop - window.innerHeight);
+    var lag=Math.max(0, window.scrollY - trigger) * 0.5;
     if(lag<=0) return clear();
     above.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
   }

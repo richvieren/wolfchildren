@@ -194,8 +194,10 @@ test('the wave is recognition\'s top edge, and nothing on the page moves',
     // the ATF itself moves, desktop only, with no wrapper
     const js = [...win.document.querySelectorAll('script')].map((x) => x.textContent).join('');
     assert.match(js, /matchMedia\('\(min-width: 900px\)'\)/, 'desktop only');
-    assert.match(js, /window\.innerHeight - wave\.getBoundingClientRect\(\)\.top/,
-      'the lag starts at the wave\'s top edge');
+    assert.match(js, /var trigger=Math\.max\(0, waveTop - window\.innerHeight\)/,
+      'the lag starts when the wave\'s top edge meets the bottom of the window');
+    assert.match(js, /var lag=Math\.max\(0, window\.scrollY - trigger\) \* 0\.5/,
+      'half the scroll speed, nothing before the trigger');
     assert.ok(!/appendChild\(m\)|className='wc-move'/.test(js), 'no wrapper is built');
 
     // 4 — the offer carries the ground recognition used to have
