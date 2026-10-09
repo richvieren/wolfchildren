@@ -37,7 +37,7 @@ export const SLOTS = {
     'Give their birth details and read one page that says how your child is wired, in plain words, in minutes.',
   ],
   // sits directly under the sub line
-  subAlso: ['Without waiting weeks, reading fifty pages or learning astrology yourself.'],
+  subAlso: ['Without reading fifty pages or learning astrology yourself.'],
   formLabel:  ['Start with their birth details'],
   fieldDate:  ['Date of birth'],
   fieldTime:  ['Time'],
