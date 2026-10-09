@@ -1453,10 +1453,10 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
 </script></div>
 
 <section class="s recognition-s wc-ground-dark wc-edge-wave">
-  <div class="wc-wave" data-cover aria-hidden="true"></div><div class="wrap">
+  <div class="wc-wave" data-cover data-speed="0.3" aria-hidden="true"></div><div class="wrap">
   <div class="rec">
     <div class="rec-text">
-      <p class="rec-eyebrow">Your chart, then theirs</p><span class="rec-rule"></span>
+      <p class="rec-eyebrow">THEIR TURN</p><span class="rec-rule"></span>
       <h2>You've read your own chart <span class="rec-tight">a</span> hundred times. Never <span class="rec-hook">theirs<svg viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true"><path d="M62 8C30 11 8 22 6 36c-2 15 22 28 62 30 42 2 96-2 132-13 22-7 26-18 18-26C208 17 178 9 146 6"/></svg></span>.</h2>
       <p class="rec-lead">You know why you need a quiet hour after a crowded day. You know which part of you picks the fight and which part makes up after. You learned it from your own chart, line by line.</p>
       <p class="rec-body">Your child has one too. Same sky, a different night. It says what settles them after a hard day, why bedtime goes the way it goes, and why the two of you clash over the same small thing.</p>
@@ -1464,7 +1464,7 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
     </div>
     <div class="rec-cluster">
       <figure class="rec-large"><img src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence, absorbed in the animals on the other side" loading="lazy" decoding="async"></figure>
-      <span class="rec-mark rec-mark-star" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
+      <span class="rec-mark rec-mark-star" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="4.8" stroke-linecap="round"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
       <figure class="rec-small"><span class="rec-small-backing" aria-hidden="true"></span>
         <span class="rec-slides"><img class="on" src="/assets/img/compass2/reason-3.webp" width="1200" height="1600" alt="A child running across grass towards the trees" loading="lazy" decoding="async"><img class="" src="/assets/img/compass2/reason-4.webp" width="1200" height="1600" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="" src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
       </figure>
@@ -1902,7 +1902,8 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
       // leaves a strip above it.
       var waveTop=p.wave.getBoundingClientRect().top + window.scrollY;
       var trigger=Math.max(0, waveTop - window.innerHeight);
-      var speed=parseFloat(p.mover.getAttribute('data-speed')) || 0.5;
+      // the mover's own speed, else the speed the wave was given, else 0.5
+      var speed=parseFloat(p.mover.getAttribute('data-speed')) || parseFloat(p.wave.getAttribute('data-speed')) || 0.5;
       var lag=Math.max(0, window.scrollY - trigger) * speed;
       // a photograph never slides further than its own headroom
       if(p.mover!==p.above){

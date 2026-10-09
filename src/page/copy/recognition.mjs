@@ -7,7 +7,7 @@ import { C } from '../../lib/compass-copy.mjs';
 
 export const variants = {
   A: {
-    eyebrow: 'Your chart, then theirs',
+    eyebrow: 'THEIR TURN',
     // the word the drawn ring sits around; the headline itself is untouched
     hook: 'theirs',
     // the word pair whose gap reads wide in Morning Memories at display size

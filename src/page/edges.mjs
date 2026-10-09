@@ -168,7 +168,8 @@ export const edgeScript = `<script>
       // leaves a strip above it.
       var waveTop=p.wave.getBoundingClientRect().top + window.scrollY;
       var trigger=Math.max(0, waveTop - window.innerHeight);
-      var speed=parseFloat(p.mover.getAttribute('data-speed')) || 0.5;
+      // the mover's own speed, else the speed the wave was given, else 0.5
+      var speed=parseFloat(p.mover.getAttribute('data-speed')) || parseFloat(p.wave.getAttribute('data-speed')) || 0.5;
       var lag=Math.max(0, window.scrollY - trigger) * speed;
       // a photograph never slides further than its own headroom
       if(p.mover!==p.above){

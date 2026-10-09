@@ -85,8 +85,10 @@ export async function render(config) {
       ? html.replace(/^<section([^>]*)>/, `<section$1 data-parallax="${m.parallax}">`)
       : html;
     // the wave is a layer of its own, put in by the page, never a mask on a module
+    // edgeSpeed: how fast the block above this wave moves (the script's default is 0.5)
+    const speedAttr = m.edgeSpeed ? ` data-speed="${m.edgeSpeed}"` : '';
     return m.edge
-      ? withSpeed.replace(/^(<section[^>]*>)/, '$1\n  <div class="wc-wave" data-cover aria-hidden="true"></div>')
+      ? withSpeed.replace(/^(<section[^>]*>)/, `$1\n  <div class="wc-wave" data-cover${speedAttr} aria-hidden="true"></div>`)
       : withSpeed;
   }).join('\n\n');
 
