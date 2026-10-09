@@ -128,6 +128,10 @@ footer{padding:56px 0}
 /* the only thing a context may change is the width */
 .wc-cta--full{display:block;width:100%;padding:0}
 
+.wc-hl{position:relative;display:inline-block;z-index:0;color:#2F382B}
+.wc-hl::before{content:"";position:absolute;left:-6px;right:-6px;top:40%;bottom:0;z-index:-1;
+  background:rgba(224,160,48,.45);border-radius:3px;transform:rotate(-1deg)}
+
 :root{--wc-mask:url(/assets/img/frames/wave-edge.png);
   --wc-mask-w:115%;--wc-ink:19.0469vw;--wc-mask-y:-0.071875vw;
   /* The mask is drawn 115% x 100vw wide, so it is 115% x 22.5vw = 25.875vw tall.
@@ -771,8 +775,6 @@ html,body{overflow-x:clip}
 .rec-eyebrow{font-family:var(--b-body);color:var(--g-text);
   font-size:var(--s-type-eyebrow);letter-spacing:var(--s-type-eyebrow-ls);
   text-transform:uppercase;line-height:1.4}
-.rec-rule{display:block;width:44px;height:1px;background:var(--b-tan);
-  margin:10px 0 var(--s-space-block)}
 .rec h2{font-family:var(--b-display);font-weight:400;color:var(--g-text);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);max-width:none}
@@ -842,7 +844,6 @@ html,body{overflow-x:clip}
 .hiw{display:grid;gap:calc(var(--s-space-section) / 4);justify-items:center;text-align:center}
 .hiw-eyebrow{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
   letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:#2F382B;margin:0}
-.hiw-rule{display:block;width:44px;height:1px;background:rgba(47,56,43,.4);margin:10px auto 0}
 .hiw-h{font-family:var(--b-display);font-weight:400;color:#2F382B;
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);max-width:none;margin:10px 0 0}
@@ -994,9 +995,7 @@ html,body{overflow-x:clip}
 .wi{position:relative}
 .wi-head{text-align:left}
 .wi-eyebrow{font-family:var(--b-body);color:var(--g-text);font-size:var(--s-type-eyebrow);
-  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0}
-/* the same short rule the other eyebrows carry */
-.wi-rule{display:block;width:44px;height:1px;background:var(--b-tan);margin:10px 0 var(--s-space-para)}
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0 0 var(--s-space-para)}
 .wi-head h2{font-family:var(--b-display);font-weight:400;color:var(--g-text);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);max-width:none;margin:0}
@@ -1260,8 +1259,7 @@ html,body{overflow-x:clip}
 .testimonials-s{border-top:2px solid var(--b-gold);border-bottom:2px solid var(--b-gold)}
 .tm{display:grid;gap:var(--s-space-section);justify-items:center;text-align:center}
 .tm-eyebrow{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
-  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--g-quiet);
-  margin:0;padding-bottom:6px;border-bottom:1px solid var(--b-gold);display:inline-block}
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0}
 .tm-h{font-family:var(--b-display);font-weight:400;color:var(--g-text);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);max-width:none;margin:18px 0 0}
@@ -1462,7 +1460,7 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
   <div class="wc-wave" data-cover data-speed="0.4" aria-hidden="true"></div><div class="wrap">
   <div class="rec">
     <div class="rec-text">
-      <p class="rec-eyebrow">THEIR TURN</p><span class="rec-rule"></span>
+      <p class="rec-eyebrow"><span class="wc-hl">THEIR TURN</span></p>
       <h2>You've read your own chart <span class="rec-tight">a</span> hundred times. Never <span class="rec-hook">theirs<svg viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true"><path d="M62 8C30 11 8 22 6 36c-2 15 22 28 62 30 42 2 96-2 132-13 22-7 26-18 18-26C208 17 178 9 146 6"/></svg></span>.</h2>
       <p class="rec-lead">You know why you need a quiet hour after a crowded day. You know which part of you picks the fight and which part makes up after. You learned it from your own chart, line by line.</p>
       <p class="rec-body">Your child has one too. Same sky, a different night. It says what settles them after a hard day, why bedtime goes the way it goes, and why the two of you clash over the same small thing.</p>
@@ -1514,7 +1512,7 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
 <section class="s how-it-works-s"><div class="wrap">
   <div class="hiw">
     <div>
-      <p class="hiw-eyebrow">The process</p><span class="hiw-rule"></span>
+      <p class="hiw-eyebrow"><span class="wc-hl">The process</span></p>
       <h2 class="hiw-h">How it works</h2>
     </div>
     <ul class="hiw-steps">
@@ -1546,7 +1544,7 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
   <div class="wi">
     <div class="wi-text">
       <div class="wi-head">
-        <p class="wi-eyebrow">Inside their Compass</p><span class="wi-rule"></span>
+        <p class="wi-eyebrow"><span class="wc-hl">Inside their Compass</span></p>
         <h2>How they think, feel, process and love.</h2>
         <p class="wi-sub">Read from their whole chart, in plain words. These are real pieces of a sample reading. Tap one and it opens in the phone.</p>
       </div>
@@ -1741,7 +1739,7 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
 <section class="s testimonials-s wc-ground-light"><div class="wrap">
   <div class="tm">
     <div>
-      <p class="tm-eyebrow">What parents say</p>
+      <p class="tm-eyebrow"><span class="wc-hl">What parents say</span></p>
       <h2 class="tm-h">Real readings, real mornings</h2>
     </div>
     <ul class="tm-list">

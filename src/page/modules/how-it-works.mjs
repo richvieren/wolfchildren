@@ -27,7 +27,6 @@ export const css = `
 .hiw{display:grid;gap:calc(var(--s-space-section) / 4);justify-items:center;text-align:center}
 .hiw-eyebrow{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
   letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:#2F382B;margin:0}
-.hiw-rule{display:block;width:44px;height:1px;background:rgba(47,56,43,.4);margin:10px auto 0}
 .hiw-h{font-family:var(--b-display);font-weight:400;color:#2F382B;
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);max-width:none;margin:10px 0 0}
@@ -63,7 +62,7 @@ export function markup(copy, settings = {}) {
   return `<section class="s how-it-works-s${g}"><div class="wrap">
   <div class="hiw">
     <div>
-      <p class="hiw-eyebrow">${copy.eyebrow}</p><span class="hiw-rule"></span>
+      <p class="hiw-eyebrow"><span class="wc-hl">${copy.eyebrow}</span></p>
       <h2 class="hiw-h">${copy.heading}</h2>
     </div>
     <ul class="hiw-steps">

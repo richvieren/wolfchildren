@@ -24,8 +24,6 @@ export const css = `
 .rec-eyebrow{font-family:var(--b-body);color:var(--g-text);
   font-size:var(--s-type-eyebrow);letter-spacing:var(--s-type-eyebrow-ls);
   text-transform:uppercase;line-height:1.4}
-.rec-rule{display:block;width:44px;height:1px;background:var(--b-tan);
-  margin:10px 0 var(--s-space-block)}
 .rec h2{font-family:var(--b-display);font-weight:400;color:var(--g-text);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);max-width:none}
@@ -119,7 +117,7 @@ export function markup(copy, settings = {}) {
   return `<section class="s recognition-s${g}"><div class="wrap">
   <div class="rec">
     <div class="rec-text">
-      <p class="rec-eyebrow">${copy.eyebrow}</p><span class="rec-rule"></span>
+      <p class="rec-eyebrow"><span class="wc-hl">${copy.eyebrow}</span></p>
       <h2>${hook(tighten(copy.h2, copy.tighten), copy.hook)}</h2>
       <p class="rec-lead">${copy.body[0]}</p>
       <p class="rec-body">${copy.body[1]}</p>

@@ -22,8 +22,7 @@ export const css = `
 .testimonials-s{border-top:2px solid var(--b-gold);border-bottom:2px solid var(--b-gold)}
 .tm{display:grid;gap:var(--s-space-section);justify-items:center;text-align:center}
 .tm-eyebrow{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
-  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--g-quiet);
-  margin:0;padding-bottom:6px;border-bottom:1px solid var(--b-gold);display:inline-block}
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0}
 .tm-h{font-family:var(--b-display);font-weight:400;color:var(--g-text);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);max-width:none;margin:18px 0 0}
@@ -52,7 +51,7 @@ export function markup(copy, settings = {}) {
   return `<section class="s testimonials-s${g}"><div class="wrap">
   <div class="tm">
     <div>
-      <p class="tm-eyebrow">${copy.eyebrow}</p>
+      <p class="tm-eyebrow"><span class="wc-hl">${copy.eyebrow}</span></p>
       <h2 class="tm-h">${copy.heading}</h2>
     </div>
     <ul class="tm-list">

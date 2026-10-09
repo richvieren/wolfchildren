@@ -128,6 +128,10 @@ footer{padding:56px 0}
 /* the only thing a context may change is the width */
 .wc-cta--full{display:block;width:100%;padding:0}
 
+.wc-hl{position:relative;display:inline-block;z-index:0;color:#2F382B}
+.wc-hl::before{content:"";position:absolute;left:-6px;right:-6px;top:40%;bottom:0;z-index:-1;
+  background:rgba(224,160,48,.45);border-radius:3px;transform:rotate(-1deg)}
+
 .wc-parallax{position:relative;isolation:isolate;z-index:0;overflow:hidden;
   padding-top:0;padding-bottom:0}
 /* the wrapper carries the section's own vertical padding, so a full-height
@@ -867,9 +871,7 @@ html,body{overflow-x:clip}
 .wi{position:relative}
 .wi-head{text-align:left}
 .wi-eyebrow{font-family:var(--b-body);color:var(--g-text);font-size:var(--s-type-eyebrow);
-  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0}
-/* the same short rule the other eyebrows carry */
-.wi-rule{display:block;width:44px;height:1px;background:var(--b-tan);margin:10px 0 var(--s-space-para)}
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0 0 var(--s-space-para)}
 .wi-head h2{font-family:var(--b-display);font-weight:400;color:var(--g-text);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);max-width:none;margin:0}
@@ -1150,7 +1152,7 @@ html,body{overflow-x:clip}
   <div class="wi">
     <div class="wi-text">
       <div class="wi-head">
-        <p class="wi-eyebrow">Inside their Compass</p><span class="wi-rule"></span>
+        <p class="wi-eyebrow"><span class="wc-hl">Inside their Compass</span></p>
         <h2>How they think, feel, process and love.</h2>
         <p class="wi-sub">Read from their whole chart, in plain words. These are real pieces of a sample reading. Tap one and it opens in the phone.</p>
       </div>
