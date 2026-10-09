@@ -224,8 +224,8 @@ test('the two wave edges, and the modules that carry them',
       'the speed comes from the element that moves, nothing before the trigger');
     assert.match(js, /parseFloat\(p\.mover\.getAttribute\('data-speed'\)\) \|\| parseFloat\(p\.wave\.getAttribute\('data-speed'\)\) \|\| 0\.5/,
       'the mover\'s speed, else the wave\'s, else 0.5');
-    assert.ok(win.document.querySelector('.recognition-s [data-cover][data-speed="0.3"]'),
-      'the first wave carries the 0.3 for the ATF');
+    assert.ok(win.document.querySelector('.recognition-s [data-cover][data-speed="0.4"]'),
+      'the first wave carries the 0.4 for the ATF');
     // the photograph carries its own speed and never slides past its headroom
     const photo = win.document.querySelector('[data-parallax-photo]');
     assert.ok(photo, 'the photograph is the mover for its section');

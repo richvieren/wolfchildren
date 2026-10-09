@@ -18,9 +18,9 @@ export default {
       id: 'recognition',
       copy: 'A',
       // the wave sits on its top edge and laps over the block above it, which
-      // moves at 0.3 so the testimonial cards stay in view longer
+      // moves at 0.4 so the testimonial cards stay in view longer
       edge: 'wave',
-      edgeSpeed: 0.3,
+      edgeSpeed: 0.4,
       settings: {
         // One line to swap the photograph. Three candidates are named in
         // src/page/README.md; all three are portrait, 1200x1600.
