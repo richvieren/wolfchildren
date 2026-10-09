@@ -161,14 +161,6 @@ export const atfMarkup = (T) => `
 </div>
 
 <div class="wrap">
-  <div class="form">
-    <p class="flabel">${T.formLabel}</p>
-    <div class="row">
-      <span class="field">${T.fieldDate}</span>
-      <span class="field">${T.fieldTime}</span>
-    </div>
-    <span class="field full" style="display:block">${T.fieldPlace}</span>
-  </div>
 
   <a class="cta" href="#">${T.cta}</a>
   <p class="under">${T.under}</p>
