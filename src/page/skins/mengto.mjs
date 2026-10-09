@@ -347,9 +347,10 @@ export const atfCss = `
   #atf .sub,#atf .sub-also,#atf .fuds,#atf .logistics{max-width:34rem;margin-left:0;margin-right:0}
   #atf .sub{text-align:left;font-size:15px;line-height:1.5;color:var(--green);margin-top:12px}
   #atf .sub-also{text-align:left;font-size:13.5px;line-height:1.45;opacity:.75;margin-top:10px}
-  #atf .form{margin-top:32px}
-  #atf .flabel{margin-bottom:12px}
-  #atf .field.full{margin-top:12px}
+  /* 2026-10-09, Richard: no birth-detail fields on desktop. The block stays in
+     the markup for the phone; here it is gone, and the button follows the
+     benefits directly. */
+  #atf .form{display:none}
   #atf .cta{height:54px;line-height:54px;font-size:16px;border-radius:var(--s-radius-pill)}
   /* 6 — a rectangle with a 6px radius, a dark green outline and a hard shadow
      down and to the right. The label centres on both axes: text-align:center
