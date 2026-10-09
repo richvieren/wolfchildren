@@ -7,7 +7,7 @@ export const variants = {
     heading: 'How it works',
     steps: [
       { title: 'Enter their details', line: 'Their date of birth, the time, and the place.' },
-      { title: 'The cauldron', line: 'Their whole chart is read, line by line, into plain words.' },
+      { title: 'The cauldron', line: 'We cook up their Compass from the night they were born.' },
       { title: 'Open their Compass', line: 'One page about your child, waiting in your portal.' },
     ],
   },

@@ -24,7 +24,7 @@ export const css = `
 .how-it-works-s::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:url(/assets/img/frames/paper-kraft.png) repeat 0 0/666px auto;
   mix-blend-mode:multiply;opacity:1}
-.hiw{display:grid;gap:calc(var(--s-space-section) / 2);justify-items:center;text-align:center}
+.hiw{display:grid;gap:calc(var(--s-space-section) / 4);justify-items:center;text-align:center}
 .hiw-eyebrow{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
   letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:#2F382B;margin:0}
 .hiw-rule{display:block;width:44px;height:1px;background:rgba(47,56,43,.4);margin:10px auto 0}
@@ -34,6 +34,10 @@ export const css = `
 .hiw-steps{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-space-block);width:100%}
 .hiw-step{display:grid;gap:6px;justify-items:center;padding:0 24px}
 .hw-star{display:block;width:34px;height:auto;color:#2F382B}
+/* each mark sits at its own angle, like three stamps */
+.hiw-step:nth-child(1) .hw-star{transform:rotate(-12deg)}
+.hiw-step:nth-child(2) .hw-star{transform:rotate(7deg)}
+.hiw-step:nth-child(3) .hw-star{transform:rotate(-3deg)}
 .hiw-n{font-family:var(--b-body);font-size:var(--s-type-eyebrow);letter-spacing:var(--s-type-eyebrow-ls);
   color:#2F382B;margin:-2px 0 0}
 .hiw-t{font-family:var(--b-display);font-weight:400;font-size:22px;line-height:1.1;
