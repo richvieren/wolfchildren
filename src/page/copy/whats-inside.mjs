@@ -3,7 +3,7 @@
 export const variants = {
   A: {
     eyebrow: 'Inside their Compass',
-    h2: 'Everything in it is about them.',
+    h2: 'How they think, feel, process and love.',
     sub: 'Read from their whole chart, in plain words. These are real pieces of a sample reading. Tap one and it opens in the phone.',
     listhead: 'Start with these six',
     cta: 'Get their Compass · $27',

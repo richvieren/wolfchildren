@@ -869,7 +869,9 @@ html,body{overflow-x:clip}
 .wi{position:relative}
 .wi-head{text-align:left}
 .wi-eyebrow{font-family:var(--b-body);color:var(--g-text);font-size:var(--s-type-eyebrow);
-  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0 0 var(--s-space-para)}
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0}
+/* the same short rule the other eyebrows carry */
+.wi-rule{display:block;width:44px;height:1px;background:var(--b-tan);margin:10px 0 var(--s-space-para)}
 .wi-head h2{font-family:var(--b-display);font-weight:400;color:var(--g-text);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);max-width:none;margin:0}
@@ -1158,8 +1160,8 @@ html,body{overflow-x:clip}
   <div class="wi">
     <div class="wi-text">
       <div class="wi-head">
-        <p class="wi-eyebrow">Inside their Compass</p>
-        <h2>Everything in it is about them.</h2>
+        <p class="wi-eyebrow">Inside their Compass</p><span class="wi-rule"></span>
+        <h2>How they think, feel, process and love.</h2>
         <p class="wi-sub">Read from their whole chart, in plain words. These are real pieces of a sample reading. Tap one and it opens in the phone.</p>
       </div>
     <div class="wi-phone">

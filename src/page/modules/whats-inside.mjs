@@ -44,7 +44,9 @@ export const css = `${WIDGET_CSS}
 .wi{position:relative}
 .wi-head{text-align:left}
 .wi-eyebrow{font-family:var(--b-body);color:var(--g-text);font-size:var(--s-type-eyebrow);
-  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0 0 var(--s-space-para)}
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0}
+/* the same short rule the other eyebrows carry */
+.wi-rule{display:block;width:44px;height:1px;background:var(--b-tan);margin:10px 0 var(--s-space-para)}
 .wi-head h2{font-family:var(--b-display);font-weight:400;color:var(--g-text);
   font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
   letter-spacing:var(--s-type-display-ls);max-width:none;margin:0}
@@ -175,7 +177,7 @@ export function markup(copy, settings = {}) {
   <div class="wi">
     <div class="wi-text">
       <div class="wi-head">
-        <p class="wi-eyebrow">${copy.eyebrow}</p>
+        <p class="wi-eyebrow">${copy.eyebrow}</p><span class="wi-rule"></span>
         <h2>${copy.h2}</h2>
         <p class="wi-sub">${copy.sub}</p>
       </div>
