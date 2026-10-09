@@ -46,12 +46,16 @@ export const css = `
   mix-blend-mode:multiply;opacity:1}
 .fa{display:grid;gap:40px;justify-items:center;text-align:center}
 .fa-label{font-family:"Morning Memories Script",var(--b-display);font-weight:400;
-  color:#2F382B;font-size:38px;line-height:1;margin:0}
+  color:#2F382B;font-size:57px;line-height:1;margin:0}
 .fa-list{list-style:none;margin:0;padding:0;display:grid;gap:40px;width:100%}
 .fa-item{display:grid;gap:14px;justify-items:center;padding:0 24px}
 .fa-star{display:block;width:34px;height:auto}
 .fa-line{font-family:var(--b-body);font-size:13px;line-height:1.5;
-  letter-spacing:.18em;text-transform:uppercase;color:#2F382B;margin:0}
+  letter-spacing:.18em;color:#2F382B;margin:0}
+/* each mark at its own angle */
+.fa-item:nth-child(1) .fa-star{transform:rotate(9deg)}
+.fa-item:nth-child(2) .fa-star{transform:rotate(-14deg)}
+.fa-item:nth-child(3) .fa-star{transform:rotate(4deg)}
 .fa-line-2{color:rgba(47,56,43,.75)}
 
 /* mobile: the label on top, the facts stacked, a tan rule between them */
@@ -61,7 +65,7 @@ export const css = `
   .facts-s{padding:76px 0}
   /* the row sits left to right; each fact still reads centred under its mark */
   .fa{grid-template-columns:auto 1fr;gap:56px;align-items:center;justify-items:start}
-  .fa-label{font-size:38px}
+  .fa-label{font-size:57px}
   .fa-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
   .fa-item{padding:0 40px}
   .fa-item + .fa-item{border-top:0;border-left:2px solid rgba(47,56,43,.4);padding-top:0}

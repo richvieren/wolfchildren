@@ -3,9 +3,9 @@ export const variants = {
   A: {
     label: 'Quick facts:',
     facts: [
-      ['Ready in minutes', 'after you enter their details'],
-      ['The whole chart', 'read for one child'],
-      ['Yours to keep', 'to come back to as they grow'],
+      ['Ready in minutes', 'After you enter their details'],
+      ['The whole chart', 'Read for one child'],
+      ['Yours to keep', 'To come back to as they grow'],
     ],
   },
 };
