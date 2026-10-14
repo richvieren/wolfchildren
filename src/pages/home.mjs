@@ -40,7 +40,7 @@ export function sections() {
       h('div', { class: 'container' },
         h('p', { class: 'statement' }, 'Wolf Children is a collection of stories, tools and recipes to help parents avoid the trap of screentime.'),
         h('figure', {},
-          h('img', { src: '/assets/img/home-module2.gif', alt: 'An animated film-frame photograph', width: '550', height: '456', loading: 'lazy' }))))],
+          h('img', { src: '/assets/img/home-module2.webp', alt: 'An animated film-frame photograph', width: '848', height: '750', loading: 'lazy' }))))],
 
     ['photo', h('section', { class: 'photo-full', 'aria-label': 'Photograph' },
       h('img', { src: '/assets/img/home-band.jpg', alt: 'No child will ever remember spending their best day in front of a screen, set in large letters with four photographs of a child outdoors', width: '1920', height: '876', loading: 'lazy' }))],
