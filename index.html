@@ -4,20 +4,1503 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta name="wc-variant" content="home">
 <title>Wolf Children</title>
-<meta name="description" content="Wolf Children.">
-<link rel="canonical" href="https://wolfchildren.co/">
-<meta name="theme-color" content="#DFD7C3">
-<link rel="preload" href="/assets/fonts/montserrat-900.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/site.css?v=1fb8a2f9">
 <script src="/assets/js/pixel.js?v=d54ec4f6"></script>
+<script>window.WC_VARIANT="home";fbq('trackCustom','VariantView',{variant:window.WC_VARIANT});</script>
+<style>
+@font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Morning Memories";src:url("/assets/fonts/morning-memories-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Special Elite";src:url("/assets/fonts/special-elite-400.woff2") format("woff2");font-weight:400;font-display:swap}
+
+:root{
+  --cream:#DFD7C3; --green:#495543; --tan:#CDB494;
+  --orange:#DA4635; --cta:#AC2E20; --bark:#6B4A2F; --green-hover:#3A4435;
+}
+
+*{box-sizing:border-box}
+body{margin:0}
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 24px}
+.s{padding:88px 0}
+@media(min-width:900px){.s{padding:128px 0}}
+h1,h2,h3{margin:0}
+p{margin:0}
+/* Space after a heading is structure, not decoration: without it the lead butts against the
+   headline, which is the spacing fault Richard called amateur. Themes may override. */
+h1 + .lead,h2 + .lead{margin-top:24px}
+h2 + .lead + .links,h2 + .lead + .tablewrap{margin-top:32px}
+.eyebrow + h1,.eyebrow + h2{margin-top:0}
+a{color:inherit}
+.nav{position:sticky;top:0;z-index:50;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;
+  padding:17px 32px;transition:all 180ms cubic-bezier(.22,.61,.36,1)}
+.btn--nav{padding:11px 20px;font-size:12px}
+.act{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:24px}
+.band-grid{display:grid;gap:24px}
+@media(min-width:820px){.band-grid{grid-template-columns:repeat(3,1fr);gap:40px}}
+.badges{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px 40px}
+.links{margin-top:40px;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.stats{margin-top:56px;display:grid;gap:40px}
+@media(min-width:760px){.stats{grid-template-columns:repeat(3,1fr);gap:64px}}
+.stat i{display:block;font-style:normal}
+.reasons{margin-top:56px;display:grid}
+.reason{display:grid;grid-template-columns:auto 1fr;gap:24px;padding:36px 0}
+@media(min-width:900px){.reason{grid-template-columns:72px minmax(0,20ch) minmax(0,1fr);gap:40px;align-items:start}}
+.outcomes{margin-top:40px;display:grid;gap:16px}
+@media(min-width:820px){.outcomes{grid-template-columns:1fr 1fr;gap:16px 64px}}
+.offer{display:grid;gap:40px}
+@media(min-width:900px){.offer{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start}}
+.steps{display:grid;gap:16px}
+.tablewrap{margin-top:40px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{text-align:left;padding:16px 8px;vertical-align:top}
+.faq{margin-top:40px}
+details summary{cursor:pointer;list-style:none;padding:22px 0;display:flex;justify-content:space-between;gap:24px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+"}
+details[open] summary::after{content:"–"}
+details p{padding:0 0 22px;max-width:64ch}
+.close{text-align:center}
+.close h2,.close .lead{margin-left:auto;margin-right:auto}
+footer{padding:56px 0}
+.recognition{margin-top:24px;display:grid;gap:20px;max-width:62ch}
+.refusals{margin-top:56px;display:grid;gap:24px}
+@media(min-width:820px){.refusals{grid-template-columns:repeat(2,1fr);gap:32px 48px}}
+.refusal b{display:block}
+.refusal p{margin-top:8px}
+.shot{display:block;width:100%;height:auto}
+.hero-media{margin-top:48px;display:grid;gap:16px}
+@media(min-width:900px){.hero-media{grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:start}}
+.shot--detail{display:none}
+@media(min-width:900px){.shot--detail{display:block}}
+.bleed{margin:0}
+.bleed img{display:block;width:100%;height:auto;max-height:58vh;object-fit:cover}
+.sample-shot{margin:40px 0 0}
+.gallery-s{padding-top:0}
+.gallery{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:820px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}}
+.gallery img{aspect-ratio:4/5;object-fit:cover}
+.offer-shot{margin:0 0 40px;max-width:320px}
+@media(min-width:900px){.offer-shot{float:right;margin:0 0 24px 40px}}
+.which{font:400 12px/1.5 "IBM Plex Mono",monospace;background:#111;color:#fff;padding:8px 14px;letter-spacing:.04em}
+.which b{font-weight:700}.which span{opacity:.62}
+:root{
+  /* bible §2 */
+  --b-cream:#DFD7C3; --b-green:#495543; --b-green-deep:#3A4435; --b-tan:#CDB494;
+  --b-orange:#DA4635; --b-cta:#AC2E20; --b-bark:#6B4A2F;
+  /* two tones this project uses that the bible does not name: the deep ground
+     the dark bands sit on, and the paper white inside a photo frame. */
+  --b-shell:#333D2F; --b-paper:#F8F5EC;
+  /* the muted gold on the rating stars, light grounds only (2.80:1 on cream) */
+  --b-gold:#9C7A2B;
+  /* bible §3 */
+  --b-display:"Morning Memories",sans-serif; --b-body:"Special Elite",monospace;
+}/* ── Ground tokens ─────────────────────────────────────────────────────────
+   A module paints itself from these and never from a literal. The renderer
+   gives each module a ground class; the class sets the tokens. Dark is the
+   default, on :root, so a module without a class renders as the shell always
+   did. Bark lives only on light: it is 1.01:1 on the shell green. */
+:root{
+  --g-bg:#333D2F; --g-surface:#3A4435; --g-text:#DFD7C3;
+  --g-quiet:rgba(223,215,195,.62); --g-accent:#AC2E20; --g-rule:#495543;
+  --g-shade:rgba(0,0,0,.3);
+}
+.wc-ground-dark{
+  --g-bg:#333D2F; --g-surface:#3A4435; --g-text:#DFD7C3;
+  --g-quiet:rgba(223,215,195,.62); --g-accent:#AC2E20; --g-rule:#495543;
+  --g-shade:rgba(0,0,0,.3);
+}
+.wc-ground-light{
+  --g-bg:#DFD7C3; --g-surface:#F8F5EC; --g-text:#495543;
+  --g-quiet:#6B4A2F; --g-accent:#AC2E20; --g-rule:#CDB494;
+  --g-shade:rgba(73,85,67,.14);
+}
+/* every element inside a module inherits its ground's text colour, so a rule
+   that sets no colour of its own cannot end up cream on cream. */
+.wc-ground-light,.wc-ground-dark{color:var(--g-text)}
+.wc-cta{display:inline-block;box-sizing:border-box;text-align:center;white-space:nowrap;
+  font-family:var(--b-body);font-size:16px;text-transform:none;letter-spacing:.06em;
+  text-decoration:none;height:54px;line-height:50px;padding:0 26px;
+  background:var(--b-green);color:var(--b-cream);
+  border:2px solid var(--b-green-deep);border-radius:6px;
+  box-shadow:5px 5px 0 var(--b-green-deep)}
+.wc-cta:hover{filter:brightness(1.08)}
+/* the only thing a context may change is the width */
+.wc-cta--full{display:block;width:100%;padding:0}
+
+.wc-hl{position:relative;display:inline-block;z-index:0;color:#2F382B}
+.wc-hl::before{content:"";position:absolute;left:-6px;right:-6px;top:40%;bottom:0;z-index:-1;
+  background:rgba(224,160,48,.45);border-radius:3px;transform:rotate(-1deg)}
+
+:root{--wc-mask:url(/assets/img/frames/wave-edge.png);
+  --wc-mask-w:115%;--wc-ink:19.0469vw;--wc-mask-y:-0.071875vw;
+  /* The mask is drawn 115% x 100vw wide, so it is 115% x 22.5vw = 25.875vw tall.
+     The layer must never be taller than that, or its bottom strip carries no
+     mask and the ground behind shows through: at 390px wide the mask is 100.8px
+     and ink + 40px asks for 114.3px, which left an 8px cream band across the
+     page. min() takes whichever is smaller. */
+  --wc-wave-h:min(calc(var(--wc-ink) + 40px),25.875vw)}
+.wc-edge-wave,.wc-edge-wave-2{position:relative;z-index:1}
+/* The second edge, taken from the top of the "hey, i'm jade!" section on
+   jadem.co.nz: that section's top element is strip_1.png, kept as its alpha and
+   cropped to the band where it turns from clear to solid (rows 172 to 298 of
+   512), saved as wave-edge-2.png, 1600x126. At 115% of the window width one
+   source row is 0.071875vw, so the layer is 126 x 0.071875 = 9.0562vw, which is
+   exactly the height the mask is drawn at: 130px at 1440, 35px at 390. Its edge
+   rises 53px at 1440. The layer takes its colour from the section it belongs
+   to, so a section with a flat ground gives a flat wave. */
+.wc-edge-wave-2{--wc-mask:url(/assets/img/frames/wave-edge-2.png);
+  --wc-wave-h:9.0562vw;--wc-mask-y:0}
+/* The block above a wave keeps room for it, less the trailing margin that block
+   already carries: the ATF's last section (.wc-reviews) has 108px of margin
+   under it, so 105px comes off the padding and the wave's first inked pixel
+   lands about 5px under the cards at 1440. max() keeps it at zero on a phone,
+   where the layer is shorter than that margin anyway. body > #atf beats the
+   ATF's own #atf rule on specificity, wherever it sits in the stylesheet. */
+body > #atf{padding-bottom:max(0px,calc(var(--wc-wave-h) - 105px))}
+.wc-wave{position:absolute;left:0;right:0;bottom:calc(100% - 2px);
+  height:var(--wc-wave-h);background:inherit;pointer-events:none;
+  -webkit-mask-image:var(--wc-mask);mask-image:var(--wc-mask);
+  -webkit-mask-size:var(--wc-mask-w) auto;mask-size:var(--wc-mask-w) auto;
+  -webkit-mask-position:right var(--wc-mask-y);mask-position:right var(--wc-mask-y);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+:root{
+  --s-radius-card:14px; --s-radius-card-lg:20px; --s-radius-btn:11px;
+  --s-radius-btn-sm:9px; --s-radius-btn-hard:6px; --s-radius-chip:7px;
+  --s-radius-panel:12px; --s-radius-pill:999px; --s-radius-shell:20px;
+  --s-border:1px solid var(--g-rule);
+  --s-frame-border:1px solid var(--b-tan);
+  --s-hard-border:2px solid var(--b-green-deep);
+  --s-btn-border:1px solid #C4452F;
+  --s-btn-fill:linear-gradient(180deg,var(--b-cta) 0%,#8F2419 100%);
+  --s-chip-fill:radial-gradient(circle at 40% 32%,#C4452F 0%,#8F2419 70%);
+  --s-shadow-card:0 5px 16px var(--g-shade);
+  --s-shadow-btn:inset 0 1px 0 rgba(255,255,255,.34),0 4px 12px rgba(0,0,0,.38);
+  --s-shadow-hard:5px 5px 0 var(--b-green-deep);
+  --s-shadow-drop:0 4px 0 var(--b-green-deep);
+  --s-shadow-shell:0 26px 54px var(--g-shade),inset 0 1px 0 rgba(255,255,255,.06);
+  --s-shadow-shell-top:inset 0 1px 0 rgba(255,255,255,.09);
+  --s-shadow-band:inset 0 1px 0 rgba(255,255,255,.055),inset 0 -1px 0 rgba(0,0,0,.4);
+  --s-shadow-chip:0 0 9px rgba(201,138,60,.5),inset 0 1px 0 rgba(255,255,255,.4);
+  --s-shadow-chip-flat:inset 0 1px 0 rgba(255,255,255,.08);
+  --s-paper:var(--b-paper); --s-field-bg:#FFFFFF; --s-star:var(--b-gold);
+  --s-space-section:84px; --s-space-section-wide:108px; --s-pad-card:24px;
+  --s-type-display:clamp(32px,3vw,44px); --s-type-display-lh:.98; --s-type-display-ls:-.02em;
+  --s-type-body:15px; --s-type-body-lh:1.5; --s-type-body-ls:-.01em;
+  --s-space-block:24px; --s-space-para:18px;
+  --s-radius-photo:0px; --s-tilt-a:-2deg; --s-tilt-b:2.5deg;
+  --s-type-lead:19.5px; --s-type-lead-lh:1.45;
+  --s-type-eyebrow:12px; --s-tighten:-.06em; --s-type-eyebrow-ls:.22em;
+  --s-texture:url("/assets/img/bg.avif"); --s-texture-blend:soft-light;
+}
+
+
+
+html,body{overflow-x:clip}
+body{background:var(--b-cream);color:rgba(223,215,195,.82);font:400 15px/1.7 var(--b-body);padding:0 0 16px}
+.announce{background:var(--b-cream);color:rgba(223,215,195,.62);text-align:center;padding:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+/* The app shell: one dominant rounded container inside the light field. */
+.nav{margin:0 16px;background:linear-gradient(180deg,#3F4A39 0%,#3A4435 100%);border-radius:var(--s-radius-shell) var(--s-radius-shell) 0 0;
+  border:1px solid var(--b-green);border-bottom:0;box-shadow:var(--s-shadow-shell-top);padding:0 24px}
+.nav .mark{font:400 14px var(--b-display);color:var(--b-cream)}
+/* 2026-10-07, Richard, standing rules: no section ever gets side borders, and
+   every section runs edge to edge. The cream strips either side were this
+   margin, not a border. */
+.s,.band{margin:0;background:var(--g-bg);color:var(--g-text)}
+.s{padding:var(--s-space-section) 0}@media(min-width:900px){.s{padding:var(--s-space-section-wide) 0}}
+.wrap{max-width:1040px}
+footer{margin:0 16px;background:var(--g-bg);border-radius:0 0 var(--s-radius-shell) var(--s-radius-shell);
+  border:var(--s-border);box-shadow:var(--s-shadow-shell);
+  padding:52px 0;font-size:12.5px;color:var(--g-quiet);letter-spacing:.1em}
+h1,h2,h3{font-family:var(--b-display);font-weight:400;letter-spacing:-.035em;color:var(--g-text)}
+h1{font-size:clamp(2.2rem,4.8vw,3.8rem);line-height:1.02;max-width:17ch}
+h2{font-size:clamp(1.55rem,2.8vw,2.3rem);line-height:1.08;max-width:20ch}
+h3{font-size:14.5px;line-height:1.4;color:var(--g-text)}
+.lead{font-size:17px;line-height:1.72;max-width:56ch;color:var(--g-text)}
+.eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--g-accent);margin-bottom:18px}
+.small{font-size:12.5px;color:var(--g-quiet)}
+.btn{background:var(--s-btn-fill);color:var(--b-cream);
+  font:400 13.5px/1 var(--b-display);border-radius:var(--s-radius-btn);padding:16px 28px;white-space:nowrap;
+  border:var(--s-btn-border);box-shadow:var(--s-shadow-btn)}
+.btn:hover{filter:brightness(1.12)}
+.btn--nav{padding:10px 17px;font-size:12px;border-radius:var(--s-radius-btn-sm)}
+.act{margin-top:40px;gap:22px}
+.band{padding:40px 0;box-shadow:var(--s-shadow-band)}
+.bullet{font-size:14px;color:var(--g-text)}
+.badges{margin-top:28px;gap:10px 36px}
+.recognition{gap:20px;max-width:56ch}.recognition p{font-size:17px;line-height:1.72}
+.links{gap:14px}
+.link{font:400 14px var(--b-display);color:var(--g-accent)}
+/* Nested object-like modules: one-pixel wrapper, top highlight, inset stack. */
+.stats{margin-top:48px}
+.stat,.reason,.refusal,.step,.includes,.tablewrap,details{
+  background:var(--g-surface);border:var(--s-border);border-radius:var(--s-radius-card);
+  box-shadow:var(--s-shadow-card)}
+.stat{padding:var(--s-pad-card)}
+.stat b{display:block;font:400 clamp(2.2rem,3.6vw,2.9rem)/1 var(--b-display);letter-spacing:-.04em;color:var(--g-text)}
+.stat i{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--g-accent);margin:10px 0 10px}
+.reasons{margin-top:48px;gap:14px}
+.reason{padding:var(--s-pad-card)}
+@media(min-width:900px){.reason{grid-template-columns:36px minmax(0,20ch) minmax(0,1fr);gap:24px}}
+/* Status lights. */
+.reason .n{display:grid;place-items:center;width:26px;height:26px;border-radius:var(--s-radius-pill);
+  background:var(--s-chip-fill);color:var(--b-cream);
+  font:400 11px/1 var(--b-display);box-shadow:var(--s-shadow-chip)}
+.reason p{font-size:14px;line-height:1.72;color:var(--g-text)}
+.refusals{margin-top:46px;gap:14px}
+.refusal{padding:22px}
+.refusal b{font:400 12px/1 var(--b-display);letter-spacing:.06em;color:var(--g-accent)}
+.refusal p{margin-top:10px;font-size:14px;line-height:1.72;color:var(--g-text)}
+.outcomes p{font-size:14px;line-height:1.72;color:var(--g-text);padding:12px 0;border-bottom:1px solid var(--g-rule)}
+.offer{gap:48px}
+.price{font:400 clamp(2.7rem,4.2vw,3.5rem)/1 var(--b-display);letter-spacing:-.04em;margin:12px 0;color:var(--g-accent)}
+.includes{margin-top:24px;padding:6px 22px}
+.includes p{padding:15px 0;border-bottom:1px solid var(--g-rule);font-size:14px}
+.includes p:last-child{border-bottom:0}
+.note-line{margin-top:22px;max-width:50ch}
+.step{padding:22px}
+.step .sn{display:grid;place-items:center;width:25px;height:25px;border-radius:var(--s-radius-chip);
+  background:var(--g-bg);border:var(--s-border);
+  color:var(--g-accent);font:400 11.5px/1 var(--b-display);margin-bottom:10px;
+  box-shadow:var(--s-shadow-chip-flat)}
+.step b{display:block;font:400 13.5px var(--b-display);margin-bottom:6px;color:var(--g-text)}
+.step p{font-size:13px;line-height:1.68;color:var(--g-text)}
+.banner{background:var(--g-bg)}
+.banner h2{max-width:24ch}
+.bsub{color:var(--g-text);margin:16px 0 30px;max-width:50ch}
+table{font-size:13.5px;min-width:640px}
+thead th{font:400 11px var(--b-display);letter-spacing:.14em;text-transform:uppercase;color:var(--g-accent);padding:18px 16px;border-bottom:1px solid var(--g-rule)}
+tbody th{color:var(--g-quiet);width:16%;padding:15px 16px}
+td{padding:15px 16px;border-bottom:1px solid var(--g-rule)}
+.faq{margin-top:40px}
+details{margin-bottom:12px;padding:0 22px}
+summary{font:400 14.5px var(--b-display);color:var(--g-text);padding:20px 0}
+details p{font-size:14px;line-height:1.72;color:var(--g-text)}
+.close{text-align:center}
+
+/* the polaroid: the paper is the figure, the photograph sits inside its margins */
+body .rec-large{background:var(--b-paper);padding:16.4% 8.3% 29.2%;position:relative;
+  box-shadow:var(--s-shadow-card)}
+body .rec-large::before,body .rec-small::before{content:"";position:absolute;z-index:4;
+  top:-13px;left:50%;width:46%;aspect-ratio:4/1;transform:translateX(-50%) rotate(-2.4deg);
+  background:var(--b-tan);opacity:.86;
+  clip-path:polygon(0 14%,4% 0,8% 16%,92% 5%,96% 0,100% 18%,96% 100%,92% 85%,8% 97%,4% 100%,0 84%)}
+body .rec-small{background:var(--b-paper);padding:16.4% 8.3% 29.2%;box-shadow:var(--s-shadow-card)}
+body .rec-small-backing{display:none}
+
+/* The photo treatment, matched to the markup bodyV2 actually emits:
+   figure class="ph tape-a ph-tilt-a". It previously targeted .ph-matte and
+   .ph-tape, classes removed in an earlier pass, so no matte rendered and the
+   tape fell back to .ph img{width:100%} and painted full width as if it were
+   the photograph. */
+.ph{position:relative;display:block;margin:0;background:var(--cream);line-height:0;
+  padding:3.5%;border:1px solid var(--tan);overflow:visible}
+.ph img.ph-photo{display:block;width:100%;height:auto;aspect-ratio:auto!important;
+  max-height:none!important;object-fit:contain!important;border-radius:0}
+.ph > img.tape{position:absolute;top:-13px;left:50%;width:38%;height:auto;z-index:2;border:0;padding:0}
+.ph.tape-a > img.tape{transform:translateX(-50%) rotate(-2deg)}
+.ph.tape-b > img.tape{transform:translateX(-52%) rotate(2.4deg)}
+.ph.tape-c > img.tape{transform:translateX(-48%) rotate(-3.2deg)}
+.ph-tilt-a{transform:rotate(-1.1deg)}
+.ph-tilt-b{transform:rotate(.9deg)}
+figure{margin:0}
+@media(min-width:900px){.ph > img.tape{width:24%;top:-18px}}
+
+/* Both faces ship one weight. Nothing may fake a second. */
+/* .which lives in BASE, which all 26 variants share, so it is overridden here
+   rather than edited there. */
+.which{font-family:"Special Elite","Courier New",monospace!important;background:var(--green)!important;color:var(--cream)!important}
+*,*::before,*::after{font-synthesis:none!important;font-synthesis-weight:none!important}
+*{font-weight:400!important}
+body{font-family:"Special Elite","Courier New",monospace;font-size:15px;line-height:1.66}
+h1,h2,h3,h4,.display{font-family:"Morning Memories",Georgia,serif!important;letter-spacing:-.015em;line-height:1.04}
+body,.which,.lead,.btn,.stat b,.reason .n,.price,.step .sn,.step b,
+thead th,tbody th,summary,.nav .mark{font-family:"Special Elite","Courier New",monospace!important}
+/* Emphasis without a bold cut: size, caps and tracking carry it. */
+.eyebrow,.kicker,.small,.which,.tag,.label{font-family:"Special Elite","Courier New",monospace;
+  text-transform:uppercase;letter-spacing:.16em;font-size:11px}
+b,strong{text-transform:uppercase;letter-spacing:.1em}
+.btn,.cta{font-family:"Special Elite","Courier New",monospace;text-transform:uppercase;letter-spacing:.13em}
+/* No crop and no stretch, anywhere. The shared base sets object-fit:cover on
+   .bleed img and .gallery img and an aspect-ratio on the gallery; both are
+   released here rather than edited, since they belong to all 26 variants. */
+.bleed img,.gallery img,.shot,.ph img{aspect-ratio:auto!important;height:auto!important;
+  max-height:none!important;object-fit:contain!important}
+.bleed{overflow:visible}
+.shot,.ph img{border-radius:0;box-shadow:none;filter:none}
+.ph{max-width:100%}
+/* The ATF is a mobile-native section. On a wide screen it is placed, not
+   stretched: centred at its design width on the page's own ground. Its internals
+   are untouched. */
+@media(min-width:900px){.atf-root{max-width:520px;margin-inline:auto}}
+/* A theme that overflows sideways guards it with body{overflow-x:hidden}, which
+   does not hold: the overflow escapes to html and the page scrolls anyway.
+   hyperframes measured 65px of real sideways scroll from its own perspective
+   planes, with or without anything added here. clip rather than hidden, so no
+   scroll container is created and sticky still works. */
+html,body{overflow-x:clip}
+
+#atf,#atf *{color:inherit;text-transform:none;letter-spacing:normal;font-style:normal;
+  line-height:inherit;margin:0;font-weight:400;
+  background-image:none;box-shadow:none;text-shadow:none;transform:none;filter:none}
+#atf{color:var(--green)}
+#atf img{border:0;padding:0;border-radius:0;max-width:none;filter:none}
+
+.home-hero{padding:0;box-sizing:border-box;position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;
+  display:grid;grid-template-columns:1fr 1fr;background:var(--b-shell)}
+.hh-half{position:relative;overflow:hidden;margin:0}
+.hh-half img,.hh-half video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hh-wash{position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(58% 46% at 50% 50%,rgba(51,61,47,.62) 0%,rgba(51,61,47,.30) 60%,rgba(51,61,47,0) 100%)}
+.hh-h{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;margin:0;
+  width:min(92vw,20ch);text-align:center;font-family:var(--b-display);font-weight:400;
+  font-size:clamp(2.1rem,4.6vw,4rem);line-height:1.04;letter-spacing:-.035em;color:var(--b-cream);
+  text-wrap:balance}
+@media (max-width:760px){
+  .home-hero{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
+}
+
+.home-statement .wrap{display:flex;flex-direction:column;align-items:center;gap:var(--s-space-block)}
+.hs-text{margin:0;font-family:var(--b-body);color:var(--g-text);text-align:left;max-width:26ch;
+  font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.45}
+.hs-fig{margin:0;width:100%;max-width:424px}
+.hs-fig img{display:block;width:100%;height:auto}
+@media (min-width:900px){
+  .home-statement .wrap{flex-direction:row;justify-content:center;gap:calc(var(--s-space-block) * 2)}
+  .hs-text{flex:0 1 26ch}.hs-fig{flex:0 0 424px}
+}
+
+.hf-frame{position:relative;width:100%;max-width:1040px;margin:0 auto;aspect-ratio:16/9;background:var(--b-shell)}
+.hf-frame iframe,.hf-play,.hf-play img{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.hf-play{padding:0;cursor:pointer;background:none}
+.hf-play img{object-fit:cover}
+.hf-tri{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;
+  border-radius:999px;border:2px solid var(--b-cream);background:rgba(51,61,47,.55)}
+.hf-tri::after{content:"";position:absolute;left:50%;top:50%;margin:-13px 0 0 -8px;
+  border-left:24px solid var(--b-cream);border-top:13px solid transparent;border-bottom:13px solid transparent}
+.hf-play:hover .hf-tri{background:var(--b-cta)}
+.hf-play:focus-visible{outline:2px solid var(--b-cream);outline-offset:-6px}
+
+/* the paper: the squared sheet the homepage uses, blended over the ground so a
+   dark module stays dark and a light one reads as paper. One token turns it off. */
+/* 2026-10-08, Richard: one gradient with the same grain the wave carries, in
+   place of the dark ground and the squared sheet. The text column is on the
+   left, over the green end. */
+.recognition-s{--rec-gradient:linear-gradient(90deg,#495543,#CDB494);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)' opacity='.21'/%3E%3C/svg%3E"),var(--rec-gradient);
+  background-size:220px 220px,100% 100%;background-repeat:repeat,no-repeat;
+  background-blend-mode:normal}
+.rec{display:grid;gap:var(--s-space-block)}
+
+/* the text column */
+.rec-eyebrow{font-family:var(--b-body);color:var(--g-text);
+  font-size:var(--s-type-eyebrow);letter-spacing:var(--s-type-eyebrow-ls);
+  text-transform:uppercase;line-height:1.4}
+.rec h2{font-family:var(--b-display);font-weight:400;color:var(--g-text);
+  font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
+  letter-spacing:var(--s-type-display-ls);max-width:none}
+.rec-lead{font-family:var(--b-body);color:var(--g-text);
+  font-size:var(--s-type-lead);line-height:var(--s-type-lead-lh);
+  letter-spacing:var(--s-type-body-ls);max-width:46ch;margin-top:var(--s-space-block)}
+.rec-body{font-family:var(--b-body);color:var(--g-text);
+  font-size:var(--s-type-body);line-height:var(--s-type-body-lh);
+  letter-spacing:var(--s-type-body-ls);max-width:60ch;margin-top:var(--s-space-para)}
+.rec-cta{margin-top:var(--s-space-block)}
+
+/* the photo cluster: one large photograph, one small one overlapping its lower
+   outer corner on a backing card, and two drawn marks. */
+.rec-cluster{position:relative;padding:0 0 18% 0}
+.rec-large{margin:0;transform:rotate(var(--s-tilt-a))}
+.rec-large img{display:block;width:100%;height:auto;object-fit:contain;
+  border:0;border-radius:var(--s-radius-photo)}
+.rec-small{position:absolute;left:-4%;bottom:0;width:45%;margin:0;
+  transform:rotate(var(--s-tilt-b))}
+.rec-small-backing{display:block;position:absolute;inset:0;transform:translate(10px,10px);
+  background:var(--b-tan);border-radius:var(--s-radius-photo)}
+/* display:block, because a span is an inline box: aspect-ratio and the
+   absolutely positioned slides inside it had no height, so the small
+   photograph, its backing card and the squiggle beside them rendered as
+   nothing. That was the bug, 2026-10-06. */
+.rec-slides{display:block;position:relative;aspect-ratio:3/4}
+/* the crossfade: the outgoing photograph keeps full opacity underneath while the
+   incoming one fades in on top of it, so the card behind never shows through.
+   .under is the one being left; .on is the one arriving. */
+.rec-slides img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;border:0;border-radius:var(--s-radius-photo);
+  opacity:0;z-index:0;transition:opacity 900ms ease}
+.rec-slides img.under{opacity:1;z-index:1;transition:none}
+.rec-slides img.on{opacity:1;z-index:2}
+.rec-mark{position:absolute;color:var(--b-tan);pointer-events:none;z-index:3}
+.rec-mark svg{display:block;width:100%;height:auto}
+.rec-mark-star{width:34px;right:-6%;top:-5%}
+/* the hook: a drawn ring around one word. inline-block keeps it attached to the
+   word when the line wraps, and the em sizing makes it scale with the headline.
+   Morning Memories carries no ornament of its own (GSUB: liga only, GPOS: kern,
+   330 glyphs, no swsh/ornm/salt and no ornament files), so it is drawn here. */
+.rec-tight{margin-left:var(--s-tighten)}
+.rec-hook{position:relative;display:inline-block;color:inherit}
+.rec-hook svg{position:absolute;left:-.16em;top:50%;transform:translateY(-50%);
+  width:calc(100% + .32em);height:1.25em;overflow:visible;pointer-events:none;
+  color:var(--b-tan)}
+/* where the two photographs meet, on the inner side, and above them: at
+   right:38% it was behind the small photograph, which is why it read as
+   missing once that photograph started rendering. */
+.rec-mark-squiggle{width:144px;left:34%;bottom:4%}
+@media(prefers-reduced-motion:reduce){
+  .rec-slides img{transition:none}
+}
+@media(min-width:900px){
+  .rec{grid-template-columns:40% 45%;justify-content:space-between;
+    align-items:start;gap:0}
+}
+
+.home-dn{padding:0;display:grid;grid-template-columns:1fr 1fr;min-height:70vh}
+.dn-half{display:grid;place-items:center;text-align:center;padding:var(--s-space-section) 24px}
+.dn-day{background:var(--b-cream);color:var(--b-green)}
+.dn-night{background:var(--b-shell);color:var(--b-cream)}
+.dn-h{font-family:var(--b-display);font-weight:400;font-size:clamp(2rem,4vw,3.2rem);
+  line-height:1.04;letter-spacing:-.035em;margin:0 0 var(--s-space-block)}
+.dn-p{font-family:var(--b-body);font-size:var(--s-type-body);line-height:var(--s-type-body-lh);max-width:34ch;margin:0 auto}
+@media (max-width:760px){.home-dn{grid-template-columns:1fr}}
+
+/* 2026-10-08, Richard: half the padding, half the gap under the headline, and
+   the steps as tight as they read. */
+.how-it-works-s{position:relative;isolation:isolate;background:var(--b-tan);
+  padding:calc(var(--s-space-section) / 2) 0}
+/* the same kraft layer the facts band wears; see facts.mjs for the tile */
+.how-it-works-s::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:url(/assets/img/frames/paper-kraft.png) repeat 0 0/666px auto;
+  mix-blend-mode:multiply;opacity:1}
+.hiw{display:grid;gap:calc(var(--s-space-section) / 4);justify-items:center;text-align:center}
+.hiw-eyebrow{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:#2F382B;margin:0}
+.hiw-h{font-family:var(--b-display);font-weight:400;color:#2F382B;
+  font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
+  letter-spacing:var(--s-type-display-ls);max-width:none;margin:10px 0 0}
+.hiw-steps{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-space-block);width:100%}
+.hiw-step{display:grid;gap:6px;justify-items:center;padding:0 24px}
+.hw-star{display:block;width:34px;height:auto;color:#2F382B}
+/* each mark sits at its own angle, like three stamps */
+.hiw-step:nth-child(1) .hw-star{transform:rotate(-12deg)}
+.hiw-step:nth-child(2) .hw-star{transform:rotate(7deg)}
+.hiw-step:nth-child(3) .hw-star{transform:rotate(-3deg)}
+.hiw-n{font-family:var(--b-body);font-size:var(--s-type-eyebrow);letter-spacing:var(--s-type-eyebrow-ls);
+  color:#2F382B;margin:-2px 0 0}
+.hiw-t{font-family:var(--b-display);font-weight:400;font-size:22px;line-height:1.1;
+  letter-spacing:var(--s-type-display-ls);color:#2F382B;margin:0}
+.hiw-p{font-family:var(--b-body);font-size:var(--s-type-body);line-height:var(--s-type-body-lh);
+  color:#2F382B;margin:0;max-width:30ch}
+@media(min-width:900px){
+  .how-it-works-s{padding:calc(var(--s-space-section-wide) / 2) 0}
+  .hiw-steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:48px}
+  .hiw-step{padding:0}
+}
+@font-face{font-family:"Wheel Glyphs";src:url("/assets/fonts/wheel-glyphs.woff2")}
+.wc-live{--cream:#DFD7C3;--green:#495543;--tan:#CDB494;--orange:#DA4635;--cta:#AC2E20;--tan-soft:rgba(205,180,148,.45)}
+.wc-live body{margin:0;color:var(--green);font-family:"IBM Plex Mono";font-size:14px;line-height:1.6}
+.wc-live h1{font-family:Montserrat;font-weight:900;font-size:40px;line-height:1;margin:6px 0 10px;letter-spacing:-.01em}
+.wc-live .overline, .wc-live .wlabel, .wc-live .letter-label, .wc-live .sh-label, .wc-live .biz-label, .wc-live .badge-label, .wc-live .cusp-label, .wc-live .stellium-label, .wc-live .pill-label, .wc-live .bar-name, .wc-live .pole, .wc-live .hemi-title, .wc-live .sub-head, .wc-live .product-lock{font-family:Montserrat;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.wc-live .hero{text-align:center;padding:12px 0 6px}
+.wc-live .big3-line{font-size:14px}
+.wc-live .disclaimer{font-size:12px;line-height:1.5;margin:0 0 18px;color:var(--green)}
+.wc-live .card{background:var(--cream);border:1px solid var(--tan);border-radius:4px;padding:24px}
+.wc-live .big3-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:28px}
+.wc-live .big3{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:16px 8px}
+.wc-live .big3-circle{width:60px;height:60px;border-radius:50%;border:1px solid var(--tan);display:flex;align-items:center;justify-content:center;position:relative}
+.wc-live .big3-circle:after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid var(--tan-soft)}
+.wc-live .big3-circle.fire{background:rgba(218,70,53,.10)}
+.wc-live .big3-circle.earth{background:rgba(73,85,67,.12)}
+.wc-live .big3-circle.air{background:rgba(205,180,148,.28)}
+.wc-live .big3-circle.water{background:rgba(73,85,67,.06)}
+.wc-live .big3-word{font-family:Montserrat;font-weight:900;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.wc-live .big3-sign{font-family:Montserrat;font-weight:900;font-size:15px;line-height:1.1}
+.wc-live .big3-sub{font-size:11px;line-height:1.35}
+.wc-live .pill-wrap{display:flex;justify-content:center;margin-top:14px}
+.wc-live .pill{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--tan);border-radius:999px;padding:10px 22px}
+.wc-live .pill.small{margin-top:18px;padding:8px 18px}
+.wc-live .pill-label{white-space:nowrap}
+.wc-live .pill-div{width:1px;height:14px;background:var(--tan)}
+.wc-live .pill-text{font-size:13px}
+.wc-live .letter{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:40px 0}
+.wc-live .letter-rule{width:32px;height:1px;background:var(--tan)}
+.wc-live .letter-text{margin:0;max-width:620px;font-family:"Libre Baskerville";font-size:17px;line-height:1.55;letter-spacing:-.01em}
+.wc-live .letter-text.italic{font-style:italic;font-size:18px}
+.wc-live .section{padding:28px 0 0}
+.wc-live .section.tight{padding-top:20px}
+.wc-live .sh{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.wc-live .sh-line{flex:1;height:1px;background:var(--tan)}
+.wc-live .sh-num{font-family:Montserrat;font-weight:900;font-size:12px}
+.wc-live .grid2{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px}
+.wc-live .grid3{display:grid;grid-template-columns:1fr;gap:14px}
+.wc-live .grid2.texts{gap:18px;margin:8px 0 18px}
+.wc-live .wlabel{margin-bottom:22px}
+.wc-live .wcontext{font-family:"Libre Baskerville";font-size:14px;line-height:1.55;margin-top:16px}
+.wc-live .bar-rows{display:flex;flex-direction:column;gap:14px}
+.wc-live .bar{display:flex;flex-direction:column;gap:8px}
+.wc-live .bar-head{display:flex;justify-content:space-between;align-items:baseline}
+.wc-live .bar-count{font-family:Montserrat;font-weight:900;font-size:16px}
+.wc-live .bar-track{height:3px;background:var(--tan-soft);border-radius:1px;overflow:hidden}
+.wc-live .bar-fill{height:100%;background:var(--green)}
+.wc-live .bar-footer{margin-top:18px;padding-top:14px;border-top:1px solid var(--tan);font-size:13px}
+.wc-live .bar-footer span{font-weight:700;text-transform:capitalize}
+.wc-live .spec-rows{display:flex;flex-direction:column;gap:22px}
+.wc-live .spec{display:flex;flex-direction:column;gap:10px}
+.wc-live .spec-poles{display:flex;justify-content:space-between}
+.wc-live .pole{opacity:.45}
+.wc-live .pole.on{opacity:1}
+.wc-live .spec-track{position:relative;height:14px}
+.wc-live .spec-line{position:absolute;left:0;right:0;top:6.5px;height:1px;background:var(--tan)}
+.wc-live .spec-tick{position:absolute;left:50%;top:3.5px;width:1px;height:7px;background:var(--tan)}
+.wc-live .spec-dot{position:absolute;top:2px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--green)}
+.wc-live .spec-context{font-family:"Libre Baskerville";font-size:13.5px;line-height:1.5}
+.wc-live .hemi-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px}
+.wc-live .hemi-cell{border:1px solid var(--tan-soft);border-radius:4px;padding:16px 14px;display:flex;flex-direction:column;gap:4px;opacity:.55}
+.wc-live .hemi-cell.on{opacity:1;background:rgba(205,180,148,.28);border-color:var(--tan)}
+.wc-live .hemi-title{font-size:11px}
+.wc-live .hemi-sub{font-size:12px}
+.wc-live .moon-wrap{display:flex;justify-content:center;padding:4px 0 12px}
+.wc-live .moon{width:124px;height:124px}
+.wc-live .moon-sky{fill:#3A4435}
+.wc-live .moon-dark{fill:#5D6A56}
+.wc-live .moon-lit{fill:#F0E7D2}
+.wc-live .moon-pit{fill:#C9BCA0;opacity:.34}
+.wc-live .moon-ring{fill:none;stroke:#2F382B;stroke-width:1.2}
+.wc-live .moon-line{font-size:12px;line-height:1.5;color:var(--green)}
+.wc-live .hemi-footer{font-family:"Libre Baskerville";font-size:14px;line-height:1.55;margin-top:16px}
+.wc-live .vis{display:flex;flex-direction:column;align-items:center}
+.wc-live .vis .wlabel{align-self:flex-start;margin-bottom:10px}
+.wc-live .gauge-num{font-family:Montserrat;font-weight:900;font-size:44px}
+.wc-live .gauge-sub{font-family:Montserrat;font-weight:900;font-size:9px;letter-spacing:.2em}
+.wc-live .biz{border-left:2px solid var(--tan);padding-left:18px}
+.wc-live .biz-label{margin-bottom:8px}
+.wc-live .biz-body{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.6}
+.wc-live .divider{height:1px;background:var(--tan);margin:20px 0}
+.wc-live .badge{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:30px 28px 32px}
+.wc-live .badge-halo{width:64px;height:64px;border-radius:50%;border:1px solid var(--tan);display:flex;align-items:center;justify-content:center;position:relative}
+.wc-live .badge-halo:after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid var(--tan-soft)}
+.wc-live .badge-halo.fire{background:rgba(218,70,53,.10)}
+.wc-live .badge-halo.earth{background:rgba(73,85,67,.12)}
+.wc-live .badge-halo.air{background:rgba(205,180,148,.28)}
+.wc-live .badge-halo.water{background:rgba(73,85,67,.06)}
+.wc-live .badge-type{font-family:Montserrat;font-weight:900;font-size:19px;line-height:1.1}
+.wc-live .badge-desc{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.55;max-width:360px}
+.wc-live .badge-rule{width:32px;height:1px;background:var(--tan)}
+.wc-live .badge-placement{font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.wc-live .badge-basis{margin:0;font-family:"Libre Baskerville";font-size:13.5px;line-height:1.55;max-width:360px;text-align:left}
+.wc-live .sub{margin-top:8px}
+.wc-live .sub-head{margin-bottom:16px}
+.wc-live .cusp-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:12px}
+.wc-live .cusp-num{font-family:Montserrat;font-weight:900;font-size:26px;line-height:1;min-width:30px}
+.wc-live .cusp-sign{font-size:12px;margin-top:4px}
+.wc-live .cusp-text{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.55}
+.wc-live .retro-rows{display:flex;flex-direction:column;gap:18px}
+.wc-live .retro{display:flex;gap:16px;align-items:flex-start}
+.wc-live .retro-circle{width:40px;height:40px;border-radius:50%;border:1px solid var(--tan);display:flex;align-items:center;justify-content:center;font-family:Montserrat;font-weight:900;font-size:16px;flex:none}
+.wc-live .retro-name{font-weight:700}
+.wc-live .retro-place{font-size:12px;margin:2px 0 8px}
+.wc-live .retro-meaning{font-family:"Libre Baskerville";font-size:14px;line-height:1.55}
+.wc-live .retro-none{font-size:13px}
+.wc-live .stellium{background:var(--green);color:var(--cream);border-radius:4px;padding:24px;margin-bottom:14px}
+.wc-live .stellium-name{font-family:Montserrat;font-weight:900;font-size:22px;line-height:1.1;margin:6px 0 12px}
+.wc-live .stellium-desc{margin:0 0 18px;font-family:"Libre Baskerville";font-size:14px;line-height:1.55;max-width:560px}
+.wc-live .spills{display:flex;flex-wrap:wrap;gap:8px}
+.wc-live .spill{border:1px solid rgba(223,215,195,.5);border-radius:999px;padding:6px 12px;font-size:12px}
+.wc-live .product{display:flex;flex-direction:column;gap:10px}
+.wc-live .product-name{font-family:Montserrat;font-weight:900;font-size:22px;line-height:1.1}
+.wc-live .product-desc{margin:0;font-family:"Libre Baskerville";font-size:14px;line-height:1.55}
+.wc-live .product-price{font-family:Montserrat;font-weight:900;font-size:28px}
+.wc-live .product.locked{opacity:.7}
+.wc-live .product-lock{font-size:11px}
+.wc-live .cta{display:block;text-align:center;background:var(--cta);color:var(--cream);font-weight:700;font-size:15px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:14px;border-radius:4px;margin-top:6px}
+.wc-live .fine{font-size:13px;text-align:center;margin:8px 0 28px}
+.wc-live .wheel-wrap{margin:0px auto 0;width:398px}
+.wc-live .wheel{display:block;width:100%;height:398px}
+.wc-live .photo{width:100%;border:1px solid var(--tan);border-radius:4px;overflow:hidden}
+.wc-live .photo.wide{height:299px;margin:28px 0 8px}
+.wc-live .photo img{display:block;width:100%;height:100%;object-fit:cover}
+.wc-live .photo.placeholder{background:var(--tan-soft);display:flex;align-items:center;justify-content:center}
+.wc-live .photo.placeholder span{font-family:Montserrat;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.wc-live .pending{color:var(--orange)}
+.whats-inside-s{position:relative}
+.wi{position:relative}
+.wi-head{text-align:left}
+.wi-eyebrow{font-family:var(--b-body);color:var(--g-text);font-size:var(--s-type-eyebrow);
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0 0 var(--s-space-para)}
+.wi-head h2{font-family:var(--b-display);font-weight:400;color:var(--g-text);
+  font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
+  letter-spacing:var(--s-type-display-ls);max-width:none;margin:0}
+.wi-sub{font-family:var(--b-body);color:var(--g-text);font-size:var(--s-type-body);
+  line-height:var(--s-type-body-lh);letter-spacing:var(--s-type-body-ls);
+  margin:var(--s-space-para) 0 0;max-width:52ch}
+
+/* the phone, Cato's geometry on our tokens */
+.wi-phone{position:relative;width:100%;max-width:307px;aspect-ratio:969/1959;margin:var(--s-space-section) auto 0;
+  filter:drop-shadow(0 30px 40px var(--g-shade))}
+/* the frame PNG is opaque where the screen sits (its centre alpha is 255), so it
+   goes under the screen, as Cato's .phone__frame{z-index:0} does. Painted over
+   the screen it hid every pane, which is why the phone read as empty and why
+   hover and tap looked dead: they were swapping panes nobody could see. */
+.wi-phone img.wi-frame{position:absolute;inset:0;width:100%;height:100%;display:block;
+  pointer-events:none;z-index:0;border:0;border-radius:0}
+/* The screen is the reading inverted: green ground, cream ink. It is done with
+   one scoped token block, not by editing the widgets. The reading paints almost
+   everything through --green (its ink), --cream (its fills), --tan (its rules)
+   and --tan-soft (its tracks), so swapping those four inside the screen flips
+   every bar fill, slider track and dot, rule and divider, halo and quadrant.
+   The handful of literals the reading hard-codes are listed under them. */
+.wi-screen{position:absolute;left:5.9%;right:6.5%;top:2.6%;bottom:3.7%;border-radius:17px;
+  overflow:hidden;background:var(--b-green);z-index:2}
+.wi-scroll .wc-live{
+  --green:var(--b-cream);                      /* ink: green becomes cream */
+  --cream:var(--b-green);                      /* fills: cream becomes green */
+  --tan:rgba(223,215,195,.35);                 /* rules and dividers */
+  --tan-soft:rgba(223,215,195,.18);            /* tracks and empty bar parts */
+  color:var(--b-cream)}
+/* secondary and label text */
+.wi-scroll .wc-live .wlabel,.wi-scroll .wc-live .bar-footer,.wi-scroll .wc-live .bar-name,
+.wi-scroll .wc-live .pole,.wi-scroll .wc-live .big3-word,.wi-scroll .wc-live .badge-type,
+.wi-scroll .wc-live .pill-text{color:rgba(223,215,195,.65)}
+/* the reading's own literals, flipped */
+.wi-scroll .wc-live .moon-sky{fill:var(--b-green)}
+.wi-scroll .wc-live .moon-dark{fill:rgba(223,215,195,.18)}
+.wi-scroll .wc-live .moon-lit{fill:var(--b-cream)}
+.wi-scroll .wc-live .moon-pit{fill:var(--b-green);opacity:.34}
+.wi-scroll .wc-live .moon-ring{stroke:rgba(223,215,195,.35)}
+.wi-scroll .wc-live .hemi-cell.on{background:rgba(223,215,195,.18);border-color:rgba(223,215,195,.35)}
+.wi-scroll .wc-live .badge-halo.fire,.wi-scroll .wc-live .badge-halo.earth,
+.wi-scroll .wc-live .badge-halo.air,.wi-scroll .wc-live .badge-halo.water{background:rgba(223,215,195,.12)}
+/* the being-seen dial draws its colours as SVG attributes; CSS beats those */
+.wi-scroll .wc-live svg [stroke="#495543"]{stroke:var(--b-cream)}
+.wi-scroll .wc-live svg [fill="#495543"]{fill:var(--b-cream)}
+.wi-scroll .wc-live svg [stroke="#CDB494"]{stroke:rgba(223,215,195,.35)}
+/* the widgets' own meaning stands: an inactive pole or quadrant is dimmer than
+   the active one. Active 1, inactive .5, where the reading uses .45 and .55. */
+.wi-scroll .wc-live .pole,.wi-scroll .wc-live .hemi-cell{opacity:.5}
+.wi-scroll .wc-live .pole.on,.wi-scroll .wc-live .hemi-cell.on{opacity:1}
+/* 2 — no name header: the widget starts at the top of the screen, with just
+   enough room above it to clear the frame's notch. */
+/* percentages of the screen's width, so the notch is cleared at 307px and at
+   200px alike (16% of the screen is 43px at full size, 28px at the floor). */
+.wi-scroll{height:100%;overflow-y:auto;padding:16% 4.5% 7%;scrollbar-width:none}
+.wi-scroll::-webkit-scrollbar{display:none}
+/* 3 — the card chrome goes: no border, no fill, no padding of its own. The
+   screen's own inner margin is the only margin. */
+.wi-scroll .wc-live .card{background:none;border:0;padding:0}
+.wi-pane{display:none}
+.wi-pane.on{display:block}
+
+/* the rows, Cato's grid */
+.wi-listhead{font-family:var(--b-display);font-weight:400;color:var(--g-text);
+  font-size:var(--s-type-lead);line-height:var(--s-type-lead-lh);margin:var(--s-space-block) 0 12px}
+.wi-list{list-style:none;margin:0;padding:0;border-top:var(--s-border)}
+.wi-item{border-bottom:var(--s-border)}
+.wi-row{display:grid;grid-template-columns:54px minmax(0,1fr) 26px;align-items:center;
+  width:100%;height:64px;padding:0;background:none;border:0;cursor:pointer;text-align:left}
+.wi-num{font-family:var(--b-display);font-size:var(--s-type-lead);line-height:1;color:var(--g-quiet)}
+.wi-label{font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.2;color:var(--g-text)}
+/* an unchosen tick is the hairline tone, so six of them do not read as six
+   ticked boxes; the chosen one is green. */
+.wi-mark svg{display:block;width:22px;height:22px;fill:var(--g-rule)}
+.wi-row:hover .wi-mark svg,.wi-item.is-active .wi-mark svg{fill:var(--b-green)}
+.wi-item.is-active .wi-label{color:var(--g-text)}
+.wi-row:focus{outline:none}
+.wi-row:focus-visible{outline:2px solid var(--g-text);outline-offset:3px}
+.wi-samples{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
+  line-height:1.5;color:var(--g-quiet);margin:12px 0 0}
+.wi-samples a{color:var(--g-text);text-decoration:underline;text-underline-offset:3px}
+.wi-cta{margin-top:var(--s-space-block)}
+.wi-photo{display:none}
+
+@media(min-width:900px){
+  /* 2 — the photograph is positioned against the SECTION, not the padded wrap,
+     so it runs its full height, flush top and bottom, and meets the sections
+     above and below directly. It bleeds left to the window edge. The section's
+     vertical padding still spaces the words, which sit inside the wrap.
+     3 — the phone is centred on the window's midline, which is the photograph's
+     right edge, so half of it sits on the photograph and half on the cream, and
+     it is centred vertically in the section.
+     4 — a panel this tall has to crop: object-fit:cover at 50% 35%, which keeps
+     the child in frame as the panel grows taller than the file. */
+  /* 1 — one box for both. The phone used to be positioned against .wi-text,
+     which is the right half of the wrap, so its 50% was the right half's centre,
+     about 16% of the window right of the photograph's edge. .wi and .wi-text
+     drop their positioning here, so the nearest positioned ancestor of both the
+     phone and the photograph is the section, and 50% means the same thing to
+     each: the photograph ends at it and the phone is centred on it.
+     2 — the text starts at the phone's right edge plus 48px, measured from the
+     same half of the same box, so it cannot be reached by the phone.
+     3 — the phone is fluid: 307px down to 200px, so at any width from 900px up
+     the text keeps its own column.
+     4 — each of the three selectors has a second form: the parallax script wraps
+     a section's children in .wc-move, and these rules name a direct child. The
+     markup is the same either way. */
+  .whats-inside-s{--wi-phone-w:clamp(200px,21vw,307px)}
+  .whats-inside-s>.wrap,.whats-inside-s>.wc-move>.wrap{max-width:none;padding-left:40px;padding-right:40px}
+  .wi{display:block;position:static;min-height:620px}
+  .whats-inside-s>.wi-photo,.whats-inside-s>.wc-move>.wi-photo{display:block;position:absolute;top:0;bottom:0;
+    right:50%;left:calc(50% - 50vw);margin:0;padding:0;overflow:hidden;z-index:1}
+  .whats-inside-s>.wi-photo img,.whats-inside-s>.wc-move>.wi-photo img{display:block;width:100%;height:100%;
+    object-fit:cover;object-position:50% 35%;border:0;transform:scaleX(-1)}
+  .wi-phone{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:var(--wi-phone-w);max-width:none;z-index:2;margin:0}
+  .wi-text{position:static;margin-left:calc(50% + var(--wi-phone-w) / 2 + 48px)}
+}
+.home-band{padding:0;background:var(--b-green);line-height:0}
+.home-band img{display:block;width:100%;height:auto}
+/* Morning Memories ships three styles; the label is set in the script one.
+   File: morning-memories-script.otf from the Morning Memories font duo,
+   converted to woff2 and self-hosted beside the others. */
+@font-face{font-family:"Morning Memories Script";
+  src:url("/assets/fonts/morning-memories-script.woff2") format("woff2");
+  font-weight:400;font-display:swap}
+/* 2026-10-08, Richard: cream, with the paper's fibres multiplied over it. The
+   paper is its own layer so its opacity can be set; multiply needs the band to
+   be its own stacking context, or it would blend with the page behind it.
+   paper.png is 768x956 but its fibres stop short of the edges, with clear
+   margins of 18, 51, 46 and 20px, so tiling it leaves cream strips at every
+   seam. paper-tile.png is its fully inked core, columns 50-715 and rows 47-908,
+   666x862, drawn at its own size so the fibres stay sharp. */
+.facts-s{position:relative;isolation:isolate;background:var(--b-tan);
+  border-top:2px solid rgba(47,56,43,.4);border-bottom:2px solid rgba(47,56,43,.4);
+  padding:64px 0}
+/* 2026-10-08, Richard: kraft. Tan with the fibres multiplied over it.
+   paper-kraft.png is paper-tile.png with every pixel's distance from white
+   stretched by 4 (new = 255 - 4*(255 - old), clipped at 0): the sheet stays
+   white and only the fibres darken, so the texture reads on tan. */
+.facts-s::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:url(/assets/img/frames/paper-kraft.png) repeat 0 0/666px auto;
+  /* the file is pale (mean luminance 235 of 255), so it needs the whole layer to
+     read; at .55 the band measured only 2 points darker than flat cream. */
+  mix-blend-mode:multiply;opacity:1}
+.fa{display:grid;gap:40px;justify-items:center;text-align:center}
+.fa-label{font-family:"Morning Memories Script",var(--b-display);font-weight:400;
+  color:#2F382B;font-size:57px;line-height:1;margin:0}
+.fa-list{list-style:none;margin:0;padding:0;display:grid;gap:40px;width:100%}
+.fa-item{display:grid;gap:14px;justify-items:center;padding:0 24px}
+.fa-star{display:block;width:34px;height:auto}
+.fa-line{font-family:var(--b-body);font-size:13px;line-height:1.5;
+  letter-spacing:.18em;color:#2F382B;margin:0}
+/* each mark at its own angle */
+.fa-item:nth-child(1) .fa-star{transform:rotate(9deg)}
+.fa-item:nth-child(2) .fa-star{transform:rotate(-14deg)}
+.fa-item:nth-child(3) .fa-star{transform:rotate(4deg)}
+.fa-line-2{color:rgba(47,56,43,.75)}
+
+/* mobile: the label on top, the facts stacked, a tan rule between them */
+.fa-item + .fa-item{border-top:2px solid rgba(47,56,43,.4);padding-top:40px}
+
+@media(min-width:900px){
+  .facts-s{padding:76px 0}
+  /* the row sits left to right; each fact still reads centred under its mark */
+  .fa{grid-template-columns:auto 1fr;gap:56px;align-items:center;justify-items:start}
+  .fa-label{font-size:57px}
+  .fa-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+  .fa-item{padding:0 40px}
+  .fa-item + .fa-item{border-top:0;border-left:2px solid rgba(47,56,43,.4);padding-top:0}
+}
+
+/* 2026-10-08, Richard: the ground recognition carried until 7749d3c — the dark
+   ground with the squared sheet blended over it. The buy box keeps its own
+   white card, so its text stays on white. */
+.offer-v2-s{background-image:var(--s-texture);background-size:cover;
+  background-position:center;background-blend-mode:var(--s-texture-blend);
+  padding:0 0 var(--s-space-section)}
+.ov{display:grid}
+.ov-left{display:grid;place-items:center;padding:32px 24px}
+.ov-left img{display:block;max-width:100%;max-height:80vh;width:auto;height:auto;
+  object-fit:contain;border:0;border-radius:24px}
+.ov-right{padding:32px 24px}
+/* the buy box keeps its own light card, so its text stays on light */
+.ov-box{max-width:480px;margin:0 auto;background:#FFFFFF;
+  border-radius:16px;padding:32px}
+
+/* the page's two faces: Morning Memories on the title, Special Elite elsewhere */
+.ov-title{font-family:var(--b-display);color:var(--b-green);
+  font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
+  letter-spacing:var(--s-type-display-ls);margin:0 0 10px}
+.ov-rating{display:flex;align-items:baseline;gap:9px;margin:0 0 12px;font-family:var(--b-body)}
+.ov-stars{color:var(--b-gold);font-size:19px;letter-spacing:.14em}
+.ov-rated{color:var(--b-green);font-size:var(--s-type-body)}
+.ov-line{font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.5;
+  color:var(--b-green);margin:0 0 20px}
+
+/* the tiers */
+/* the hand-drawn circle around the label on the last tier */
+.ov-best{position:relative;display:inline-block;margin-left:10px;color:var(--b-green);
+  font-family:var(--b-body);font-size:12.5px;line-height:1;white-space:nowrap}
+.ov-ring{position:absolute;left:-.5em;top:50%;transform:translateY(-50%);
+  width:calc(100% + 1em);height:2.1em;overflow:visible;pointer-events:none;color:var(--b-tan)}
+.ov-tiers{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:10px}
+.ov-tier input{position:absolute;opacity:0;width:0;height:0}
+.ov-tier-box{display:grid;grid-template-columns:1fr auto;gap:2px 16px;align-items:center;
+  padding:16px;background:#FFFFFF;border:1px solid var(--b-tan);border-radius:10px;cursor:pointer}
+.ov-tier input:checked + .ov-tier-box{border:2px solid var(--b-green);padding:15px}
+.ov-tier input:focus-visible + .ov-tier-box{outline:2px solid var(--b-green);outline-offset:2px}
+.ov-name{display:flex;align-items:center;gap:10px;font-family:var(--b-body);
+  font-size:var(--s-type-body);line-height:1.3;color:var(--b-green)}
+.ov-dot{flex:0 0 16px;width:16px;height:16px;border-radius:50%;border:1px solid var(--b-green)}
+.ov-tier input:checked + .ov-tier-box .ov-dot{background:var(--b-green);box-shadow:inset 0 0 0 3px #FFFFFF}
+.ov-price{font-family:var(--b-body);font-size:20px;line-height:1;
+  color:var(--b-green);text-align:right}
+.ov-each{grid-column:1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  font-family:var(--b-body);font-size:12.5px;line-height:1.5;
+  color:var(--b-green);padding-left:26px}
+.ov-save{font-family:var(--b-body);font-size:12.5px;color:var(--b-green);
+  background:rgba(73,85,67,.1);border-radius:999px;padding:2px 8px}
+.ov-note{grid-column:1;font-family:var(--b-body);font-size:13px;
+  line-height:1.5;color:var(--b-green);padding-left:26px}
+.ov-more{grid-column:1/-1;display:none;margin:12px 0 0;padding:0;list-style:none}
+.ov-tier input:checked + .ov-tier-box .ov-more{display:grid;gap:8px}
+.ov-more li{display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:start;
+  font-family:var(--b-body);font-size:12.5px;line-height:1.45;color:var(--b-green)}
+.ov-tick{width:14px;height:14px;margin-top:3px;border:1px solid var(--b-green);
+  border-radius:50%;position:relative}
+.ov-tick:after{content:"";position:absolute;left:4px;top:2px;width:3.5px;height:7px;
+  border-right:1.5px solid var(--b-green);border-bottom:1.5px solid var(--b-green);transform:rotate(42deg)}
+
+/* the button */
+.ov-cta{width:100%}
+.ov-cta[aria-disabled="true"]{opacity:.45;box-shadow:none;cursor:default;pointer-events:none}
+.ov-secure{font-family:var(--b-body);font-size:12.5px;line-height:1.6;
+  color:var(--b-green);text-align:center;margin:12px 0 0}
+
+/* the FAQ */
+.ov-faq{margin-top:32px}
+.ov-faq .ov-q{background:none;border:0;border-radius:0;box-shadow:none;margin:0;padding:0;
+  border-top:1px solid var(--b-tan)}
+.ov-faq .ov-q:last-child{border-bottom:1px solid var(--b-tan)}
+.ov-faq .ov-q summary{list-style:none;cursor:pointer;display:flex;gap:16px;
+  align-items:baseline;justify-content:space-between;padding:16px 0;
+  font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.4;color:var(--b-green)}
+.ov-faq .ov-q summary::-webkit-details-marker{display:none}
+.ov-faq .ov-q summary::after{content:"+";font-size:16px;color:var(--b-tan)}
+.ov-faq .ov-q[open] summary::after{content:"\2013"}
+.ov-faq .ov-q summary:focus{outline:none}
+.ov-faq .ov-q summary:focus-visible{outline:2px solid var(--b-green);outline-offset:2px}
+.ov-faq .ov-a{font-family:var(--b-body);font-size:15px;line-height:1.6;
+  color:var(--b-green);opacity:.8;margin:0 0 18px;max-width:60ch}
+
+@media(min-width:900px){
+  .ov{grid-template-columns:50% 50%}
+  .ov-left{padding:48px}
+  .ov-right{padding:32px 48px}
+  .ov-box{margin:0}
+}
+
+.testimonials-s{border-top:2px solid var(--b-gold);border-bottom:2px solid var(--b-gold)}
+.tm{display:grid;gap:var(--s-space-section);justify-items:center;text-align:center}
+.tm-eyebrow{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0}
+.tm-h{font-family:var(--b-display);font-weight:400;color:var(--g-text);
+  font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
+  letter-spacing:var(--s-type-display-ls);max-width:none;margin:18px 0 0}
+.tm-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-space-section);width:100%}
+.tm-item{display:grid;gap:18px;justify-items:center}
+.tm-shot{position:relative;width:100%;aspect-ratio:1/1;background:var(--b-tan);
+  border-radius:var(--s-radius-btn-hard);margin:0}
+.tm-star{position:absolute;right:-14px;top:-14px;width:40px;height:auto;color:var(--b-cream)}
+.tm-q{font-family:var(--b-display);font-weight:400;font-size:21px;line-height:1.25;
+  letter-spacing:var(--s-type-display-ls);color:var(--g-text);margin:0;max-width:30ch}
+.tm-name{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
+  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--g-quiet);margin:0}
+@media(min-width:900px){
+  .tm-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:48px}
+}
+
+.pc{--pc-over:calc(25vh + 3vw);
+  position:relative;height:85vh;min-height:520px;overflow:hidden;
+  display:grid;place-items:center}
+.pc-photo{position:absolute;left:0;right:0;top:calc(var(--pc-over) * -1);
+  width:100%;height:calc(100% + var(--pc-over));object-fit:cover;
+  object-position:50% 50%;border:0;will-change:transform}
+/* the sky and the sand are bright, so cream type needs a wash under it. It is
+   only under the text, from the middle outwards, and the photograph keeps its
+   own edges. */
+.pc-wash{position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(62% 52% at 50% 52%,rgba(51,61,47,.66) 0%,rgba(51,61,47,.34) 58%,rgba(51,61,47,0) 100%),
+  linear-gradient(180deg,rgba(51,61,47,.20) 0%,rgba(51,61,47,.10) 38%,rgba(51,61,47,.42) 100%)}
+.pc-inner{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:760px}
+.pc-h{font-family:var(--b-display);font-weight:400;color:var(--b-cream);
+  font-size:clamp(2.2rem,4.8vw,3.8rem);line-height:1.02;letter-spacing:-.035em;
+  max-width:16ch;margin:0 auto var(--s-space-block);text-wrap:balance}
+/* the three prices, one line under the headline */
+.pc-prices{font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.5;
+  color:var(--b-cream);margin:0 0 var(--s-space-block)}
+.pc-cta{position:relative;z-index:2}
+
+.home-signup .wrap{display:flex;flex-direction:column;gap:var(--s-space-block);align-items:stretch}
+.hsg-media{margin:0;width:100%;max-width:520px}
+.hsg-media img{display:block;width:100%;height:auto}
+.hsg-form{flex:0 1 46ch}
+.hsg-eyebrow{font-family:var(--b-body);font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--g-quiet);margin:0 0 12px}
+.hsg-h{font-family:var(--b-display);font-weight:400;font-size:clamp(2rem,3.4vw,2.8rem);line-height:1.04;letter-spacing:-.035em;margin:0 0 12px}
+.hsg-sub{font-family:var(--b-body);font-size:var(--s-type-body);line-height:var(--s-type-body-lh);max-width:46ch;margin:0 0 var(--s-space-block)}
+.hsg-form form{display:flex;flex-direction:column;align-items:flex-start;gap:12px;max-width:46ch}
+.hsg-form label{font-family:var(--b-body);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase}
+.hsg-form input[type=email]{width:100%;box-sizing:border-box;font:inherit;font-family:var(--b-body);color:var(--b-green);
+  background:var(--b-paper);border:1px solid var(--b-tan);border-radius:3px;padding:12px 14px}
+.hsg-form input[type=email]:focus{outline:2px solid var(--b-green);outline-offset:2px}
+.hsg-form button.wc-cta{cursor:pointer}
+.hsg-status,.hsg-ok{font-family:var(--b-body);font-size:var(--s-type-body);max-width:46ch;margin:12px 0 0}
+.hsg-built{margin:calc(var(--s-space-section) * 1.1) 0 0;text-align:center}
+.hsg-built img{display:inline-block;width:172px;height:auto;opacity:.75}
+.hsg-built a:hover img{opacity:1}
+@media (min-width:900px){
+  .home-signup .wrap{flex-direction:row;align-items:center;justify-content:space-between;gap:calc(var(--s-space-block) * 1.5)}
+  .hsg-media{flex:0 1 520px}
+}
+
+/* 2026-10-08, Richard: half the space between the wave and the headline. The
+   section's own padding was 108px, which left 106px under the wave's 2px lap;
+   55px leaves 53px. */
+.compare-s{background:var(--b-paper);color:var(--b-green);padding-top:55px}
+.cmp{max-width:980px;margin:0 auto}
+/* the skin caps an h2 at 20ch, which left the headline sitting to the left of
+   its own block; it needs the full width to centre. */
+.cmp-h{font-family:var(--b-display);font-weight:400;color:var(--b-green);
+  font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
+  letter-spacing:var(--s-type-display-ls);text-align:center;
+  max-width:none;margin:0 auto var(--s-space-section)}
+/* the word for a screen reader, not for the page */
+.cmp-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap;border:0}
+.cmp-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.cmp-table th,.cmp-table td{padding:14px 10px;text-align:center;vertical-align:middle;
+  border-bottom:1px solid var(--b-tan)}
+.cmp-table thead th{border-bottom:1px solid var(--b-tan);vertical-align:bottom}
+.cmp-table .cmp-row-h{text-align:left}
+.cmp-row-h{font-family:var(--b-body);font-weight:400;
+  font-size:var(--s-type-body);line-height:1.35;color:var(--b-green);width:30%}
+.cmp-col{font-family:var(--b-body);font-weight:400;font-size:13px;line-height:1.35;
+  color:var(--b-bark)}
+.cmp-col b{display:block;font-weight:400;font-size:var(--s-type-body);color:var(--b-green)}
+.cmp-us{background:rgba(73,85,67,.07)}
+.cmp-us .cmp-col b,.cmp-us.cmp-col b{color:var(--b-green)}
+thead .cmp-us{border-radius:10px 10px 0 0}
+.cmp-yes{color:var(--b-green)}
+.cmp-no{color:var(--b-tan)}
+.cmp-act{margin-top:var(--s-space-section);text-align:center}
+.cmp-cta{}
+@media(max-width:699px){
+  .cmp-table th,.cmp-table td{padding:10px 4px}
+  .cmp-row-h{font-size:13px;width:34%}
+  .cmp-col{font-size:11px}
+  .cmp-col b{font-size:12.5px}
+  .cmp-table svg{width:17px;height:17px}
+}
+
+footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:center}
+.foot-mark{display:block;margin:0 auto;height:28px;width:auto}
+.foot-links{margin:22px 0 0;font-size:12.5px;letter-spacing:.1em;
+  display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center}
+.foot-links a{color:var(--g-text);text-decoration:none;border-bottom:1px solid var(--g-rule)}
+.foot-links a:hover{color:var(--g-text);border-bottom-color:var(--g-text)}
+.foot-sep{opacity:.5}
+.foot-note{margin:26px auto 0;max-width:68ch;font-size:12px;line-height:1.6;
+  letter-spacing:.02em;color:var(--g-quiet)}
+.foot-copy{margin:22px 0 0;font-size:12px;letter-spacing:.1em;color:var(--g-quiet)}
+</style>
 </head>
-<body>
+<body data-variant="home">
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=1622703732974632&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
-<section class="film" aria-label="Film"><div class="film-frame"><iframe src="https://player.vimeo.com/video/1136626687?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;autopause=0&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" title="Wolf Children" allow="autoplay; fullscreen; picture-in-picture" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe></div></section>
-<section class="quote-photo"><div class="container"><p class="statement">Wolf Children is a collection of stories, tools and recipes to help parents avoid the trap of screentime.</p><figure><img src="/assets/img/home-module2.webp" alt="An animated film-frame photograph" width="848" height="750" loading="lazy"></figure></div></section>
-<section class="photo-full" aria-label="Photograph"><img src="/assets/img/home-band.jpg" alt="No child will ever remember spending their best day in front of a screen, set in large letters with four photographs of a child outdoors" width="1920" height="876" loading="lazy"></section>
-<div class="section home-paper"><div class="container home-signup-row"><figure class="home-signup-media"><img src="/assets/img/home-calendar-cutout.webp" alt="The 2027 moon calendar, one printed page with every moon phase and its date" width="1400" height="1292" loading="lazy"></figure><section class="signup" id="signup"><p class="eyebrow">Free</p><h2>The 2027 moon calendar</h2><p class="signup-sub">Every new moon, first quarter, full moon and last quarter of 2027 on one page. Print it and put it where your child can see it.</p><form class="signup-form" method="POST" action="https://app.loops.so/api/newsletter-form/cmtvjqaud00wt0jyxzp5aaehs" data-signup=""><input type="hidden" name="userGroup" value="moon-calendar-en"><input type="hidden" name="source" value="wolfchildren.co homepage"><label for="signup-email">Email address</label><input type="email" id="signup-email" name="email" autocomplete="email" inputmode="email" required><button type="submit" class="btn">Send me the calendar</button></form><p class="signup-status" data-signup-status="" aria-live="polite"></p><p class="signup-success" data-signup-success="" hidden>Check your inbox. The calendar is on its way.</p></section></div><p class="built-by"><a href="https://vieren.studio" rel="noopener"><img src="/assets/img/built-by-vieren.png" alt="Built by Vieren" width="686" height="112" loading="lazy"></a></p><script src="/assets/js/signup.js?v=89f86953" defer></script></div>
+<section class="s home-hero">
+  <figure class="hh-half hh-left"><img src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence" data-placeholder="photo" decoding="async"></figure>
+  <figure class="hh-half hh-right"><img src="/assets/img/compass2/reason-4.webp" width="1200" height="1600" alt="" data-placeholder="video-loop" decoding="async"></figure>
+  <div class="hh-wash" aria-hidden="true"></div>
+  <h1 class="hh-h">No child will ever remember spending their best day in front of a screen.</h1>
+</section>
+
+<section class="s home-statement wc-ground-light wc-edge-wave">
+  <div class="wc-wave" data-cover data-speed="0.4" aria-hidden="true"></div><div class="wrap">
+  <p class="hs-text">Wolf Children is a collection of stories, tools and recipes to help parents avoid the trap of screentime.</p>
+  <figure class="hs-fig"><img src="/assets/img/home-module2.webp" alt="An animated film-frame photograph" width="848" height="750" loading="lazy" decoding="async"></figure>
+</div></section>
+
+<section class="s home-film wc-ground-dark"><div class="wrap">
+  <div class="hf-frame" data-film-src="https://player.vimeo.com/video/1136626687?autoplay=1&dnt=1&title=0&byline=0&portrait=0">
+    <button class="hf-play" type="button" aria-label="Play the Wolf Children film">
+      <img src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="" data-placeholder="film-poster" loading="lazy" decoding="async">
+      <span class="hf-tri" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
+<script>
+document.querySelectorAll('[data-film-src]').forEach(function(f){
+  f.querySelector('.hf-play').addEventListener('click',function(){
+    var i=document.createElement('iframe');
+    i.src=f.getAttribute('data-film-src');i.title='Play the Wolf Children film';
+    i.allow='autoplay; fullscreen; picture-in-picture';
+    i.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+    f.replaceChildren(i);
+  });
+});
+</script></section>
+
+<section class="s recognition-s wc-ground-light"><div class="wrap">
+  <div class="rec">
+    <div class="rec-text">
+      <p class="rec-eyebrow"><span class="wc-hl">THEIR TURN</span></p>
+      <h2>You've read your own chart <span class="rec-tight">a</span> hundred times. Never <span class="rec-hook">theirs<svg viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true"><path d="M62 8C30 11 8 22 6 36c-2 15 22 28 62 30 42 2 96-2 132-13 22-7 26-18 18-26C208 17 178 9 146 6"/></svg></span>.</h2>
+      <p class="rec-lead">You know why you need a quiet hour after a crowded day. You know which part of you picks the fight and which part makes up after. You learned it from your own chart, line by line.</p>
+      <p class="rec-body">Your child has one too. Same sky, a different night. It says what settles them after a hard day, why bedtime goes the way it goes, and why the two of you clash over the same small thing.</p>
+      <a class="wc-cta rec-cta" href="/readings/compass/" data-rec-cta>Read theirs</a>
+    </div>
+    <div class="rec-cluster">
+      <figure class="rec-large"><img src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence, absorbed in the animals on the other side" loading="lazy" decoding="async"></figure>
+      <span class="rec-mark rec-mark-star" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="4.8" stroke-linecap="round"><path d="M20 6v28M8.5 12.5l23 15M31.5 12.5l-23 15"/></svg></span>
+      <figure class="rec-small"><span class="rec-small-backing" aria-hidden="true"></span>
+        <span class="rec-slides"><img class="on" src="/assets/img/compass2/reason-3.webp" width="1200" height="1600" alt="A child running across grass towards the trees" loading="lazy" decoding="async"><img class="" src="/assets/img/compass2/reason-4.webp" width="1200" height="1600" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="" src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+      </figure>
+      <span class="rec-mark rec-mark-squiggle" aria-hidden="true"><svg viewBox="0 0 90 26" fill="none" stroke="currentColor" stroke-width="4.8" stroke-linecap="round"><path d="M3 18c9-14 17 6 26-6s17 14 26 2 13 2 13 2"/></svg></span>
+    </div>
+  </div>
+</div></section>
+<script>
+(function(){
+  // the button: back to the birth form, and the first field takes focus. The
+  // fields are spans in the section's own markup, so focus needs a tabindex,
+  // set here at runtime rather than by changing the ATF.
+  var b=document.querySelector('[data-rec-cta]');
+  if(b) b.addEventListener('click',function(e){
+    var form=document.querySelector('#atf .form'); if(!form) return;
+    e.preventDefault();
+    form.scrollIntoView({behavior:'smooth',block:'center'});
+    var f=form.querySelector('.field'); if(!f) return;
+    if(!f.hasAttribute('tabindex')) f.setAttribute('tabindex','-1');
+    setTimeout(function(){ f.focus({preventScroll:true}); },600);
+  });
+  // the small photograph crossfades; it stands still when the reader asks for
+  // less motion.
+  var imgs=[].slice.call(document.querySelectorAll('.rec-slides img'));
+  if(imgs.length<2) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var i=0;
+  setInterval(function(){
+    var out=imgs[i];
+    i=(i+1)%imgs.length;
+    var into=imgs[i];
+    out.classList.remove('on'); out.classList.add('under');   // stays fully visible
+    into.classList.remove('under');
+    void into.offsetWidth;                                     // start the fade from 0
+    into.classList.add('on');
+    setTimeout(function(){ out.classList.remove('under'); }, 900);
+  },3500);
+})();
+</script>
+
+<section class="s home-dn" data-placeholder="section">
+  <div class="dn-half dn-day"><div><h2 class="dn-h">Day</h2><p class="dn-p">Placeholder. What the day shows about your child.</p></div></div>
+  <div class="dn-half dn-night"><div><h2 class="dn-h">Night</h2><p class="dn-p">Placeholder. What the night shows about your child.</p></div></div>
+</section>
+
+<section class="s how-it-works-s"><div class="wrap">
+  <div class="hiw">
+    <div>
+      <p class="hiw-eyebrow"><span class="wc-hl">The process</span></p>
+      <h2 class="hiw-h">How it works</h2>
+    </div>
+    <ul class="hiw-steps">
+      <li class="hiw-step">
+        <svg class="hw-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg>
+        <p class="hiw-n">01</p>
+        <h3 class="hiw-t">Enter their details</h3>
+        <p class="hiw-p">Their date of birth, the time, and the place.</p>
+      </li>
+      <li class="hiw-step">
+        <svg class="hw-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg>
+        <p class="hiw-n">02</p>
+        <h3 class="hiw-t">The cauldron</h3>
+        <p class="hiw-p">We cook up their Compass from the night they were born.</p>
+      </li>
+      <li class="hiw-step">
+        <svg class="hw-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg>
+        <p class="hiw-n">03</p>
+        <h3 class="hiw-t">Open their Compass</h3>
+        <p class="hiw-p">One page about your child, waiting in your portal.</p>
+      </li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="s whats-inside-s wc-ground-dark" data-wi>
+  <figure class="wi-photo"><img src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="A child standing on a rock in a forest, looking back" loading="lazy" decoding="async"></figure>
+  <div class="wrap">
+  <div class="wi">
+    <div class="wi-text">
+      <div class="wi-head">
+        <p class="wi-eyebrow"><span class="wc-hl">Inside their Compass</span></p>
+        <h2>How they think, feel, process and love.</h2>
+        <p class="wi-sub">Read from their whole chart, in plain words. These are real pieces of a sample reading. Tap one and it opens in the phone.</p>
+      </div>
+    <div class="wi-phone">
+      <img class="wi-frame" src="/assets/img/phone-frame.png" alt="" width="969" height="1959" aria-hidden="true">
+      <div class="wi-screen">
+        <div class="wi-scroll" data-wi-screen>
+          <div class="wi-pane on" data-pane="w-moon"><div class="wc-live"><div class="card"><div class="wlabel">The moon that night</div><div class="moon-wrap"><svg aria-label="The moon that night" class="moon" role="img" viewBox="0 0 120 120"><circle class="moon-sky" cx="60" cy="60" r="55"></circle><circle class="moon-dark" cx="60" cy="60" r="46"></circle><path class="moon-lit" d="M 60,14 A 46,46 0 0,0 60,106 Z"></path><path class="moon-lit" d="M 60,14 A 42.25,46 0 0,1 60,106 Z"></path><circle class="moon-pit" cx="46" cy="44" r="9"></circle><circle class="moon-pit" cx="74" cy="52" r="6"></circle><circle class="moon-pit" cx="56" cy="74" r="7"></circle><circle class="moon-pit" cx="38" cy="66" r="4"></circle><circle class="moon-pit" cx="68" cy="34" r="3.5"></circle><circle class="moon-pit" cx="80" cy="70" r="4.5"></circle><circle class="moon-ring" cx="60" cy="60" r="46"></circle></svg></div><div class="moon-line">Nora was born two days after a full moon, with the light going back down.</div><div class="bar-footer">waning gibbous</div></div></div></div>
+          <div class="wi-pane" data-pane="w-elements"><div class="wc-live"><div class="card"><div class="wlabel">Elements</div><div class="bar-rows"><div class="bar"><div class="bar-head"><span class="bar-name">fire</span><span class="bar-count">35%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">earth</span><span class="bar-count">35%</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">air</span><span class="bar-count">25%</span></div><div class="bar-track"><div class="bar-fill" style="width:71%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">water</span><span class="bar-count">5%</span></div><div class="bar-track"><div class="bar-fill" style="width:14%"></div></div></div></div><div class="bar-footer">Most of: <span>fire</span></div><div class="wcontext">Finn meets the day head on and spends energy without much accounting for it. Fire is his fullest element and water his scarcest. Feeling registers as action, so what another child might sit with quietly comes out of him as movement or heat. Naming the softer undercurrent in himself, or noticing it in someone else, is the part that stays out of reach longest.</div></div></div></div>
+          <div class="wi-pane" data-pane="w-wired"><div class="wc-live"><div class="card "><div class="wlabel">What&#x27;s wired to what</div><div class="bar-rows"><div class="bar"><div class="bar-head"><span class="bar-name">Who she is</span><span class="bar-count">3</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">How she feels</span><span class="bar-count">1</span></div><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">How she thinks and talks</span><span class="bar-count">3</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">What she loves</span><span class="bar-count">0</span></div><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div></div><div class="bar"><div class="bar-head"><span class="bar-name">How she pushes</span><span class="bar-count">1</span></div><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div></div></div><div class="bar-footer">Wired to nothing else: what she loves</div><div class="wcontext">What she loves is not wired to anything else in Nora&#x27;s chart. It works on its own, so it shows up the same way every time. The longer a bar, the more other parts of Nora are wired into that one, and the more it changes depending on what else is going on.</div></div></div></div>
+          <div class="wi-pane" data-pane="w-starter"><div class="wc-live"><div class="card"><div class="wlabel">Three lines</div><div class="spec"><div class="spec-poles"><span class="pole on">Starter</span><span class="pole">Finisher</span></div><div class="spec-track"><div class="spec-line"></div><div class="spec-tick"></div><div class="spec-dot" style="left:48%"></div></div><div class="spec-context">Some things Finn carries all the way to the end and others he leaves standing once the interesting part is done. The deciding factor sits in how much the thing holds him, so his follow-through looks inconsistent until you see what he is choosing between.</div></div></div></div></div>
+          <div class="wi-pane" data-pane="w-seen"><div class="wc-live"><div class="card vis"><div class="wlabel">Being seen</div><svg height="140" viewBox="0 0 240 140" width="240"><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#CDB494" stroke-linecap="round" stroke-width="10"></path><path d="M 30 130 A 90 90 0 0 1 210 130" fill="none" stroke="#495543" stroke-dasharray="283" stroke-dashoffset="62.3" stroke-linecap="round" stroke-width="10"></path><text fill="#495543" font-family="Montserrat" font-size="44" font-weight="900" text-anchor="middle" x="120" y="108">78%</text><text fill="#495543" font-family="Montserrat" font-size="9" font-weight="900" letter-spacing="2" text-anchor="middle" x="120" y="132">IN THE OPEN</text></svg><div class="pill small"><span class="pill-text">Midheaven in Aquarius</span></div></div></div></div>
+          <div class="wi-pane" data-pane="w-group"><div class="wc-live"><div class="card badge"><div class="badge-label">In a group</div><div class="badge-halo earth"><span class="big3-word">earth</span></div><div class="badge-type">The steady one</div><p class="badge-desc">Finn holds steady in a group while the noise sorts itself out around him, and other children drift toward him once the game needs someone to hold the shape of it. With the Sun in an earth sign, his weight in a room comes from staying put and finishing what he started. He takes a while to warm to new company, then works alongside them easily.</p><div class="badge-rule"></div><div class="badge-placement">Sun in Capricorn · Mars in Sagittarius</div><p class="badge-basis">Pushing for something, Finn argues the whole shape of it out loud, often widening the question rather than narrowing it. Mars in Sagittarius moves by conviction, so wanting a thing and believing it is fair arrive together and sound the same. He pursues hard while the case still feels alive, then drifts once the matter is agreed and the next question has already caught him.</p></div></div></div>
+        </div>
+      </div>
+    </div>
+      <p class="wi-listhead">Start with these six</p>
+      <ol class="wi-list">
+        <li class="wi-item is-active"><button type="button" class="wi-row" data-section="w-moon" aria-pressed="true"><span class="wi-num">01</span><span class="wi-label">The moon that night</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
+        <li class="wi-item"><button type="button" class="wi-row" data-section="w-elements" aria-pressed="false"><span class="wi-num">02</span><span class="wi-label">Elements</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
+        <li class="wi-item"><button type="button" class="wi-row" data-section="w-wired" aria-pressed="false"><span class="wi-num">03</span><span class="wi-label">What's wired to what</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
+        <li class="wi-item"><button type="button" class="wi-row" data-section="w-starter" aria-pressed="false"><span class="wi-num">04</span><span class="wi-label">Starter or finisher</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
+        <li class="wi-item"><button type="button" class="wi-row" data-section="w-seen" aria-pressed="false"><span class="wi-num">05</span><span class="wi-label">Being seen</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
+        <li class="wi-item"><button type="button" class="wi-row" data-section="w-group" aria-pressed="false"><span class="wi-num">06</span><span class="wi-label">In a group</span><span class="wi-mark" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg></span></button></li>
+      </ol>
+      <a class="wc-cta wi-cta" href="/readings/compass/" data-wi-cta>Get their Compass · $27</a>
+      <p class="wi-samples">Read a full sample: <a href="/readings/compass/sample/nora/">Nora</a> <span aria-hidden="true">&middot;</span> <a href="/readings/compass/sample/finn/">Finn</a></p>
+    </div>
+  </div>
+</div></section>
+<script>
+(function(){
+  var root=document.querySelector('[data-wi]'); if(!root) return;
+  var panes=root.querySelectorAll('[data-pane]'), rows=root.querySelectorAll('.wi-row');
+  var screen=root.querySelector('[data-wi-screen]');
+  var phone=root.querySelector('.wi-phone');
+  // matchMedia is missing in some environments (jsdom, for one); hover then
+  // behaves as the wide screen it was written for rather than doing nothing.
+  function wide(){ return window.matchMedia ? window.matchMedia('(min-width:900px)').matches : true; }
+  function narrow(){ return window.matchMedia ? window.matchMedia('(max-width:899px)').matches : false; }
+  function show(id, scroll){
+    panes.forEach(function(p){
+      p.classList.toggle('on', p.getAttribute('data-pane')===id);
+    });
+    rows.forEach(function(b){
+      var on=b.getAttribute('data-section')===id;
+      b.setAttribute('aria-pressed', on?'true':'false');
+      b.parentNode.classList.toggle('is-active', on);
+    });
+    if(screen) screen.scrollTop=0;
+    // on a phone the rows sit under the frame; keep the frame in view on a tap
+    if(scroll && phone && narrow()){
+      var r=phone.getBoundingClientRect();
+      if(r.top<0||r.bottom>window.innerHeight) phone.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+  }
+  rows.forEach(function(b){
+    var id=b.getAttribute('data-section');
+    b.addEventListener('click',function(){ show(id,true); });
+    b.addEventListener('mouseenter',function(){ if(wide()) show(id,false); });
+  });
+  var cta=root.querySelector('[data-wi-cta]');
+  if(cta) cta.addEventListener('click',function(e){
+    var form=document.querySelector('#atf .form'); if(!form) return;
+    e.preventDefault(); form.scrollIntoView({behavior:'smooth',block:'center'});
+    var f=form.querySelector('.field'); if(!f) return;
+    if(!f.hasAttribute('tabindex')) f.setAttribute('tabindex','-1');
+    setTimeout(function(){ f.focus({preventScroll:true}); },600);
+  });
+})();
+</script>
+
+<section class="s home-band" aria-label="Photograph">
+  <img src="/assets/img/home-band.jpg" alt="No child will ever remember spending their best day in front of a screen, set in large letters with four photographs of a child outdoors" width="1920" height="876" loading="lazy" decoding="async">
+</section>
+
+<section class="s facts-s"><div class="wrap">
+  <div class="fa">
+    <p class="fa-label">Quick facts:</p>
+    <ul class="fa-list">
+      <li class="fa-item">
+        <span style="color:#2F382B"><svg class="fa-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg></span>
+        <p class="fa-line">Ready in minutes</p>
+        <p class="fa-line fa-line-2">After you enter their details</p>
+      </li>
+      <li class="fa-item">
+        <span style="color:#495543"><svg class="fa-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg></span>
+        <p class="fa-line">The whole chart</p>
+        <p class="fa-line fa-line-2">Read for one child</p>
+      </li>
+      <li class="fa-item">
+        <span style="color:#DA4635"><svg class="fa-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg></span>
+        <p class="fa-line">Yours to keep</p>
+        <p class="fa-line fa-line-2">To come back to as they grow</p>
+      </li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="s offer-v2-s wc-ground-dark">
+  <div class="ov">
+    <div class="ov-left">
+      <img src="/assets/img/compass2/offer.webp" width="1200" height="1600" alt="A child in a doorway at the end of the day, boots muddy" loading="lazy" decoding="async">
+    </div>
+
+    <div class="ov-right">
+      <div class="ov-box">
+        <h2 class="ov-title">Compass</h2>
+        <p class="ov-rating" data-placeholder="review"><span class="ov-stars" aria-hidden="true">★★★★★</span><span class="ov-rated">4.8/5 Based on dozens of users</span></p>
+        <p class="ov-line">One page per child &middot; Ready in minutes &middot; Yours to keep</p>
+        <ul class="ov-tiers">
+        <li class="ov-tier">
+          <input type="radio" name="ov-tier" id="ov-one" value="one" checked>
+          <label class="ov-tier-box" for="ov-one">
+            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>One child</span>
+            <span class="ov-price">$27</span>
+            
+            
+            <ul class="ov-more">
+              <li><span class="ov-tick" aria-hidden="true"></span><span>One page per child, ready in minutes</span></li>
+              <li><span class="ov-tick" aria-hidden="true"></span><span>Kept in your private portal</span></li>
+              <li><span class="ov-tick" aria-hidden="true"></span><span>Fill in each child whenever you're ready</span></li>
+            </ul>
+          </label>
+        </li>
+        <li class="ov-tier">
+          <input type="radio" name="ov-tier" id="ov-two" value="two">
+          <label class="ov-tier-box" for="ov-two">
+            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>Two children</span>
+            <span class="ov-price">$47</span>
+            <span class="ov-each"><span>$23.50 each</span><span class="ov-save">Save $7</span></span>
+            
+            <ul class="ov-more">
+              <li><span class="ov-tick" aria-hidden="true"></span><span>One page per child, ready in minutes</span></li>
+              <li><span class="ov-tick" aria-hidden="true"></span><span>Kept in your private portal</span></li>
+              <li><span class="ov-tick" aria-hidden="true"></span><span>Fill in each child whenever you're ready</span></li>
+            </ul>
+          </label>
+        </li>
+        <li class="ov-tier">
+          <input type="radio" name="ov-tier" id="ov-three" value="three">
+          <label class="ov-tier-box" for="ov-three">
+            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>Buy two, get one free<span class="ov-best">Best value<svg class="ov-ring" viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true"><path d="M62 8C30 11 8 22 6 36c-2 15 22 28 62 30 42 2 96-2 132-13 22-7 26-18 18-26C208 17 178 9 146 6"/></svg></span></span>
+            <span class="ov-price">$54</span>
+            <span class="ov-each"><span>$18 each</span><span class="ov-save">Save $27</span></span>
+            <span class="ov-note">Keep one as a gift, or for later</span>
+            <ul class="ov-more">
+              <li><span class="ov-tick" aria-hidden="true"></span><span>One page per child, ready in minutes</span></li>
+              <li><span class="ov-tick" aria-hidden="true"></span><span>Kept in your private portal</span></li>
+              <li><span class="ov-tick" aria-hidden="true"></span><span>Fill in each child whenever you're ready</span></li>
+            </ul>
+          </label>
+        </li>
+        </ul>
+        <a class="wc-cta wc-cta--full ov-cta" data-ov-cta href="https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07">Get their Compass · $27</a>
+        <p class="ov-secure">Secure checkout with Stripe.</p>
+        <div class="ov-faq">
+          <details class="ov-q" data-ov-q><summary>What if I don't know the exact birth time?</summary><p class="ov-a">It&rsquo;s on the birth certificate, and the hospital keeps it on file. Without it, the reading would be guessing.</p></details>
+          <details class="ov-q" data-ov-q><summary>I can look up their chart for free. Why pay?</summary><p class="ov-a">A free chart gives you the positions. Compass reads them for you: one child, the whole chart, in plain words.</p></details>
+          <details class="ov-q" data-ov-q><summary>Will it put my child in a box?</summary><p class="ov-a">No predictions, no types, no labels. It describes how they&rsquo;re wired now.</p></details>
+          <details class="ov-q" data-ov-q><summary>How does it arrive?</summary><p class="ov-a">In your private portal, minutes after you enter the details.</p></details>
+          <details class="ov-q" data-ov-q><summary>Do I have to fill them all in at once?</summary><p class="ov-a">No. Each one waits in your portal until you&rsquo;re ready.</p></details>
+          <details class="ov-q" data-ov-q><summary>What if it doesn't sound like them?</summary><p class="ov-a">Say so. A person reads every reply.</p></details>
+          <details class="ov-q" data-ov-q><summary>What happens to their details?</summary><p class="ov-a">They stay on our own server and never leave it. You can delete a child from your portal at any time.</p></details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var links={"one":"https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07","two":null,"three":null};
+  var prices={"one":"$27","two":"$47","three":"$54"};
+  var label="Get their Compass ·";
+  var cta=document.querySelector('[data-ov-cta]');
+  [].forEach.call(document.querySelectorAll('input[name="ov-tier"]'), function(r){
+    r.addEventListener('change', function(){
+      if(!cta) return;
+      var url=links[r.value];
+      cta.textContent=label + ' ' + prices[r.value];
+      if(url){ cta.setAttribute('href', url); cta.removeAttribute('aria-disabled'); }
+      // no link yet: the button carries no target at all
+      else { cta.removeAttribute('href'); cta.setAttribute('aria-disabled','true'); }
+    });
+  });
+  var qs=[].slice.call(document.querySelectorAll('[data-ov-q]'));
+  qs.forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(!d.open) return;
+      qs.forEach(function(o){ if(o!==d) o.open=false; });
+    });
+  });
+})();
+</script>
+
+<section class="s testimonials-s wc-ground-light"><div class="wrap">
+  <div class="tm">
+    <div>
+      <p class="tm-eyebrow"><span class="wc-hl">What parents say</span></p>
+      <h2 class="tm-h">Real readings, real mornings</h2>
+    </div>
+    <ul class="tm-list">
+      <li class="tm-item">
+        <figure class="tm-shot" data-placeholder="review" role="img" aria-label="A photograph goes here"><svg class="tm-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg></figure>
+        <blockquote class="tm-q" data-placeholder="review">&ldquo;I read it twice in one sitting. It described the bedtime battle we have been having for two years, and then told me what sits underneath it.&rdquo;</blockquote>
+        <p class="tm-name" data-placeholder="review">Marieke D.</p>
+      </li>
+      <li class="tm-item">
+        <figure class="tm-shot" data-placeholder="review" role="img" aria-label="A photograph goes here"><svg class="tm-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg></figure>
+        <blockquote class="tm-q" data-placeholder="review">&ldquo;I expected something vague. What came back was specific enough that I read parts of it out loud to my partner.&rdquo;</blockquote>
+        <p class="tm-name" data-placeholder="review">Sanne V.</p>
+      </li>
+      <li class="tm-item">
+        <figure class="tm-shot" data-placeholder="review" role="img" aria-label="A photograph goes here"><svg class="tm-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg></figure>
+        <blockquote class="tm-q" data-placeholder="review">&ldquo;The section on how my child handles change was uncomfortably accurate. We have changed how we do mornings because of it.&rdquo;</blockquote>
+        <p class="tm-name" data-placeholder="review">Priya R.</p>
+      </li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="s photo-close-s pc">
+  <img class="pc-photo" data-parallax-photo data-speed="0.25" src="/assets/compass/DSCF9381.jpg" width="2048" height="1536" alt="A child standing at the shoreline at dusk, beside a dark rock" loading="lazy" decoding="async">
+  <div class="pc-wash" aria-hidden="true"></div>
+  <div class="pc-inner">
+    <h2 class="pc-h">The same night, one layer deeper.</h2>
+    <p class="pc-prices">One child $27 &middot; Two children $47 &middot; Three for $54</p>
+    <a class="wc-cta pc-cta" href="/readings/compass/">Get their Compass &middot; $27</a>
+  </div>
+</section>
+
+<section class="s home-signup wc-ground-dark"><div class="wrap">
+  <figure class="hsg-media"><img src="/assets/img/home-calendar-cutout.webp" alt="The 2027 moon calendar, one printed page with every moon phase and its date" width="1400" height="1292" loading="lazy" decoding="async"></figure>
+  <div class="hsg-form" id="signup">
+    <p class="hsg-eyebrow">Free</p>
+    <h2 class="hsg-h">The 2027 moon calendar</h2>
+    <p class="hsg-sub">Every new moon, first quarter, full moon and last quarter of 2027 on one page. Print it and put it where your child can see it.</p>
+    <form method="POST" action="https://app.loops.so/api/newsletter-form/cmtvjqaud00wt0jyxzp5aaehs" data-signup="">
+      <input type="hidden" name="userGroup" value="moon-calendar-en">
+      <input type="hidden" name="source" value="wolfchildren.co homepage">
+      <label for="signup-email">Email address</label>
+      <input type="email" id="signup-email" name="email" autocomplete="email" inputmode="email" required>
+      <button type="submit" class="wc-cta">Send me the calendar</button>
+    </form>
+    <p class="hsg-status" data-signup-status="" aria-live="polite"></p>
+    <p class="hsg-ok" data-signup-success="" hidden>Check your inbox. The calendar is on its way.</p>
+  </div>
+</div>
+<p class="hsg-built"><a href="https://vieren.studio" rel="noopener"><img src="/assets/img/built-by-vieren.png" alt="Built by Vieren" width="686" height="112" loading="lazy"></a></p>
+<script src="/assets/js/signup.js?v=89f86953" defer></script></section>
+
+<section class="s compare-s wc-ground-light wc-edge-wave-2">
+  <div class="wc-wave" data-cover aria-hidden="true"></div><div class="wrap">
+  <div class="cmp">
+    <h2 class="cmp-h">How Compass compares</h2>
+    <table class="cmp-table">
+      <thead>
+        <tr><td></td>
+        <th class="cmp-col cmp-us" scope="col"><b>Compass</b>$27</th>
+        <th class="cmp-col" scope="col"><b>A free horoscope app</b></th>
+        <th class="cmp-col" scope="col"><b>A chart report PDF</b>about $20</th>
+        <th class="cmp-col" scope="col"><b>A parenting book</b>about $18</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th class="cmp-row-h" scope="row">About your child alone</th>
+        <td class="cmp-yes cmp-us"><span class="cmp-sr">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-yes"><span class="cmp-sr">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+      </tr>
+      <tr>
+        <th class="cmp-row-h" scope="row">Reads the whole chart</th>
+        <td class="cmp-yes cmp-us"><span class="cmp-sr">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-yes"><span class="cmp-sr">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+      </tr>
+      <tr>
+        <th class="cmp-row-h" scope="row">In plain words</th>
+        <td class="cmp-yes cmp-us"><span class="cmp-sr">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-yes"><span class="cmp-sr">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+      </tr>
+      <tr>
+        <th class="cmp-row-h" scope="row">No predictions</th>
+        <td class="cmp-yes cmp-us"><span class="cmp-sr">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-yes"><span class="cmp-sr">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+      </tr>
+      <tr>
+        <th class="cmp-row-h" scope="row">No labels or types</th>
+        <td class="cmp-yes cmp-us"><span class="cmp-sr">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+      </tr>
+      <tr>
+        <th class="cmp-row-h" scope="row">Ready in minutes</th>
+        <td class="cmp-yes cmp-us"><span class="cmp-sr">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-yes"><span class="cmp-sr">Yes</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M6 10.4 8.8 13.2 14 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+        <td class="cmp-no"><span class="cmp-sr">No</span><svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.2"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="cmp-act"><a class="wc-cta cmp-cta" href="/readings/compass/">Get their Compass &middot; $27</a></p>
+  </div>
+</div></section>
+
+<footer class="wc-foot wc-ground-dark"><div class="wrap">
+  <img class="foot-mark" src="/assets/img/logo/wolfchildren-logo-cream-1600.webp" width="1600" height="696" alt="Wolf Children" loading="lazy" decoding="async">
+  <nav class="foot-links"><a href="/legal/privacy/">Privacy</a><span class="foot-sep" aria-hidden="true">&middot;</span><a href="/legal/terms/">Terms</a><span class="foot-sep" aria-hidden="true">&middot;</span><a href="/legal/refunds/">Refunds</a><span class="foot-sep" aria-hidden="true">&middot;</span><a href="mailto:hello@wolfchildren.co">Contact</a></nav>
+  <p class="foot-note">This is a portrait of how your child is wired, drawn from the birth chart. It is not parenting advice, not a diagnosis, and not a substitute for professional support. If something here worries you, talk to someone who knows your child in person.</p>
+  <p class="foot-copy">&copy; 2026 Wolf Children</p>
+</div></footer>
+
+
+<script>
+(function(){
+  var pairs=[];
+  [].forEach.call(document.querySelectorAll('[data-cover]'), function(wave){
+    if(!wave.parentElement) return;
+    var above=wave.parentElement.previousElementSibling;
+    while(above && !above.getBoundingClientRect().height) above=above.previousElementSibling;
+    // a block may hand the motion to one element inside it: a photograph taller
+    // than its own section, so the ground can never show while it slides
+    if(above) pairs.push({ wave: wave, above: above,
+      mover: above.querySelector('[data-parallax-photo]') || above });
+  });
+  if(!pairs.length) return;
+  var wide=window.matchMedia ? window.matchMedia('(min-width: 900px)') : null;
+  var still=window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var ticking=false;
+  function clear(){ pairs.forEach(function(p){ if(p.mover.style.transform) p.mover.style.transform=''; }); }
+  function frame(){
+    ticking=false;
+    if((wide && !wide.matches) || (still && still.matches)) return clear();
+    pairs.forEach(function(p){
+      // the scroll position at which the wave's top edge meets the bottom of the
+      // window. On a tall window that moment is already behind the top of the
+      // page, so it is clamped to 0: without that the block starts out moved and
+      // leaves a strip above it.
+      var waveTop=p.wave.getBoundingClientRect().top + window.scrollY;
+      var trigger=Math.max(0, waveTop - window.innerHeight);
+      // the mover's own speed, else the speed the wave was given, else 0.5
+      var speed=parseFloat(p.mover.getAttribute('data-speed')) || parseFloat(p.wave.getAttribute('data-speed')) || 0.5;
+      var lag=Math.max(0, window.scrollY - trigger) * speed;
+      // a photograph never slides further than its own headroom
+      if(p.mover!==p.above){
+        lag=Math.min(lag, Math.max(0, p.mover.offsetHeight - p.above.clientHeight));
+      }
+      // and no block ever slides past the bottom of the section that covers it.
+      // A moved block paints above its unmoved neighbours, so an uncapped lag
+      // carried the ATF out from under recognition and over how-it-works.
+      var cover=p.wave.parentElement.getBoundingClientRect().height - 2;
+      lag=Math.min(lag, Math.max(0, cover));
+      if(lag<=0){ if(p.mover.style.transform) p.mover.style.transform=''; return; }
+      p.mover.style.transform='translate3d(0,' + lag.toFixed(1) + 'px,0)';
+    });
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  [wide, still].forEach(function(mq){
+    if(mq && mq.addEventListener) mq.addEventListener('change', function(){ clear(); onScroll(); });
+  });
+  frame();
+})();
+</script>
 </body>
 </html>

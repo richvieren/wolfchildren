@@ -71,7 +71,7 @@ export async function render(config) {
     return ground;
   });
 
-  const body = config.modules.map((m, i) => {
+  let body = config.modules.map((m, i) => {
     const mod = mods[m.id];
     const copy = mod.copy[m.copy ?? 'A'];
     if (!copy) throw new Error(`${config.id}: module ${m.id} has no copy variant ${m.copy}`);
@@ -92,6 +92,8 @@ export async function render(config) {
       ? withSpeed.replace(/^(<section[^>]*>)/, `$1\n  <div class="wc-wave" data-cover${speedAttr} aria-hidden="true"></div>`)
       : withSpeed;
   }).join('\n\n');
+  // a page with no #atf points its buttons at config.ctaHref instead
+  if (config.ctaHref) body = body.replaceAll('href="#atf"', `href="${config.ctaHref}"`);
 
   // a module used twice brings its CSS once
   const moduleCss = [...new Set(config.modules.map((m) => mods[m.id].css))].filter(Boolean).join('');
@@ -101,8 +103,10 @@ export async function render(config) {
     + (config.modules.some((m) => m.parallax) ? edges.motionCss : '');
   const edgeJs = (config.modules.some((m) => m.edge) ? edges.edgeScript : '')
     + (config.modules.some((m) => m.parallax) ? edges.script : '');
-  const atf = resolveAtf(config.atf?.cell ?? 'control');
-  const section = theme.atfV2 ? theme.atfV2(atfMarkup(atf)) : atfMarkup(atf);
+  // A page with atf: false has no above-the-fold form (the homepage opens on its own hero module).
+  const noAtf = config.atf === false;
+  const atf = noAtf ? null : resolveAtf(config.atf?.cell ?? 'control');
+  const section = noAtf ? '' : (theme.atfV2 ? theme.atfV2(atfMarkup(atf)) : atfMarkup(atf));
 
   // The skin layer: the page's skin on :root, and one class per other skin a
   // module asks for, so a module can wear a different look in the same page.
@@ -117,18 +121,16 @@ export async function render(config) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <meta name="wc-variant" content="${config.id}">
-<title>${config.title} | Compass</title>
+<title>${config.title}${config.titleSuffix ?? ' | Compass'}</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
 <script>window.WC_VARIANT=${JSON.stringify(config.id)};fbq('trackCustom','VariantView',{variant:window.WC_VARIANT});</script>
-<style>${FONTS_V2}${TOKENS_WC}${BASE}${brand.css}${grounds.css}${cta.css}${eyebrow.css}${edgeCss}${skinCss}${skin.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${scopedAtfCss('#atf')}${ATF_GUARD}${atfDesktopCss('#atf')}${skin.atfCss}${moduleCss}</style>
+<style>${FONTS_V2}${TOKENS_WC}${BASE}${brand.css}${grounds.css}${cta.css}${eyebrow.css}${edgeCss}${skinCss}${skin.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${noAtf ? '' : `${scopedAtfCss('#atf')}${ATF_GUARD}${atfDesktopCss('#atf')}${skin.atfCss}`}${moduleCss}</style>
 </head>
 <body data-variant="${config.id}">
 <noscript><img hidden height="1" width="1" src="https://www.facebook.com/tr?id=${DATASET}&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
-<div id="atf">${section}</div>
+${noAtf ? '' : `<div id="atf">${section}</div>\n\n`}${body}
 
-${body}
-
-${ATF_JS}${edgeJs ? `\n${edgeJs}` : ''}
+${noAtf ? '' : ATF_JS}${edgeJs ? `\n${edgeJs}` : ''}
 </body>
 </html>
 `;
