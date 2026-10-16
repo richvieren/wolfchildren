@@ -31,7 +31,7 @@ export default {
       ground: 'dark',
       settings: {
         vimeoId: '1136626687',
-        poster: { src: '/assets/img/compass2/reason-1.webp', w: 1200, h: 1600, alt: '', placeholder: 'film-poster' },
+        poster: { src: '/assets/img/home-film-poster.webp', w: 1920, h: 1080, alt: '' },
       },
     },
     {
