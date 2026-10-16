@@ -13,9 +13,11 @@ export const css = `
 .hh-half img,.hh-half video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .hh-wash{position:absolute;inset:0;pointer-events:none;background:
   radial-gradient(58% 46% at 50% 50%,rgba(51,61,47,.62) 0%,rgba(51,61,47,.30) 60%,rgba(51,61,47,0) 100%)}
-.hh-h{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;margin:0;
-  width:min(92vw,20ch);text-align:center;font-family:var(--b-display);font-weight:400;
-  font-size:clamp(2.1rem,4.6vw,4rem);line-height:1.04;letter-spacing:-.035em;color:var(--b-cream);
+.hh-c{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:min(92vw,100%);
+  display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2vw,28px)}
+.hh-logo{display:block;width:clamp(150px,16vw,260px);height:auto}
+.hh-h{margin:0;width:min(92vw,20ch);text-align:center;font-family:var(--b-display);font-weight:400;
+  font-size:clamp(1.4rem,3.08vw,2.68rem);line-height:1.04;letter-spacing:-.035em;color:var(--b-cream);
   text-wrap:balance}
 @media (max-width:760px){
   .home-hero{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
@@ -36,6 +38,9 @@ export function markup(copy, settings = {}) {
   <figure class="hh-half hh-left">${media(settings.left, settings.left.alt ?? '')}</figure>
   <figure class="hh-half hh-right">${media(settings.right, settings.right.alt ?? '')}</figure>
   <div class="hh-wash" aria-hidden="true"></div>
-  <h1 class="hh-h">${copy.heading}</h1>
+  <div class="hh-c">
+    <img class="hh-logo" src="/assets/img/logo/wolfchildren-logo-cream-1600.webp" width="1600" height="696" alt="Wolf Children">
+    <h1 class="hh-h">${copy.heading}</h1>
+  </div>
 </section>`;
 }
