@@ -9,4 +9,13 @@ export const variants = {
     cta: 'Get their Compass · $27',
     samples: 'Read a full sample:',
   },
+  // home page, 2026-10-16: lorem ipsum until Richard writes it
+  L: {
+    eyebrow: 'Lorem ipsum',
+    h2: 'Lorem ipsum dolor sit amet.',
+    sub: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    listhead: 'Lorem ipsum dolor',
+    cta: 'Lorem ipsum',
+    samples: '',
+  },
 };

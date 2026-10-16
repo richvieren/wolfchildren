@@ -28,7 +28,7 @@ function oneSlider(html, poleA, poleB) {
   return `<div class="card">${label}${spec.slice(0, end + 6)}</div></div>`;
 }
 
-const SCREENS = [
+const SCREENS_REAL = [
   { id: 'w-moon', label: 'The moon that night', who: 'Nora, 6', html: NORA['card-holding'].html },
   { id: 'w-elements', label: 'Elements', who: 'Finn, 6', html: FINN['card-elements'].html },
   { id: 'w-wired', label: "What's wired to what", who: 'Nora, 6', html: EXTRA['card-wired-nora'] },
@@ -36,6 +36,12 @@ const SCREENS = [
   { id: 'w-seen', label: 'Being seen', who: 'Nora, 6', html: NORA['card-being-seen'].html },
   { id: 'w-group', label: 'In a group', who: 'Finn, 6', html: FINN['badge-group'].html },
 ];
+
+// Lorem stand-ins for the six Compass screens (home page, 2026-10-16: no Compass content yet).
+const LOREM_SCREENS = [1, 2, 3, 4, 5, 6].map((n) => ({
+  id: `w-lorem-${n}`, label: 'Lorem ipsum dolor', who: '',
+  html: '<div class="card"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p></div>',
+}));
 
 const TICK = '<svg viewBox="0 0 512 512" aria-hidden="true"><path d="M256 464c114.875 0 208-93.125 208-208S370.875 48 256 48 48 141.125 48 256s93.125 208 208 208zm-44-129-80-80 28-28 52 52 116-116 28 28-144 144z"/></svg>';
 
@@ -169,6 +175,7 @@ export const css = `${WIDGET_CSS}
 export function markup(copy, settings = {}) {
   const g = settings.className ? ` ${settings.className}` : '';
   const p = settings.photo;
+  const SCREENS = settings.lorem ? LOREM_SCREENS : SCREENS_REAL;
   return `<section class="s whats-inside-s${g}" data-wi>
   <figure class="wi-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${p.alt}" loading="lazy" decoding="async"></figure>
   <div class="wrap">
@@ -192,8 +199,7 @@ ${SCREENS.map((s, i) => `          <div class="wi-pane${i ? '' : ' on'}" data-pa
 ${SCREENS.map((s, i) => `        <li class="wi-item${i ? '' : ' is-active'}"><button type="button" class="wi-row" data-section="${s.id}" aria-pressed="${i ? 'false' : 'true'}"><span class="wi-num">${String(i + 1).padStart(2, '0')}</span><span class="wi-label">${s.label}</span><span class="wi-mark" aria-hidden="true">${TICK}</span></button></li>`).join('\n')}
       </ol>
       <a class="wc-cta wi-cta" href="#atf" data-wi-cta>${copy.cta}</a>
-      <p class="wi-samples">${copy.samples} <a href="/readings/compass/sample/nora/">Nora</a> <span aria-hidden="true">&middot;</span> <a href="/readings/compass/sample/finn/">Finn</a></p>
-    </div>
+${copy.samples ? `      <p class="wi-samples">${copy.samples} <a href="/readings/compass/sample/nora/">Nora</a> <span aria-hidden="true">&middot;</span> <a href="/readings/compass/sample/finn/">Finn</a></p>\n` : ''}    </div>
   </div>
 </div></section>
 <script>

@@ -11,4 +11,14 @@ export const variants = {
       { title: 'Open their Compass', line: 'One page about your child, waiting in your portal.' },
     ],
   },
+  // home page, 2026-10-16: lorem ipsum until Richard writes it
+  L: {
+    eyebrow: 'Lorem ipsum',
+    heading: 'Lorem ipsum dolor',
+    steps: [
+      { title: 'Lorem ipsum', line: 'Lorem ipsum dolor sit amet, consectetur.' },
+      { title: 'Dolor sit amet', line: 'Sed do eiusmod tempor incididunt ut labore.' },
+      { title: 'Consectetur', line: 'Ut enim ad minim veniam, quis nostrud.' },
+    ],
+  },
 };

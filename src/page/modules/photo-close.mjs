@@ -47,8 +47,6 @@ export function markup(copy, settings = {}) {
   <div class="pc-wash" aria-hidden="true"></div>
   <div class="pc-inner">
     <h2 class="pc-h">${copy.heading}</h2>
-    <p class="pc-prices">${copy.prices}</p>
-    <a class="wc-cta pc-cta" href="#atf">${copy.cta}</a>
-  </div>
+${copy.prices ? `    <p class="pc-prices">${copy.prices}</p>\n` : ''}${copy.cta ? `    <a class="wc-cta pc-cta" href="#atf">${copy.cta}</a>\n` : ''}  </div>
 </section>`;
 }

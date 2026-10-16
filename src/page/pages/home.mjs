@@ -36,7 +36,7 @@ export default {
     },
     {
       id: 'recognition',
-      copy: 'A',
+      copy: 'L',
       ground: 'light',
       settings: {
         photo: { src: '/assets/img/compass2/reason-2.webp', w: 1200, h: 1600, alt: 'A child at a fence, absorbed in the animals on the other side' },
@@ -48,28 +48,29 @@ export default {
       },
     },
     { id: 'home-day-night', copy: 'A' },
-    { id: 'how-it-works', copy: 'A', ground: 'dark' },
+    { id: 'how-it-works', copy: 'L', ground: 'dark' },
     {
       id: 'whats-inside',
-      copy: 'A',
+      copy: 'L',
       ground: 'dark',
       settings: {
+        lorem: true,
         photo: { src: '/assets/img/compass2/reason-1.webp', w: 1200, h: 1600, alt: 'A child standing on a rock in a forest, looking back' },
       },
     },
     { id: 'home-band', copy: 'A' },
-    { id: 'facts', copy: 'A' },
-    { id: 'offer-v2', copy: 'A', ground: 'dark' },
-    { id: 'testimonials', copy: 'A', ground: 'light' },
+    { id: 'facts', copy: 'L' },
+    { id: 'offer-v2', copy: 'L', ground: 'dark' },
+    { id: 'testimonials', copy: 'L', ground: 'light' },
     {
       id: 'photo-close',
-      copy: 'A',
+      copy: 'B',
       settings: {
         photo: { src: '/assets/compass/DSCF9381.jpg', w: 2048, h: 1536, alt: 'A child standing at the shoreline at dusk, beside a dark rock' },
       },
     },
-    { id: 'home-signup', copy: 'A', ground: 'dark' },
-    { id: 'compare', copy: 'A', edge: 'wave-2' },
+    // the comparison is gone; the moon calendar sits where it was
+    { id: 'home-signup', copy: 'A', ground: 'light', edge: 'wave-2' },
     { id: 'footer', copy: 'A' },
   ],
 };

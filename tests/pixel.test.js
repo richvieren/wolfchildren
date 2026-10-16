@@ -129,7 +129,8 @@ for (const rel of generatedPages) {
   test(`${rel} is noindex and holds no real child`, () => {
     assert.ok(html.includes('name="robots" content="noindex'), 'a sample page stays out of search');
     assert.ok(!html.includes('file://'), 'a local path would break every asset and name this machine');
-    assert.ok(/Nora|Finn|Compass/.test(html), 'a sample page, or a hero variant');
+    // the homepage (2026-10-16) carries no Compass words until Richard writes its copy
+    assert.ok(rel === 'index.html' || /Nora|Finn|Compass/.test(html), 'a sample page, or a hero variant');
   });
 }
 

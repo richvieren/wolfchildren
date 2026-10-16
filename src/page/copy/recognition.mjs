@@ -19,5 +19,17 @@ export const variants = {
       'Your child has one too. Same sky, a different night. It says what settles them after a hard day, why bedtime goes the way it goes, and why the two of you clash over the same small thing.',
     ],
   },
+  // home page, 2026-10-16: lorem ipsum until Richard writes it
+  L: {
+    eyebrow: 'LOREM IPSUM',
+    hook: 'dolor',
+    tighten: 'sit amet',
+    cta: 'Lorem ipsum',
+    h2: 'Lorem ipsum dolor sit amet consectetur.',
+    body: [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    ],
+  },
   B: { eyebrow: 'Your chart, then theirs', cta: 'Read theirs', h2: C.recognition.h2, body: C.recognition.body },
 };
