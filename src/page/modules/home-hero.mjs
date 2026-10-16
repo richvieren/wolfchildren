@@ -15,7 +15,7 @@ export const css = `
   radial-gradient(58% 46% at 50% 50%,rgba(51,61,47,.62) 0%,rgba(51,61,47,.30) 60%,rgba(51,61,47,0) 100%)}
 .hh-c{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:min(92vw,100%);
   display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2vw,28px)}
-.hh-logo{display:block;width:clamp(150px,16vw,260px);height:auto}
+.hh-logo{display:block;width:clamp(60px,6.4vw,104px);height:auto}
 .hh-h{margin:0;width:min(92vw,20ch);text-align:center;font-family:var(--b-display);font-weight:400;
   font-size:clamp(1.4rem,3.08vw,2.68rem);line-height:1.04;letter-spacing:-.035em;color:var(--b-cream);
   text-wrap:balance}
