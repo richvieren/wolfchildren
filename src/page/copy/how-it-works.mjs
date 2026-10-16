@@ -15,10 +15,10 @@ export const variants = {
   // or study, named in its line. Richard has not yet approved the wording.
   S: {
     eyebrow: 'Statistics',
-    heading: 'Lorem ipsum dolor',
+    heading: 'It\'s not looking good',
     steps: [
       { title: '8 h 39 min', line: 'On screens every day, outside school and homework, for the average American teenager. Common Sense Media, 2021.' },
-      { title: '50.4%', line: 'Of American teenagers spend 4 hours or more on screens every day. CDC National Center for Health Statistics, 2021 to 2023.' },
+      { title: '37%', line: 'Of American children aged 3 to 5 play outdoors for an hour or less on a weekday. CDC, National Survey of Children\'s Health, 2021.' },
       { title: '49.8%', line: 'Of the world is projected to be short-sighted by 2050, with less time outdoors named as a cause. Ophthalmology, 2016.' },
     ],
   },
