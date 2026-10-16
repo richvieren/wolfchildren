@@ -11,6 +11,17 @@ export const variants = {
       { title: 'Open their Compass', line: 'One page about your child, waiting in your portal.' },
     ],
   },
+  // home page, 2026-10-16: the Statistics section. Each figure is from a survey
+  // or study, named in its line. Richard has not yet approved the wording.
+  S: {
+    eyebrow: 'Statistics',
+    heading: 'Lorem ipsum dolor',
+    steps: [
+      { title: '8 h 39 min', line: 'On screens every day, outside school and homework, for the average American teenager. Common Sense Media, 2021.' },
+      { title: '50.4%', line: 'Of American teenagers spend 4 hours or more on screens every day. CDC National Center for Health Statistics, 2021 to 2023.' },
+      { title: '49.8%', line: 'Of the world is projected to be short-sighted by 2050, with less time outdoors named as a cause. Ophthalmology, 2016.' },
+    ],
+  },
   // home page, 2026-10-16: lorem ipsum until Richard writes it
   L: {
     eyebrow: 'Lorem ipsum',

@@ -34,6 +34,7 @@ export default {
         poster: { src: '/assets/img/home-film-poster.webp', w: 1920, h: 1080, alt: '' },
       },
     },
+    { id: 'how-it-works', copy: 'S' },
     {
       id: 'recognition',
       copy: 'L',
@@ -48,7 +49,6 @@ export default {
       },
     },
     { id: 'home-day-night', copy: 'A' },
-    { id: 'how-it-works', copy: 'L', ground: 'dark' },
     {
       id: 'whats-inside',
       copy: 'L',
