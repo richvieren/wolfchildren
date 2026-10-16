@@ -56,7 +56,9 @@ export function markup(copy, settings = {}) {
         ${STAR}
         <p class="hiw-n">0${i + 1}</p>
         <h3 class="hiw-t">${s.title}</h3>
-        <p class="hiw-p">${s.line}</p>
+        ${s.source
+          ? `<p class="hiw-p" style="font-size:19px">${s.line}</p>\n        <p class="hiw-p">${s.source}</p>`
+          : `<p class="hiw-p">${s.line}</p>`}
       </li>`).join('\n');
 
   return `<section class="s how-it-works-s${g}"><div class="wrap">
