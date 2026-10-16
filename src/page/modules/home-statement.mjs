@@ -10,7 +10,7 @@ export const css = `
 .hs-fig{margin:0;width:100%;max-width:424px}
 .hs-fig img{display:block;width:100%;height:auto}
 @media (min-width:900px){
-  .home-statement .wrap{flex-direction:row;justify-content:center;gap:calc(var(--s-space-block) * 2)}
+  .home-statement .wrap{flex-direction:row-reverse;justify-content:center;gap:calc(var(--s-space-block) * 2)}
   .hs-text{flex:0 1 26ch}.hs-fig{flex:0 0 424px}
 }
 `;

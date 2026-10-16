@@ -14,11 +14,10 @@ export const css = `
 .hh-wash{position:absolute;inset:0;pointer-events:none;background:
   radial-gradient(58% 46% at 50% 50%,rgba(51,61,47,.62) 0%,rgba(51,61,47,.30) 60%,rgba(51,61,47,0) 100%)}
 .hh-c{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:min(92vw,100%);
-  display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2vw,28px)}
+  display:flex;flex-direction:column;align-items:center;gap:clamp(6px,.9vw,12px)}
 .hh-logo{display:block;width:clamp(60px,6.4vw,104px);height:auto}
-.hh-h{margin:0;width:min(92vw,20ch);text-align:center;font-family:var(--b-display);font-weight:400;
-  font-size:clamp(1.4rem,3.08vw,2.68rem);line-height:1.04;letter-spacing:-.035em;color:var(--b-cream);
-  text-wrap:balance}
+.hh-h{margin:0;width:auto;max-width:none!important;text-align:center;font-family:"Special Elite",monospace!important;font-weight:400;
+  font-size:clamp(1rem,1.9vw,1.7rem);line-height:1.3;letter-spacing:0;color:var(--b-cream)}
 @media (max-width:760px){
   .home-hero{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
 }
