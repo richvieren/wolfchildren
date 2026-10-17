@@ -416,10 +416,11 @@ html,body{overflow-x:clip}
 .hf-play:focus-visible{outline:2px solid var(--b-cream);outline-offset:-6px}
 
 .home-strip{padding:0;position:relative;background:#1a1a1a}
-.hstrip-bar{display:flex;justify-content:flex-end;gap:24px;padding:14px clamp(16px,3vw,40px) 4px}
+.hstrip-bar{display:flex;justify-content:flex-end;gap:24px;padding:14px clamp(16px,3vw,40px) 6px;
+  background:var(--hstrip-bar,var(--g-bg))}
 .hstrip-bar button{font-family:var(--b-body);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--b-cream);background:none;border:0;padding:4px 0;cursor:pointer}
-.hstrip-bar button:hover{color:var(--b-tan)}
+  color:var(--hstrip-ink,var(--b-cream));background:none;border:0;padding:4px 0;cursor:pointer}
+.hstrip-bar button:hover{opacity:.6}
 .hstrip-open{display:block;cursor:pointer;background:#1a1a1a;overflow:hidden}
 .hstrip-open:focus-visible{outline:2px solid var(--b-green);outline-offset:3px}
 .hstrip-holes{height:clamp(20px,2.8vw,38px);display:flex;align-items:center;justify-content:space-between;
@@ -1109,7 +1110,18 @@ document.querySelectorAll('[data-film-src]').forEach(function(f){
   </div>
 <script>
 (function(){
-  var sec=document.currentScript.parentNode,
+  var sec=document.currentScript.parentNode;
+  // the bar takes the colour of the module above it, wherever the strip is moved to
+  (function(){
+    var prev=sec.previousElementSibling;if(!prev)return;
+    var cs=getComputedStyle(prev),c=cs.backgroundColor;
+    if(!c||c==='transparent'||/rgba[(].*, *0[)]$/.test(c))c=cs.getPropertyValue('--g-bg').trim();
+    var m=c&&c.match(/[0-9.]+/g);if(!m||m.length<3)return;
+    var l=(0.299*m[0]+0.587*m[1]+0.114*m[2])/255;
+    sec.style.setProperty('--hstrip-bar',c);
+    sec.style.setProperty('--hstrip-ink',l>0.55?'#495543':'#DFD7C3');
+  })();
+  var
       open=sec.querySelector('.hstrip-open'),track=sec.querySelector('.hstrip-track'),
       slides=track.children,gal=sec.querySelector('.hstrip-gal'),
       pos=0,zoom=1,timer,reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
