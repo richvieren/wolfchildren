@@ -25,15 +25,6 @@ export default {
     },
     // slides up over the hero; the hero lags at 0.4 of scroll speed
     { id: 'home-statement', copy: 'A', ground: 'light', edge: 'wave', edgeSpeed: 0.4 },
-    {
-      id: 'home-film',
-      copy: 'A',
-      ground: 'dark',
-      settings: {
-        vimeoId: '1136626687',
-        poster: { src: '/assets/img/home-film-poster.webp', w: 1920, h: 1080, alt: '' },
-      },
-    },
     { id: 'how-it-works', copy: 'S' },
     {
       id: 'home-strip',
@@ -61,6 +52,15 @@ export default {
           { src: '/assets/img/compass2/reason-4.webp', w: 1200, h: 1600, alt: 'A child walking down a path through the pines' },
           { src: '/assets/img/compass2/hero.webp', w: 1200, h: 1600, alt: 'A child watching the sun go down over the sea' },
         ],
+      },
+    },
+    {
+      id: 'home-film',
+      copy: 'A',
+      ground: 'dark',
+      settings: {
+        vimeoId: '1136626687',
+        poster: { src: '/assets/img/home-film-poster.webp', w: 1920, h: 1080, alt: '' },
       },
     },
     {

@@ -371,17 +371,6 @@ html,body{overflow-x:clip}
   .hs-text{flex:0 1 26ch}.hs-fig{flex:0 0 424px}
 }
 
-.hf-frame{position:relative;width:100%;max-width:1040px;margin:0 auto;aspect-ratio:16/9;background:var(--b-shell)}
-.hf-frame iframe,.hf-play,.hf-play img{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-.hf-play{padding:0;cursor:pointer;background:none}
-.hf-play img{object-fit:cover}
-.hf-tri{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;
-  border-radius:999px;border:2px solid var(--b-cream);background:rgba(51,61,47,.55)}
-.hf-tri::after{content:"";position:absolute;left:50%;top:50%;margin:-13px 0 0 -8px;
-  border-left:24px solid var(--b-cream);border-top:13px solid transparent;border-bottom:13px solid transparent}
-.hf-play:hover .hf-tri{background:var(--b-cta)}
-.hf-play:focus-visible{outline:2px solid var(--b-cream);outline-offset:-6px}
-
 /* 2026-10-08, Richard: half the padding, half the gap under the headline, and
    the steps as tight as they read. */
 .how-it-works-s{position:relative;isolation:isolate;background:var(--b-tan);
@@ -415,11 +404,12 @@ html,body{overflow-x:clip}
   .hiw-step{padding:0}
 }
 
-.home-strip{padding:clamp(40px,6vw,88px) 0;background:var(--b-cream)}
-.hstrip-bar{display:flex;justify-content:flex-end;gap:20px;padding:0 clamp(16px,3vw,40px) 12px}
-.hstrip-bar button{font-family:var(--b-body);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--b-bark);background:none;border:0;padding:4px 0;cursor:pointer}
-.hstrip-bar button:hover{color:var(--b-green)}
+.home-strip{padding:0;position:relative;background:#1a1a1a}
+.hstrip-arrow{position:absolute;top:50%;z-index:2;width:44px;height:44px;margin-top:-22px;border-radius:999px;
+  border:2px solid var(--b-cream);background:rgba(26,26,26,.6);color:var(--b-cream);font-size:22px;line-height:1;
+  cursor:pointer;padding:0 0 3px}
+.hstrip-arrow:hover{background:var(--b-cta)}
+.hstrip-prev{left:clamp(10px,2vw,28px)}.hstrip-next{right:clamp(10px,2vw,28px)}
 .hstrip-open{display:block;cursor:pointer;background:#1a1a1a;overflow:hidden}
 .hstrip-open:focus-visible{outline:2px solid var(--b-green);outline-offset:3px}
 .hstrip-holes{height:clamp(20px,2.8vw,38px);display:flex;align-items:center;justify-content:space-between;
@@ -452,6 +442,17 @@ html,body{overflow-x:clip}
   .hstrip-gal.z2 .hstrip-feed{width:70%;margin:0 auto}
   .hstrip-gal.z3 .hstrip-feed{width:40%;margin:0 auto}
 }
+
+.hf-frame{position:relative;width:100%;max-width:1040px;margin:0 auto;aspect-ratio:16/9;background:var(--b-shell)}
+.hf-frame iframe,.hf-play,.hf-play img{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.hf-play{padding:0;cursor:pointer;background:none}
+.hf-play img{object-fit:cover}
+.hf-tri{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;
+  border-radius:999px;border:2px solid var(--b-cream);background:rgba(51,61,47,.55)}
+.hf-tri::after{content:"";position:absolute;left:50%;top:50%;margin:-13px 0 0 -8px;
+  border-left:24px solid var(--b-cream);border-top:13px solid transparent;border-bottom:13px solid transparent}
+.hf-play:hover .hf-tri{background:var(--b-cta)}
+.hf-play:focus-visible{outline:2px solid var(--b-cream);outline-offset:-6px}
 
 /* the paper: the squared sheet the homepage uses, blended over the ground so a
    dark module stays dark and a light one reads as paper. One token turns it off. */
@@ -1019,26 +1020,6 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
   <figure class="hs-fig"><img src="/assets/img/home-module2.webp" alt="An animated film-frame photograph" width="848" height="750" loading="lazy" decoding="async"></figure>
 </div></section>
 
-<section class="s home-film wc-ground-dark"><div class="wrap">
-  <div class="hf-frame" data-film-src="https://player.vimeo.com/video/1136626687?autoplay=1&dnt=1&title=0&byline=0&portrait=0">
-    <button class="hf-play" type="button" aria-label="Play the Wolf Children film">
-      <img src="/assets/img/home-film-poster.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async">
-      <span class="hf-tri" aria-hidden="true"></span>
-    </button>
-  </div>
-</div>
-<script>
-document.querySelectorAll('[data-film-src]').forEach(function(f){
-  f.querySelector('.hf-play').addEventListener('click',function(){
-    var i=document.createElement('iframe');
-    i.src=f.getAttribute('data-film-src');i.title='Play the Wolf Children film';
-    i.allow='autoplay; fullscreen; picture-in-picture';
-    i.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
-    f.replaceChildren(i);
-  });
-});
-</script></section>
-
 <section class="s how-it-works-s"><div class="wrap">
   <div class="hiw">
     <div>
@@ -1072,7 +1053,8 @@ document.querySelectorAll('[data-film-src]').forEach(function(f){
 </div></section>
 
 <section class="s home-strip" aria-label="Photo gallery">
-  <div class="hstrip-bar"><button type="button" data-hstrip-prev>Prev</button><button type="button" data-hstrip-next>Next</button></div>
+  <button class="hstrip-arrow hstrip-prev" type="button" data-hstrip-prev aria-label="Previous photo">‹</button>
+  <button class="hstrip-arrow hstrip-next" type="button" data-hstrip-next aria-label="Next photo">›</button>
   <div class="hstrip-open" role="button" tabindex="0" aria-label="Open the photo gallery">
     <div class="hstrip-holes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="hstrip-track">
@@ -1130,6 +1112,26 @@ document.querySelectorAll('[data-film-src]').forEach(function(f){
   gal.querySelector('[data-hstrip-zout]').addEventListener('click',function(){setZoom(zoom+1)});
   addEventListener('keydown',function(e){if(e.key==='Escape'&&!gal.hidden)closeGal()});
 })();
+</script></section>
+
+<section class="s home-film wc-ground-dark"><div class="wrap">
+  <div class="hf-frame" data-film-src="https://player.vimeo.com/video/1136626687?autoplay=1&dnt=1&title=0&byline=0&portrait=0">
+    <button class="hf-play" type="button" aria-label="Play the Wolf Children film">
+      <img src="/assets/img/home-film-poster.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async">
+      <span class="hf-tri" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
+<script>
+document.querySelectorAll('[data-film-src]').forEach(function(f){
+  f.querySelector('.hf-play').addEventListener('click',function(){
+    var i=document.createElement('iframe');
+    i.src=f.getAttribute('data-film-src');i.title='Play the Wolf Children film';
+    i.allow='autoplay; fullscreen; picture-in-picture';
+    i.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+    f.replaceChildren(i);
+  });
+});
 </script></section>
 
 <section class="s recognition-s wc-ground-light"><div class="wrap">

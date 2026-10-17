@@ -9,11 +9,12 @@ export const id = 'home-strip';
 export const ground = 'neutral';
 
 export const css = `
-.home-strip{padding:clamp(40px,6vw,88px) 0;background:var(--b-cream)}
-.hstrip-bar{display:flex;justify-content:flex-end;gap:20px;padding:0 clamp(16px,3vw,40px) 12px}
-.hstrip-bar button{font-family:var(--b-body);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--b-bark);background:none;border:0;padding:4px 0;cursor:pointer}
-.hstrip-bar button:hover{color:var(--b-green)}
+.home-strip{padding:0;position:relative;background:#1a1a1a}
+.hstrip-arrow{position:absolute;top:50%;z-index:2;width:44px;height:44px;margin-top:-22px;border-radius:999px;
+  border:2px solid var(--b-cream);background:rgba(26,26,26,.6);color:var(--b-cream);font-size:22px;line-height:1;
+  cursor:pointer;padding:0 0 3px}
+.hstrip-arrow:hover{background:var(--b-cta)}
+.hstrip-prev{left:clamp(10px,2vw,28px)}.hstrip-next{right:clamp(10px,2vw,28px)}
 .hstrip-open{display:block;cursor:pointer;background:#1a1a1a;overflow:hidden}
 .hstrip-open:focus-visible{outline:2px solid var(--b-green);outline-offset:3px}
 .hstrip-holes{height:clamp(20px,2.8vw,38px);display:flex;align-items:center;justify-content:space-between;
@@ -59,7 +60,8 @@ export function markup(copy, settings = {}) {
   let count = '';
   for (let c = 20; c >= 1; c--) count += `<span>◀▶    ${String(c).padStart(2, '0')}    ——    ${copy.code}</span>`;
   return `<section class="s home-strip${g}" aria-label="${copy.label}">
-  <div class="hstrip-bar"><button type="button" data-hstrip-prev>${copy.prev}</button><button type="button" data-hstrip-next>${copy.next}</button></div>
+  <button class="hstrip-arrow hstrip-prev" type="button" data-hstrip-prev aria-label="${copy.prev}">\u2039</button>
+  <button class="hstrip-arrow hstrip-next" type="button" data-hstrip-next aria-label="${copy.next}">\u203a</button>
   <div class="hstrip-open" role="button" tabindex="0" aria-label="${copy.open}">
     <div class="hstrip-holes" aria-hidden="true">${holes(41)}</div>
     <div class="hstrip-track">
