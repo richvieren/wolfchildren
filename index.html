@@ -404,6 +404,17 @@ html,body{overflow-x:clip}
   .hiw-step{padding:0}
 }
 
+.hf-frame{position:relative;width:100%;max-width:1040px;margin:0 auto;aspect-ratio:16/9;background:var(--b-shell)}
+.hf-frame iframe,.hf-play,.hf-play img{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.hf-play{padding:0;cursor:pointer;background:none}
+.hf-play img{object-fit:cover}
+.hf-tri{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;
+  border-radius:999px;border:2px solid var(--b-cream);background:rgba(51,61,47,.55)}
+.hf-tri::after{content:"";position:absolute;left:50%;top:50%;margin:-13px 0 0 -8px;
+  border-left:24px solid var(--b-cream);border-top:13px solid transparent;border-bottom:13px solid transparent}
+.hf-play:hover .hf-tri{background:var(--b-cta)}
+.hf-play:focus-visible{outline:2px solid var(--b-cream);outline-offset:-6px}
+
 .home-strip{padding:0;position:relative;background:#1a1a1a}
 .hstrip-arrow{position:absolute;top:50%;z-index:2;width:44px;height:44px;margin-top:-22px;border-radius:999px;
   border:2px solid var(--b-cream);background:rgba(26,26,26,.6);color:var(--b-cream);font-size:22px;line-height:1;
@@ -442,17 +453,6 @@ html,body{overflow-x:clip}
   .hstrip-gal.z2 .hstrip-feed{width:70%;margin:0 auto}
   .hstrip-gal.z3 .hstrip-feed{width:40%;margin:0 auto}
 }
-
-.hf-frame{position:relative;width:100%;max-width:1040px;margin:0 auto;aspect-ratio:16/9;background:var(--b-shell)}
-.hf-frame iframe,.hf-play,.hf-play img{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-.hf-play{padding:0;cursor:pointer;background:none}
-.hf-play img{object-fit:cover}
-.hf-tri{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;
-  border-radius:999px;border:2px solid var(--b-cream);background:rgba(51,61,47,.55)}
-.hf-tri::after{content:"";position:absolute;left:50%;top:50%;margin:-13px 0 0 -8px;
-  border-left:24px solid var(--b-cream);border-top:13px solid transparent;border-bottom:13px solid transparent}
-.hf-play:hover .hf-tri{background:var(--b-cta)}
-.hf-play:focus-visible{outline:2px solid var(--b-cream);outline-offset:-6px}
 
 /* the paper: the squared sheet the homepage uses, blended over the ground so a
    dark module stays dark and a light one reads as paper. One token turns it off. */
@@ -1052,6 +1052,26 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
   </div>
 </div></section>
 
+<section class="s home-film wc-ground-dark"><div class="wrap">
+  <div class="hf-frame" data-film-src="https://player.vimeo.com/video/1136626687?autoplay=1&dnt=1&title=0&byline=0&portrait=0">
+    <button class="hf-play" type="button" aria-label="Play the Wolf Children film">
+      <img src="/assets/img/home-film-poster.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async">
+      <span class="hf-tri" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
+<script>
+document.querySelectorAll('[data-film-src]').forEach(function(f){
+  f.querySelector('.hf-play').addEventListener('click',function(){
+    var i=document.createElement('iframe');
+    i.src=f.getAttribute('data-film-src');i.title='Play the Wolf Children film';
+    i.allow='autoplay; fullscreen; picture-in-picture';
+    i.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+    f.replaceChildren(i);
+  });
+});
+</script></section>
+
 <section class="s home-strip" aria-label="Photo gallery">
   <button class="hstrip-arrow hstrip-prev" type="button" data-hstrip-prev aria-label="Previous photo">‹</button>
   <button class="hstrip-arrow hstrip-next" type="button" data-hstrip-next aria-label="Next photo">›</button>
@@ -1112,26 +1132,6 @@ footer.wc-foot{margin:0;border:0;border-radius:0;box-shadow:none;text-align:cent
   gal.querySelector('[data-hstrip-zout]').addEventListener('click',function(){setZoom(zoom+1)});
   addEventListener('keydown',function(e){if(e.key==='Escape'&&!gal.hidden)closeGal()});
 })();
-</script></section>
-
-<section class="s home-film wc-ground-dark"><div class="wrap">
-  <div class="hf-frame" data-film-src="https://player.vimeo.com/video/1136626687?autoplay=1&dnt=1&title=0&byline=0&portrait=0">
-    <button class="hf-play" type="button" aria-label="Play the Wolf Children film">
-      <img src="/assets/img/home-film-poster.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async">
-      <span class="hf-tri" aria-hidden="true"></span>
-    </button>
-  </div>
-</div>
-<script>
-document.querySelectorAll('[data-film-src]').forEach(function(f){
-  f.querySelector('.hf-play').addEventListener('click',function(){
-    var i=document.createElement('iframe');
-    i.src=f.getAttribute('data-film-src');i.title='Play the Wolf Children film';
-    i.allow='autoplay; fullscreen; picture-in-picture';
-    i.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
-    f.replaceChildren(i);
-  });
-});
 </script></section>
 
 <section class="s recognition-s wc-ground-light"><div class="wrap">
