@@ -1,4 +1,4 @@
-// Copy for home-statement. A is the sentence that was already on the homepage.
+// Copy for home-statement. A is Richard's, 2026-10-17, verbatim (he will fine tune it).
 export const variants = {
-  A: { statement: 'Wolf Children is a collection of stories, tools and recipes to help parents avoid the trap of screentime.' },
+  A: { statement: '\u201cWolf Children\u201d is an inspiring collection of tools, recipes and stories for families that don\u2019t want to fall into the trap of screen time. Outdoor adventures, open fire cooking and a little bit of mud.' },
 };
