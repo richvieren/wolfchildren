@@ -30,19 +30,20 @@ export const css = `
 
 .hstrip-gal{position:fixed;inset:0;z-index:1000;background:#0a0a0a;color:#EEE8D8;overflow-y:auto;overscroll-behavior:contain}
 .hstrip-gal[hidden]{display:none}
-.hstrip-gtop{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;
-  padding:18px clamp(16px,3vw,40px);mix-blend-mode:difference;color:#fff}
-.hstrip-gtop span,.hstrip-gtop button{font-family:var(--b-body);font-size:14px;letter-spacing:.1em;text-transform:uppercase;
+.hstrip-gtop{position:sticky;top:0;z-index:2;height:0;mix-blend-mode:difference;color:#fff}
+.hstrip-gin{display:flex;align-items:flex-start;justify-content:space-between;padding:18px clamp(16px,3vw,40px)}
+.hstrip-gin span,.hstrip-gin button{font-family:var(--b-body);font-size:14px;letter-spacing:.1em;text-transform:uppercase;
   color:inherit;background:none;border:0;padding:4px 0;cursor:pointer}
-.hstrip-gtop .z{display:flex;gap:10px;align-items:center}
-.hstrip-feed{margin:-56px 0 0;transition:width .4s ease,margin .4s ease}
+.hstrip-gin .z{display:flex;gap:10px;align-items:center}
+.hstrip-logo{display:block;width:clamp(72px,8vw,110px);height:auto;margin:0 0 6px;filter:brightness(0) invert(1)}
+.hstrip-feed{transition:width .4s ease,margin .4s ease}
 .hstrip-feed img{display:block;width:100%;height:auto}
 .hstrip-gal.z1 .hstrip-feed{width:100%}
 .hstrip-gal.z2 .hstrip-feed{width:35%;margin:0 15% 0 auto}
 .hstrip-gal.z2 .hstrip-feed img{margin-bottom:12px}
 .hstrip-gal.z3 .hstrip-feed{width:15%;margin:0 15% 0 auto}
 .hstrip-gal.z3 .hstrip-feed img{margin-bottom:16px}
-.hstrip-gal.z2 .hstrip-feed,.hstrip-gal.z3 .hstrip-feed{padding-top:72px}
+.hstrip-gal.z2 .hstrip-feed,.hstrip-gal.z3 .hstrip-feed{padding-top:110px}
 @media (max-width:760px){
   .hstrip-gal.z2 .hstrip-feed{width:70%;margin:0 auto}
   .hstrip-gal.z3 .hstrip-feed{width:40%;margin:0 auto}
@@ -71,9 +72,10 @@ ${slides}
     <div class="hstrip-count" aria-hidden="true">${count}</div>
   </div>
   <div class="hstrip-gal z1" role="dialog" aria-modal="true" aria-label="${copy.label}" hidden>
-    <div class="hstrip-gtop"><span>${copy.label}</span>
-      <span class="z"><button type="button" data-hstrip-zin aria-label="${copy.zoomIn}">+</button><span aria-hidden="true">/</span><button type="button" data-hstrip-zout aria-label="${copy.zoomOut}">−</button></span>
-      <button type="button" data-hstrip-close>${copy.close}</button></div>
+    <div class="hstrip-gtop"><div class="hstrip-gin">
+      <div><img class="hstrip-logo" src="/assets/img/logo/wolfchildren-logo-cream-1600.webp" width="1600" height="696" alt="Wolf Children"><span>${copy.label}</span></div>
+      <span class="z"><button type="button" data-hstrip-zin aria-label="${copy.zoomIn}">+</button><span aria-hidden="true">/</span><button type="button" data-hstrip-zout aria-label="${copy.zoomOut}">\u2212</button></span>
+      <button type="button" data-hstrip-close>${copy.close}</button></div></div>
     <div class="hstrip-feed">
 ${feed}
     </div>
