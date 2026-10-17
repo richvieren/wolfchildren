@@ -415,6 +415,44 @@ html,body{overflow-x:clip}
   .hiw-step{padding:0}
 }
 
+.home-strip{padding:clamp(40px,6vw,88px) 0;background:var(--b-cream)}
+.hstrip-bar{display:flex;justify-content:flex-end;gap:20px;padding:0 clamp(16px,3vw,40px) 12px}
+.hstrip-bar button{font-family:var(--b-body);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--b-bark);background:none;border:0;padding:4px 0;cursor:pointer}
+.hstrip-bar button:hover{color:var(--b-green)}
+.hstrip-open{display:block;cursor:pointer;background:#1a1a1a;overflow:hidden}
+.hstrip-open:focus-visible{outline:2px solid var(--b-green);outline-offset:3px}
+.hstrip-holes{height:clamp(20px,2.8vw,38px);display:flex;align-items:center;justify-content:space-between;
+  padding:0 .5vw;overflow:hidden}
+.hstrip-holes i{width:clamp(6px,1.1vw,15px);height:clamp(10px,1.7vw,24px);background:#c9c5ba;border-radius:2px;flex:none}
+.hstrip-track{display:flex;gap:clamp(4px,.7vw,10px);padding:0 .4vw;transition:transform .5s ease}
+.hstrip-slide{flex:0 0 auto;width:clamp(180px,22vw,340px);aspect-ratio:3/4;overflow:hidden;margin:0}
+.hstrip-slide img{display:block;width:100%;height:100%;object-fit:cover}
+.hstrip-count{background:#1a1a1a;height:clamp(16px,1.8vw,24px);display:flex;align-items:center;padding:0 .5vw;
+  font-family:var(--b-body);font-size:clamp(5px,.6vw,8px);letter-spacing:.04em;color:rgba(152,145,82,.6);
+  text-transform:uppercase;overflow:hidden;white-space:nowrap;transform:rotate(180deg)}
+.hstrip-count span{margin-right:80px;display:inline-block}
+
+.hstrip-gal{position:fixed;inset:0;z-index:1000;background:#0a0a0a;color:#EEE8D8;overflow-y:auto;overscroll-behavior:contain}
+.hstrip-gal[hidden]{display:none}
+.hstrip-gtop{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;
+  padding:18px clamp(16px,3vw,40px);mix-blend-mode:difference;color:#fff}
+.hstrip-gtop span,.hstrip-gtop button{font-family:var(--b-body);font-size:14px;letter-spacing:.1em;text-transform:uppercase;
+  color:inherit;background:none;border:0;padding:4px 0;cursor:pointer}
+.hstrip-gtop .z{display:flex;gap:10px;align-items:center}
+.hstrip-feed{margin:-56px 0 0;transition:width .4s ease,margin .4s ease}
+.hstrip-feed img{display:block;width:100%;height:auto}
+.hstrip-gal.z1 .hstrip-feed{width:100%}
+.hstrip-gal.z2 .hstrip-feed{width:35%;margin:0 15% 0 auto}
+.hstrip-gal.z2 .hstrip-feed img{margin-bottom:12px}
+.hstrip-gal.z3 .hstrip-feed{width:15%;margin:0 15% 0 auto}
+.hstrip-gal.z3 .hstrip-feed img{margin-bottom:16px}
+.hstrip-gal.z2 .hstrip-feed,.hstrip-gal.z3 .hstrip-feed{padding-top:72px}
+@media (max-width:760px){
+  .hstrip-gal.z2 .hstrip-feed{width:70%;margin:0 auto}
+  .hstrip-gal.z3 .hstrip-feed{width:40%;margin:0 auto}
+}
+
 /* the paper: the squared sheet the homepage uses, blended over the ground so a
    dark module stays dark and a light one reads as paper. One token turns it off. */
 /* 2026-10-08, Richard: one gradient with the same grain the wave carries, in
@@ -1032,6 +1070,67 @@ document.querySelectorAll('[data-film-src]').forEach(function(f){
     </ul>
   </div>
 </div></section>
+
+<section class="s home-strip" aria-label="Photo gallery">
+  <div class="hstrip-bar"><button type="button" data-hstrip-prev>Prev</button><button type="button" data-hstrip-next>Next</button></div>
+  <div class="hstrip-open" role="button" tabindex="0" aria-label="Open the photo gallery">
+    <div class="hstrip-holes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="hstrip-track">
+      <figure class="hstrip-slide"><img src="/assets/img/strip/reason-2.webp" width="600" height="800" alt="A child at a fence, reaching toward the alpacas" loading="lazy" decoding="async"></figure>
+      <figure class="hstrip-slide"><img src="/assets/img/strip/reason-3.webp" width="600" height="800" alt="A child running across grass towards the trees" loading="lazy" decoding="async"></figure>
+      <figure class="hstrip-slide"><img src="/assets/img/strip/offer.webp" width="600" height="800" alt="A child in a blue sweater, laughing in the doorway" loading="lazy" decoding="async"></figure>
+      <figure class="hstrip-slide"><img src="/assets/img/strip/hero-detail.webp" width="600" height="800" alt="A child on the grass, reaching into the green" loading="lazy" decoding="async"></figure>
+      <figure class="hstrip-slide"><img src="/assets/img/strip/reason-1.webp" width="600" height="800" alt="A child standing on a mossy rock in the forest" loading="lazy" decoding="async"></figure>
+      <figure class="hstrip-slide"><img src="/assets/img/strip/reason-4.webp" width="600" height="800" alt="A child walking down a path through the pines" loading="lazy" decoding="async"></figure>
+      <figure class="hstrip-slide"><img src="/assets/img/strip/hero.webp" width="600" height="800" alt="A child watching the sun go down over the sea" loading="lazy" decoding="async"></figure>
+    </div>
+    <div class="hstrip-holes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="hstrip-count" aria-hidden="true"><span>◀▶    20    ——    WOLF CHILDREN 800–11</span><span>◀▶    19    ——    WOLF CHILDREN 800–11</span><span>◀▶    18    ——    WOLF CHILDREN 800–11</span><span>◀▶    17    ——    WOLF CHILDREN 800–11</span><span>◀▶    16    ——    WOLF CHILDREN 800–11</span><span>◀▶    15    ——    WOLF CHILDREN 800–11</span><span>◀▶    14    ——    WOLF CHILDREN 800–11</span><span>◀▶    13    ——    WOLF CHILDREN 800–11</span><span>◀▶    12    ——    WOLF CHILDREN 800–11</span><span>◀▶    11    ——    WOLF CHILDREN 800–11</span><span>◀▶    10    ——    WOLF CHILDREN 800–11</span><span>◀▶    09    ——    WOLF CHILDREN 800–11</span><span>◀▶    08    ——    WOLF CHILDREN 800–11</span><span>◀▶    07    ——    WOLF CHILDREN 800–11</span><span>◀▶    06    ——    WOLF CHILDREN 800–11</span><span>◀▶    05    ——    WOLF CHILDREN 800–11</span><span>◀▶    04    ——    WOLF CHILDREN 800–11</span><span>◀▶    03    ——    WOLF CHILDREN 800–11</span><span>◀▶    02    ——    WOLF CHILDREN 800–11</span><span>◀▶    01    ——    WOLF CHILDREN 800–11</span></div>
+  </div>
+  <div class="hstrip-gal z1" role="dialog" aria-modal="true" aria-label="Photo gallery" hidden>
+    <div class="hstrip-gtop"><span>Photo gallery</span>
+      <span class="z"><button type="button" data-hstrip-zin aria-label="Zoom in">+</button><span aria-hidden="true">/</span><button type="button" data-hstrip-zout aria-label="Zoom out">−</button></span>
+      <button type="button" data-hstrip-close>Close</button></div>
+    <div class="hstrip-feed">
+      <img src="/assets/img/compass2/reason-2.webp" width="1200" height="1600" alt="A child at a fence, reaching toward the alpacas" loading="lazy" decoding="async">
+      <img src="/assets/img/compass2/band-dusk.webp" width="1600" height="1200" alt="A child on the sand at dusk, a mountain behind" loading="lazy" decoding="async">
+      <img src="/assets/img/compass2/reason-3.webp" width="1200" height="1600" alt="A child running across grass towards the trees" loading="lazy" decoding="async">
+      <img src="/assets/img/compass2/close.webp" width="1600" height="1200" alt="A child on the beach under a sunset sky" loading="lazy" decoding="async">
+      <img src="/assets/img/compass2/offer.webp" width="1200" height="1600" alt="A child in a blue sweater, laughing in the doorway" loading="lazy" decoding="async">
+      <img src="/assets/img/compass2/band-season.webp" width="1600" height="1200" alt="A child playing in the pine forest" loading="lazy" decoding="async">
+      <img src="/assets/img/compass2/hero-detail.webp" width="1200" height="1600" alt="A child on the grass, reaching into the green" loading="lazy" decoding="async">
+      <img src="/assets/img/compass2/sample.webp" width="1600" height="1200" alt="A child building in the sand" loading="lazy" decoding="async">
+      <img src="/assets/img/compass2/reason-1.webp" width="1200" height="1600" alt="A child standing on a mossy rock in the forest" loading="lazy" decoding="async">
+      <img src="/assets/img/compass2/reason-4.webp" width="1200" height="1600" alt="A child walking down a path through the pines" loading="lazy" decoding="async">
+      <img src="/assets/img/compass2/hero.webp" width="1200" height="1600" alt="A child watching the sun go down over the sea" loading="lazy" decoding="async">
+    </div>
+  </div>
+<script>
+(function(){
+  var sec=document.currentScript.parentNode,
+      open=sec.querySelector('.hstrip-open'),track=sec.querySelector('.hstrip-track'),
+      slides=track.children,gal=sec.querySelector('.hstrip-gal'),
+      pos=0,zoom=1,timer,reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function step(){return slides.length>1?slides[1].offsetLeft-slides[0].offsetLeft:0}
+  function room(){return Math.max(0,track.scrollWidth-open.clientWidth)}
+  function max(){return step()?Math.ceil(room()/step()):0}
+  function show(){pos=Math.min(pos,max());track.style.transform='translateX('+(-Math.min(pos*step(),room()))+'px)'}
+  function stop(){clearInterval(timer)}
+  sec.querySelector('[data-hstrip-prev]').addEventListener('click',function(){pos=Math.max(0,pos-1);show();stop()});
+  sec.querySelector('[data-hstrip-next]').addEventListener('click',function(){pos=Math.min(max(),pos+1);show();stop()});
+  if(!reduce)timer=setInterval(function(){pos=pos+1>max()?0:pos+1;show()},3500);
+  addEventListener('resize',show);
+  function openGal(){stop();gal.hidden=false;document.body.style.overflow='hidden';gal.scrollTop=0;gal.querySelector('[data-hstrip-close]').focus()}
+  function closeGal(){gal.hidden=true;document.body.style.overflow='';open.focus()}
+  function setZoom(z){zoom=Math.max(1,Math.min(3,z));gal.className='hstrip-gal z'+zoom}
+  open.addEventListener('click',openGal);
+  open.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openGal()}});
+  gal.querySelector('[data-hstrip-close]').addEventListener('click',closeGal);
+  gal.querySelector('[data-hstrip-zin]').addEventListener('click',function(){setZoom(zoom-1)});
+  gal.querySelector('[data-hstrip-zout]').addEventListener('click',function(){setZoom(zoom+1)});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&!gal.hidden)closeGal()});
+})();
+</script></section>
 
 <section class="s recognition-s wc-ground-light"><div class="wrap">
   <div class="rec">
