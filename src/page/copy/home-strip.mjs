@@ -2,7 +2,7 @@
 // the vieren.studio one, re-lettered for Wolf Children.
 export const variants = {
   A: {
-    label: 'Photo gallery', open: 'Open the photo gallery', prev: 'Previous photo', next: 'Next photo',
+    label: 'Photo gallery', open: 'Open the photo gallery', prev: 'Prev', next: 'Next',
     close: 'Close', zoomIn: 'Zoom in', zoomOut: 'Zoom out', code: 'WOLF CHILDREN 800–11',
   },
 };
