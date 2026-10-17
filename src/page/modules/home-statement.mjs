@@ -5,13 +5,13 @@ export const id = 'home-statement';
 
 export const css = `
 .home-statement .wrap{display:flex;flex-direction:column;align-items:center;gap:var(--s-space-block)}
-.hs-text{margin:0;font-family:var(--b-body);color:var(--g-text);text-align:left;max-width:26ch;
-  font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.45}
+.hs-text{margin:0;font-family:var(--b-body);color:var(--g-text);text-align:left;max-width:32.5ch;
+  font-size:clamp(.92rem,1.6vw,1.24rem);line-height:1.45}
 .hs-fig{margin:0;width:100%;max-width:424px}
 .hs-fig img{display:block;width:100%;height:auto}
 @media (min-width:900px){
   .home-statement .wrap{flex-direction:row-reverse;justify-content:center;gap:calc(var(--s-space-block) * 2)}
-  .hs-text{flex:0 1 26ch}.hs-fig{flex:0 0 424px}
+  .hs-text{flex:0 1 32.5ch}.hs-fig{flex:0 0 424px}
 }
 `;
 
