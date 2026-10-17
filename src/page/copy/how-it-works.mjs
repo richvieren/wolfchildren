@@ -15,7 +15,7 @@ export const variants = {
   // or study, named in its line. Richard has not yet approved the wording.
   S: {
     eyebrow: 'Statistics',
-    heading: 'It\'s not looking good',
+    heading: 'How did we get here?',
     steps: [
       { title: '37%', line: 'Of American children aged 3 to 5 play outdoors for an hour or less on a weekday.', source: 'CDC, National Survey of Children\'s Health, 2021.' },
       { title: '8 h 39 min', line: 'On screens every day, outside school and homework, for the average American teenager.', source: 'Common Sense Media, 2021.' },
