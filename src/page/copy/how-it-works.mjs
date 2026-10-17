@@ -17,8 +17,8 @@ export const variants = {
     eyebrow: 'Statistics',
     heading: 'It\'s not looking good',
     steps: [
-      { title: '8 h 39 min', line: 'On screens every day, outside school and homework, for the average American teenager.', source: 'Common Sense Media, 2021.' },
       { title: '37%', line: 'Of American children aged 3 to 5 play outdoors for an hour or less on a weekday.', source: 'CDC, National Survey of Children\'s Health, 2021.' },
+      { title: '8 h 39 min', line: 'On screens every day, outside school and homework, for the average American teenager.', source: 'Common Sense Media, 2021.' },
       { title: '49.8%', line: 'Of the world is projected to be short-sighted by 2050, with less time outdoors named as a cause.', source: 'Ophthalmology, 2016.' },
     ],
   },

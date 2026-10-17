@@ -52,7 +52,7 @@ export const css = `
 
 export function markup(copy, settings = {}) {
   const g = settings.className ? ` ${settings.className}` : '';
-  const steps = copy.steps.map((s, i) => `      <li class="hiw-step">
+  const steps = copy.steps.map((s, i) => `      <li class="hiw-step"${s.source ? ' style="align-content:start"' : ''}>
         ${STAR}
         <p class="hiw-n">0${i + 1}</p>
         <h3 class="hiw-t">${s.title}</h3>
