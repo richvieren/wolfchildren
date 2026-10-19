@@ -76,16 +76,6 @@ export default {
         ],
       },
     },
-    { id: 'home-day-night', copy: 'A' },
-    {
-      id: 'whats-inside',
-      copy: 'L',
-      ground: 'dark',
-      settings: {
-        lorem: true,
-        photo: { src: '/assets/img/compass2/reason-1.webp', w: 1200, h: 1600, alt: 'A child standing on a rock in a forest, looking back' },
-      },
-    },
     { id: 'home-band', copy: 'A' },
     { id: 'facts', copy: 'L' },
     { id: 'offer-v2', copy: 'L', ground: 'dark' },

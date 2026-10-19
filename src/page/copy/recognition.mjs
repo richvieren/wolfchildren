@@ -27,8 +27,7 @@ export const variants = {
     cta: 'Lorem ipsum',
     h2: 'Lorem ipsum dolor sit amet consectetur.',
     body: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      'Wolf Children started as a self published coffee table book in Belgium & The Netherlands. Shot on the backdrop of a beautiful organic farm, documenting the barefoot life of three little sisters. It became a hit and sold thousands of copies. It\u2019s always been a dream to expand the wolfpack world wide, and I believe the world needs it now more than ever. New chapters coming soon.',
     ],
   },
   B: { eyebrow: 'Your chart, then theirs', cta: 'Read theirs', h2: C.recognition.h2, body: C.recognition.body },
