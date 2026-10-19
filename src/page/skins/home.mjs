@@ -20,9 +20,11 @@ body .rec-large::before,body .rec-small::before{content:"";position:absolute;z-i
    3.4% = 7.5% of the card, 10.8% = 24% of it, the proportions of a real polaroid */
 body .rec-small{background:var(--b-paper);padding:3.4% 3.4% 10.8%;box-shadow:var(--s-shadow-card)}
 body .rec-small-backing{display:none}
-/* the closing photograph's line sits on one line on a desktop; a phone lets it wrap */
+/* the closing photograph's heading is two lines, broken after the comma, so the
+   16ch measure must not break either line again */
+body .pc-inner{max-width:none}
+body .pc-h{max-width:none}
 @media(min-width:900px){
-  body .pc-inner{max-width:none}
-  body .pc-h{max-width:none;white-space:nowrap;font-size:clamp(1.6rem,3.7vw,3.6rem)}
+  body .pc-h{white-space:nowrap}
 }
 `;

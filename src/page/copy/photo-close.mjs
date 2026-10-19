@@ -7,4 +7,6 @@ export const variants = {
   },
   // home page, 2026-10-16, Richard: the heading only, no prices, no button
   B: { heading: "Screens stole childhood, we're here to take it back.", prices: '', cta: '' },
+  // home page, 2026-10-20: two lines, broken after the comma
+  H: { heading: "Screens stole childhood,<br>we're here to take it back.", prices: '', cta: '' },
 };

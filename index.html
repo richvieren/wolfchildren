@@ -301,10 +301,12 @@ body .rec-large::before,body .rec-small::before{content:"";position:absolute;z-i
    3.4% = 7.5% of the card, 10.8% = 24% of it, the proportions of a real polaroid */
 body .rec-small{background:var(--b-paper);padding:3.4% 3.4% 10.8%;box-shadow:var(--s-shadow-card)}
 body .rec-small-backing{display:none}
-/* the closing photograph's line sits on one line on a desktop; a phone lets it wrap */
+/* the closing photograph's heading is two lines, broken after the comma, so the
+   16ch measure must not break either line again */
+body .pc-inner{max-width:none}
+body .pc-h{max-width:none}
 @media(min-width:900px){
-  body .pc-inner{max-width:none}
-  body .pc-h{max-width:none;white-space:nowrap;font-size:clamp(1.6rem,3.7vw,3.6rem)}
+  body .pc-h{white-space:nowrap}
 }
 
 /* The photo treatment, matched to the markup bodyV2 actually emits:
@@ -877,7 +879,7 @@ document.querySelectorAll('[data-film-src]').forEach(function(f){
   <img class="pc-photo" data-parallax-photo data-speed="0.25" src="/assets/compass/DSCF9381.jpg" width="2048" height="1536" alt="A child standing at the shoreline at dusk, beside a dark rock" loading="lazy" decoding="async">
   <div class="pc-wash" aria-hidden="true"></div>
   <div class="pc-inner">
-    <h2 class="pc-h">Screens stole childhood, we're here to take it back.</h2>
+    <h2 class="pc-h">Screens stole childhood,<br>we're here to take it back.</h2>
   </div>
 </section>
 

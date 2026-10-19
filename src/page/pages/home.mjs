@@ -87,7 +87,7 @@ export default {
     { id: 'facts', copy: 'R' },
     {
       id: 'photo-close',
-      copy: 'B',
+      copy: 'H',
       settings: {
         photo: { src: '/assets/compass/DSCF9381.jpg', w: 2048, h: 1536, alt: 'A child standing at the shoreline at dusk, beside a dark rock' },
       },
