@@ -21,11 +21,11 @@ export const variants = {
   },
   // home page, 2026-10-16: lorem ipsum until Richard writes it
   L: {
-    eyebrow: 'LOREM IPSUM',
-    hook: 'dolor',
-    tighten: 'sit amet',
+    eyebrow: 'THE BOOK',
+    hook: 'sisters',
+    tighten: '',
     cta: 'Lorem ipsum',
-    h2: 'Lorem ipsum dolor sit amet consectetur.',
+    h2: 'It started with three little sisters.',
     body: [
       'Wolf Children started as a self published coffee table book in Belgium & The Netherlands. Shot on the backdrop of a beautiful organic farm, documenting the barefoot life of three little sisters. It became a hit and sold thousands of copies. It\u2019s always been a dream to expand the wolfpack world wide, and I believe the world needs it now more than ever. New chapters coming soon.',
     ],

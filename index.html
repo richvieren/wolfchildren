@@ -285,7 +285,9 @@ body .rec-large::before,body .rec-small::before{content:"";position:absolute;z-i
   top:-13px;left:50%;width:46%;aspect-ratio:4/1;transform:translateX(-50%) rotate(-2.4deg);
   background:var(--b-tan);opacity:.86;
   clip-path:polygon(0 14%,4% 0,8% 16%,92% 5%,96% 0,100% 18%,96% 100%,92% 85%,8% 97%,4% 100%,0 84%)}
-body .rec-small{background:var(--b-paper);padding:16.4% 8.3% 29.2%;box-shadow:var(--s-shadow-card)}
+/* percentage padding is of the cluster's width, not the card's, and the card is 45% of it:
+   3.4% = 7.5% of the card, 10.8% = 24% of it, the proportions of a real polaroid */
+body .rec-small{background:var(--b-paper);padding:3.4% 3.4% 10.8%;box-shadow:var(--s-shadow-card)}
 body .rec-small-backing{display:none}
 
 /* The photo treatment, matched to the markup bodyV2 actually emits:
@@ -616,9 +618,6 @@ html,body{overflow-x:clip}
 .hsg-form input[type=email]:focus{outline:2px solid var(--b-green);outline-offset:2px}
 .hsg-form button.wc-cta{cursor:pointer}
 .hsg-status,.hsg-ok{font-family:var(--b-body);font-size:var(--s-type-body);max-width:46ch;margin:12px 0 0}
-.hsg-built{margin:calc(var(--s-space-section) * 1.1) 0 0;text-align:center}
-.hsg-built img{display:inline-block;width:172px;height:auto;opacity:.75}
-.hsg-built a:hover img{opacity:1}
 @media (min-width:900px){
   .home-signup .wrap{flex-direction:row;align-items:center;justify-content:space-between;gap:calc(var(--s-space-block) * 1.5)}
   .hsg-media{flex:0 1 520px}
@@ -782,10 +781,9 @@ document.querySelectorAll('[data-film-src]').forEach(function(f){
 <section class="s recognition-s wc-ground-light"><div class="wrap">
   <div class="rec">
     <div class="rec-text">
-      <p class="rec-eyebrow"><span class="wc-hl">LOREM IPSUM</span></p>
-      <h2>Lorem ipsum <span class="rec-hook">dolor<svg viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true"><path d="M62 8C30 11 8 22 6 36c-2 15 22 28 62 30 42 2 96-2 132-13 22-7 26-18 18-26C208 17 178 9 146 6"/></svg></span> sit <span class="rec-tight">amet</span> consectetur.</h2>
+      <p class="rec-eyebrow"><span class="wc-hl">THE BOOK</span></p>
+      <h2>It started with three little <span class="rec-hook">sisters<svg viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true"><path d="M62 8C30 11 8 22 6 36c-2 15 22 28 62 30 42 2 96-2 132-13 22-7 26-18 18-26C208 17 178 9 146 6"/></svg></span>.</h2>
       <p class="rec-lead">Wolf Children started as a self published coffee table book in Belgium & The Netherlands. Shot on the backdrop of a beautiful organic farm, documenting the barefoot life of three little sisters. It became a hit and sold thousands of copies. It’s always been a dream to expand the wolfpack world wide, and I believe the world needs it now more than ever. New chapters coming soon.</p>
-      <p class="rec-body">undefined</p>
       <a class="wc-cta rec-cta" href="/readings/compass/" data-rec-cta>Lorem ipsum</a>
     </div>
     <div class="rec-cluster">
@@ -884,7 +882,6 @@ document.querySelectorAll('[data-film-src]').forEach(function(f){
     <p class="hsg-ok" data-signup-success="" hidden>Check your inbox. The calendar is on its way.</p>
   </div>
 </div>
-<p class="hsg-built"><a href="https://vieren.studio" rel="noopener"><img src="/assets/img/built-by-vieren.png" alt="Built by Vieren" width="686" height="112" loading="lazy"></a></p>
 <script src="/assets/js/signup.js?v=89f86953" defer></script></section>
 
 <footer class="wc-foot wc-ground-dark"><div class="wrap">

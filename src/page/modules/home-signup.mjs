@@ -24,9 +24,6 @@ export const css = `
 .hsg-form input[type=email]:focus{outline:2px solid var(--b-green);outline-offset:2px}
 .hsg-form button.wc-cta{cursor:pointer}
 .hsg-status,.hsg-ok{font-family:var(--b-body);font-size:var(--s-type-body);max-width:46ch;margin:12px 0 0}
-.hsg-built{margin:calc(var(--s-space-section) * 1.1) 0 0;text-align:center}
-.hsg-built img{display:inline-block;width:172px;height:auto;opacity:.75}
-.hsg-built a:hover img{opacity:1}
 @media (min-width:900px){
   .home-signup .wrap{flex-direction:row;align-items:center;justify-content:space-between;gap:calc(var(--s-space-block) * 1.5)}
   .hsg-media{flex:0 1 520px}
@@ -52,6 +49,5 @@ export function markup(copy, settings = {}) {
     <p class="hsg-ok" data-signup-success="" hidden>${COPY.success}</p>
   </div>
 </div>
-<p class="hsg-built"><a href="https://vieren.studio" rel="noopener"><img src="/assets/img/built-by-vieren.png" alt="Built by Vieren" width="686" height="112" loading="lazy"></a></p>
 <script src="${JS}" defer></script></section>`;
 }

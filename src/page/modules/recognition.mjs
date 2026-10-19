@@ -119,8 +119,8 @@ export function markup(copy, settings = {}) {
     <div class="rec-text">
       <p class="rec-eyebrow"><span class="wc-hl">${copy.eyebrow}</span></p>
       <h2>${hook(tighten(copy.h2, copy.tighten), copy.hook)}</h2>
-      <p class="rec-lead">${copy.body[0]}</p>
-      <p class="rec-body">${copy.body[1]}</p>
+      <p class="rec-lead">${copy.body[0]}</p>${copy.body[1] ? `
+      <p class="rec-body">${copy.body[1]}</p>` : ''}
       <a class="wc-cta rec-cta" href="#atf" data-rec-cta>${copy.cta}</a>
     </div>
     <div class="rec-cluster">
