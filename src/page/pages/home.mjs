@@ -7,6 +7,13 @@ export default {
   url: '.',
   title: 'Wolf Children',
   titleSuffix: '',
+  // the link preview on social: 1200x630, Richard's own file, never cropped
+  og: {
+    title: 'Wolf Children',
+    description: 'An inspiring collection of tools, recipes and stories for families that don\u2019t want to fall into the trap of screen time.',
+    url: 'https://wolfchildren.co/',
+    image: 'https://wolfchildren.co/assets/img/social-preview.png',
+  },
   brand: 'wolf-children',
   skin: 'home',                  // the Compass skin, polaroid photographs
   atfMarkupFrom: 'mengto-skeuomorphic',

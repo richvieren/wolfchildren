@@ -121,7 +121,19 @@ export async function render(config) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <meta name="wc-variant" content="${config.id}">
-<title>${config.title}${config.titleSuffix ?? ' | Compass'}</title>
+${config.og ? `<meta property="og:type" content="website">
+<meta property="og:site_name" content="Wolf Children">
+<meta property="og:title" content="${config.og.title}">
+<meta property="og:description" content="${config.og.description}">
+<meta property="og:url" content="${config.og.url}">
+<meta property="og:image" content="${config.og.image}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${config.og.title}">
+<meta name="twitter:description" content="${config.og.description}">
+<meta name="twitter:image" content="${config.og.image}">
+` : ''}<title>${config.title}${config.titleSuffix ?? ' | Compass'}</title>
 <script src="/assets/js/pixel.js?v=${PIXEL}"></script>
 <script>window.WC_VARIANT=${JSON.stringify(config.id)};fbq('trackCustom','VariantView',{variant:window.WC_VARIANT});</script>
 <style>${FONTS_V2}${TOKENS_WC}${BASE}${brand.css}${grounds.css}${cta.css}${eyebrow.css}${edgeCss}${skinCss}${skin.css}${PHOTO_CSS_V2}${V2_SHARED}${ATF_RESET}${noAtf ? '' : `${scopedAtfCss('#atf')}${ATF_GUARD}${atfDesktopCss('#atf')}${skin.atfCss}`}${moduleCss}</style>
