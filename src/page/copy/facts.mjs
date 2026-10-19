@@ -21,9 +21,9 @@ export const variants = {
   R: {
     label: 'Roadmap:',
     facts: [
-      ['2018', 'Dutch Book'],
-      ['2024', 'Slovakian Book'],
-      ['2027', 'German Book'],
+      ['2018', 'Dutch Book \u{1F1F3}\u{1F1F1}\u{1F1E7}\u{1F1EA}'],
+      ['2024', 'Slovakian Book \u{1F1F8}\u{1F1F0}'],
+      ['2027', 'German Book \u{1F1E9}\u{1F1EA}'],
     ],
   },
 };
