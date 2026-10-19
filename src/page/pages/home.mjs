@@ -77,9 +77,7 @@ export default {
       },
     },
     { id: 'home-band', copy: 'A' },
-    { id: 'facts', copy: 'L' },
-    { id: 'offer-v2', copy: 'L', ground: 'dark' },
-    { id: 'testimonials', copy: 'L', ground: 'light' },
+    { id: 'facts', copy: 'R' },
     {
       id: 'photo-close',
       copy: 'B',
@@ -89,6 +87,6 @@ export default {
     },
     // the comparison is gone; the moon calendar sits where it was
     { id: 'home-signup', copy: 'A', ground: 'light', edge: 'wave-2' },
-    { id: 'footer', copy: 'A' },
+    { id: 'footer', copy: 'H' },
   ],
 };

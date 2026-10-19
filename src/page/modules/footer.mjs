@@ -28,6 +28,7 @@ export function markup(copy, settings = {}) {
   <img class="foot-mark" src="/assets/img/logo/wolfchildren-logo-cream-1600.webp" width="1600" height="696" alt="Wolf Children" loading="lazy" decoding="async">
   <nav class="foot-links">${links}</nav>
   <p class="foot-note">${copy.disclaimer}</p>
-  <p class="foot-copy">${copy.copyright}</p>
+  <p class="foot-copy">${copy.copyright}</p>${copy.builtBy ? `
+  <p class="foot-copy" style="margin-top:14px"><a href="https://vieren.studio" rel="noopener"><img src="/assets/img/built-by-vieren.png" alt="${copy.builtBy}" width="686" height="112" loading="lazy" style="display:inline-block;width:172px;height:auto;opacity:.75"></a></p>` : ''}
 </div></footer>`;
 }

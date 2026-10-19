@@ -581,114 +581,6 @@ html,body{overflow-x:clip}
   .fa-item + .fa-item{border-top:0;border-left:2px solid rgba(47,56,43,.4);padding-top:0}
 }
 
-/* 2026-10-08, Richard: the ground recognition carried until 7749d3c — the dark
-   ground with the squared sheet blended over it. The buy box keeps its own
-   white card, so its text stays on white. */
-.offer-v2-s{background-image:var(--s-texture);background-size:cover;
-  background-position:center;background-blend-mode:var(--s-texture-blend);
-  padding:0 0 var(--s-space-section)}
-.ov{display:grid}
-.ov-left{display:grid;place-items:center;padding:32px 24px}
-.ov-left img{display:block;max-width:100%;max-height:80vh;width:auto;height:auto;
-  object-fit:contain;border:0;border-radius:24px}
-.ov-right{padding:32px 24px}
-/* the buy box keeps its own light card, so its text stays on light */
-.ov-box{max-width:480px;margin:0 auto;background:#FFFFFF;
-  border-radius:16px;padding:32px}
-
-/* the page's two faces: Morning Memories on the title, Special Elite elsewhere */
-.ov-title{font-family:var(--b-display);color:var(--b-green);
-  font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
-  letter-spacing:var(--s-type-display-ls);margin:0 0 10px}
-.ov-rating{display:flex;align-items:baseline;gap:9px;margin:0 0 12px;font-family:var(--b-body)}
-.ov-stars{color:var(--b-gold);font-size:19px;letter-spacing:.14em}
-.ov-rated{color:var(--b-green);font-size:var(--s-type-body)}
-.ov-line{font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.5;
-  color:var(--b-green);margin:0 0 20px}
-
-/* the tiers */
-/* the hand-drawn circle around the label on the last tier */
-.ov-best{position:relative;display:inline-block;margin-left:10px;color:var(--b-green);
-  font-family:var(--b-body);font-size:12.5px;line-height:1;white-space:nowrap}
-.ov-ring{position:absolute;left:-.5em;top:50%;transform:translateY(-50%);
-  width:calc(100% + 1em);height:2.1em;overflow:visible;pointer-events:none;color:var(--b-tan)}
-.ov-tiers{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:10px}
-.ov-tier input{position:absolute;opacity:0;width:0;height:0}
-.ov-tier-box{display:grid;grid-template-columns:1fr auto;gap:2px 16px;align-items:center;
-  padding:16px;background:#FFFFFF;border:1px solid var(--b-tan);border-radius:10px;cursor:pointer}
-.ov-tier input:checked + .ov-tier-box{border:2px solid var(--b-green);padding:15px}
-.ov-tier input:focus-visible + .ov-tier-box{outline:2px solid var(--b-green);outline-offset:2px}
-.ov-name{display:flex;align-items:center;gap:10px;font-family:var(--b-body);
-  font-size:var(--s-type-body);line-height:1.3;color:var(--b-green)}
-.ov-dot{flex:0 0 16px;width:16px;height:16px;border-radius:50%;border:1px solid var(--b-green)}
-.ov-tier input:checked + .ov-tier-box .ov-dot{background:var(--b-green);box-shadow:inset 0 0 0 3px #FFFFFF}
-.ov-price{font-family:var(--b-body);font-size:20px;line-height:1;
-  color:var(--b-green);text-align:right}
-.ov-each{grid-column:1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-  font-family:var(--b-body);font-size:12.5px;line-height:1.5;
-  color:var(--b-green);padding-left:26px}
-.ov-save{font-family:var(--b-body);font-size:12.5px;color:var(--b-green);
-  background:rgba(73,85,67,.1);border-radius:999px;padding:2px 8px}
-.ov-note{grid-column:1;font-family:var(--b-body);font-size:13px;
-  line-height:1.5;color:var(--b-green);padding-left:26px}
-.ov-more{grid-column:1/-1;display:none;margin:12px 0 0;padding:0;list-style:none}
-.ov-tier input:checked + .ov-tier-box .ov-more{display:grid;gap:8px}
-.ov-more li{display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:start;
-  font-family:var(--b-body);font-size:12.5px;line-height:1.45;color:var(--b-green)}
-.ov-tick{width:14px;height:14px;margin-top:3px;border:1px solid var(--b-green);
-  border-radius:50%;position:relative}
-.ov-tick:after{content:"";position:absolute;left:4px;top:2px;width:3.5px;height:7px;
-  border-right:1.5px solid var(--b-green);border-bottom:1.5px solid var(--b-green);transform:rotate(42deg)}
-
-/* the button */
-.ov-cta{width:100%}
-.ov-cta[aria-disabled="true"]{opacity:.45;box-shadow:none;cursor:default;pointer-events:none}
-.ov-secure{font-family:var(--b-body);font-size:12.5px;line-height:1.6;
-  color:var(--b-green);text-align:center;margin:12px 0 0}
-
-/* the FAQ */
-.ov-faq{margin-top:32px}
-.ov-faq .ov-q{background:none;border:0;border-radius:0;box-shadow:none;margin:0;padding:0;
-  border-top:1px solid var(--b-tan)}
-.ov-faq .ov-q:last-child{border-bottom:1px solid var(--b-tan)}
-.ov-faq .ov-q summary{list-style:none;cursor:pointer;display:flex;gap:16px;
-  align-items:baseline;justify-content:space-between;padding:16px 0;
-  font-family:var(--b-body);font-size:var(--s-type-body);line-height:1.4;color:var(--b-green)}
-.ov-faq .ov-q summary::-webkit-details-marker{display:none}
-.ov-faq .ov-q summary::after{content:"+";font-size:16px;color:var(--b-tan)}
-.ov-faq .ov-q[open] summary::after{content:"\2013"}
-.ov-faq .ov-q summary:focus{outline:none}
-.ov-faq .ov-q summary:focus-visible{outline:2px solid var(--b-green);outline-offset:2px}
-.ov-faq .ov-a{font-family:var(--b-body);font-size:15px;line-height:1.6;
-  color:var(--b-green);opacity:.8;margin:0 0 18px;max-width:60ch}
-
-@media(min-width:900px){
-  .ov{grid-template-columns:50% 50%}
-  .ov-left{padding:48px}
-  .ov-right{padding:32px 48px}
-  .ov-box{margin:0}
-}
-
-.testimonials-s{border-top:2px solid var(--b-gold);border-bottom:2px solid var(--b-gold)}
-.tm{display:grid;gap:var(--s-space-section);justify-items:center;text-align:center}
-.tm-eyebrow{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
-  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;margin:0}
-.tm-h{font-family:var(--b-display);font-weight:400;color:var(--g-text);
-  font-size:var(--s-type-display);line-height:var(--s-type-display-lh);
-  letter-spacing:var(--s-type-display-ls);max-width:none;margin:18px 0 0}
-.tm-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-space-section);width:100%}
-.tm-item{display:grid;gap:18px;justify-items:center}
-.tm-shot{position:relative;width:100%;aspect-ratio:1/1;background:var(--b-tan);
-  border-radius:var(--s-radius-btn-hard);margin:0}
-.tm-star{position:absolute;right:-14px;top:-14px;width:40px;height:auto;color:var(--b-cream)}
-.tm-q{font-family:var(--b-display);font-weight:400;font-size:21px;line-height:1.25;
-  letter-spacing:var(--s-type-display-ls);color:var(--g-text);margin:0;max-width:30ch}
-.tm-name{font-family:var(--b-body);font-size:var(--s-type-eyebrow);
-  letter-spacing:var(--s-type-eyebrow-ls);text-transform:uppercase;color:var(--g-quiet);margin:0}
-@media(min-width:900px){
-  .tm-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:48px}
-}
-
 .pc{--pc-over:calc(25vh + 3vw);
   position:relative;height:85vh;min-height:520px;overflow:hidden;
   display:grid;place-items:center}
@@ -945,140 +837,22 @@ document.querySelectorAll('[data-film-src]').forEach(function(f){
 
 <section class="s facts-s"><div class="wrap">
   <div class="fa">
-    <p class="fa-label">Lorem ipsum:</p>
+    <p class="fa-label">Roadmap:</p>
     <ul class="fa-list">
       <li class="fa-item">
         <span style="color:#2F382B"><svg class="fa-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg></span>
-        <p class="fa-line">Lorem ipsum</p>
-        <p class="fa-line fa-line-2">Dolor sit amet</p>
+        <p class="fa-line">2018</p>
+        <p class="fa-line fa-line-2">Dutch Book</p>
       </li>
       <li class="fa-item">
         <span style="color:#495543"><svg class="fa-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg></span>
-        <p class="fa-line">Consectetur</p>
-        <p class="fa-line fa-line-2">Adipiscing elit</p>
+        <p class="fa-line">2024</p>
+        <p class="fa-line fa-line-2">Slovakian Book</p>
       </li>
       <li class="fa-item">
         <span style="color:#DA4635"><svg class="fa-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg></span>
-        <p class="fa-line">Sed do eiusmod</p>
-        <p class="fa-line fa-line-2">Tempor incididunt</p>
-      </li>
-    </ul>
-  </div>
-</div></section>
-
-<section class="s offer-v2-s wc-ground-dark">
-  <div class="ov">
-    <div class="ov-left">
-      <img src="/assets/img/compass2/offer.webp" width="1200" height="1600" alt="A child in a doorway at the end of the day, boots muddy" loading="lazy" decoding="async">
-    </div>
-
-    <div class="ov-right">
-      <div class="ov-box">
-        <h2 class="ov-title">Lorem</h2>
-        <p class="ov-rating" data-placeholder="review"><span class="ov-stars" aria-hidden="true">★★★★★</span><span class="ov-rated">Lorem ipsum dolor sit amet</span></p>
-        <p class="ov-line">Lorem ipsum &middot; Dolor sit amet &middot; Consectetur</p>
-        <ul class="ov-tiers">
-        <li class="ov-tier">
-          <input type="radio" name="ov-tier" id="ov-one" value="one" checked>
-          <label class="ov-tier-box" for="ov-one">
-            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>One child</span>
-            <span class="ov-price">$27</span>
-            
-            
-            <ul class="ov-more">
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Lorem ipsum dolor sit amet</span></li>
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Consectetur adipiscing elit</span></li>
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Sed do eiusmod tempor incididunt</span></li>
-            </ul>
-          </label>
-        </li>
-        <li class="ov-tier">
-          <input type="radio" name="ov-tier" id="ov-two" value="two">
-          <label class="ov-tier-box" for="ov-two">
-            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>Two children</span>
-            <span class="ov-price">$47</span>
-            <span class="ov-each"><span>$23.50 each</span><span class="ov-save">Save $7</span></span>
-            
-            <ul class="ov-more">
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Lorem ipsum dolor sit amet</span></li>
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Consectetur adipiscing elit</span></li>
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Sed do eiusmod tempor incididunt</span></li>
-            </ul>
-          </label>
-        </li>
-        <li class="ov-tier">
-          <input type="radio" name="ov-tier" id="ov-three" value="three">
-          <label class="ov-tier-box" for="ov-three">
-            <span class="ov-name"><span class="ov-dot" aria-hidden="true"></span>Buy two, get one free<span class="ov-best">Best value<svg class="ov-ring" viewBox="0 0 220 72" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true"><path d="M62 8C30 11 8 22 6 36c-2 15 22 28 62 30 42 2 96-2 132-13 22-7 26-18 18-26C208 17 178 9 146 6"/></svg></span></span>
-            <span class="ov-price">$54</span>
-            <span class="ov-each"><span>$18 each</span><span class="ov-save">Save $27</span></span>
-            <span class="ov-note">Keep one as a gift, or for later</span>
-            <ul class="ov-more">
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Lorem ipsum dolor sit amet</span></li>
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Consectetur adipiscing elit</span></li>
-              <li><span class="ov-tick" aria-hidden="true"></span><span>Sed do eiusmod tempor incididunt</span></li>
-            </ul>
-          </label>
-        </li>
-        </ul>
-        <a class="wc-cta wc-cta--full ov-cta" data-ov-cta href="https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07">Lorem ipsum $27</a>
-        <p class="ov-secure">Lorem ipsum dolor sit amet.</p>
-        <div class="ov-faq">
-          <details class="ov-q" data-ov-q><summary>Lorem ipsum dolor sit amet?</summary><p class="ov-a">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p></details>
-          <details class="ov-q" data-ov-q><summary>Ut enim ad minim veniam?</summary><p class="ov-a">Quis nostrud exercitation ullamco laboris nisi ut aliquip.</p></details>
-          <details class="ov-q" data-ov-q><summary>Duis aute irure dolor?</summary><p class="ov-a">In reprehenderit in voluptate velit esse cillum dolore.</p></details>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<script>
-(function(){
-  var links={"one":"https://buy.stripe.com/00w00j0iy7Iobky11Q1kA07","two":null,"three":null};
-  var prices={"one":"$27","two":"$47","three":"$54"};
-  var label="Lorem ipsum";
-  var cta=document.querySelector('[data-ov-cta]');
-  [].forEach.call(document.querySelectorAll('input[name="ov-tier"]'), function(r){
-    r.addEventListener('change', function(){
-      if(!cta) return;
-      var url=links[r.value];
-      cta.textContent=label + ' ' + prices[r.value];
-      if(url){ cta.setAttribute('href', url); cta.removeAttribute('aria-disabled'); }
-      // no link yet: the button carries no target at all
-      else { cta.removeAttribute('href'); cta.setAttribute('aria-disabled','true'); }
-    });
-  });
-  var qs=[].slice.call(document.querySelectorAll('[data-ov-q]'));
-  qs.forEach(function(d){
-    d.addEventListener('toggle', function(){
-      if(!d.open) return;
-      qs.forEach(function(o){ if(o!==d) o.open=false; });
-    });
-  });
-})();
-</script>
-
-<section class="s testimonials-s wc-ground-light"><div class="wrap">
-  <div class="tm">
-    <div>
-      <p class="tm-eyebrow"><span class="wc-hl">Lorem ipsum</span></p>
-      <h2 class="tm-h">Lorem ipsum dolor sit amet</h2>
-    </div>
-    <ul class="tm-list">
-      <li class="tm-item">
-        <figure class="tm-shot" data-placeholder="review" role="img" aria-label="A photograph goes here"><svg class="tm-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg></figure>
-        <blockquote class="tm-q" data-placeholder="review">&ldquo;Lorem ipsum dolor sit amet, consectetur adipiscing elit.&rdquo;</blockquote>
-        <p class="tm-name" data-placeholder="review">Lorem I.</p>
-      </li>
-      <li class="tm-item">
-        <figure class="tm-shot" data-placeholder="review" role="img" aria-label="A photograph goes here"><svg class="tm-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg></figure>
-        <blockquote class="tm-q" data-placeholder="review">&ldquo;Sed do eiusmod tempor incididunt ut labore et dolore.&rdquo;</blockquote>
-        <p class="tm-name" data-placeholder="review">Ipsum D.</p>
-      </li>
-      <li class="tm-item">
-        <figure class="tm-shot" data-placeholder="review" role="img" aria-label="A photograph goes here"><svg class="tm-star" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.53 150.93"><path d="M22.93 135.11c3.09 1.08 24.69-23.25 27.13-26.2 3.05-3.55 5.89-7.28 8.71-11.01 1.87-2.31 2.08-2.43 3.79-5.12.51 5.18.37 12.44.11 17.64-.25 5.03-.33 10.07-.7 15.1-.35 4.81.31 9.41.14 14.24-.05 1.53-.18 3.06-.03 4.58.03.28.08.58.27.79.2.2.49.26.77.29 1.56.19 3.13-.06 4.68-.24 3.27-.37 6.58-.41 9.86-.13.99.09 2.25.06 2.67-.85.16-.35.14-.76.12-1.14-.41-7.09-.23-14.12-.23-21.25.39-8.14-.11-16.38-.83-24.5-.24-2.98-.45-5.96-.83-8.93l-.03-.81c4.26 5.46 8.7 10.79 13.12 16.11.97 1.17 2.02 2.26 3.1 3.32.7.94 6.22 8.1 6.29 8.24 5.07 6.62 10.8 12.6 16.11 19.06.17.2.37.42.63.43.23 0 .42-.15.59-.3 3.97-3.5 7.94-6.99 11.91-10.49.37-.32.77-.73.71-1.21-.03-.22-.15-.42-.27-.61-1.88-2.95-4.28-6.23-6.76-8.71-5.09-6.73-10.71-13.03-16.26-19.38-8.55-10.07-7.9-9.46-14.43-16.01 4.27.17 8.21.6 12.48.68 10.99.24 12.18-.21 23.87 1.18 3.61.42 8.19 2.21 9.53-2.28.4-1.34 2.43-14.74 1.2-15.01-3.46-.76-7.25-.75-10.77-1.08-3.99-.37-7.99-.52-11.98-.76-5.12-.31-17.83-.88-22.7-.05 4.29-4.82 11.46-11.76 18.99-17.7 4.21-3.4 8.81-6.29 12.72-10.06 2.73-2.43 1.4-3.82-.01-6.85-1.54-3.29-3.07-6.59-4.61-9.88-.14-.3-.3-.62-.61-.74-.23-.09-.49-.04-.74.01-3.86.92-6.88 3.83-9.7 6.62-4.26 4.22-9.8 7.18-14.37 11.22-4.23 3.74-14.58 13.47-14.82 13.71-1.68-12.45-.47-24.12-.59-38.77 0-.66-.04-1.56-.82-1.73-1.32-.28-2.8-.37-7.26-.82-1.71-.11-5.96-.9-6.72 1.12-.93 5.47-.9 11.06-1.15 16.6-.1 6.56.64 13.11.9 19.67.13 2.52.1 5.05.08 7.57C53.26 36.41 47 26.77 37.88 16.96c-1.87-1.84-3.24-4.09-4.86-6.14a69.136 69.136 0 0 0-13.67 10.4c-.13.13-.26.26-.31.44-.07.27.09.54.25.78 3.06 4.51 7.05 7.83 10.69 11.78 1.79 1.95 3.74 3.86 5.52 5.84 4.08 4.76 8.09 9.59 12.31 14.22 2.11 2.37 4.32 5.04 6.54 7.27-2.39-.02-2.99-.13-4.9-.21-3.13-.17-6.26.09-9.4.03-2.58 0-5.17-.06-7.75-.05-1.97.04-3.93.08-5.91-.04-6.12 0-12.18-1.31-18.25-1.65-.26-.01-.54-.02-.74.14-.24.19-.28.53-.3.84-.26 4.28-.29 8.57-.09 12.85 0 .2.03.41.16.55.12.12.3.16.47.19 4.05.69 8.54.51 12.67.73 1.85.09 3.74.11 5.61.18 2.32.1 4.66.36 6.98.46 4.13.04 8.29.5 12.43.67 2.86.15 5.7.33 8.56.43.53.02 1.21.1 1.53.55.09.54-.16.84-.26 1.15-.81.84-1.66 1.64-2.49 2.46-5.23 5.23-10.29 10.62-15.54 15.82-2.24 2.22-4.63 4.29-6.84 6.54-6.22 6.34-12.48 12.69-17.91 19.74-.15.2-.31.42-.3.67 0 .25.19.46.35.64 3.31 3.7 6.75 7.3 10.29 10.78.05.05.11.09.18.11Z"></path></svg></figure>
-        <blockquote class="tm-q" data-placeholder="review">&ldquo;Ut enim ad minim veniam, quis nostrud exercitation.&rdquo;</blockquote>
-        <p class="tm-name" data-placeholder="review">Dolor S.</p>
+        <p class="fa-line">2027</p>
+        <p class="fa-line fa-line-2">German Book</p>
       </li>
     </ul>
   </div>
@@ -1118,6 +892,7 @@ document.querySelectorAll('[data-film-src]').forEach(function(f){
   <nav class="foot-links"><a href="/legal/privacy/">Privacy</a><span class="foot-sep" aria-hidden="true">&middot;</span><a href="/legal/terms/">Terms</a><span class="foot-sep" aria-hidden="true">&middot;</span><a href="/legal/refunds/">Refunds</a><span class="foot-sep" aria-hidden="true">&middot;</span><a href="mailto:hello@wolfchildren.co">Contact</a></nav>
   <p class="foot-note">This is a portrait of how your child is wired, drawn from the birth chart. It is not parenting advice, not a diagnosis, and not a substitute for professional support. If something here worries you, talk to someone who knows your child in person.</p>
   <p class="foot-copy">&copy; 2026 Wolf Children</p>
+  <p class="foot-copy" style="margin-top:14px"><a href="https://vieren.studio" rel="noopener"><img src="/assets/img/built-by-vieren.png" alt="Built by Vieren" width="686" height="112" loading="lazy" style="display:inline-block;width:172px;height:auto;opacity:.75"></a></p>
 </div></footer>
 
 

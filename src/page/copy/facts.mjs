@@ -17,4 +17,13 @@ export const variants = {
       ['Sed do eiusmod', 'Tempor incididunt'],
     ],
   },
+  // home page, 2026-10-19: the roadmap
+  R: {
+    label: 'Roadmap:',
+    facts: [
+      ['2018', 'Dutch Book'],
+      ['2024', 'Slovakian Book'],
+      ['2027', 'German Book'],
+    ],
+  },
 };
