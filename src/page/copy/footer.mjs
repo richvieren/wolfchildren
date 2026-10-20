@@ -19,7 +19,7 @@ export const variants = {
       { label: 'Contact', href: 'mailto:hello@wolfchildren.co' },
     ],
     disclaimer: '',
-    social: [{ label: 'Instagram', href: 'https://instagram.com/wolfchildren.co' }],
+    social: [{ label: 'Instagram', href: 'https://instagram.com/wolfchildren.co' }, { label: 'Substack', href: 'https://wolfchildren.substack.com/' }],
     copyright: '&copy; 2026 Wolf Children',
     builtBy: 'Built by Vieren',
   },
