@@ -121,8 +121,8 @@ export function markup(copy, settings = {}) {
       <h2>${hook(tighten(copy.h2, copy.tighten), copy.hook)}</h2>
       <p class="rec-lead">${copy.body[0]}</p>${copy.body[1] ? `
       <p class="rec-body">${copy.body[1]}</p>` : ''}
-      <a class="wc-cta rec-cta" href="#atf" data-rec-cta>${copy.cta}</a>
-    </div>
+${copy.cta ? `      <a class="wc-cta rec-cta" href="#atf" data-rec-cta>${copy.cta}</a>
+` : ''}    </div>
     <div class="rec-cluster">
       <figure class="rec-large"><img src="${big.src}" width="${big.w}" height="${big.h}" alt="${big.alt}" loading="lazy" decoding="async"></figure>
       ${STAR}

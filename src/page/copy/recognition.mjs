@@ -24,7 +24,7 @@ export const variants = {
     eyebrow: 'THE BOOK',
     hook: 'sisters',
     tighten: '',
-    cta: 'Lorem ipsum',
+    cta: '',
     h2: 'It started with three little sisters.',
     body: [
       'Wolf Children started as a self published coffee table book in Belgium & The Netherlands. Shot on the backdrop of a beautiful organic farm, documenting the barefoot life of three little sisters. It became a hit and sold thousands of copies. It\u2019s always been a dream to expand the wolfpack world wide, and I believe the world needs it now more than ever. New chapters coming soon.',
