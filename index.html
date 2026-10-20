@@ -308,6 +308,12 @@ body .pc-h{max-width:none}
 @media(min-width:900px){
   body .pc-h{white-space:nowrap}
 }
+/* the book module's fade runs light to green, so the text, which is green, always sits on the light end:
+   left to right on a desktop, top to bottom on a phone where the text is above the photographs */
+body .recognition-s{--rec-gradient:linear-gradient(180deg,#CDB494 0%,#CDB494 30%,#495543 100%)}
+@media(min-width:900px){
+  body .recognition-s{--rec-gradient:linear-gradient(90deg,#CDB494 0%,#CDB494 42%,#495543 100%)}
+}
 
 /* The photo treatment, matched to the markup bodyV2 actually emits:
    figure class="ph tape-a ph-tilt-a". It previously targeted .ph-matte and
